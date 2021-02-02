@@ -1,7 +1,7 @@
 @if($error=="")
     <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
         {{ csrf_field() }}
-        <input type="hidden" name="id" class="id" value="{{$data->id}}">
+        <input type="hidden" name="id" class="id" value="{{$data['id']}}">
         <div class="form-group row">
             <label for="role_name" class="col-sm-4 col-form-label ">Tên nhóm quyền</label>
             <div class="col-sm-8">
