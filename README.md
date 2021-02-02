@@ -9,7 +9,7 @@
 ## Lưu ý: để chạy được dự án cần thực hiện các bước sau:
 Bước 1: Clone source về theo địa chỉ: 
 Bước 2: Vào thư mục chứa source chạy lệnh: **composer update**
-Bước 3: Sửa tên file **.env.example** thành file **.env**
+Bước 3: Sửa tên file **.env.example** thành file **.env]** f
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
