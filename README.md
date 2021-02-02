@@ -1,4 +1,3 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
@@ -8,11 +7,11 @@
 </p>
 
 <b>
-## Lưu ý: để chạy được dự án cần thực hiện các bước sau: <br>
+** Lưu ý** để chạy được dự án cần thực hiện các bước sau: <br>
 </b>
 Bước 1: Clone source về theo địa chỉ: <br>
-Bước 2: Vào thư mục chứa source chạy lệnh: **composer update** <br>
-Bước 3: Sửa tên file **.env.example** thành file **.env]** <br>
+Bước 2: Vào thư mục chứa source chạy lệnh: <b>composer update</b> <br>
+Bước 3: Sửa tên file <b>.env.example</b> thành file <b>.env</b> <br>
 
 ## About Laravel
 
