@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Victory Admin</title>
+      <!-- plugins:css -->
+      <link rel="stylesheet" href="..\..\vendors\mdi\css\materialdesignicons.min.css">
+      <link rel="stylesheet" href="..\..\vendors\simple-line-icons\css\simple-line-icons.css">
+      <link rel="stylesheet" href="..\..\vendors\flag-icon-css\css\flag-icon.min.css">
+      <link rel="stylesheet" href="..\..\vendors\css\vendor.bundle.base.css">
+      <!-- endinject -->
+      <!-- plugin css for this page -->
+      <link rel="stylesheet" href="..\..\vendors\lightgallery\css\lightgallery.min.css">
+      <!-- End plugin css for this page -->
+      <!-- inject:css -->
+      <link rel="stylesheet" href="..\..\css\style.css">
+      <!-- endinject -->
+      <link rel="shortcut icon" href="..\..\images\favicon.png">
+   </head>
+   <body>
+      <div class="container-scroller">
+         <!-- partial:../../partials/_navbar.html -->
+         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+               <a class="navbar-brand brand-logo" href="..\..\index.html"><img src="..\..\images\logo.svg" alt="logo"></a>
+               <a class="navbar-brand brand-logo-mini" href="..\..\index.html"><img src="..\..\images\logo-mini.svg" alt="logo"></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center">
+               <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+               <span class="icon-menu"></span>
+               </button>
+               <ul class="navbar-nav">
+                  <li class="nav-item dropdown d-none d-lg-flex">
+                     <a class="nav-link dropdown-toggle nav-btn" id="actionDropdown" href="#" data-toggle="dropdown">
+                     <span class="btn" data-toggle="modal" data-target="#exampleModal">+ Đăng tin</span>
+                     </a>
+                  </li>
+                  <li class="nav-item dropdown d-none d-lg-flex">
+                     <a class="nav-link dropdown-toggle nav-btn" id="actionDropdown" href="#" data-toggle="dropdown">
+                     <span class="btn"><i class="icon-user-following text-white"></i> Đăng ký/Đăng nhập</span>
+                     </a>
+                     <div class="dropdown-menu navbar-dropdown dropdown-left" aria-labelledby="actionDropdown">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dangNhapModal">
+                        <i class="icon-user-following text-primary"></i>
+                        Đăng nhập
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dangKyModal">
+                        <i class="icon-user text-warning"></i>
+                        Đăng ký
+                        </a>
+                     </div>
+                  </li>
+               </ul>
+               <ul class="navbar-nav navbar-nav-right">
+                  <li class="nav-item dropdown d-none d-lg-flex">
+                     <a class="nav-link dropdown-toggle" id="languageDropdown" href="#" data-toggle="dropdown">
+                     <i class="flag-icon flag-icon-vn"></i>
+                     Việt Nam
+                     </a>
+                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
+                        <a class="dropdown-item font-weight-medium" href="#">
+                        <i class="flag-icon flag-icon-fr"></i>
+                        French
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                        <i class="flag-icon flag-icon-es"></i>
+                        Espanol
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                        <i class="flag-icon flag-icon-lt"></i>
+                        Latin
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                        <i class="flag-icon flag-icon-ae"></i>
+                        Arabic
+                        </a>
+                     </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                     <i class="icon-bell mx-0"></i>
+                     <span class="count"></span>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                        <a class="dropdown-item">
+                           <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+                           </p>
+                           <span class="badge badge-pill badge-warning float-right">View all</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <div class="preview-icon bg-success">
+                                 <i class="icon-info mx-0"></i>
+                              </div>
+                           </div>
+                           <div class="preview-item-content">
+                              <h6 class="preview-subject font-weight-medium">Application Error</h6>
+                              <p class="font-weight-light small-text">
+                                 Just now
+                              </p>
+                           </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <div class="preview-icon bg-warning">
+                                 <i class="icon-speech mx-0"></i>
+                              </div>
+                           </div>
+                           <div class="preview-item-content">
+                              <h6 class="preview-subject font-weight-medium">Settings</h6>
+                              <p class="font-weight-light small-text">
+                                 Private message
+                              </p>
+                           </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <div class="preview-icon bg-info">
+                                 <i class="icon-envelope mx-0"></i>
+                              </div>
+                           </div>
+                           <div class="preview-item-content">
+                              <h6 class="preview-subject font-weight-medium">New user registration</h6>
+                              <p class="font-weight-light small-text">
+                                 2 days ago
+                              </p>
+                           </div>
+                        </a>
+                     </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                     <i class="icon-envelope mx-0"></i>
+                     <span class="count"></span>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                        <div class="dropdown-item">
+                           <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
+                           </p>
+                           <span class="badge badge-info badge-pill float-right">View all</span>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <img src="..\..\images\faces\face4.jpg" alt="image" class="profile-pic">
+                           </div>
+                           <div class="preview-item-content flex-grow">
+                              <h6 class="preview-subject ellipsis font-weight-medium">David Grey
+                                 <span class="float-right font-weight-light small-text">1 Minutes ago</span>
+                              </h6>
+                              <p class="font-weight-light small-text">
+                                 The meeting is cancelled
+                              </p>
+                           </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <img src="..\..\images\faces\face2.jpg" alt="image" class="profile-pic">
+                           </div>
+                           <div class="preview-item-content flex-grow">
+                              <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
+                                 <span class="float-right font-weight-light small-text">15 Minutes ago</span>
+                              </h6>
+                              <p class="font-weight-light small-text">
+                                 New product launch
+                              </p>
+                           </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <img src="..\..\images\faces\face3.jpg" alt="image" class="profile-pic">
+                           </div>
+                           <div class="preview-item-content flex-grow">
+                              <h6 class="preview-subject ellipsis font-weight-medium"> Johnson
+                                 <span class="float-right font-weight-light small-text">18 Minutes ago</span>
+                              </h6>
+                              <p class="font-weight-light small-text">
+                                 Upcoming board meeting
+                              </p>
+                           </div>
+                        </a>
+                     </div>
+                  </li>
+                  <li class="nav-item nav-settings d-none d-lg-block">
+                     <a class="nav-link" href="#">
+                     <i class="icon-grid"></i>
+                     </a>
+                  </li>
+               </ul>
+               <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+               <span class="icon-menu"></span>
+               </button>
+            </div>
+         </nav>
+         <!-- partial -->
+         <div class="container-fluid page-body-wrapper">
+            <div class="row row-offcanvas row-offcanvas-right">
+               <!-- partial:../../partials/_settings-panel.html -->
+               <div class="theme-setting-wrapper">
+                  <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+                  <div id="theme-settings" class="settings-panel">
+                     <i class="settings-close mdi mdi-close"></i>
+                     <p class="settings-heading">SIDEBAR SKINS</p>
+                     <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+                        <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                        Light
+                     </div>
+                     <div class="sidebar-bg-options" id="sidebar-dark-theme">
+                        <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                        Dark
+                     </div>
+                     <p class="settings-heading mt-2">HEADER SKINS</p>
+                     <div class="color-tiles mx-0 px-4">
+                        <div class="tiles primary"></div>
+                        <div class="tiles success"></div>
+                        <div class="tiles warning"></div>
+                        <div class="tiles danger"></div>
+                        <div class="tiles pink"></div>
+                        <div class="tiles info"></div>
+                        <div class="tiles dark"></div>
+                        <div class="tiles default"></div>
+                     </div>
+                  </div>
+               </div>
+               <div id="right-sidebar" class="settings-panel">
+                  <i class="settings-close mdi mdi-close"></i>
+                  <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+                     <li class="nav-item">
+                        <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">HÀNH ĐỘNG</a>
+                     </li>
+                  </ul>
+                  <div class="tab-content" id="setting-content">
+                     <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                        <div class="list-wrapper px-3">
+                           <ul class="d-flex flex-column-reverse todo-list">
+                              <li>
+                                 <div class="form-check">
+                                    <i class="icon-lock-open"></i> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Đăng xuất khỏi hệ thống
+                                    </label>
+                                 </div>
+                                 <i class="remove mdi mdi-close-circle-outline"></i>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                     <!-- To do section tab ends -->
+                  </div>
+               </div>
+               <!-- partial -->
+               <!-- partial:../../partials/_sidebar.html -->
+               <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                  <ul class="nav">
+                     <li class="nav-item nav-profile">
+                        <div class="nav-link">
+                           <div class="profile-image">
+                              <img src="..\..\images\faces\face10.jpg" alt="image">
+                              <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
+                           </div>
+                           <div class="profile-name">
+                              <p class="name">
+                                 <a href="#" class="text-success"  data-toggle="modal" data-target="#dangNhapModal">Đăng nhập</a>/<a href="#" class="text-danger"  data-toggle="modal" data-target="#dangKyModal">Đăng ký</a>
+                              </p>
+                              <p class="designation">
+                                 (Để có thể đăng tin)
+                              </p>
+                           </div>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="..\..\index.html">
+                        <i class="icon-rocket menu-icon"></i>
+                        <span class="menu-title">Thống kê</span>
+                        <span class="badge badge-success">1200</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="..\widgets.html">
+                        <i class="icon-shield menu-icon"></i>
+                        <span class="menu-title">Giá thấp đến cao</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
+                        <i class="icon-check menu-icon"></i>
+                        <span class="menu-title">Giá dưới 100tr</span>
+                        <span class="badge badge-danger">3</span>
+                        </a>
+                        <div class="collapse" id="page-layouts">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="..\layout\boxed-layout.html">Boxed</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\rtl-layout.html">RTL</a></li>
+                              <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="..\layout\horizontal-menu.html">Horizontal Menu</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
+                        <i class="icon-layers menu-icon"></i>
+                        <span class="menu-title">Giá dưới 200tr</span>
+                        <span class="badge badge-warning">5</span>
+                        </a>
+                        <div class="collapse" id="sidebar-layouts">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\compact-menu.html">Compact menu</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\sidebar-collapsed.html">Icon menu</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\sidebar-hidden.html">Sidebar Hidden</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\sidebar-hidden-overlay.html">Sidebar Overlay</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\layout\sidebar-fixed.html">Sidebar Fixed</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <i class="icon-target menu-icon"></i>
+                        <span class="menu-title">Giá dưới 300tr</span>
+                        <span class="badge badge-success">10</span>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\accordions.html">Accordions</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\buttons.html">Buttons</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\badges.html">Badges</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\breadcrumbs.html">Breadcrumbs</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\dropdowns.html">Dropdowns</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\modals.html">Modals</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\progress.html">Progress bar</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\pagination.html">Pagination</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\tabs.html">Tabs</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\typography.html">Typography</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\tooltips.html">Tooltips</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-advanced" aria-expanded="false" aria-controls="ui-advanced">
+                        <i class="icon-cup menu-icon"></i>
+                        <span class="menu-title">Giá dưới 400tr</span>
+                        <span class="badge badge-primary">8</span>
+                        </a>
+                        <div class="collapse" id="ui-advanced">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\dragula.html">Dragula</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\clipboard.html">Clipboard</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\context-menu.html">Context menu</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\slider.html">Sliders</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\carousel.html">Carousel</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\colcade.html">Colcade</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\loaders.html">Loaders</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\ui-features\tour.html">Tour</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                        <i class="icon-flag menu-icon"></i>
+                        <span class="menu-title">Giá dưới 500tr</span>
+                        <span class="badge badge-danger">3</span>
+                        </a>
+                        <div class="collapse" id="form-elements">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"><a class="nav-link" href="..\forms\basic_elements.html">Basic Elements</a></li>
+                              <li class="nav-item"><a class="nav-link" href="..\forms\advanced_elements.html">Advanced Elements</a></li>
+                              <li class="nav-item"><a class="nav-link" href="..\forms\validation.html">Validation</a></li>
+                              <li class="nav-item"><a class="nav-link" href="..\forms\wizard.html">Wizard</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#editors" aria-expanded="false" aria-controls="editors">
+                        <i class="icon-anchor menu-icon"></i>
+                        <span class="menu-title">Giá dưới 1 tỷ</span>
+                        <span class="badge badge-info">3</span>
+                        </a>
+                        <div class="collapse" id="editors">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"><a class="nav-link" href="..\forms\text_editor.html">Text editors</a></li>
+                              <li class="nav-item"><a class="nav-link" href="..\forms\code_editor.html">Code editors</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+                        <i class="icon-pie-chart menu-icon"></i>
+                        <span class="menu-title">Giá dưới 2 tỷ</span>
+                        <span class="badge badge-warning">8</span>
+                        </a>
+                        <div class="collapse" id="charts">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\chartjs.html">ChartJs</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\morris.html">Morris</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\flot-chart.html">Flot</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\google-charts.html">Google charts</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\sparkline.html">Sparkline js</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\c3.html">C3 charts</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\chartist.html">Chartists</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\charts\justGage.html">JustGage</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                        <i class="icon-grid menu-icon"></i>
+                        <span class="menu-title">Giá dưới 3 tỷ</span>
+                        <span class="badge badge-info">4</span>
+                        </a>
+                        <div class="collapse" id="tables">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\tables\basic-table.html">Basic table</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\tables\data-table.html">Data table</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\tables\js-grid.html">Js-grid</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\tables\sortable-table.html">Sortable table</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="..\ui-features\popups.html">
+                        <i class="icon-diamond menu-icon"></i>
+                        <span class="menu-title">Giá dưới 5 tỷ</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="..\ui-features\notifications.html">
+                        <i class="icon-bell menu-icon"></i>
+                        <span class="menu-title">Notifications</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                        <i class="icon-globe menu-icon"></i>
+                        <span class="menu-title">Icons</span>
+                        <span class="badge badge-info">4</span>
+                        </a>
+                        <div class="collapse" id="icons">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\icons\flag-icons.html">Flag icons</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\icons\font-awesome.html">Font Awesome</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\icons\simple-line-icon.html">Simple line icons</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\icons\themify.html">Themify icons</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#maps" aria-expanded="false" aria-controls="maps">
+                        <i class="icon-location-pin menu-icon"></i>
+                        <span class="menu-title">Maps</span>
+                        <span class="badge badge-success">2</span>
+                        </a>
+                        <div class="collapse" id="maps">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\maps\mapeal.html">Mapeal</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\maps\vector-map.html">Vector Map</a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\maps\google-maps.html">Google Map</a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="icon-bubbles menu-icon"></i>
+                        <span class="menu-title">User Pages</span>
+                        <span class="badge badge-danger">5</span>
+                        </a>
+                        <div class="collapse" id="auth">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\login.html"> Login </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\login-2.html"> Login 2 </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\register.html"> Register </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\register-2.html"> Register 2 </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\lock-screen.html"> Lockscreen </a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+                        <i class="icon-support menu-icon"></i>
+                        <span class="menu-title">Error pages</span>
+                        <span class="badge badge-primary">2</span>
+                        </a>
+                        <div class="collapse" id="error">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\error-404.html"> 404 </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\error-500.html"> 500 </a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
+                        <i class="icon-user menu-icon"></i>
+                        <span class="menu-title">General Pages</span>
+                        <span class="badge badge-warning">6</span>
+                        </a>
+                        <div class="collapse" id="general-pages">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\blank-page.html"> Blank Page </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\landing-page.html"> Landing Page </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\profile.html"> Profile </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\faq.html"> FAQ </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\faq-2.html"> FAQ 2 </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\news-grid.html"> News grid </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\timeline.html"> Timeline </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\search-results.html"> Search Results </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\portfolio.html"> Portfolio </a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#e-commerce" aria-expanded="false" aria-controls="e-commerce">
+                        <i class="icon-briefcase menu-icon"></i>
+                        <span class="menu-title">E-commerce</span>
+                        <span class="badge badge-info">3</span>
+                        </a>
+                        <div class="collapse" id="e-commerce">
+                           <ul class="nav flex-column sub-menu">
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\invoice.html"> Invoice </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\pricing-table.html"> Pricing Table </a></li>
+                              <li class="nav-item"> <a class="nav-link" href="..\samples\orders.html"> Orders </a></li>
+                           </ul>
+                        </div>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="email.html">
+                        <i class="icon-cursor menu-icon"></i>
+                        <span class="menu-title">E-mail</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="calendar.html">
+                        <i class="icon-calendar menu-icon"></i>
+                        <span class="menu-title">Calendar</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="todo.html">
+                        <i class="icon-clock menu-icon"></i>
+                        <span class="menu-title">Todo List</span>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">
+                        <i class="icon-picture menu-icon"></i>
+                        <span class="menu-title">Gallery</span>
+                        </a>
+                     </li>
+                     <li class="nav-item nav-doc">
+                        <a class="nav-link bg-primary" href="..\documentation.html">
+                        <i class="icon-magnet menu-icon"></i>
+                        <span class="menu-title">Documentation</span>
+                        </a>
+                     </li>
+                     <li class="mt-4 nav-item nav-progress">
+                        <h6 class="nav-progress-heading mt-4 font-weight-normal">
+                           Today's Sales
+                           <span class="nav-progress-sub-heading">
+                           50 sold
+                           </span>
+                        </h6>
+                        <div class="progress progress-sm">
+                           <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h6 class="nav-progress-heading mt-4 font-weight-normal">
+                           Customer target
+                           <span class="nav-progress-sub-heading">
+                           500
+                           </span>
+                        </h6>
+                        <div class="progress progress-sm">
+                           <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                     </li>
+                  </ul>
+               </nav>
+               <!-- partial -->
+               <div class="content-wrapper">
+                  <div class="row grid-margin">
+                     <div class="col-md-4 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                           <div class="col-12 stretch-card">
+                              <div class="card">
+                                 <div class="card-body lightGallery lightgallery-without-thumb">
+                                    <a href="..\..\images\samples\1280x768\dat2.jpg" class="image-tile">
+                                       <img src="..\..\images\samples\1280x768\dat2.jpg" alt='
+                                          <div class="mt-auto w-100">
+                                          <h6 class="text-white"><b>ĐẤT MẶT TIỀN ĐƯỜNG D5</b></h6>
+                                          </div>' class="t-img-2">
+                                       <div class="card-img-overlay t-card-img-overlay-2 d-flex">
+                                          <div class="mt-auto t-text-center-img text-center w-100">
+                                             <h3>+ 10 Hình</h3>
+                                          </div>
+                                       </div>
+                                    </a>
+                                    <a href="..\..\images\samples\1280x768\dat2.jpg" class="image-tile d-none">
+                                    <img src="..\..\images\samples\1280x768\dat2.jpg" alt='
+                                       <div class="mt-auto w-100">
+                                       <h6 class="text-white"><b>ĐẤT MẶT TIỀN ĐƯỜNG D5</b></h6>
+                                       </div>'>
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>                     
+                     <div class="col-md-8 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                           <div class="col-12 stretch-card">
+                              <div class="card">
+                                 <div class="card-body">
+                                    <div class="form-group row">
+                                      <div class="col-md-12 text-center">
+                                        <h4 class="card-title text-success ">NHẬP ĐẦY ĐỦ THÔNG TIN NGƯỜI MUA HÀNG <br>(Chúng tôi sẽ liên hệ cho bạn)</h4>  
+                                      </div>
+                                      
+                                    </div>
+                                    <p class="card-description">
+                                       <span class="text-danger">Vui lòng nhập đầy đủ các thông tin màu đỏ </span>
+                                    </p>
+                                    <form class="forms-sample">
+                                       <div class="form-group row">
+                                          <label for="ho-ten" class="col-sm-3 col-form-label text-danger">Họ và tên</label>
+                                          <div class="col-sm-9">
+                                             <input type="Text" class="form-control" id="ho-ten" placeholder="Vui lòng nhập họ tên">
+                                          </div>
+                                       </div>
+                                       <div class="form-group row">
+                                          <label for="so-dien-thoai" class="col-sm-3 col-form-label text-danger">Số ĐT</label>
+                                          <div class="col-sm-9">
+                                             <input type="Text" class="form-control" id="so-dien-thoai" placeholder="Vui lòng nhập số điện thoại">
+                                          </div>
+                                       </div>
+                                       <div class="form-group row">
+                                          <label for="dia-chi" class="col-sm-3 col-form-label">Địa chỉ</label>
+                                          <div class="col-sm-9">
+                                             <input type="Text" class="form-control" id="dia-chi" placeholder="Vui lòng nhập địa chỉ">
+                                          </div>
+                                       </div>
+                                       <div class="form-group row">
+                                          <label for="nam-sinh" class="col-sm-3 col-form-label">Năm sinh</label>
+                                          <div class="col-sm-9">
+                                             <input type="Text" class="form-control" id="nam-sinh" placeholder="Vui lòng nhập ngày/tháng/năm sinh">
+                                          </div>
+                                       </div>
+                                       <div class="form-group row text-right">
+                                          <div class="col-md-12">
+                                             <button type="submit" class="btn btn-success mr-2"><i class="icon-check"></i> MUA THỬA NÀY</button>
+                                             <button class="btn btn-light">Quay lại</button>
+                                          </div>
+                                       </div>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                           <div class="col-12 stretch-card">
+                              <div class="card">
+                                 <div class="card-body">
+                                    <h4 class="card-title">THÔNG TIN CHI TIẾT</h4>
+                                    <ol>
+                                       <li>Người đăng: <b>Phan Văn Thanh.</b></li>
+                                       <li>Liên hệ: <b>094 113 8484.</b></li>
+                                       <li>Đất mặt tiền đường D5</li>
+                                       <li>Giá: 320tr</li>
+                                       <li>Địa chỉ: Ấp Châu Hưng, xã Châu Điền, huyện Cầu Kè, tỉnh Trà Vinh.</li>
+                                       <li>Diện tích: 6x23. Tổng: 3200 (mét vuông).</li>
+                                       <li>Số thửa: 320; Số tờ bản đồ: 420.</li>
+                                       <li>Loại đất: full thổ cư.</li>
+                                       <li>Chú ý: Giá còn thương lượng chính chủ.</li>
+                                    </ol>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                           <div class="card-body">
+                              <h4 class="card-title">DANH SÁCH BÌNH LUẬN</h4>
+                              <div class="preview-list">
+                                 <div class="preview-item border-bottom px-0">
+                                    <div class="preview-thumbnail">
+                                       <img src="..\..\images\faces\face6.jpg" alt="image" class="rounded-circle">
+                                    </div>
+                                    <div class="preview-item-content d-flex flex-grow">
+                                       <div class="flex-grow">
+                                          <h6 class="preview-subject">Richard Joy
+                                             <span class="float-right small">
+                                             <span class="text-muted pr-3">13.06.2017</span>
+                                             </span>
+                                          </h6>
+                                          <p>Thanks for the support!</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="preview-item border-bottom px-0">
+                                    <div class="preview-thumbnail">
+                                       <img src="..\..\images\faces\face8.jpg" alt="image" class="rounded-circle">
+                                    </div>
+                                    <div class="preview-item-content d-flex flex-grow">
+                                       <div class="flex-grow">
+                                          <h6 class="preview-subject">William Alex
+                                             <span class="float-right small">
+                                             <span class="text-muted pr-3">08.07.2017</span>
+                                             </span>
+                                          </h6>
+                                          <p>Meeting is postponed</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="preview-item border-bottom px-0">
+                                    <div class="preview-thumbnail">
+                                       <img src="..\..\images\faces\face9.jpg" alt="image" class="rounded-circle">
+                                    </div>
+                                    <div class="preview-item-content d-flex flex-grow">
+                                       <div class="flex-grow">
+                                          <h6 class="preview-subject">David Grey
+                                             <span class="float-right small">
+                                             <span class="text-muted pr-3">15.07.2017</span>
+                                             </span>
+                                          </h6>
+                                          <p>Please approve the request</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="preview-item border-bottom px-0">
+                                    <div class="preview-thumbnail">
+                                       <img src="..\..\images\faces\face11.jpg" alt="image" class="rounded-circle">
+                                    </div>
+                                    <div class="preview-item-content d-flex flex-grow">
+                                       <div class="flex-grow">
+                                          <h6 class="preview-subject">Aleena Abraham
+                                             <span class="float-right small">
+                                             <span class="text-muted pr-3">12.06.2017</span>
+                                             </span>
+                                          </h6>
+                                          <p>Hope to see you tomorrow</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <footer class="footer">
+                     <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2020 <a href="#">Phan Van Thanh</a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Phan Văn Thanh <i class="mdi mdi-heart text-danger"></i></span>
+                     </div>
+                  </footer>
+                  <!-- partial -->
+               </div>
+               <!-- content-wrapper ends -->
+            </div>
+            <!-- row-offcanvas ends -->
+         </div>
+         <!-- page-body-wrapper ends -->
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content modal-dang-tin">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">ĐĂNG THÔNG TIN MUA BÁN ĐẤT</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body card">
+                  <form class="forms-sample">
+                     <div class="form-group row">
+                        <span class="text-danger">&nbsp;&nbsp;&nbsp;Vui lòng nhập đầy đủ các thông tin màu đỏ </span>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label text-danger">Tiêu đề</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="exampleInputEmail2" placeholder="Vui lòng nhập tiêu đề">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label text-danger">Giá</label>
+                        <div class="col-sm-9">
+                           <input type="Number" class="form-control" id="exampleInputEmail2" placeholder="Vui lòng nhập giá">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Địa chỉ</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="exampleInputPassword2" placeholder="Vui lòng nhập địa chỉ đất">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Diện tích</label>
+                        <div class="col-sm-4">
+                           <input type="Number" class="form-control" id="exampleInputPassword2" placeholder="Nhập chiều dài">
+                        </div>
+                        <div class="col-sm-5">
+                           <input type="Number" class="form-control" id="exampleInputPassword2" placeholder="Nhập chiều rộng">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-muted">Loại đất</label>
+                        <div class="col-sm-9">
+                           <select class="form-control js-example-basic-single" style="width:100%">
+                              <option value="AL">Đất thổ cư</option>
+                              <option value="WY">Đất cây lâu năm</option>
+                              <option value="WY">Đất cây lâu năm khác</option>
+                              <option value="AM">Đất nông nghiệp</option>
+                              <option value="AM">Đất lúa</option>
+                              <option value="AM">Đất trồng màu</option>
+                              <option value="CA">Quy hoạch</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-muted">Số thửa/Số tờ bản đồ </label>
+                        <div class="col-sm-4">
+                           <input type="Number" class="form-control" id="exampleInputPassword2" placeholder="Nhập số thửa">
+                        </div>
+                        <div class="col-sm-5">
+                           <input type="Number" class="form-control" id="exampleInputPassword2" placeholder="Nhập số tờ bản đồ">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-muted">Thông tin khác</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="exampleInputPassword2" placeholder="VD: Giá này còn thương lượng">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="exampleInputPassword2" class="col-sm-3 col-form-label text-primary">Liên hệ</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="exampleInputPassword2" placeholder="Nhập số điện thoại liên hệ. VD: 094.113.8484">
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-success">+ Đăng tin</button>
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Không đăng</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="dangKyModal" tabindex="-1" role="dialog" aria-labelledby="dangKyModal" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="dangKyModal">ĐĂNG KÝ TÀI KHOẢN</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body card">
+                  <form class="forms-sample">
+                     <div class="form-group row">
+                        <label for="ho-ten" class="col-sm-3 col-form-label text-danger">Họ và tên</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="ho-ten" placeholder="Vui lòng nhập họ tên">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="so-dien-thoai" class="col-sm-3 col-form-label text-danger">Số điện thoại <span class="text-success">(Làm tên đăng nhập)</span></label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="so-dien-thoai" placeholder="Vui lòng nhập số điện thoại">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label text-danger">Mật khẩu</label>
+                        <div class="col-sm-9">
+                           <input type="Password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="confirm_password" class="col-sm-3 col-form-label text-danger">Xác nhận lại mật khẩu</label>
+                        <div class="col-sm-9">
+                           <input type="Password" class="form-control" id="confirm_password" placeholder="Nhập lại mật khẩu trên">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="dia-chi" class="col-sm-3 col-form-label">Địa chỉ</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="dia-chi" placeholder="Vui lòng nhập địa chỉ">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="nam-sinh" class="col-sm-3 col-form-label">Năm sinh</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="nam-sinh" placeholder="Vui lòng nhập ngày tháng năm sinh. DD/MM/YYYY">
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-success"><i class="icon-check"></i> Tạo tài khoản với thông tin trên</button>
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Không tạo</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="dangNhapModal" tabindex="-1" role="dialog" aria-labelledby="dangNhapModal" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="dangNhapModal">ĐĂNG NHẬP</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body card">
+                  <form class="forms-sample">
+                     <div class="form-group row">
+                        <label for="ten-dang-nhap" class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                        <div class="col-sm-9">
+                           <input type="Text" class="form-control" id="ten-dang-nhap" placeholder="Tên đăng nhập là số điện thoại">
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Mật khẩu</label>
+                        <div class="col-sm-9">
+                           <input type="Password" class="form-control" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-success"><i class="icon-check"></i> Đăng nhập</button>
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src="..\..\vendors\js\vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page-->
+      <script src="..\..\vendors\lightgallery\js\lightgallery-all.min.js"></script>
+      <!-- End plugin js for this page-->
+      <!-- inject:js -->
+      <script src="..\..\js\off-canvas.js"></script>
+      <script src="..\..\js\hoverable-collapse.js"></script>
+      <script src="..\..\js\misc.js"></script>
+      <script src="..\..\js\settings.js"></script>
+      <script src="..\..\js\todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page-->
+      <script src="..\..\js\light-gallery.js"></script>
+      <!-- End custom js for this page-->
+      <script type="text/javascript">
+         jQuery(document).ready(function(){
+           
+         })                
+      </script>
+   </body>
+</html>
