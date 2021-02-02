@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
-        "guzzlehttp/guzzle": "^6.5", //http://docs.guzzlephp.org/en/stable/quickstart.html#using-responses Call API
+        "guzzlehttp/guzzle": "^6.5",
         "kartik-v/bootstrap-fileinput": "dev-master",
         "laravel/framework": "^6.2",
         "laravel/passport": "^9.3",
