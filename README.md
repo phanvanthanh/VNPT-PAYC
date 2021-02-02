@@ -9,7 +9,7 @@
 <b>
 ** Lưu ý** để chạy được dự án cần thực hiện các bước sau: <br>
 </b>
-Bước 1: Clone source về theo địa chỉ: <b>https://github.com/phanvanthanh/VNPT-PAYC.git</b><br>
+Bước 1: Clone source về theo địa chỉ: <b>git clone https://github.com/phanvanthanh/VNPT-PAYC.git</b><br>
 Bước 2: Vào thư mục chứa source chạy lệnh: <b>composer update</b> <br>
 Bước 3: Sửa tên file <b>.env.example</b> thành file <b>.env</b> <br>
 
