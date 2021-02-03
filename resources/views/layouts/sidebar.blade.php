@@ -1,6 +1,11 @@
 <?php
    use App\AdminResource;
-   $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+   $resources=array();
+   $userId=Auth::id();
+   if($userId){
+      $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+   }
+      
 ?>              
                <div id="right-sidebar" class="settings-panel">
                   <i class="settings-close mdi mdi-close"></i>
@@ -13,13 +18,13 @@
                      <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
                         <div class="list-wrapper px-3">
                            <ul class="d-flex flex-column-reverse todo-list">
-                              <!-- <li class="logout">
+                              <li class="logout">
                                  <div class="form-check">
                                     <i class="icon-lock-open"></i> &nbsp;&nbsp;&nbsp;&nbsp;
-                                       Đăng xuất khỏi hệ thống
+                                       ToDo
                                  </div>
                                  <i class="remove mdi mdi-close-circle-outline"></i>
-                              </li> -->
+                              </li>
                            </ul>
                         </div>
                      </div>

@@ -25,7 +25,7 @@
 	          		<small class="form-text text-muted"><b>* Upload file</b></small>
 	          		<!-- <label for="tieu_de" class="text-title-input-size">* Upload file</label> -->			          
 		            <div class="input-group col-xs-12">
-		                <input type="text" class="form-control" disabled="" placeholder="Có thể upload các file hình ảnh, video, word, excel, pdf.">
+		                <input type="text" class="form-control d-none d-sm-block" disabled="" placeholder="Có thể upload các file hình ảnh, video, word, excel, pdf.">
 		                <div class="input-group-append">
 		                  <button class="btn btn-vnpt btn-browse-file" click-on-class=".input-file" type="button"><i class="icon-cloud-upload"></i> Chọn file cần upload</button>         
 		                  <input type="file" class="input-file" show-file=".giz-upload-01" name="file[]" multiple hidden="true">

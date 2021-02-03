@@ -20103,7 +20103,8 @@ input:focus {
     flex-direction: row;
   }
   .navbar .navbar-brand-wrapper {
-    width: 75px;
+    /*width: 75px;*/
+    width: auto;
   }
   .navbar .navbar-brand-wrapper .brand-logo {
     display: none;
