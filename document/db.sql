@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `don_vi` (
   CONSTRAINT `FK_don_vi_don_vi` FOREIGN KEY (`parent_id`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.don_vi: ~2 rows (approximately)
+-- Dumping data for table vnptpayc.don_vi: ~3 rows (approximately)
 /*!40000 ALTER TABLE `don_vi` DISABLE KEYS */;
 INSERT INTO `don_vi` (`id`, `id_users`, `ten_don_vi`, `dia_chi`, `email`, `co_dinh`, `di_dong`, `fax`, `parent_id`, `order`, `state`) VALUES
 	(1, 1, 'Tỉnh Trà Vinh', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1),
@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table vnptpayc.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role_id`, `hinh_anh`, `remember_token`, `created_at`, `updated_at`, `di_dong`, `state`) VALUES
-	(1, 'admin@gmail.com', 'admin', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', 1, '/user.png', '0SPYtXFoNIFyedtNo3fObxJrz6KBJ6idvMRiBjGNx1oUDBPlGryigbMbiN0w', NULL, '2019-08-19 14:44:56', '0941138484', 1),
+	(1, 'admin@gmail.com', 'admin', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', 1, '/user.png', '35xOWSUdceM6lRhePiHS9Y3xwvvLupgJWeYIzh2FMjMl22RuUJURMmX7oElG', NULL, '2019-08-19 14:44:56', '0941138484', 1),
 	(8, 'Nguyễn Chí Thanh', 'thanhnc.tvh', '$2y$10$K0cboVONn/xMkkgVPfv3J.aXzL9a/KkNjdftim1qBnnVJHqjycXB6', 2, '/user.png', 'bOHqcRKV8fu39So7Av6jSqAiJKaKI9NoE2W0anSmDMHF1MACEiC51Gd5jrkg', '2020-04-03 16:17:22', '2020-04-03 16:17:22', '0913658639', 1),
 	(10, 'Phan Văn Thanh', 'thanhpv.tvh', '$2y$10$K0cboVONn/xMkkgVPfv3J.aXzL9a/KkNjdftim1qBnnVJHqjycXB6', 2, '/user.png', 'lTCZfBs2wndaJUq7d6xuez4uaFCW7JfqSTy451AgclBBiBjbiAqzny7ejz5x', '2020-04-03 16:25:59', '2020-04-03 16:25:59', '0941138484', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
