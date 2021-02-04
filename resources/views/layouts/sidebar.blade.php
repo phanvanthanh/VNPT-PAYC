@@ -43,10 +43,10 @@
                            </div>
                            <div class="profile-name">
                               <p class="name">
-                                 Phan Văn Thanh
+                                 PHẢN ÁNH YÊU CẦU
                               </p>
                               <p class="designation">
-                                 094.113.8484
+                                 chế độ ẩn danh
                               </p>
                            </div>
                         </div>

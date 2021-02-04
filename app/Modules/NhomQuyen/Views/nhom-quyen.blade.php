@@ -16,7 +16,7 @@
 
                 <div class="text-right table-responsive">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm nhóm quyền</button>
+                        <button class="btn btn-sm btn-vnpt btn-load-form-them-moi" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm nhóm quyền</button>
                     </div>
                 </div>
                 <br>
@@ -40,40 +40,6 @@
                <div class="modal-body card">
                   <form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi">
                     {{ csrf_field() }}
-                     <div class="form-group row">
-                        <label for="role_name" class="col-sm-4 col-form-label ">Tên nhóm quyền</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control role_name" name="role_name" placeholder="Vui lòng nhập tên nhóm quyền cần tạo">
-                        </div>
-                     </div>
-                     
-                     <div class="form-group row">
-                        <label for="id_don_vi" class="col-sm-4 col-form-label">Đơn vị</label>
-                        <div class="col-sm-8">
-                           <select class="form-control id_don_vi" name="id_don_vi">
-                            @foreach($donVis as $donVi)
-                                <option value="{{$donVi['id']}}">
-                                  @if($donVi['level']>0)
-                                      @for ($i = 0; $i < $donVi['level']; $i++)
-                                          {{"____ "}}
-                                      @endfor
-                                  @endif {{$donVi['ten_don_vi']}}
-                                </option>
-                            @endforeach
-                          </select>
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
-                        <div class="col-sm-8">
-                           <select class="form-control state" name="state">
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Ngừng hoạt động</option>
-                          </select>
-                        </div>
-                     </div>
-                     
                   </form>
                </div>
                <div class="modal-footer">
@@ -93,6 +59,10 @@
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-nhom-quyen') }}", "{{ route('danh-sach-nhom-quyen') }}", '.load-danh-sach');
           jQuery("#modal-them-moi").modal('hide');
+      });
+
+      $('.btn-load-form-them-moi').on('click',function(){
+        getById(_token, "", "{{ route('nhom-quyen-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });
       
 

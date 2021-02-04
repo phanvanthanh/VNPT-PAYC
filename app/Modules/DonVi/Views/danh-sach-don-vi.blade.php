@@ -66,7 +66,10 @@
               <span aria-hidden="true">&times;</span>
               </button>
            </div>
-           <div class="modal-body card form-single">
+           <div class="modal-body card">
+                <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
+                    {{ csrf_field() }}
+                </form>
            </div>
            <div class="modal-footer">
               <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
@@ -100,7 +103,7 @@
         /*Sự kiện bấm vào dòng cần sửa*/
         jQuery('.btn-sua').on('click',function(){            
             var id=jQuery(this).attr("data"); // lấy id
-            getById(_token, id, "{{ route('lay-don-vi-theo-id') }}", ".form-single"); // gọi sự kiện lấy dữ liệu theo id
+            getById(_token, id, "{{ route('don-vi-single') }}", ".frm-cap-nhat"); // gọi sự kiện lấy dữ liệu theo id
             $('#modal-cap-nhat').modal('show'); // bật form sửa     
         });
 

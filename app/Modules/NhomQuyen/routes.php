@@ -19,9 +19,9 @@ Route::group(
             'uses' => 'NhomQuyenController@themNhomQuyen'
         ]);
 
-        Route::post('lay-nhom-quyen-theo-id', [
-            'as' => 'lay-nhom-quyen-theo-id',
-            'uses' => 'NhomQuyenController@layNhomQuyenTheoId'
+        Route::post('nhom-quyen-single', [
+            'as' => 'nhom-quyen-single',
+            'uses' => 'NhomQuyenController@nhomQuyenSingle'
         ]);
 
         Route::post('cap-nhat-nhom-quyen', [

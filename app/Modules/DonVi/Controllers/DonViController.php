@@ -50,7 +50,7 @@ class DonViController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
-    public function layDonViTheoId(Request $request){
+    public function donViSingle(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
@@ -58,9 +58,7 @@ class DonViController extends Controller{
             $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
             $donVis=\Helper::paycTreeResource($donVis,null);
             // Kiểm tra dữ liệu không hợp lệ
-            if(!isset($dataForm['id'])){
-                $error="Không tìm thấy dữ liệu cần chỉnh sửa";
-            }else{ // ngược lại dữ liệu hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = DonVi::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
                 if(count($data)<1){ // Nếu dữ liệu ko tồn tại trong DB
                     $error="Không tìm thấy dữ liệu cần sửa";
@@ -68,7 +66,7 @@ class DonViController extends Controller{
                     $data=$data[0];
                     $error="";
                 }
-            }            
+            }  
             $view=view('DonVi::don-vi-single', compact('data','donVis','error'))->render(); // Trả dữ liệu ra view trước     
             return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
         }
@@ -100,7 +98,7 @@ class DonViController extends Controller{
     public function xoaDonVi(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
-            if(!isset($dataForm['id']) || $dataForm['id']==1){ // Kiểm tra nếu ko tồn tại id
+            if(!isset($dataForm['id']) || $dataForm['id']==1 || $dataForm['id']==2){ // Kiểm tra nếu ko tồn tại id
                 return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
             }
             $id=$dataForm['id']; //ngược lại có id

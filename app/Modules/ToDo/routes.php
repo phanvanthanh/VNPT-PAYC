@@ -19,9 +19,9 @@ Route::group(
             'uses' => 'ToDoController@themToDo'
         ]);
 
-        Route::post('lay-to-do-theo-id', [
-            'as' => 'lay-to-do-theo-id',
-            'uses' => 'ToDoController@layToDoTheoId'
+        Route::post('to-do-single', [
+            'as' => 'to-do-single',
+            'uses' => 'ToDoController@toDoSingle'
         ]);
 
         Route::post('cap-nhat-to-do', [

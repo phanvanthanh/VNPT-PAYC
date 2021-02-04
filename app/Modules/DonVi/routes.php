@@ -19,9 +19,9 @@ Route::group(
             'uses' => 'DonViController@themDonVi'
         ]);
 
-        Route::post('lay-don-vi-theo-id', [
-            'as' => 'lay-don-vi-theo-id',
-            'uses' => 'DonViController@layDonViTheoId'
+        Route::post('don-vi-single', [
+            'as' => 'don-vi-single',
+            'uses' => 'DonViController@donViSingle'
         ]);
 
         Route::post('cap-nhat-don-vi', [

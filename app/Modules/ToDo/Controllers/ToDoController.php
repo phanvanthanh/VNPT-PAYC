@@ -23,9 +23,7 @@ class ToDoController extends Controller{
     }
 
     public function toDo(Request $request){
-        $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
-        $donVis=\Helper::paycTreeResource($donVis,null);
-        return view('ToDo::to-do',compact('donVis'));
+        return view('ToDo::to-do');
     }
 
 
@@ -50,15 +48,13 @@ class ToDoController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
-    public function layToDoTheoId(Request $request){
+    public function toDoSingle(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
             // Kiểm tra dữ liệu không hợp lệ
-            if(!isset($dataForm['id'])){
-                $error="Không tìm thấy dữ liệu cần chỉnh sửa";
-            }else{ // ngược lại dữ liệu hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = ToDo::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
                 if(count($data)<1){ // Nếu dữ liệu ko tồn tại trong DB
                     $error="Không tìm thấy dữ liệu cần sửa";
@@ -81,11 +77,11 @@ class ToDoController extends Controller{
                 return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
             }
             $id=$dataForm['id']; //ngược lại có id
-            $donVi=ToDo::where("id","=",$id)->get()->toArray();
-            if(count($donVi)==1){
+            $toDo=ToDo::where("id","=",$id)->get()->toArray();
+            if(count($toDo)==1){
                 unset($dataForm["_token"]);
-                $donVi=DonVi::where("id","=",$id);
-                $donVi->update($dataForm);
+                $toDo=ToDo::where("id","=",$id);
+                $toDo->update($dataForm);
                 return array("error"=>'');
             }else{
                 return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX

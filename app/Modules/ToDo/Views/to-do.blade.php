@@ -16,7 +16,7 @@
 
                 <div class="text-right table-responsive">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm đơn vị</button>
+                        <button class="btn btn-sm btn-vnpt btn-load-form-them-moi" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm đơn vị</button>
                     </div>
                 </div>
                 <br>
@@ -39,30 +39,7 @@
                </div>
                <div class="modal-body card">
                   <form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi">
-                    {{ csrf_field() }}
-                     <div class="form-group row">
-                        <label for="noi_dung" class="col-sm-4 col-form-label ">Nội dung</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control noi_dung" name="noi_dung" placeholder="Vui lòng nhập nội dung cần tạo">
-                        </div>
-                     </div>
-                     <div class="form-group row">
-                        <label for="han_xu_ly" class="col-sm-4 col-form-label ">Hạn xử lý</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control han_xu_ly" name="han_xu_ly" placeholder="Vui lòng nhập nội dung cần tạo">
-                        </div>
-                     </div>
-                  
-                     <div class="form-group row">
-                        <label for="trang_thai" class="col-sm-4 col-form-label">Trạng thái</label>
-                        <div class="col-sm-8">
-                           <select class="form-control trang_thai" name="trang_thai">
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Ngừng hoạt động</option>
-                          </select>
-                        </div>
-                     </div>
-                     
+                    {{ csrf_field() }}                     
                   </form>
                </div>
                <div class="modal-footer">
@@ -82,6 +59,10 @@
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
           jQuery("#modal-them-moi").modal('hide');
+      });
+
+      $('.btn-load-form-them-moi').on('click',function(){
+        getById(_token, "", "{{ route('to-do-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });
       
 

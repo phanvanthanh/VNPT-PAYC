@@ -16,7 +16,7 @@
 
                 <div class="text-right table-responsive">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm đơn vị</button>
+                        <button class="btn btn-sm btn-vnpt btn-load-form-them-moi" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm đơn vị</button>
                     </div>
                 </div>
                 <br>
@@ -40,77 +40,6 @@
                <div class="modal-body card">
                   <form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi">
                     {{ csrf_field() }}
-                     <div class="form-group row">
-                        <label for="ten_don_vi" class="col-sm-4 col-form-label ">Tên đơn vị</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control ten_don_vi" name="ten_don_vi" placeholder="Vui lòng nhập tên đơn vị cần tạo">
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="dia_chi" class="col-sm-4 col-form-label ">Địa chỉ</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control dia_chi" name="dia_chi" placeholder="Vui lòng nhập địa chỉ">
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="email" class="col-sm-4 col-form-label ">Email</label>
-                        <div class="col-sm-8">
-                           <input type="email" class="form-control email" name="email" placeholder="Vui lòng nhập Email">
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="di_dong" class="col-sm-4 col-form-label ">Số điện thoại di động</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control di_dong" name="di_dong" placeholder="Vui lòng nhập Số điện thoại di động">
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="co_dinh" class="col-sm-4 col-form-label ">Số điện thoại cố định</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control co_dinh" name="co_dinh" placeholder="Vui lòng nhập Số điện thoại cố định">
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="fax" class="col-sm-4 col-form-label ">Số fax</label>
-                        <div class="col-sm-8">
-                           <input type="Text" class="form-control fax" name="fax" placeholder="Vui lòng nhập số fax">
-                        </div>
-                     </div>
-
-
-                     
-                     <div class="form-group row">
-                        <label for="parent_id" class="col-sm-4 col-form-label">Đơn vị cấp trên</label>
-                        <div class="col-sm-8">
-                           <select class="form-control parent_id" name="parent_id">
-                            @foreach($donVis as $donVi)
-                                <option value="{{$donVi['id']}}">
-                                  @if($donVi['level']>0)
-                                    @for ($i = 0; $i < $donVi['level']; $i++)
-                                        {{"____ "}}
-                                    @endfor
-                                  @endif {{$donVi['ten_don_vi']}}
-                                </option>
-                            @endforeach
-                          </select>
-                        </div>
-                     </div>
-
-                     <div class="form-group row">
-                        <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
-                        <div class="col-sm-8">
-                           <select class="form-control state" name="state">
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Ngừng hoạt động</option>
-                          </select>
-                        </div>
-                     </div>
-                     
                   </form>
                </div>
                <div class="modal-footer">
@@ -130,6 +59,10 @@
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-don-vi') }}", "{{ route('danh-sach-don-vi') }}", '.load-danh-sach');
           jQuery("#modal-them-moi").modal('hide');
+      });
+
+      $('.btn-load-form-them-moi').on('click',function(){
+        getById(_token, "", "{{ route('don-vi-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });
       
 
