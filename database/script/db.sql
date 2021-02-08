@@ -81,7 +81,7 @@ INSERT INTO `admin_resource` (`id`, `ten_hien_thi`, `resource`, `method`, `actio
 	(641, 'Xóa đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'xoa-don-vi', 1, 2, 1000, NULL),
 	(642, 'Đơn vị single', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', '', '', 636, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'don-vi-single', 1, 2, 1000, NULL),
 	(643, 'To do', 'GET | App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', 'GET', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', '', '', 1, '2021-02-04 13:30:50', '2021-02-04 14:34:05', 'to-do', 1, 1, 7, '<i class="icon-clock menu-icon"></i>'),
-	(644, 'Danh sách to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'danh-sach-to-do', 1, 2, 1000, NULL),
+	(644, 'Danh sách to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-07 08:01:42', 'danh-sach-to-do', 1, 1, 1000, NULL),
 	(645, 'Thêm to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'them-to-do', 1, 2, 1000, NULL),
 	(647, 'Cập nhật to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'cap-nhat-to-do', 1, 2, 1000, NULL),
 	(648, 'Xóa to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'xoa-to-do', 1, 2, 1000, NULL),
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `admin_role` (
   PRIMARY KEY (`id`),
   KEY `FK_admin_role_don_vi` (`id_don_vi`),
   CONSTRAINT `FK_admin_role_don_vi` FOREIGN KEY (`id_don_vi`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table vnptpayc.admin_role: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `dich_vu` (
   CONSTRAINT `FK_dich_vu_nhom_dich_vu` FOREIGN KEY (`id_nhom_dich_vu`) REFERENCES `nhom_dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.dich_vu: ~2 rows (approximately)
+-- Dumping data for table vnptpayc.dich_vu: ~3 rows (approximately)
 /*!40000 ALTER TABLE `dich_vu` DISABLE KEYS */;
 INSERT INTO `dich_vu` (`id`, `id_nhom_dich_vu`, `ten_dich_vu`, `state`) VALUES
 	(1, 1, 'VNPT-HIS', 1),
@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `don_vi` (
   KEY `order` (`order`),
   KEY `FK_don_vi_users` (`id_users`),
   CONSTRAINT `FK_don_vi_don_vi` FOREIGN KEY (`parent_id`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.don_vi: ~2 rows (approximately)
 /*!40000 ALTER TABLE `don_vi` DISABLE KEYS */;
@@ -434,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `payc` (
   CONSTRAINT `FK_payc_users` FOREIGN KEY (`id_user_tao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.payc: ~0 rows (approximately)
 /*!40000 ALTER TABLE `payc` DISABLE KEYS */;
 INSERT INTO `payc` (`id`, `id_user_tao`, `id_dich_vu`, `tieu_de`, `noi_dung`, `file_payc`, `ngay_tao`, `han_xu_ly_mong_muon`, `han_xu_ly_duoc_giao`, `ngay_hoan_tat`, `trang_thai`) VALUES
 	(1, 1, 1, NULL, NULL, NULL, '2020-02-04 10:00:00', NULL, NULL, NULL, NULL);
@@ -507,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `to_do` (
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.to_do: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.to_do: ~0 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
 INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
 	(1, 2, 'test2', NULL, '2021-02-04 14:43:11', '2021-02-04 14:43:11', '2021-02-04 10:00:01', NULL, 0, 0);
