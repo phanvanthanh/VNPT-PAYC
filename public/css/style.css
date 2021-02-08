@@ -19389,7 +19389,7 @@ input:focus {
 
 .sidebar .nav.sub-menu {
   margin-bottom: 0;
-  padding: 0 0 0 4.25rem;
+  padding: 0 0 0 2.25rem;
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link {
@@ -19411,13 +19411,13 @@ input:focus {
 }
 
 .sidebar .nav.sub-menu .nav-item .nav-link:before {
-  content: "";
+  /*content: "";
   position: absolute;
   width: 7px;
   height: 7px;
   border-radius: 100%;
   margin-left: -1.25rem;
-  top: 15px;
+  top: 15px;*/
 }
 
 .rtl .sidebar .nav.sub-menu .nav-item .nav-link:before {
@@ -19517,7 +19517,8 @@ input:focus {
 }
 
 .sidebar-dark .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  color: #8f8686;
+  /*color: #8f8686;*/
+  color: #cecaca;
 }
 
 .sidebar-dark .sidebar .nav.sub-menu .nav-item:hover > .nav-link {
