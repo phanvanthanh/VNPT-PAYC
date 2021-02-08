@@ -4,7 +4,29 @@ namespace App\Helpers;
 class Helper
 {
 
-	private static $paycLevel=-1;
+	private static $paycHasChildLevel=-1;
+    private static $paycHasChildArrItem=array();
+    public static function paycTreeResourceHasChild($data, $id){
+        foreach ($data as $key => $item) {
+            if($item['parent_id']==$id){
+                Helper::$paycHasChildLevel++;
+                $item['level']=Helper::$paycHasChildLevel;
+                if(!isset(Helper::$paycHasChildArrItem[$item['id']])){
+                	$item['has_child']=0;
+					Helper::$paycHasChildArrItem[$item['id']]=$item;
+					if(isset(Helper::$paycHasChildArrItem[$item['parent_id']])){
+						Helper::$paycHasChildArrItem[$item['parent_id']]['has_child']=Helper::$paycHasChildArrItem[$item['parent_id']]['has_child']+1; // Nếu có con thì tăng lên một đơn vị
+					}
+                }                	     
+                unset($data[$key]);          
+                Helper::paycTreeResourceHasChild($data, $item['id']);
+                Helper::$paycHasChildLevel--;
+            }           
+        }
+        return Helper::$paycHasChildArrItem;
+    }
+
+    private static $paycLevel=-1;
     private static $paycArrItem=array();
     public static function paycTreeResource($data, $id){
         foreach ($data as $key => $item) {

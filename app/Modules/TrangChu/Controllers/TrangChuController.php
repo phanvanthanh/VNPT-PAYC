@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp;
+use Illuminate\Support\Facades\DB;
 
 
 class TrangChuController extends Controller{
