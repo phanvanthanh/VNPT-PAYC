@@ -29,13 +29,13 @@ class TaiNguyenController extends Controller{
         return view('TaiNguyen::tai-nguyen',compact('resources')); // Trả dữ liệu cần thiết ra view
     }
 
-    public function taiNguyenAll(Request $request){
+    public function danhSachTaiNguyen(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
 
             $resources = AdminResource::orderBy('order')->get()->toArray();
             $resources=\Helper::paycTreeResource($resources,null);
-            $view=view('TaiNguyen::tai-nguyen-all', compact('resources','error'))->render(); // Trả dữ liệu ra view 
+            $view=view('TaiNguyen::danh-sach-tai-nguyen', compact('resources','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
@@ -169,16 +169,14 @@ class TaiNguyenController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
-    public function layTaiNguyenTheoId(Request $request){
+    public function taiNguyenSingle(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
             $resources = AdminResource::where("parent_id","=",1)->get();
             // Kiểm tra dữ liệu không hợp lệ
-            if(!isset($dataForm['id'])){
-                $error="Không tìm thấy dữ liệu cần chỉnh sửa";
-            }else{ // ngược lại dữ liệu hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = AdminResource::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
                 if(count($data)<1){ // Nếu dữ liệu ko tồn tại trong DB
                     $error="Không tìm thấy dữ liệu cần sửa";

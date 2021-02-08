@@ -75,7 +75,10 @@
               <span aria-hidden="true">&times;</span>
               </button>
            </div>
-           <div class="modal-body card tai-nguyen-single">
+           <div class="modal-body card">
+                <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
+                    {{ csrf_field() }}
+                </form>
            </div>
            <div class="modal-footer">
               <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
@@ -109,13 +112,13 @@
         /*Sự kiện bấm vào dòng cần sửa*/
         jQuery('.sua-tai-nguyen').on('click',function(){            
             var id=jQuery(this).attr("data"); // lấy id
-            getById(_token, id, "{{ route('lay-tai-nguyen-theo-id') }}", ".tai-nguyen-single"); // gọi sự kiện lấy dữ liệu theo id
+            getById(_token, id, "{{ route('tai-nguyen-single') }}", ".frm-cap-nhat"); // gọi sự kiện lấy dữ liệu theo id
             $('#modal-cap-nhat').modal('show'); // bật form sửa     
         });
 
         /*Sự kiện bấm nút cập nhật*/
         jQuery('.btn-cap-nhat').on('click',function(){            
-            capNhat(_token, $("form#frm-cap-nhat"), "{{ route('cap-nhat-tai-nguyen') }}", "{{ route('tai-nguyen-all') }}", '.load-table-all'); // bật form sửa     
+            capNhat(_token, $("form#frm-cap-nhat"), "{{ route('cap-nhat-tai-nguyen') }}", "{{ route('danh-sach-tai-nguyen') }}", '.load-danh-sach'); // bật form sửa     
             jQuery("#modal-cap-nhat").modal('hide'); // Tắt form sửa    
         });
 
@@ -124,7 +127,7 @@
             var id=jQuery(this).attr("data"); // lấy id
             var result = confirm("Bạn thật sự muốn xóa thông tin này?  Nếu đồng ý xóa chúng tôi sẽ không phục hồi lại được.");
             if (result) {
-                xoa(_token, id, "{{ route('xoa-tai-nguyen') }}", "{{ route('tai-nguyen-all') }}", '.load-table-all');  
+                xoa(_token, id, "{{ route('xoa-tai-nguyen') }}", "{{ route('danh-sach-tai-nguyen') }}", '.load-danh-sach');  
             }
         });
         
