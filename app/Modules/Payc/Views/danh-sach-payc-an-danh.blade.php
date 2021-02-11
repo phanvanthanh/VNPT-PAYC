@@ -7,6 +7,7 @@
 	          	<div class="row">
                   <div class="col-6">
                     <h4 class="text-danger">DANH SÁCH PAYC ẨN DANH</h4>
+                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted">Chức năng sẽ hiển thị danh sách những PAYC được gửi ở chế độ ẩn danh (Không đăng nhập)</small>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
