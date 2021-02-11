@@ -15,6 +15,11 @@ Route::group(
             'uses' => 'PaycController@danhSachPaycAnDanh'
         ]);
 
+        Route::get('danh-sach-payc-cua-toi', [
+            'as' => 'danh-sach-payc-cua-toi',
+            'uses' => 'PaycController@danhSachPaycCuaToi'
+        ]);
+
         Route::post('them-payc', [
             'as' => 'them-payc',
             'uses' => 'PaycController@themPayc'

@@ -27,10 +27,25 @@ class PaycController extends Controller{
     }
 
     public function danhSachPaycAnDanh(Request $request){
-            $error=''; // Khai báo biến
-            $paycs=Payc::where('id_user_tao','=',1)->get()->toArray();
-            return view('Payc::danh-sach-payc-an-danh', compact('paycs','error'));
+        $error=''; // Khai báo biến
+        $paycs=Payc::where('id_user_tao','=',1)->get()->toArray();
+        return view('Payc::danh-sach-payc-an-danh', compact('paycs','error'));
     }
+
+    public function danhSachPaycCuaToi(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::where('id_user_tao','=',$userId)->get()->toArray();
+            return view('Payc::danh-sach-payc-cua-toi', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cua-toi', compact('paycs','error'));
+
+        
+    }
+    
 
 
     public function themPayc(Request $request){
