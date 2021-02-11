@@ -252,4 +252,38 @@
           },
       });
   }
+
+  /*
+  * _token là token của laravel
+  * frmName là tên form chứa các input
+  * url để load dữ liệu
+  * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
+  * classNameRefreshData là tên class loadTable chứa dữ liệu của  để sau khi thực hiện thêm mới dữ liệu xong sẽ refresh lại dữ liệu và add vô bảng dữ liệu
+  */
+
+  themMoiKhongRefreshDuLieu=function(_token, frmName, url){
+    loading('.error-mode');
+    jQuery('.btn-them-moi').attr("disabled",true);
+    var formData = new FormData(frmName[0]);
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        error:function(){   
+          jQuery('.btn-them-moi').attr("disabled",false);
+          errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+        },
+        success:function(data){
+          if(data.error==""){
+            errorLoader(".error-mode","");
+            jQuery('.btn-them-moi').attr("disabled",false);            
+          }else{
+            errorLoader(".error-mode",data.error);
+          }
+            
+        },
+    });
+  }
 })(jQuery);

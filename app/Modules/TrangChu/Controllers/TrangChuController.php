@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp;
 use Illuminate\Support\Facades\DB;
+use Request as RequestAjax;
 
 
 class TrangChuController extends Controller{
@@ -17,8 +18,10 @@ class TrangChuController extends Controller{
     public function __construct(){
         # parent::__construct();
     }
-    public function trangChu(Request $request){
-        return view('TrangChu::trang-chu');
+
+    public function home(Request $request){
+        return redirect()->route('payc');
+        return view('TrangChu::home');
     }
 
     public function convertFileToBase64(){

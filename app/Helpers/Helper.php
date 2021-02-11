@@ -45,226 +45,30 @@ class Helper
     }
 
 
+    public static function toDatePayc($datetime)
+    {
+        $result = '';
+        try {
+            $date = date_create($datetime);
+            $result = $date->format('Y-m-d H:i:s');
+        } catch (Exception $ex) {
+            $result = date('Y-m-d H:i:s');
+        }
+        return $result;
+    }
 
-	private static $level=-1;
-	private static $arrItem=array();
-	public static function tableListDonVi($data, $id){
-		foreach ($data as $key => $item) {
-			if($item['parent']==$id){
-                Helper::$level++;
-                $item['level']=Helper::$level;
-                Helper::$arrItem[]=$item;                
-				Helper::tableListDonVi($data, $item['id']);				
-				Helper::$level--;
-			}			
-		}
-		return Helper::$arrItem;
-	}
+    private static $pathFile='public/file/payc';
 
+    public static function getAndStoreFile($files){
+        $fileNameSave='';
+        foreach ($files as $key => $file) {
+            $fileName=pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().$key.'.'.$file->getClientOriginalExtension();
+            $fileNameSave.=$fileName.';';
+            $path = $file->storeAs(Helper::$pathFile, $fileName);
+        }
+        return $fileNameSave;
 
-	private static $levelObj=-1;
-	private static $objItem=array();
-	public static function treeQuyenObj($data, $id){
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-                Helper::$level++;
-                $item->level=Helper::$level;
-                Helper::$objItem[]=$item;                
-				Helper::treeQuyenObj($data, $item->id);				
-				Helper::$level--;
-			}			
-		}
-		return Helper::$objItem;
-	}
-
-
-
-	private static $shareDonVi='';
-	public static function exportTree($data, $id){
-		echo '<ul>';
-		foreach ($data as $key => $item) {
-			if($item['parent']==$id){
-				$class='';
-				if(!is_numeric($item['id'])){
-					$class='name';
-				}
-				Helper::$shareDonVi.=$item['id'].';';
-				echo '<li class="tree-show '.$class.'" data="'.$item['id'].'">'.$item['ten_don_vi'];
-				Helper::exportTree($data, $item['id']);
-				echo '</li>';
-			}
-			
-		}
-		echo '</ul>';
-		return Helper::$shareDonVi;
-	}
-
-	public static function tableListDonViById($data, $id){
-		foreach ($data as $key => $item) {
-			if($item['id']==$id){
-				Helper::$level++;
-                $item['level']=Helper::$level;
-                Helper::$arrItem[]=$item;  
-			}
-			if($item['parent']==$id){
-                Helper::$level++;
-                $item['level']=Helper::$level;
-                Helper::$arrItem[]=$item;                
-				Helper::tableListDonVi($data, $item['id']);				
-				Helper::$level--;
-			}			
-		}
-		return Helper::$arrItem;
-	}
-
-
-	public static function rightMenu($data, $id){
-		echo '<ul class="nav-second-level" aria-expanded="false">';
-		$stt=0;
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-				$hasChild='';
-				$hasIcon='';
-				foreach ($data as $key2 => $item2) {
-					if($item2->parent_id==$item->id){
-						$hasChild=' ';
-						$hasIcon=' ';
-					}
-				}
-				echo '<li><a class="go-to" href="/'.$item->uri.'">'.$item->ten_hien_thi.'</a>';
-				Helper::rightMenu($data, $item->id);
-				echo '</li>';
-
-			}
-			
-		}
-		echo '</ul>';
-	}
-
-	public static function menuPhanQuyen($data, $id){
-		echo '<ul class="nav-second-level item-'.$id.'" aria-expanded="false">';
-		$stt=0;
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-				$hasChild='';
-				$hasIcon='';
-				foreach ($data as $key2 => $item2) {
-					if($item2->parent_id==$item->id){
-						$hasChild=' ';
-						$hasIcon=' ';
-					}
-				}
-				echo '<li> <a href="#"  style="background-color: whitesmoke;"> <input type="checkbox" class="resource" name="resource_id[]" id="resource_id_'.$item->id.'" value="'.$item->id.'">'.$item->ten_hien_thi.'</a>';
-				Helper::menuPhanQuyen($data, $item->id);
-				echo '</li>';
-
-			}
-			
-		}
-		echo '</ul>';
-	}
-
-    public static function subMenu($data, $id){
-		echo '<ul>';
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-				$hasChild='';
-				$hasIcon='';
-				foreach ($data as $key2 => $item2) {
-					if($item2->parent_id==$item->id){
-						$hasChild='hassubs';
-						$hasIcon=' <i class="fas fa-chevron-right" style="float: right; margin-top: 24px;"></i>';
-					}
-				}
-				echo '<li class="'.$hasChild.'"><a href="/'.$item->uri.'">'.$item->ten_hien_thi.$hasIcon.'</a>';
-				Helper::subMenu($data, $item->id);
-				echo '</li>';
-			}
-			
-		}
-		echo '</ul>';
-	}
-
-	public static function subCatMenu($data, $id){
-		echo '<ul>';
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-				$hasChild=''; $hasIcon='';
-				foreach ($data as $key2 => $item2) {
-					if($item2->parent_id==$item->id){
-						$hasChild='hassubs';
-						$hasIcon=' <i class="fas fa-chevron-right"></i>';
-					}
-				}
-				echo '<li class="'.$hasChild.'"><a href="#">'.$item->ten_danh_muc.$hasIcon.'</a>';
-				Helper::subCatMenu($data, $item->id);
-				echo '</li>';
-			}
-			
-		}
-		echo '</ul>';
-	}
-
-
-	public static function subMenuXs($data, $id){
-		echo '<ul class="page_menu_selection">';
-		foreach ($data as $key => $item) {
-			if($item->parent_id==$id){
-				$hasChild='';
-				foreach ($data as $key2 => $item2) {
-					if($item2->parent_id==$item->id){
-						$hasChild='class="page_menu_item has-children"';
-					}
-				}
-				if($hasChild==''){
-					$hasChild='class="go-to"';
-				}
-				
-				echo '<li '.$hasChild.'><a href="/'.$item->uri.'">'.$item->ten_hien_thi.'<i class="fa fa-angle-down"></i></a>';
-				Helper::subMenuXs($data, $item->id);
-				echo '</li>';
-			}
-			
-		}
-		echo '</ul>';
-	}
-
-	private static $capController=0;
-	private static $arrController=array();
-
-	public static function CapMenuController($data, $id){
-	
-		foreach ($data as $key => $item) {
-			if($item['parent_id']==$id){
-				Helper::$capController++;
-				$item['cap']=Helper::$capController;
-				Helper::$arrController[]=$item;				
-				Helper::CapMenuController($data, $item['id']);
-				Helper::$capController--;
-			}
-			
-		}
-		return Helper::$arrController;
-	}
-
-
-	private static $capLayout=0;
-	private static $arrLayout=array();
-
-	public static function CapMenuLayout($data, $id){
-	
-		foreach ($data as $key => $item) {
-			if($item['parent_id']==$id){
-				Helper::$capLayout++;
-				$item['cap']=Helper::$capLayout;
-				Helper::$arrLayout[]=$item;				
-				Helper::CapMenuLayout($data, $item['id']);
-				Helper::$capLayout--;
-			}
-			
-		}
-		return Helper::$arrLayout;
-	}
+    }
 	
 	public static function tyLePhanTram($ngayGiao, $hanXuLy, $ngayThucHien){
 		

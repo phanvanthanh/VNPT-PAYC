@@ -22,6 +22,5 @@
       </div>
       @INCLUDE('layouts.modal')
       @INCLUDE('layouts.js')
-
    </body>
 </html>

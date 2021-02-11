@@ -23,7 +23,7 @@ class PhanQuyenController extends Controller{
     
     public function phanQuyen(Request $request){
         $roles = AdminRole::where('state','=',1)->get()->toArray();
-        $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+        $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('parent_id','=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
         return view('PhanQuyen::phan-quyen',compact('roles','resources'));
     }
 
@@ -55,7 +55,7 @@ class PhanQuyenController extends Controller{
                     $rules[$rule['resource_id']]=$rule; // set lại key cho rules để ra view dễ check chỗ checkbox
                 }
             }          
-            $resources = AdminResource::where('id','!=',1)->where('status','=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+            $resources = AdminResource::where('id','!=',1)->where('status','=',1)->where('parent_id','=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
             $view=view('PhanQuyen::danh-sach-quyen-theo-nhom-quyen-id', compact('rules','resources','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
