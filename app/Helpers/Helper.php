@@ -1,8 +1,106 @@
 <?php
 namespace App\Helpers;
+use App\Payc;
+use DB;
 
 class Helper
 {
+    public static function getTrangThaiPaycKhachHangById($id){
+        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_trang_thai_xu_ly, t4.name from payc t1
+            right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
+            left join payc_xu_ly t3 on t2.id_xu_ly=t3.id
+            left join users t4 on t2.id_user_xu_ly=t4.id
+            where t1.id='.$id.' and t2.id = (
+                select max(id) from payc_canbo_xuly_yeucau where id_payc='.$id.'
+            );');
+        if(count($trangThai)>0){
+            $trangThai=$trangThai[0];
+            if($trangThai->id_xu_ly==1){
+                return "Đang chờ cán bộ tiếp nhận";
+            }
+            if($trangThai->id_xu_ly==2){
+                return "Đã được tiếp nhận (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==3){
+                return "Đã xử lý hoàn tất";
+            }
+            if($trangThai->id_xu_ly==4){
+                return "Đã bị từ chối xử lý (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==12){
+                return "Đang bị hủy (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==13){
+                return "Đang chờ bạn đánh giá";
+            }
+            else{
+                return "Đang xử lý (bởi ".$trangThai->name.")";
+            }
+
+        }
+        return "Không tìm được trạng thái xử lý";
+    }
+
+    public static function getTrangThaiPaycCanBoById($id){
+        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_xu_ly, t4.name from payc t1
+            right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
+            left join payc_xu_ly t3 on t2.id_xu_ly=t3.id
+            left join users t4 on t2.id_user_xu_ly=t4.id
+            where t1.id='.$id.' and t2.id = (
+                select max(id) from payc_canbo_xuly_yeucau where id_payc='.$id.'
+            );');
+        if(count($trangThai)>0){
+            $trangThai=$trangThai[0];
+            if($trangThai->id_xu_ly==1){
+                return "Đang chờ tiếp nhận";
+            }
+            if($trangThai->id_xu_ly==2){
+                return "Đã được tiếp nhận (bởi ".$trangThai->name.')';
+            }
+            if($trangThai->id_xu_ly==3){
+                return "Đã xử lý hoàn tất";
+            }
+            if($trangThai->id_xu_ly==4){
+                return "Đã bị từ chối xử lý (bởi ".$trangThai->name.')';
+            }
+            if($trangThai->id_xu_ly==5){
+                return "Được chuyển đến (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==6){
+                return "Đang được xử lý (bởi ".$trangThai->name.')';
+            }
+            if($trangThai->id_xu_ly==7 || $trangThai->id_xu_ly==8){
+                return "Đã chuyển lãnh đạo duyệt (bởi ".$trangThai->name.')';
+            }
+            if($trangThai->id_xu_ly==9){
+                return "Đang chờ duyệt";
+            }
+            if($trangThai->id_xu_ly==10){
+                return "Đã trả lại cán bộ tiếp nhận (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==11){
+                return "Đã trả lại cán bộ xử lý (bởi ".$trangThai->name.")";
+            }
+            if($trangThai->id_xu_ly==12){
+                return "Đang bị hủy bởi ".$trangThai->name;
+            }
+            if($trangThai->id_xu_ly==13){
+                return "Đang chờ KHÁCH HÀNG đánh giá";
+            }
+            if($trangThai->id_xu_ly==14){
+                return "Đang chờ LÃNH ĐẠO đánh giá";
+            }
+            if($trangThai->id_xu_ly==15){
+                return "Đang chờ CÁN BỘ đánh giá";
+            }
+            else{
+                return "Đang xử lý (bởi ".$trangThai->name.')';
+            }
+
+        }
+        return "Không tìm được trạng thái xử lý";
+    }
+
 
 	private static $paycHasChildLevel=-1;
     private static $paycHasChildArrItem=array();
