@@ -44,8 +44,7 @@ class PaycController extends Controller{
         return view('Payc::danh-sach-payc-cua-toi', compact('paycs','error'));
 
         
-    }
-    
+    }    
 
 
     public function themPayc(Request $request){
@@ -66,4 +65,20 @@ class PaycController extends Controller{
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
+
+
+
+    public function danhSachPaycChoTiepNhan(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoTiepNhan();
+            return view('Payc::danh-sach-payc-cho-tiep-nhan', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-tiep-nhan', compact('paycs','error'));
+
+        
+    }  
 }

@@ -8,7 +8,7 @@ class Helper
     public static function getTrangThaiPaycKhachHangById($id){
         $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_trang_thai_xu_ly, t4.name from payc t1
             right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
-            left join payc_xu_ly t3 on t2.id_xu_ly=t3.id
+            left join payc_trang_thai_xu_ly t3 on t2.id_xu_ly=t3.id
             left join users t4 on t2.id_user_xu_ly=t4.id
             where t1.id='.$id.' and t2.id = (
                 select max(id) from payc_canbo_xuly_yeucau where id_payc='.$id.'
@@ -44,7 +44,7 @@ class Helper
     public static function getTrangThaiPaycCanBoById($id){
         $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_xu_ly, t4.name from payc t1
             right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
-            left join payc_xu_ly t3 on t2.id_xu_ly=t3.id
+            left join payc_trang_thai_xu_ly t3 on t2.id_xu_ly=t3.id
             left join users t4 on t2.id_user_xu_ly=t4.id
             where t1.id='.$id.' and t2.id = (
                 select max(id) from payc_canbo_xuly_yeucau where id_payc='.$id.'

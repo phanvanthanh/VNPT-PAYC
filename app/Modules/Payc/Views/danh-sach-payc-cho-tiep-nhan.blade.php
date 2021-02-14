@@ -1,13 +1,13 @@
 @extends('layouts.index')
-@section('title', 'Danh sách PAYC ẩn danh')
+@section('title', 'Danh sách PAYC của tôi')
 @section('content')
 	<div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC ẨN DANH</h4>
-                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted">Chức năng sẽ hiển thị danh sách những PAYC được gửi ở chế độ ẩn danh (Không đăng nhập)</small>
+                    <h4 class="text-danger">DANH SÁCH PAYC CHỜ TIẾP NHẬN</h4>
+                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted">Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa được tiếp nhận, xử lý</small>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -51,10 +51,8 @@
 						                <td>
 						                	{{$payc['ngay_tao']}}
 						                </td>
-						                <td><?php
-						                    $trangThai=\Helper::getTrangThaiPaycKhachHangById($payc['id']);
-						                    echo $trangThai;
-						                ?>
+						                <td>
+						                    Chờ tiếp nhận
 						                </td>
 						                <td class="text-center">
 						                    <i class="fa fa-sitemap text-primary"></i>

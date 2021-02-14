@@ -51,8 +51,10 @@
 						                <td>
 						                	{{$payc['ngay_tao']}}
 						                </td>
-						                <td>
-						                    
+						                <td><?php
+						                    $trangThai=\Helper::getTrangThaiPaycKhachHangById($payc['id']);
+						                    echo $trangThai;
+						                ?>
 						                </td>
 						                <td class="text-center">
 						                    <i class="fa fa-sitemap text-primary"></i>
