@@ -127,4 +127,145 @@ class PaycController extends Controller{
         $error='Vui lòng đăng nhập vào hệ thống';
         return view('Payc::danh-sach-payc-da-chuyen-xu-ly', compact('paycs','error'));
     }  
+
+
+    public function danhSachPaycDangXuLy(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycDangXuLy($userId);
+            return view('Payc::danh-sach-payc-dang-xu-ly', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-dang-xu-ly', compact('paycs','error'));
+    }  
+
+
+    public function danhSachPaycDaChuyenLanhDaoDuyet(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycDaChuyenLanhDaoDuyet($userId);
+            return view('Payc::danh-sach-payc-da-chuyen-lanh-dao-duyet', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-da-chuyen-lanh-dao-duyet', compact('paycs','error'));
+    }  
+
+
+    public function danhSachPaycDaChuyenLanhDaoKhacDuyet(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycDaChuyenLanhDaoKhacDuyet($userId);
+            return view('Payc::danh-sach-payc-da-chuyen-lanh-dao-khac-duyet', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-da-chuyen-lanh-dao-khac-duyet', compact('paycs','error'));
+    }  
+
+    public function danhSachPaycChoDuyet(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoDuyet($userId);
+            return view('Payc::danh-sach-payc-cho-duyet', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-duyet', compact('paycs','error'));
+    }
+
+
+    public function danhSachPaycDaDuyet(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycDaDuyet($userId);
+            return view('Payc::danh-sach-payc-da-duyet', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-da-duyet', compact('paycs','error'));
+    }  
+
+
+    public function danhSachPaycTraLaiBuocTiepNhan(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycTraLaiBuocTiepNhan($userId);
+            return view('Payc::danh-sach-payc-tra-lai-buoc-tiep-nhan', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-tra-lai-buoc-tiep-nhan', compact('paycs','error'));
+    } 
+
+
+    public function danhSachPaycTraLaiCanBoXuLy(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycTraLaiCanBoXuLy($userId);
+            return view('Payc::danh-sach-payc-tra-lai-can-bo-xu-ly', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-tra-lai-can-bo-xu-ly', compact('paycs','error'));
+    } 
+
+    public function danhSachPaycDaHuy(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycDaHuy($userId);
+            return view('Payc::danh-sach-payc-da-huy', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-da-huy', compact('paycs','error'));
+    } 
+
+
+    public function danhSachPaycChoKhachHangDanhGia(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoKhachHangDanhGia($userId);
+            return view('Payc::danh-sach-payc-cho-khach-hang-danh-gia', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-khach-hang-danh-gia', compact('paycs','error'));
+    } 
+
+
+    public function danhSachPaycChoLanhDaoDanhGia(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoLanhDaoDanhGia($userId);
+            return view('Payc::danh-sach-payc-cho-lanh-dao-danh-gia', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-lanh-dao-danh-gia', compact('paycs','error'));
+    } 
+
+
+    public function danhSachPaycChoCanBoDanhGia(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoCanBoDanhGia($userId);
+            return view('Payc::danh-sach-payc-cho-can-bo-danh-gia', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-can-bo-danh-gia', compact('paycs','error'));
+    } 
 }

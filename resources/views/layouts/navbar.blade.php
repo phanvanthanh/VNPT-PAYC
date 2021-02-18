@@ -1,3 +1,7 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+$userId=Auth::id();
+?>
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"><!-- thêm các class sau để đổi màu navbar-primary navbar-success navbar-warning navbar-danger navbar-pink navbar-info navbar-dark  -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                <a class="navbar-brand brand-logo" href="/">VNPT TV - PAYC<!-- <img src="{{ asset('public/images/logo.svg') }}" alt="logo"> --></a>
@@ -120,7 +124,7 @@
                            </p>
                            <span class="badge badge-info badge-pill float-right"></span>
                         </div>
-                        
+                        @if(!$userId)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
@@ -132,6 +136,7 @@
                               <h6 class="preview-subject font-weight-medium">Đăng nhập/Đăng ký</h6>
                            </div>
                         </a>
+                        @else
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
@@ -168,6 +173,7 @@
                               </form>
                            </div>
                         </a>
+                        @endif
                      </div>
                   </li>
                   <li class="nav-item nav-settings d-none d-lg-block">

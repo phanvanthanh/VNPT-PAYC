@@ -93,6 +93,9 @@ class Helper
             if($trangThai->id_xu_ly==15){
                 return "Đang chờ CÁN BỘ đánh giá";
             }
+            if($trangThai->id_xu_ly==16){
+                return "Đã duyệt";
+            }
             else{
                 return "Đang xử lý (bởi ".$trangThai->name.')';
             }
