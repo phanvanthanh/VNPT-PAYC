@@ -6,8 +6,8 @@
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC CHỜ TIẾP NHẬN</h4>
-                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted"><!-- Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa được tiếp nhận, xử lý --></small>
+                    <h4 class="text-danger">DANH SÁCH PAYC CHỜ CẬP NHẬT</h4>
+                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted">Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa chọn dịch vụ nên chưa xác định được thuộc dịch vụ nào? Cần cán bộ xác định yêu cầu thuộc lĩnh vực dịch vụ nào?</small>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -15,13 +15,10 @@
                 </div>
                 <div class="text-right">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-tiep-nhan-va-chuyen-xu-ly"><i class="fa fa-mail-forward"></i> Tiếp nhận & chuyển xử lý</button>
+                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-cap-nhat-dich-vu"><i class="fa fa-pencil"></i> Cập nhật</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển lãnh đạo</button>
-                    </div>
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
+                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-cap-nhat-dich-vu-va-chuyen-xu-ly"><i class="fa fa-sign-out"></i> Cập nhật & chuyển xử lý</button>
                     </div>
                     <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
@@ -37,7 +34,7 @@
 						    <thead>
 						        <tr class="text-center background-vnpt">
 						        	
-						        	<th scope="col" style="width: 2%;"><input type="checkbox" name="id_payc[]" class="id_payc"></th>
+						        	<th scope="col" style="width: 2%;"><input type="checkbox" name="id[]" class="id"></th>
 						            <th scope="col" style="width: 8%;">STT #</th>
 						            <th scope="col" style="width: 50%;">Nội dung</th>
 						            <th scope="col" style="width: 10%;">File</th>
@@ -53,9 +50,9 @@
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
 						            <tr class="tr-hover">
-						            	<th class="text-center check-checkbox" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
+						            	<th class="text-center check-one-checkbox" scope="row"><input type="checkbox" name="id[]" class="id" value="{{$payc['id']}}"></th>
 						                <th class="text-center" scope="row">{{$stt}}</th>						                
-						                <td class="noi_dung" value="{{$payc['id_payc']}}">
+						                <td class="noi_dung" value="{{$payc['id']}}">
 						                    <b><?php echo $payc['tieu_de']; ?></b><br>
 						                    <?php echo $payc['noi_dung']; ?>
 						                </td>
@@ -70,7 +67,7 @@
 						                <td>
 						                	{{$payc['ngay_tao']}}
 						                </td>
-						                <td class="text-center qtxl" value="{{$payc['id_payc']}}">
+						                <td class="text-center qtxl" value="{{$payc['id']}}">
 						                    <i class="fa fa-sitemap text-primary"></i>
 						                </td>
 						            </tr>

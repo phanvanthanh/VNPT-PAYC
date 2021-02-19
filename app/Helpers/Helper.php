@@ -6,7 +6,7 @@ use DB;
 class Helper
 {
     public static function getTrangThaiPaycKhachHangById($id){
-        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_trang_thai_xu_ly, t4.name from payc t1
+        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ma_trang_thai, t3.ten_trang_thai_xu_ly, t4.name from payc t1
             right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
             left join payc_trang_thai_xu_ly t3 on t2.id_xu_ly=t3.id
             left join users t4 on t2.id_user_xu_ly=t4.id
@@ -15,23 +15,26 @@ class Helper
             );');
         if(count($trangThai)>0){
             $trangThai=$trangThai[0];
-            if($trangThai->id_xu_ly==1){
+            if($trangThai->ma_trang_thai=='TAO_MOI'){
                 return "Đang chờ cán bộ tiếp nhận";
             }
-            if($trangThai->id_xu_ly==2){
+            if($trangThai->ma_trang_thai=='TIEP_NHAN'){
                 return "Đã được tiếp nhận (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==3){
+            if($trangThai->ma_trang_thai=='HOAN_TAT'){
                 return "Đã xử lý hoàn tất";
             }
-            if($trangThai->id_xu_ly==4){
+            if($trangThai->ma_trang_thai=='TU_CHOI'){
                 return "Đã bị từ chối xử lý (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==12){
+            if($trangThai->ma_trang_thai=='HUY'){
                 return "Đang bị hủy (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==13){
+            if($trangThai->ma_trang_thai=='KH_DANH_GIA'){
                 return "Đang chờ bạn đánh giá";
+            }
+            if($trangThai->ma_trang_thai=='TRA_LAI_KHACH_HANG'){
+                return "Trả lại người tạo";
             }
             else{
                 return "Đang xử lý (bởi ".$trangThai->name.")";
@@ -42,7 +45,7 @@ class Helper
     }
 
     public static function getTrangThaiPaycCanBoById($id){
-        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ten_xu_ly, t4.name from payc t1
+        $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ma_trang_thai, t3.ten_trang_thai_xu_ly, t4.name from payc t1
             right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
             left join payc_trang_thai_xu_ly t3 on t2.id_xu_ly=t3.id
             left join users t4 on t2.id_user_xu_ly=t4.id
@@ -51,49 +54,49 @@ class Helper
             );');
         if(count($trangThai)>0){
             $trangThai=$trangThai[0];
-            if($trangThai->id_xu_ly==1){
+            if($trangThai->ma_trang_thai==1){
                 return "Đang chờ tiếp nhận";
             }
-            if($trangThai->id_xu_ly==2){
+            if($trangThai->ma_trang_thai==2){
                 return "Đã được tiếp nhận (bởi ".$trangThai->name.')';
             }
-            if($trangThai->id_xu_ly==3){
+            if($trangThai->ma_trang_thai==3){
                 return "Đã xử lý hoàn tất";
             }
-            if($trangThai->id_xu_ly==4){
+            if($trangThai->ma_trang_thai==4){
                 return "Đã bị từ chối xử lý (bởi ".$trangThai->name.')';
             }
-            if($trangThai->id_xu_ly==5){
+            if($trangThai->ma_trang_thai==5){
                 return "Được chuyển đến (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==6){
+            if($trangThai->ma_trang_thai==6){
                 return "Đang được xử lý (bởi ".$trangThai->name.')';
             }
-            if($trangThai->id_xu_ly==7 || $trangThai->id_xu_ly==8){
+            if($trangThai->ma_trang_thai==7 || $trangThai->ma_trang_thai==8){
                 return "Đã chuyển lãnh đạo duyệt (bởi ".$trangThai->name.')';
             }
-            if($trangThai->id_xu_ly==9){
+            if($trangThai->ma_trang_thai==9){
                 return "Đang chờ duyệt";
             }
-            if($trangThai->id_xu_ly==10){
+            if($trangThai->ma_trang_thai==10){
                 return "Đã trả lại cán bộ tiếp nhận (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==11){
+            if($trangThai->ma_trang_thai==11){
                 return "Đã trả lại cán bộ xử lý (bởi ".$trangThai->name.")";
             }
-            if($trangThai->id_xu_ly==12){
+            if($trangThai->ma_trang_thai==12){
                 return "Đang bị hủy bởi ".$trangThai->name;
             }
-            if($trangThai->id_xu_ly==13){
+            if($trangThai->ma_trang_thai==13){
                 return "Đang chờ KHÁCH HÀNG đánh giá";
             }
-            if($trangThai->id_xu_ly==14){
+            if($trangThai->ma_trang_thai==14){
                 return "Đang chờ LÃNH ĐẠO đánh giá";
             }
-            if($trangThai->id_xu_ly==15){
+            if($trangThai->ma_trang_thai==15){
                 return "Đang chờ CÁN BỘ đánh giá";
             }
-            if($trangThai->id_xu_ly==16){
+            if($trangThai->ma_trang_thai==16){
                 return "Đã duyệt";
             }
             else{
@@ -164,7 +167,7 @@ class Helper
         $fileNameSave='';
         foreach ($files as $key => $file) {
             $fileName=pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().$key.'.'.$file->getClientOriginalExtension();
-            $fileNameSave.=$fileName.';';
+            $fileNameSave.=str_replace(' ','',$fileName.';');
             $path = $file->storeAs(Helper::$pathFile, $fileName);
         }
         return $fileNameSave;

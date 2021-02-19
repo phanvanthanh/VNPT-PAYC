@@ -268,4 +268,16 @@ class PaycController extends Controller{
         $error='Vui lòng đăng nhập vào hệ thống';
         return view('Payc::danh-sach-payc-cho-can-bo-danh-gia', compact('paycs','error'));
     } 
+
+    public function danhSachPaycChoCapNhat(Request $request){
+        $userId=Auth::id();
+        $error=''; // Khai báo biến
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycChoCapNhat($userId);
+            return view('Payc::danh-sach-payc-cho-cap-nhat', compact('paycs','error'));
+        }
+        $error='Vui lòng đăng nhập vào hệ thống';
+        return view('Payc::danh-sach-payc-cho-cap-nhat', compact('paycs','error'));
+    } 
 }

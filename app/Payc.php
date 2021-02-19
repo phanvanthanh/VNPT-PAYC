@@ -37,6 +37,13 @@ class Payc extends Authenticatable
         return $data;
 
     }
+    public static function getDanhSachPaycChoCapNhat($userId){
+        $data=array();
+        $data=DB::select('select * from payc where id_dich_vu is null');
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        return $data;
+
+    }
     public static function getDanhSachPaycDaTiepNhan($userId){
         $data=array();
         $data=DB::select('select cbxl.id,p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat,

@@ -144,6 +144,26 @@
               }
             });
 
+
+            jQuery('.check-checkbox').on('click', function(){
+              if(jQuery(this).find('input:checkbox').is(":checked")){
+                console.log('vo');
+                jQuery(this).find('input:checkbox').prop('checked', false);
+              }else{
+                console.log('vo 2');
+                jQuery(this).find('input:checkbox').prop('checked', true);
+              }
+            });
+
+            jQuery('.check-one-checkbox').on('click', function(){
+              if(jQuery(this).find('input:checkbox').is(":checked")){
+                jQuery(this).find('input:checkbox').prop('checked', false);
+              }else{
+                jQuery('.check-one-checkbox').find('input:checkbox').prop('checked', false);
+                jQuery(this).find('input:checkbox').prop('checked', true);
+              }
+            });
+
             
 
             

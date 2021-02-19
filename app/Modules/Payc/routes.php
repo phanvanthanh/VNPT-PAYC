@@ -97,6 +97,13 @@ Route::group(
             'as' => 'danh-sach-payc-cho-can-bo-danh-gia',
             'uses' => 'PaycController@danhSachPaycChoCanBoDanhGia'
         ]);
+
+        Route::get('danh-sach-payc-cho-cap-nhat', [
+            'as' => 'danh-sach-payc-cho-cap-nhat',
+            'uses' => 'PaycController@danhSachPaycChoCapNhat'
+        ]);
+
+        
         
 
         Route::post('them-payc', [
