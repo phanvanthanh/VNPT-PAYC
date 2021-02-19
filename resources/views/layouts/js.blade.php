@@ -147,10 +147,8 @@
 
             jQuery('.check-checkbox').on('click', function(){
               if(jQuery(this).find('input:checkbox').is(":checked")){
-                console.log('vo');
                 jQuery(this).find('input:checkbox').prop('checked', false);
               }else{
-                console.log('vo 2');
                 jQuery(this).find('input:checkbox').prop('checked', true);
               }
             });

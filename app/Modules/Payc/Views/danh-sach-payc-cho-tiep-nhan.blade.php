@@ -55,7 +55,7 @@
 						            <tr class="tr-hover">
 						            	<th class="text-center check-checkbox" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
 						                <th class="text-center" scope="row">{{$stt}}</th>						                
-						                <td class="noi_dung" value="{{$payc['id_payc']}}">
+						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
 						                    <b><?php echo $payc['tieu_de']; ?></b><br>
 						                    <?php echo $payc['noi_dung']; ?>
 						                </td>
@@ -67,7 +67,7 @@
 						                    }
 						                ?>
 						                </td>
-						                <td>
+						                <td class="font-size-default">
 						                	{{$payc['ngay_tao']}}
 						                </td>
 						                <td class="text-center qtxl" value="{{$payc['id_payc']}}">

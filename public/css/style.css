@@ -29755,7 +29755,10 @@ label.text-title-input-size {
 }
 
 .show-file{
-  font-size: 11px;
+  font-size: 13px;
+}
+td.font-size-default{
+  font-size: 13px;
 }
 input.form-control, select.form-control{
   height: 33.5px;
