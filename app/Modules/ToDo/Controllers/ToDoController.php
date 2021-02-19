@@ -23,6 +23,8 @@ class ToDoController extends Controller{
     }
 
     public function toDo(Request $request){
+        // $toDos=ToDo::get()->toArray();
+        // return view('ToDo::to-do',compact('toDos'));
         return view('ToDo::to-do');
     }
 
@@ -110,4 +112,30 @@ class ToDoController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
     
+    public function xuLyToDo(Request $request){
+        $toDos=ToDo::get()->toArray();
+        return view('ToDo::xu-ly-to-do',compact('toDos'));
+    }
+
+    public function checkToDo(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
+            $id = $request->input('id');
+            $toDo = ToDo::find($id);
+            $toDo->trang_thai = 1;
+            $toDo->save();
+            return 1;
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+    public function uncheckToDo(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
+            $id = $request->input('id');
+            $toDo = ToDo::find($id);
+            $toDo->trang_thai = 0;
+            $toDo->save();
+            return 1;
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
 }

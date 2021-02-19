@@ -63,6 +63,9 @@
       <script type="text/javascript" src="{{ asset('public/js/data-table.js') }}"></script>
       <!-- End plugin js for this page-->
       
+      <!-- End custom js for this page-->
+      <script type="text/javascript" src="{{ asset('public/js/tooltips.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('public/js/popover.js') }}"></script>
 
       <script type="text/javascript">
          jQuery(document).ready(function(){
