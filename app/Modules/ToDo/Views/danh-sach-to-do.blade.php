@@ -1,4 +1,5 @@
-@INCLUDE('layouts.js')
+@extends('layouts.script-layout')
+
 <div class="col-12"> 
     <div class="row">
         <div class="col-lg-12">
