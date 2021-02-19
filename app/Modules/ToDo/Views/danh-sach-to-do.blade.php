@@ -1,5 +1,3 @@
-@extends('layouts.script-layout')
-
 <div class="col-12"> 
     <div class="row">
         <div class="col-lg-12">
@@ -22,7 +20,7 @@
                             </div>
                             <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
                             <i class="remove"></i>
-                            <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
+                            <button class="btn btn-vnpt" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="icon-list"></i>                          
                                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                     <a class="dropdown-item preview-item">
