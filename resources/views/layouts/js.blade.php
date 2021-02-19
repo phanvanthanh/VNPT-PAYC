@@ -138,6 +138,17 @@
                   $(showFileIntoClass).html(html);
             });
 
+            var pathname = window.location.pathname.substring(1);
+            jQuery('.nav-item').removeClass('active');
+            jQuery('.nav-link').each(function( index ) {
+              var href=jQuery(this).attr("href");
+              if(href==pathname){
+                jQuery(this).parent().addClass('active');
+              }
+            });
+
+            
+
             
          })                
       </script>

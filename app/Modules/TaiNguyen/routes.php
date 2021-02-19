@@ -8,9 +8,9 @@ Route::group(
             'as' => 'tai-nguyen',
             'uses' => 'TaiNguyenController@taiNguyen'
         ]);
-        Route::post('tai-nguyen-all', [
-            'as' => 'tai-nguyen-all',
-            'uses' => 'TaiNguyenController@taiNguyenAll'
+        Route::post('danh-sach-tai-nguyen', [
+            'as' => 'danh-sach-tai-nguyen',
+            'uses' => 'TaiNguyenController@danhSachTaiNguyen'
         ]);
 
         Route::post('quet-tai-nguyen', [
@@ -23,9 +23,9 @@ Route::group(
             'uses' => 'TaiNguyenController@themTaiNguyen'
         ]);
 
-        Route::post('lay-tai-nguyen-theo-id', [
-            'as' => 'lay-tai-nguyen-theo-id',
-            'uses' => 'TaiNguyenController@layTaiNguyenTheoId'
+        Route::post('tai-nguyen-single', [
+            'as' => 'tai-nguyen-single',
+            'uses' => 'TaiNguyenController@taiNguyenSingle'
         ]);
 
         Route::post('cap-nhat-tai-nguyen', [

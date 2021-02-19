@@ -1,9 +1,20 @@
 <?php
    use App\AdminResource;
+   use App\AdminRule;
    $resources=array();
    $userId=Auth::id();
    if($userId){
       $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+      $resources=\Helper::paycTreeResourceHasChild($resources, 1);
+   }else{
+      $resources = AdminRule::select('admin_resource.id', 'admin_resource.ten_hien_thi', 'admin_resource.parent_id', 'admin_resource.icon', 'admin_resource.uri')
+         ->leftJoin('admin_resource','admin_rule.resource_id','=','admin_resource.id')
+         ->where('admin_resource.status','=',1)
+         ->where('admin_resource.id','!=',1)
+         ->where('admin_resource.show_menu','=',1)
+         ->where('admin_rule.role_id','=',1) // Lay quyen cua role vang lai
+         ->orderBy('admin_resource.order')
+         ->get()->toArray();
       $resources=\Helper::paycTreeResourceHasChild($resources, 1);
    }
       
@@ -39,7 +50,7 @@
                      <li class="nav-item nav-profile">
                         <div class="nav-link">
                            <div class="profile-image">
-                              <a href="{{route('trang-chu')}}"><img src="{{ asset('public/images/logo.png') }}" alt="image"></a>
+                              <a href="{{route('home')}}"><img src="{{ asset('public/images/logo.png') }}" alt="image"></a>
                               <!-- <span class="online-status online"></span> --> <!--change class online to offline or busy as needed-->
                            </div>
                            <div class="profile-name">

@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.1.30-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win32
+-- Server version:               10.4.17-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
 -- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
 
@@ -26,81 +26,85 @@ CREATE TABLE IF NOT EXISTS `admin_resource` (
   `parameter` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parameter_value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent_id` int(10) unsigned DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `uri` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT 1,
   `show_menu` int(11) DEFAULT NULL,
   `order` int(11) DEFAULT NULL,
   `icon` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_resource_parent_foreign` (`parent_id`),
   CONSTRAINT `admin_resource_parent_foreign` FOREIGN KEY (`parent_id`) REFERENCES `admin_resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=653 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=667 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.admin_resource: ~46 rows (approximately)
+-- Dumping data for table vnptpayc.admin_resource: ~50 rows (approximately)
 /*!40000 ALTER TABLE `admin_resource` DISABLE KEYS */;
 INSERT INTO `admin_resource` (`id`, `ten_hien_thi`, `resource`, `method`, `action`, `parameter`, `parameter_value`, `parent_id`, `created_at`, `updated_at`, `uri`, `status`, `show_menu`, `order`, `icon`) VALUES
 	(1, 'Root', 'Root', 'GET', '#', '#', '#', NULL, '2021-02-01 09:49:23', '2021-02-02 08:33:17', '#', 1, 1, 0, NULL),
-	(601, 'Đăng nhập', 'GET | App\\Http\\Controllers\\Auth\\LoginController@showLoginForm', 'GET', 'App\\Http\\Controllers\\Auth\\LoginController@showLoginForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'login', 1, 2, 1000, '<i class="icon-login"></i>'),
-	(602, 'Nút đăng nhập', 'POST | App\\Http\\Controllers\\Auth\\LoginController@login', 'POST', 'App\\Http\\Controllers\\Auth\\LoginController@login', '', '', 601, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'login', 1, 2, 1000, NULL),
-	(603, 'Đăng xuất', 'POST | App\\Http\\Controllers\\Auth\\LoginController@logout', 'POST', 'App\\Http\\Controllers\\Auth\\LoginController@logout', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'logout', 1, 2, 1000, '<i class="icon-logout"></i>'),
-	(604, 'Đăng ký', 'GET | App\\Http\\Controllers\\Auth\\RegisterController@showRegistrationForm', 'GET', 'App\\Http\\Controllers\\Auth\\RegisterController@showRegistrationForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'register', 1, 2, 1000, '<i class="icon-user-following mx-0"></i>'),
-	(605, 'Nút đăng ký', 'POST | App\\Http\\Controllers\\Auth\\RegisterController@register', 'POST', 'App\\Http\\Controllers\\Auth\\RegisterController@register', '', '', 604, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'register', 1, 2, 1000, NULL),
-	(606, 'Reset mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm', 'GET', 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/reset', 1, 2, 1000, '<i class="icon-key mx-0"></i>'),
-	(607, 'Xác thực email', 'POST | App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail', 'POST', 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail', '', '', 606, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/email', 1, 2, 1000, NULL),
-	(608, 'Lấy token reset mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm', 'GET', 'App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm', '', '', 606, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/reset/{token}', 1, 2, 1000, NULL),
-	(609, 'Reset lại mật khẩu', 'POST | App\\Http\\Controllers\\Auth\\ResetPasswordController@reset', 'POST', 'App\\Http\\Controllers\\Auth\\ResetPasswordController@reset', '', '', 606, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/reset', 1, 2, 1000, NULL),
-	(610, 'Xác nhận lại mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm', 'GET', 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm', '', '', 606, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/confirm', 1, 2, 1000, NULL),
-	(611, 'Xác nhận lại mật khẩu lần 2', 'POST | App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm', 'POST', 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm', '', '', 606, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'password/confirm', 1, 2, 1000, NULL),
-	(612, 'Danh mục quận huyện', 'GET | App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyen', 'GET', 'App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'dm-quan-huyen', 1, 1, 5, '<i class="menu-icon icon-location-pin"></i>'),
-	(613, 'Nút import danh mục quận huyện', 'POST | App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyenAndImport', 'POST', 'App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyenAndImport', '', '', 612, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'dm-quan-huyen/import', 1, 2, 1000, NULL),
-	(614, 'Danh mục phường xã', 'GET | App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuong', 'GET', 'App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuong', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'dm-xa-phuong', 1, 1, 6, '<i class="menu-icon icon-location-pin"></i>'),
-	(615, 'Nút import danh mục phường xã', 'POST | App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuongAndImport', 'POST', 'App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuongAndImport', '', '', 614, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'dm-xa-phuong/import', 1, 2, 1000, NULL),
-	(616, 'Nhóm quyền', 'GET | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyen', 'GET', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'nhom-quyen', 1, 1, 3, '<i class="menu-icon icon-people"></i>'),
-	(617, 'Phân quyền', 'GET | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyen', 'GET', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'phan-quyen', 1, 1, 4, '<i class="menu-icon fa fa-sitemap"></i>'),
-	(618, 'Danh sách chức năng', 'GET | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyen', 'GET', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'tai-nguyen', 1, 1, 2, '<i class="menu-icon icon-list"></i>'),
-	(619, 'Xem tất cả tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyenAll', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyenAll', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'tai-nguyen-all', 1, 2, 1000, NULL),
-	(620, 'Quét tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@quetTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@quetTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'quet-tai-nguyen', 1, 2, 1000, NULL),
-	(621, 'Thêm một tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@themTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@themTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'them-tai-nguyen', 1, 2, 1000, NULL),
-	(622, 'Lấy thông tin một tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@layTaiNguyenTheoId', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@layTaiNguyenTheoId', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'lay-tai-nguyen-theo-id', 1, 2, 1000, NULL),
-	(623, 'Sửa tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@capNhatTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@capNhatTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'cap-nhat-tai-nguyen', 1, 2, 1000, NULL),
-	(624, 'Xóa tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@xoaTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@xoaTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-04 14:32:48', 'xoa-tai-nguyen', 1, 2, 1000, NULL),
-	(626, 'Xem danh sách quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@danhSachNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@danhSachNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'danh-sach-nhom-quyen', 1, 2, 1000, NULL),
-	(627, 'Thêm nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@themNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@themNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'them-nhom-quyen', 1, 2, 1000, NULL),
-	(629, 'Cập nhật nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@capNhatNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@capNhatNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'cap-nhat-nhom-quyen', 1, 2, 1000, NULL),
-	(630, 'Xóa nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@xoaNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@xoaNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'xoa-nhom-quyen', 1, 2, 1000, NULL),
-	(631, 'Phân quyền', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenPost', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenPost', '', '', 617, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'phan-quyen-post', 1, 2, 1000, NULL),
-	(632, 'Danh sách nhóm quyền (Phân quyền)', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachNhomQuyen', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachNhomQuyen', '', '', 617, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'phan-quyen/danh-sach-nhom-quyen', 1, 2, 1000, NULL),
-	(633, 'Danh sách quyền theo nhóm quyền (Phân quyền)', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachQuyenTheoNhomQuyenId', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachQuyenTheoNhomQuyenId', '', '', 617, '2021-02-02 07:59:22', '2021-02-04 14:32:48', 'phan-quyen/danh-sach-quyen-theo-nhom-quyen-id', 1, 2, 1000, NULL),
-	(635, 'Trang chủ', 'GET | App\\Modules\\TrangChu\\Controllers\\TrangChuController@trangChu', 'GET', 'App\\Modules\\TrangChu\\Controllers\\TrangChuController@trangChu', '', '', 1, '2021-02-02 09:08:36', '2021-02-04 14:32:48', '/', 1, 1, 1, '<i class="menu-icon icon-home"></i>'),
-	(636, 'Danh mục đơn vị', 'GET | App\\Modules\\DonVi\\Controllers\\DonViController@donVi', 'GET', 'App\\Modules\\DonVi\\Controllers\\DonViController@donVi', '', '', 1, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'don-vi', 1, 1, 2, '<i class="menu-icon fa fa-cubes"></i>'),
-	(637, 'Xem danh sách đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@danhSachDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@danhSachDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'danh-sach-don-vi', 1, 2, 1000, NULL),
-	(638, 'Thêm đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@themDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@themDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'them-don-vi', 1, 2, 1000, NULL),
-	(640, 'Cập nhật đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@capNhatDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@capNhatDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'cap-nhat-don-vi', 1, 2, 1000, NULL),
-	(641, 'Xóa đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-04 14:32:48', 'xoa-don-vi', 1, 2, 1000, NULL),
-	(642, 'Đơn vị single', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', '', '', 636, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'don-vi-single', 1, 2, 1000, NULL),
-	(643, 'To do', 'GET | App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', 'GET', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', '', '', 1, '2021-02-04 13:30:50', '2021-02-04 14:34:05', 'to-do', 1, 1, 7, '<i class="icon-clock menu-icon"></i>'),
-	(644, 'Danh sách to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-07 08:01:42', 'danh-sach-to-do', 1, 1, 1000, NULL),
-	(645, 'Thêm to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'them-to-do', 1, 2, 1000, NULL),
-	(647, 'Cập nhật to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'cap-nhat-to-do', 1, 2, 1000, NULL),
-	(648, 'Xóa to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', '', '', 643, '2021-02-04 13:30:50', '2021-02-04 14:32:48', 'xoa-to-do', 1, 2, 1000, NULL),
-	(651, 'Nhóm quyền single', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyenSingle', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyenSingle', '', '', 616, '2021-02-04 14:32:48', '2021-02-04 14:33:17', 'nhom-quyen-single', 1, 2, 1000, NULL),
-	(652, 'To do single', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', '', '', 643, '2021-02-04 14:32:48', '2021-02-04 14:33:33', 'to-do-single', 1, 2, 1000, NULL);
+	(601, 'Đăng nhập', 'GET | App\\Http\\Controllers\\Auth\\LoginController@showLoginForm', 'GET', 'App\\Http\\Controllers\\Auth\\LoginController@showLoginForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'login', 1, 2, 1000, '<i class="icon-login"></i>'),
+	(602, 'Nút đăng nhập', 'POST | App\\Http\\Controllers\\Auth\\LoginController@login', 'POST', 'App\\Http\\Controllers\\Auth\\LoginController@login', '', '', 601, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'login', 1, 2, 1000, NULL),
+	(603, 'Đăng xuất', 'POST | App\\Http\\Controllers\\Auth\\LoginController@logout', 'POST', 'App\\Http\\Controllers\\Auth\\LoginController@logout', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'logout', 1, 2, 1000, '<i class="icon-logout"></i>'),
+	(604, 'Đăng ký', 'GET | App\\Http\\Controllers\\Auth\\RegisterController@showRegistrationForm', 'GET', 'App\\Http\\Controllers\\Auth\\RegisterController@showRegistrationForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'register', 1, 2, 1000, '<i class="icon-user-following mx-0"></i>'),
+	(605, 'Nút đăng ký', 'POST | App\\Http\\Controllers\\Auth\\RegisterController@register', 'POST', 'App\\Http\\Controllers\\Auth\\RegisterController@register', '', '', 604, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'register', 1, 2, 1000, NULL),
+	(606, 'Reset mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm', 'GET', 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/reset', 1, 2, 1000, '<i class="icon-key mx-0"></i>'),
+	(607, 'Xác thực email', 'POST | App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail', 'POST', 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail', '', '', 606, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/email', 1, 2, 1000, NULL),
+	(608, 'Lấy token reset mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm', 'GET', 'App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm', '', '', 606, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/reset/{token}', 1, 2, 1000, NULL),
+	(609, 'Reset lại mật khẩu', 'POST | App\\Http\\Controllers\\Auth\\ResetPasswordController@reset', 'POST', 'App\\Http\\Controllers\\Auth\\ResetPasswordController@reset', '', '', 606, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/reset', 1, 2, 1000, NULL),
+	(610, 'Xác nhận lại mật khẩu', 'GET | App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm', 'GET', 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm', '', '', 606, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/confirm', 1, 2, 1000, NULL),
+	(611, 'Xác nhận lại mật khẩu lần 2', 'POST | App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm', 'POST', 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm', '', '', 606, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'password/confirm', 1, 2, 1000, NULL),
+	(612, 'Danh mục quận huyện', 'GET | App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyen', 'GET', 'App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'dm-quan-huyen', 1, 1, 5, '<i class="menu-icon icon-location-pin"></i>'),
+	(613, 'Nút import danh mục quận huyện', 'POST | App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyenAndImport', 'POST', 'App\\Modules\\DmQuanHuyen\\Controllers\\DmQuanHuyenController@dmQuanHuyenAndImport', '', '', 612, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'dm-quan-huyen/import', 1, 2, 1000, NULL),
+	(614, 'Danh mục phường xã', 'GET | App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuong', 'GET', 'App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuong', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'dm-xa-phuong', 1, 1, 6, '<i class="menu-icon icon-location-pin"></i>'),
+	(615, 'Nút import danh mục phường xã', 'POST | App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuongAndImport', 'POST', 'App\\Modules\\DmXaPhuong\\Controllers\\DmXaPhuongController@dmXaPhuongAndImport', '', '', 614, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'dm-xa-phuong/import', 1, 2, 1000, NULL),
+	(616, 'Nhóm quyền', 'GET | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyen', 'GET', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'nhom-quyen', 1, 1, 3, '<i class="menu-icon icon-people"></i>'),
+	(617, 'Phân quyền', 'GET | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyen', 'GET', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'phan-quyen', 1, 1, 4, '<i class="menu-icon fa fa-sitemap"></i>'),
+	(618, 'Danh sách chức năng', 'GET | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyen', 'GET', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyen', '', '', 1, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'tai-nguyen', 1, 1, 2, '<i class="menu-icon icon-list"></i>'),
+	(620, 'Quét tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@quetTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@quetTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'quet-tai-nguyen', 1, 2, 1000, NULL),
+	(621, 'Thêm một tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@themTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@themTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'them-tai-nguyen', 1, 2, 1000, NULL),
+	(623, 'Sửa tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@capNhatTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@capNhatTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'cap-nhat-tai-nguyen', 1, 2, 1000, NULL),
+	(624, 'Xóa tài nguyên', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@xoaTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@xoaTaiNguyen', '', '', 618, '2021-02-01 09:49:23', '2021-02-11 13:45:18', 'xoa-tai-nguyen', 1, 2, 1000, NULL),
+	(626, 'Xem danh sách quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@danhSachNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@danhSachNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'danh-sach-nhom-quyen', 1, 2, 1000, NULL),
+	(627, 'Thêm nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@themNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@themNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'them-nhom-quyen', 1, 2, 1000, NULL),
+	(629, 'Cập nhật nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@capNhatNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@capNhatNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'cap-nhat-nhom-quyen', 1, 2, 1000, NULL),
+	(630, 'Xóa nhóm quyền', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@xoaNhomQuyen', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@xoaNhomQuyen', '', '', 616, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'xoa-nhom-quyen', 1, 2, 1000, NULL),
+	(631, 'Phân quyền', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenPost', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenPost', '', '', 617, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'phan-quyen-post', 1, 2, 1000, NULL),
+	(632, 'Danh sách nhóm quyền (Phân quyền)', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachNhomQuyen', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachNhomQuyen', '', '', 617, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'phan-quyen/danh-sach-nhom-quyen', 1, 2, 1000, NULL),
+	(633, 'Danh sách quyền theo nhóm quyền (Phân quyền)', 'POST | App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachQuyenTheoNhomQuyenId', 'POST', 'App\\Modules\\PhanQuyen\\Controllers\\PhanQuyenController@phanQuyenDanhSachQuyenTheoNhomQuyenId', '', '', 617, '2021-02-02 07:59:22', '2021-02-11 13:45:18', 'phan-quyen/danh-sach-quyen-theo-nhom-quyen-id', 1, 2, 1000, NULL),
+	(636, 'Danh mục đơn vị', 'GET | App\\Modules\\DonVi\\Controllers\\DonViController@donVi', 'GET', 'App\\Modules\\DonVi\\Controllers\\DonViController@donVi', '', '', 1, '2021-02-02 15:38:41', '2021-02-11 13:45:18', 'don-vi', 1, 1, 2, '<i class="menu-icon fa fa-cubes"></i>'),
+	(637, 'Xem danh sách đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@danhSachDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@danhSachDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-11 13:45:18', 'danh-sach-don-vi', 1, 2, 1000, NULL),
+	(638, 'Thêm đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@themDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@themDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-11 13:45:18', 'them-don-vi', 1, 2, 1000, NULL),
+	(640, 'Cập nhật đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@capNhatDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@capNhatDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-11 13:45:18', 'cap-nhat-don-vi', 1, 2, 1000, NULL),
+	(641, 'Xóa đơn vị', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@xoaDonVi', '', '', 636, '2021-02-02 15:38:41', '2021-02-11 13:45:18', 'xoa-don-vi', 1, 2, 1000, NULL),
+	(642, 'Đơn vị single', 'POST | App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', 'POST', 'App\\Modules\\DonVi\\Controllers\\DonViController@donViSingle', '', '', 636, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'don-vi-single', 1, 2, 1000, NULL),
+	(643, 'To do', 'GET | App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', 'GET', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', '', '', 653, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'to-do', 1, 1, 7, '<i class="icon-clock menu-icon"></i>'),
+	(644, 'Danh sách to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', '', '', 653, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'danh-sach-to-do', 1, 2, 1000, NULL),
+	(645, 'Thêm to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', '', '', 653, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'them-to-do', 1, 2, 1000, NULL),
+	(647, 'Cập nhật to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@capNhatToDo', '', '', 653, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'cap-nhat-to-do', 1, 2, 1000, NULL),
+	(648, 'Xóa to do', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@xoaToDo', '', '', 653, '2021-02-04 13:30:50', '2021-02-11 13:45:18', 'xoa-to-do', 1, 2, 1000, NULL),
+	(651, 'Nhóm quyền single', 'POST | App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyenSingle', 'POST', 'App\\Modules\\NhomQuyen\\Controllers\\NhomQuyenController@nhomQuyenSingle', '', '', 616, '2021-02-04 14:32:48', '2021-02-11 13:45:18', 'nhom-quyen-single', 1, 2, 1000, NULL),
+	(652, 'To do single', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', '', '', 653, '2021-02-04 14:32:48', '2021-02-11 13:45:18', 'to-do-single', 1, 2, 1000, NULL),
+	(653, 'To do', NULL, 'GET', NULL, NULL, NULL, 1, '2021-02-08 10:47:31', '2021-02-11 12:07:56', NULL, 1, 1, 8, '<i class="icon-clock menu-icon"></i>'),
+	(661, 'Gửi PAYC', 'GET | App\\Modules\\Payc\\Controllers\\PaycController@payc', 'GET', 'App\\Modules\\Payc\\Controllers\\PaycController@payc', '', '', 1, '2021-02-11 12:53:18', '2021-02-11 13:45:18', 'payc', 1, 1, 9, '<i class="menu-icon fa fa-send"></i>'),
+	(662, 'Danh sách PAYC (Ẫn danh)', 'GET | App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycAnDanh', 'GET', 'App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycAnDanh', '', '', 1, '2021-02-11 12:53:18', '2021-02-11 13:45:18', 'danh-sach-payc-an-danh', 1, 1, 10, '<i class="fa fa-list menu-icon"></i>'),
+	(663, 'Thêm PAYC', 'POST | App\\Modules\\Payc\\Controllers\\PaycController@themPayc', 'POST', 'App\\Modules\\Payc\\Controllers\\PaycController@themPayc', '', '', 661, '2021-02-11 12:53:18', '2021-02-11 13:45:18', 'them-payc', 1, 2, 1000, NULL),
+	(664, 'Danh sách chức năng', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@danhSachTaiNguyen', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@danhSachTaiNguyen', '', '', 618, '2021-02-11 12:53:18', '2021-02-11 13:45:18', 'danh-sach-tai-nguyen', 1, 2, 1000, NULL),
+	(665, 'Tài nguyên Single', 'POST | App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyenSingle', 'POST', 'App\\Modules\\TaiNguyen\\Controllers\\TaiNguyenController@taiNguyenSingle', '', '', 618, '2021-02-11 12:53:18', '2021-02-11 13:45:18', 'tai-nguyen-single', 1, 2, 1000, NULL),
+	(666, 'Trang chủ', 'GET | App\\Modules\\TrangChu\\Controllers\\TrangChuController@home', 'GET', 'App\\Modules\\TrangChu\\Controllers\\TrangChuController@home', '', '', 1, '2021-02-11 12:53:18', '2021-02-11 13:45:18', '/', 1, 2, 1000, '<i class="fa fa-home menu-icon"></i>');
 /*!40000 ALTER TABLE `admin_resource` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.admin_role
 CREATE TABLE IF NOT EXISTS `admin_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_don_vi` int(11) unsigned NOT NULL COMMENT 'id đơn vị cha có level = 0',
-  `state` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '0: ngừng hoạt động; 1: hoạt động',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `id_don_vi` int(10) unsigned NOT NULL COMMENT 'id đơn vị cha có level = 0',
+  `state` int(10) unsigned NOT NULL DEFAULT 1 COMMENT '0: ngừng hoạt động; 1: hoạt động',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_admin_role_don_vi` (`id_don_vi`),
   CONSTRAINT `FK_admin_role_don_vi` FOREIGN KEY (`id_don_vi`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table vnptpayc.admin_role: ~2 rows (approximately)
 /*!40000 ALTER TABLE `admin_role` DISABLE KEYS */;
@@ -114,46 +118,67 @@ CREATE TABLE IF NOT EXISTS `admin_rule` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` int(10) unsigned NOT NULL,
   `resource_id` int(10) unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `admin_rule_role_id_foreign` (`role_id`),
   KEY `admin_rule_resource_id_foreign` (`resource_id`),
   CONSTRAINT `admin_rule_resource_id_foreign` FOREIGN KEY (`resource_id`) REFERENCES `admin_resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `admin_rule_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.admin_rule: ~21 rows (approximately)
+-- Dumping data for table vnptpayc.admin_rule: ~42 rows (approximately)
 /*!40000 ALTER TABLE `admin_rule` DISABLE KEYS */;
 INSERT INTO `admin_rule` (`id`, `role_id`, `resource_id`, `created_at`, `updated_at`) VALUES
-	(51, 1, 618, '2021-02-02 08:40:31', NULL),
-	(52, 1, 619, '2021-02-02 08:40:31', NULL),
-	(53, 1, 620, '2021-02-02 08:40:31', NULL),
-	(54, 1, 621, '2021-02-02 08:40:31', NULL),
-	(55, 1, 622, '2021-02-02 08:40:31', NULL),
-	(56, 1, 623, '2021-02-02 08:40:31', NULL),
-	(57, 1, 624, '2021-02-02 08:40:31', NULL),
-	(58, 1, 616, '2021-02-02 08:40:32', NULL),
-	(59, 1, 626, '2021-02-02 08:40:32', NULL),
-	(60, 1, 627, '2021-02-02 08:40:32', NULL),
-	(62, 1, 629, '2021-02-02 08:40:32', NULL),
-	(63, 1, 630, '2021-02-02 08:40:32', NULL),
-	(64, 1, 617, '2021-02-02 08:40:33', NULL),
-	(65, 1, 631, '2021-02-02 08:40:33', NULL),
-	(66, 1, 632, '2021-02-02 08:40:33', NULL),
-	(67, 1, 633, '2021-02-02 08:40:33', NULL),
-	(68, 1, 612, '2021-02-02 08:40:34', NULL),
-	(69, 1, 613, '2021-02-02 08:40:34', NULL),
-	(72, 1, 614, '2021-02-02 08:53:36', NULL),
-	(73, 1, 615, '2021-02-02 08:53:36', NULL),
-	(74, 1, 635, '2021-02-02 15:15:22', NULL);
+	(117, 1, 666, '2021-02-11 13:20:09', '2021-02-11 13:20:09'),
+	(121, 2, 662, '2021-02-11 13:20:17', '2021-02-11 13:20:17'),
+	(122, 2, 666, '2021-02-11 13:20:19', '2021-02-11 13:20:19'),
+	(123, 2, 661, '2021-02-11 13:20:20', '2021-02-11 13:20:20'),
+	(124, 2, 663, '2021-02-11 13:20:20', '2021-02-11 13:20:20'),
+	(125, 2, 653, '2021-02-11 13:20:21', '2021-02-11 13:20:21'),
+	(126, 2, 643, '2021-02-11 13:20:21', '2021-02-11 13:20:21'),
+	(127, 2, 644, '2021-02-11 13:20:22', '2021-02-11 13:20:22'),
+	(128, 2, 645, '2021-02-11 13:20:22', '2021-02-11 13:20:22'),
+	(129, 2, 647, '2021-02-11 13:20:22', '2021-02-11 13:20:22'),
+	(130, 2, 648, '2021-02-11 13:20:22', '2021-02-11 13:20:22'),
+	(131, 2, 652, '2021-02-11 13:20:22', '2021-02-11 13:20:22'),
+	(132, 2, 614, '2021-02-11 13:20:23', '2021-02-11 13:20:23'),
+	(133, 2, 615, '2021-02-11 13:20:23', '2021-02-11 13:20:23'),
+	(134, 2, 612, '2021-02-11 13:20:24', '2021-02-11 13:20:24'),
+	(135, 2, 613, '2021-02-11 13:20:24', '2021-02-11 13:20:24'),
+	(136, 2, 617, '2021-02-11 13:20:26', '2021-02-11 13:20:26'),
+	(137, 2, 631, '2021-02-11 13:20:26', '2021-02-11 13:20:26'),
+	(138, 2, 632, '2021-02-11 13:20:26', '2021-02-11 13:20:26'),
+	(139, 2, 633, '2021-02-11 13:20:26', '2021-02-11 13:20:26'),
+	(140, 2, 618, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(141, 2, 620, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(142, 2, 621, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(143, 2, 623, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(144, 2, 624, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(145, 2, 664, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(146, 2, 665, '2021-02-11 13:20:28', '2021-02-11 13:20:28'),
+	(147, 2, 636, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(148, 2, 637, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(149, 2, 638, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(150, 2, 640, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(151, 2, 641, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(152, 2, 642, '2021-02-11 13:20:29', '2021-02-11 13:20:29'),
+	(153, 2, 616, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(154, 2, 626, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(155, 2, 627, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(156, 2, 629, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(157, 2, 630, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(158, 2, 651, '2021-02-11 13:20:31', '2021-02-11 13:20:31'),
+	(159, 1, 661, '2021-02-11 13:45:37', '2021-02-11 13:45:37'),
+	(160, 1, 663, '2021-02-11 13:45:37', '2021-02-11 13:45:37'),
+	(161, 1, 662, '2021-02-11 13:45:39', '2021-02-11 13:45:39');
 /*!40000 ALTER TABLE `admin_rule` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.chuc_danh
 CREATE TABLE IF NOT EXISTS `chuc_danh` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ten_chuc_danh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_loai_chuc_danh` int(11) unsigned NOT NULL,
+  `id_loai_chuc_danh` int(10) unsigned NOT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_users_chuc_danh_user_loai_chuc_danh` (`id_loai_chuc_danh`),
@@ -172,9 +197,9 @@ INSERT INTO `chuc_danh` (`id`, `ten_chuc_danh`, `id_loai_chuc_danh`, `state`) VA
 
 -- Dumping structure for table vnptpayc.chuc_vu
 CREATE TABLE IF NOT EXISTS `chuc_vu` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ten_chuc_vu` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `state` int(11) DEFAULT '1' COMMENT '0 nghỉ sử dụng; 1 còn sử dụng',
+  `state` int(11) DEFAULT 1 COMMENT '0 nghỉ sử dụng; 1 còn sử dụng',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -199,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `dich_vu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_nhom_dich_vu` int(11) DEFAULT NULL,
   `ten_dich_vu` varchar(50) DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT '1',
+  `state` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `FK_dich_vu_nhom_dich_vu` (`id_nhom_dich_vu`),
   CONSTRAINT `FK_dich_vu_nhom_dich_vu` FOREIGN KEY (`id_nhom_dich_vu`) REFERENCES `nhom_dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -219,8 +244,8 @@ CREATE TABLE IF NOT EXISTS `dm_quanhuyen` (
   `TEN_QUAN_HUYEN` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MA_TINH` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `LOAI` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.dm_quanhuyen: ~9 rows (approximately)
@@ -243,8 +268,8 @@ CREATE TABLE IF NOT EXISTS `dm_xaphuong` (
   `TEN_PHUONG_XA` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `LOAI` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MA_QUAN_HUYEN` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.dm_xaphuong: ~106 rows (approximately)
@@ -360,23 +385,23 @@ INSERT INTO `dm_xaphuong` (`MA_PHUONG_XA`, `TEN_PHUONG_XA`, `LOAI`, `MA_QUAN_HUY
 
 -- Dumping structure for table vnptpayc.don_vi
 CREATE TABLE IF NOT EXISTS `don_vi` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `id_users` int(11) unsigned NOT NULL DEFAULT '1' COMMENT 'id người tạo',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_users` int(10) unsigned NOT NULL DEFAULT 1 COMMENT 'id người tạo',
   `ten_don_vi` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `dia_chi` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `co_dinh` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `di_dong` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fax` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `parent_id` int(11) unsigned DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT '1',
-  `state` int(11) NOT NULL DEFAULT '1' COMMENT '0: không hoạt động; 1: hoạt động',
+  `parent_id` int(10) unsigned DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT 1,
+  `state` int(11) NOT NULL DEFAULT 1 COMMENT '0: không hoạt động; 1: hoạt động',
   PRIMARY KEY (`id`),
   KEY `FK_don_vi_don_vi` (`parent_id`),
   KEY `order` (`order`),
   KEY `FK_don_vi_users` (`id_users`),
   CONSTRAINT `FK_don_vi_don_vi` FOREIGN KEY (`parent_id`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.don_vi: ~2 rows (approximately)
 /*!40000 ALTER TABLE `don_vi` DISABLE KEYS */;
@@ -389,7 +414,7 @@ INSERT INTO `don_vi` (`id`, `id_users`, `ten_don_vi`, `dia_chi`, `email`, `co_di
 CREATE TABLE IF NOT EXISTS `nhom_dich_vu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ten_nhom_dich_vu` varchar(200) DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT '1',
+  `state` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -408,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.password_resets: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.password_resets: ~1 rows (approximately)
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 	('thanhpv.tvh', '$2y$10$GeJq5nbaNzdeY8UqlCnDIOIh6uSHYw5iZcRhpKuPxDrBtqBT4qAG.', '2019-06-20 02:17:07');
@@ -417,27 +442,46 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 -- Dumping structure for table vnptpayc.payc
 CREATE TABLE IF NOT EXISTS `payc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user_tao` int(11) unsigned NOT NULL,
-  `id_dich_vu` int(11) NOT NULL,
+  `id_user_tao` int(10) unsigned NOT NULL,
+  `id_dich_vu` int(11) DEFAULT NULL,
   `tieu_de` varchar(200) DEFAULT NULL,
-  `noi_dung` longtext,
-  `file_payc` text,
-  `ngay_tao` datetime DEFAULT NULL,
+  `noi_dung` longtext DEFAULT NULL,
+  `file_payc` text DEFAULT NULL,
+  `ngay_tao` datetime DEFAULT current_timestamp(),
   `han_xu_ly_mong_muon` datetime DEFAULT NULL,
   `han_xu_ly_duoc_giao` datetime DEFAULT NULL,
   `ngay_hoan_tat` datetime DEFAULT NULL,
-  `trang_thai` int(11) DEFAULT NULL,
+  `trang_thai` int(11) DEFAULT 0 COMMENT '0: Mới tạo; 1: tiếp nhận; 2: đang xử lý; 3: đã hoàn tất',
   PRIMARY KEY (`id`),
   KEY `FK_payc_users` (`id_user_tao`),
   KEY `FK_payc_dich_vu` (`id_dich_vu`),
   CONSTRAINT `FK_payc_dich_vu` FOREIGN KEY (`id_dich_vu`) REFERENCES `dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_users` FOREIGN KEY (`id_user_tao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.payc: ~20 rows (approximately)
 /*!40000 ALTER TABLE `payc` DISABLE KEYS */;
 INSERT INTO `payc` (`id`, `id_user_tao`, `id_dich_vu`, `tieu_de`, `noi_dung`, `file_payc`, `ngay_tao`, `han_xu_ly_mong_muon`, `han_xu_ly_duoc_giao`, `ngay_hoan_tat`, `trang_thai`) VALUES
-	(1, 1, 1, NULL, NULL, NULL, '2020-02-04 10:00:00', NULL, NULL, NULL, NULL);
+	(1, 1, 1, NULL, NULL, NULL, '2020-02-04 17:00:00', NULL, NULL, NULL, NULL),
+	(2, 2, NULL, NULL, NULL, NULL, '2021-02-11 04:49:17', '2021-10-02 17:00:00', NULL, NULL, 0),
+	(3, 2, NULL, NULL, NULL, NULL, '2021-02-11 04:50:38', '2021-12-13 13:01:00', NULL, NULL, 0),
+	(4, 2, NULL, NULL, NULL, NULL, '2021-02-11 04:50:59', '2021-12-13 13:01:00', NULL, NULL, 0),
+	(5, 2, NULL, NULL, NULL, NULL, '2021-02-11 04:52:25', '2021-10-13 17:00:00', NULL, NULL, 0),
+	(6, 1, NULL, NULL, NULL, NULL, '2021-02-11 05:37:27', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(7, 1, 1, 'kkk', 'kkkk', '', '2021-02-11 05:41:05', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(8, 1, NULL, NULL, 'g', '16129973730.jpg;16129973741.xls;16129973742.docx;', '2021-02-11 05:49:34', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(9, 1, NULL, NULL, 'sds', '16129992160.jpg;16129992161.xls;16129992162.docx;', '2021-02-11 06:20:16', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(10, 1, NULL, NULL, NULL, 'co-bac-bip.jpg_16129994230.jpg;lech_thuoc_luong_hoa.xls_16129994231.xls;test.docx_16129994232.docx;', '2021-02-11 06:23:43', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(11, 1, NULL, NULL, NULL, 'co-bac-bip_16129996110.jpg;lech_thuoc_luong_hoa_16129996111.xls;test_16129996112.docx;', '2021-02-11 06:26:51', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(12, 1, NULL, NULL, 'fsdfa', 'co-bac-bip - Copy_16130001070.jpg;lech_thuoc_luong_hoa - Copy_16130001071.xls;lech_thuoc_luong_hoa_16130001072.xls;test_16130001073.docx;', '2021-02-11 06:35:07', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(13, 1, NULL, NULL, 'ẹkfjds', 'co-bac-bip_16130002040.jpg;lech_thuoc_luong_hoa - Copy_16130002041.xls;lech_thuoc_luong_hoa_16130002042.xls;test_16130002043.docx;', '2021-02-11 06:36:44', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(14, 1, NULL, 'test', 'test', 'co-bac-bip_16130218560.jpg;lech_thuoc_luong_hoa - Copy_16130218561.xls;te.st_16130218562.docx;', '2021-02-11 12:37:36', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(15, 1, NULL, NULL, 'test', 'co-bac-bip_16130221120.jpg;lech_thuoc_luong_h.oa_16130221121.xls;lech_thuoc_luong_hoa - Copy_16130221122.xls;te.st_16130221123.docx;', '2021-02-11 12:41:52', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(16, 1, NULL, NULL, 'test', 'co-bac-bip_16130221200.jpg;lech_thuoc_luong_h.oa_16130221201.xls;lech_thuoc_luong_hoa - Copy_16130221202.xls;te.st_16130221203.docx;', '2021-02-11 12:42:00', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(17, 1, NULL, NULL, 'test', 'co-bac-bip_16130222210.jpg;lech_thuoc_luong_h.oa_16130222211.xls;lech_thuoc_luong_hoa - Copy_16130222212.xls;te.st_16130222213.docx;', '2021-02-11 12:43:41', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(18, 1, NULL, 'test', 'test', 'co-bac-bip - Copy_16130222930.jpg;', '2021-02-11 12:44:53', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(19, 1, NULL, NULL, 'test fsdfasdfa fsdfasdfdfasdf', 'co-bac-bip_16130224950.jpg;lech_thuoc_luong_hoa - Copy_16130224951.xls;te.st_16130224952.docx;', '2021-02-11 12:48:15', '2021-02-11 17:00:00', NULL, NULL, 0),
+	(20, 1, NULL, NULL, '<p><b>fdsadfa</b></p><p><b style="background-color: rgb(255, 255, 0);">fsdte sdfasdfas</b></p><ul><li><b style="background-color: rgb(255, 255, 0);">dfasdf</b></li><li><b style="background-color: rgb(255, 255, 0);">sfsa</b></li></ul>', 'co-bac-bip_16130225590.jpg;lech_thuoc_luong_h.oa_16130225591.xls;lech_thuoc_luong_hoa - Copy_16130225592.xls;te.st_16130225603.docx;', '2021-02-11 12:49:20', '2021-02-11 17:00:00', NULL, NULL, 0);
 /*!40000 ALTER TABLE `payc` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.payc_canbo_xuly_yeucau
@@ -446,10 +490,10 @@ CREATE TABLE IF NOT EXISTS `payc_canbo_xuly_yeucau` (
   `id_payc` int(11) NOT NULL,
   `id_user_xu_ly` int(11) NOT NULL,
   `id_xu_ly` int(11) NOT NULL,
-  `noi_dung_xu_ly` longtext,
-  `file_xu_ly` text,
-  `ngay_xu_ly` datetime DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT '1',
+  `noi_dung_xu_ly` longtext DEFAULT NULL,
+  `file_xu_ly` text DEFAULT NULL,
+  `ngay_xu_ly` datetime DEFAULT current_timestamp(),
+  `state` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -466,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `payc_xu_ly` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ten_xu_ly` varchar(200) DEFAULT NULL,
   `mo_ta` varchar(250) DEFAULT NULL,
-  `trang_thai` int(11) NOT NULL DEFAULT '1',
+  `trang_thai` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
@@ -494,20 +538,20 @@ INSERT INTO `payc_xu_ly` (`id`, `ten_xu_ly`, `mo_ta`, `trang_thai`) VALUES
 CREATE TABLE IF NOT EXISTS `to_do` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(10) unsigned NOT NULL,
-  `noi_dung` longtext COLLATE utf8_unicode_ci,
-  `file` longtext COLLATE utf8_unicode_ci,
+  `noi_dung` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
+  `file` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   `ngay_tao` datetime DEFAULT NULL,
   `ngay_giao` datetime DEFAULT NULL,
   `han_xu_ly` datetime DEFAULT NULL,
   `ngay_hoan_thanh` datetime DEFAULT NULL,
-  `sap_xep` int(11) NOT NULL DEFAULT '0',
-  `trang_thai` int(11) NOT NULL DEFAULT '0',
+  `sap_xep` int(11) NOT NULL DEFAULT 0,
+  `trang_thai` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `FK_to_do_users` (`id_user`),
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.to_do: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.to_do: ~1 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
 INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
 	(1, 2, 'test2', NULL, '2021-02-04 14:43:11', '2021-02-04 14:43:11', '2021-02-04 10:00:01', NULL, 0, 0);
@@ -515,16 +559,16 @@ INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao
 
 -- Dumping structure for table vnptpayc.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hinh_anh` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '/user.png',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `di_dong` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` int(11) DEFAULT '1',
+  `state` int(11) DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -533,19 +577,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_token`, `created_at`, `updated_at`, `di_dong`, `state`) VALUES
 	(1, 'guest@gmail.com', 'guest', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', '35xOWSUdceM6lRhePiHS9Y3xwvvLupgJWeYIzh2FMjMl22RuUJURMmX7oElG', NULL, '2019-08-19 14:44:56', '0941138484', 1),
-	(2, 'admin@gmail.com', 'admin', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', 'VeIfzdiQRnJJ9oQkrQWufa1Xigg6ogkis3tJXMTxiH5cWbXrzaz2soMCnfTk', NULL, '2019-08-19 14:44:56', '0941138484', 1);
+	(2, 'admin@gmail.com', 'admin', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', 'oVDGK7bYHuVxkqS2Tr9htsF0N5RkmXAV3W0KlXYDeopVIdSzow98l3mcZaR9', NULL, '2021-02-11 12:11:27', '0941138484', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_don_vi
 CREATE TABLE IF NOT EXISTS `users_don_vi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_don_vi` int(11) unsigned NOT NULL,
-  `id_users` int(11) unsigned NOT NULL,
-  `id_chuc_danh` int(11) unsigned NOT NULL DEFAULT '1',
-  `id_chuc_vu` int(11) unsigned NOT NULL,
-  `ngay_bat_dau_cong_tac` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_don_vi` int(10) unsigned NOT NULL,
+  `id_users` int(10) unsigned NOT NULL,
+  `id_chuc_danh` int(10) unsigned NOT NULL DEFAULT 1,
+  `id_chuc_vu` int(10) unsigned NOT NULL,
+  `ngay_bat_dau_cong_tac` datetime NOT NULL DEFAULT current_timestamp(),
   `ngay_ket_thuc_cong_tac` datetime DEFAULT NULL,
-  `state` int(11) unsigned NOT NULL DEFAULT '1',
+  `state` int(10) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `FK_users_don_vi_users` (`id_users`),
   KEY `FK_users_don_vi_don_vi` (`id_don_vi`),
