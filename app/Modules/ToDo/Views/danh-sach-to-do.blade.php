@@ -1,65 +1,57 @@
-<table id="order-listing" class="table table-hover">
-    <thead>
-        <tr class="background-vnpt">
-            <th>STT #</th>
-            <th>Nội dung</th>
-            <th>Ngày tạo</th>
-            <th>Ngày giao</th>
-            <th>Hạn xử lý</th>
-            <th>Trạng thái</th>
-            <th>Xử lý</th>
-        </tr>
-    </thead>
-    <tbody>                       
-                     
-        <?php 
-            $stt=0;
-        ?>
-        @foreach($toDos as $toDo)
-            <?php $stt++; ?>
-            <tr class="tr-hover">
-                <td class="text-center">{{$stt}}</td>
-                <td class='text-primary'>
-                    {{$toDo['noi_dung']}}
-                </td>
-                <td>
-                    {{$toDo['ngay_tao']}}
-                </td>
-                <td>
-                    {{$toDo['ngay_giao']}}
-                </td>
-                <td>                    
-                    {{$toDo['han_xu_ly']}}
-                </td>
-                <td>
-                    <label class=" @if($toDo['trang_thai']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($toDo['trang_thai']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
-                </td>
-                <td>
-                    <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
-                        <i class="icon-list"></i>                          
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <a class="dropdown-item preview-item">
-                                <p class="mb-0 font-weight-normal float-left text-primary btn-sua" data="{{$toDo['id']}}"><b><i class="icon-wrench"></i> Sửa</b>
-                                </p>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <p class="mb-0 font-weight-normal float-left text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="icon-basket "></i> Xóa</b>
-                                </p>
-                            </a>                                 
-                        </div>
-                    </button>
-                </td>
-            </tr>
-        @endforeach    
-    </tbody>
-</table>             
+@INCLUDE('layouts.js')
+<div class="col-12"> 
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card px-3">
+                <div class="card-body" id='xu-ly-to-do' style="padding: 0px">
+                    {{ csrf_field() }}
+                </div>
+                <div class="list-wrapper">
+                    <ul class="d-flex flex-column-reverse todo-list">
+                        @foreach($toDos as $toDo)
+                        <li draggable="true" @if($toDo['trang_thai']==1) class="draggable completed" @else class="draggable" @endif>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['trang_thai']==1) checked="checked" @endif>
+                                    {{$toDo['noi_dung']}}
+                                </label>               
+                            </div>
+                            <div style="padding-left: 20px">
+                                <small class="text-muted">Ngày tạo: {{$toDo['ngay_tao']}}<br>HXL: {{$toDo['han_xu_ly']}}</small>
+                            </div>
+                            <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
+                            <i class="remove"></i>
+                            <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
+                                <i class="icon-list"></i>                          
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                    <a class="dropdown-item preview-item">
+                                        <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b><i class="icon-wrench"></i> Sửa</b>
+                                        </p>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item preview-item">
+                                        <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="icon-basket "></i> Xóa</b>
+                                        </p>
+                                    </a>                                 
+                                </div>
+                            </button>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
 
 <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="modal-cap-nhat" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
            <div class="modal-header background-vnpt">
-              <h5 class="modal-title">SỬA ĐƠN VỊ</h5>
+              <h5 class="modal-title">SỬA TO DO</h5>
               {{ csrf_field() }}
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -77,10 +69,6 @@
         </div>
      </div>
 </div>
-
-
-
-
 <script type="text/javascript">
     jQuery(document).ready(function() {
         $.fn.dataTable.ext.errMode = 'none';
@@ -121,6 +109,25 @@
             }
         });
         
+        $('.checkbox').click(function() {
+            var _token=jQuery('#xu-ly-to-do').find("input[name='_token']").val();
+            if ($(this).is(':checked')) {
+                var id = $(this).attr("data-id");
+                $.post('{{route('check-to-do')}}',
+                {
+                    "_token":_token,
+                    id:id
+                });
+            }
+            else{
+                var id = $(this).attr("data-id");
+                $.post('{{route('uncheck-to-do')}}',
+                {
+                    "_token":_token,
+                    id:id
+                });
+            }
+        });
     });
 </script>
 
