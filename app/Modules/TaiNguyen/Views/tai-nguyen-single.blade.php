@@ -81,7 +81,8 @@
             </div>
          </div>
 @else
-    <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
+  {{ csrf_field() }}
+  <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif
 
 

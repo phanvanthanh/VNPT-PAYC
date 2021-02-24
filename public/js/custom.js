@@ -26,7 +26,6 @@
             errorLoader(".error-mode","");
             $(className).empty();
             jQuery(className).html(data.html);
-
           },
       });
   }
@@ -96,10 +95,10 @@
             $(className).empty();
             if(data.error==""){
               jQuery(className).html(data.html);
-
               errorLoader(".error-mode","");
             }else{
               errorLoader(".error-mode",data.error);
+              jQuery(className).html(data.html);
             }
             
           },
@@ -279,6 +278,37 @@
           if(data.error==""){
             errorLoader(".error-mode","");
             jQuery('.btn-them-moi').attr("disabled",false);            
+          }else{
+            errorLoader(".error-mode",data.error);
+          }
+            
+        },
+    });
+  }
+
+  xuLy=function(frmName, url, urlRefreshData){
+    loading('.error-mode');
+    jQuery('.btn-tiep-nhan-va-chuyen-xu-ly-2').attr("disabled",true);
+    var formData = new FormData(frmName[0]);
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        error:function(){   
+          jQuery('.btn-tiep-nhan-va-chuyen-xu-ly-2').attr("disabled",false);
+          errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+        },
+        success:function(data){
+          if(data.error==""){
+            errorLoader(".error-mode","");
+            jQuery('.btn-tiep-nhan-va-chuyen-xu-ly-2').attr("disabled",false);
+            if(urlRefreshData){
+              window.location.href =urlRefreshData;
+            }else{
+              location.reload();
+            }
           }else{
             errorLoader(".error-mode",data.error);
           }

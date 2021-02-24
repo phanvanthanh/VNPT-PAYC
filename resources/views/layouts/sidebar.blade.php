@@ -85,7 +85,8 @@
                                     <!-- Chạy lại dòng forearch để lấy ra những phần tử con -->
                                     @foreach($resources as $resourceChild)
                                        @if($resourceChild['parent_id']==$resource['id'])
-                                       <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}</a></li>
+                                       <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
+                                       </a></li>
                                        @endif
                                     @endforeach                                 
                                  </ul>

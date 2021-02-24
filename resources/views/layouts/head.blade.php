@@ -50,6 +50,7 @@
       <!-- End font Asomeware -->
       <!-- inject:css -->
       <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+      <link rel="stylesheet" href="{{ asset('public/css/tree.css') }}">
       <link rel="stylesheet" href="{{ asset('public/css/loading-style.css') }}">
       <!-- endinject -->
       <link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}">

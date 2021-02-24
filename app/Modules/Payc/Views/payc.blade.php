@@ -78,11 +78,10 @@
 				    	  	<small class="form-text text-muted"><b>* Dịch vụ</b></small>
 				    	  	<!-- <label for="id_dich_vu" class="text-title-input-size">* Dịch vụ</label> -->
 					          <select class="form-control" id="id_dich_vu" name="id_dich_vu" aria-describedby="dich_vu_helper">
-				                              <option value="">Chọn dịch vụ(phần mềm) cần hỗ trợ</option>
-				                              <option value="1">VNPT HIS</option>
-				                              <option value="2">VNPT IGATE</option>
-				                              <option value="3">VNPT IOFFICE</option>
-				                            </select>
+					          		@foreach($dichVus as $dichVu)
+				                              <option value="{{$dichVu['id']}}">{{$dichVu['ten_dich_vu']}}</option>
+				                    @endforeach
+				                </select>
 				    		  <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small>
 				    	  </div>
 		    		  </div>

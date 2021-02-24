@@ -14610,7 +14610,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  opacity: .5;
+  opacity: 1.5;
 }
 
 .close:hover {
@@ -14619,7 +14619,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 
 .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
-  opacity: .75;
+  opacity: 1.75;
 }
 
 button.close {
@@ -24341,7 +24341,8 @@ dl li {
 .modal .modal-dialog .modal-content .modal-header .close span {
   font-size: 20px;
   font-weight: 400;
-  color: #6a6a6a;
+  /*color: #6a6a6a;*/
+  color: white !important;
 }
 
 /*.modal .modal-dialog .modal-content .modal-body {
@@ -29773,4 +29774,16 @@ input.form-control, select.form-control{
 
 .cusor{
   cursor: pointer;
+}
+
+a.a-file{
+  color: #1f7ed0;
+}
+
+.float-right{
+  min-height: 62.8px;
+}
+
+.nowrap{
+  white-space: nowrap;
 }

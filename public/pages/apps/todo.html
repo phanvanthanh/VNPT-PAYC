@@ -727,7 +727,7 @@
 										<button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
 									</div>
 									<div class="list-wrapper">
-										<ul class="d-flex flex-column-reverse todo-list">
+										<ul class="d-flex flex-column-reverse todo-list moveable" id="items-list">
 											<li>
 												<div class="form-check">
 													<label class="form-check-label">
@@ -780,7 +780,8 @@
 														Pick up kids from school
 													</label>
 												</div>
-												<i class="remove mdi mdi-close-circle-outline"></i>
+												<i class="remove mdi mdi-close-circle-outline"></i> &nbsp;
+                        <i class="icon-people text-primary"></i>
 											</li>
 										</ul>
 									</div>
@@ -821,6 +822,49 @@
   <!-- Custom js for this page-->
   <script src="..\..\js\calendar.js"></script>
   <!-- End custom js for this page-->
+
+  <script type="text/javascript">
+    let items = document.querySelectorAll('#items-list > li')
+
+items.forEach(item => {
+  $(item).prop('draggable', true)
+  item.addEventListener('dragstart', dragStart)
+  item.addEventListener('drop', dropped)
+  item.addEventListener('dragenter', cancelDefault)
+  item.addEventListener('dragover', cancelDefault)
+})
+
+function dragStart (e) {
+  var index = $(e.target).index()
+  e.dataTransfer.setData('text/plain', index)
+}
+
+function dropped (e) {
+  cancelDefault(e)
+  
+  // get new and old index
+  let oldIndex = e.dataTransfer.getData('text/plain')
+  let target = $(e.target)
+  let newIndex = target.index()
+  
+  // remove dropped items at old place
+  let dropped = $(this).parent().children().eq(oldIndex).remove()
+
+  // insert the dropped items at new place
+  if (newIndex < oldIndex) {
+    target.before(dropped)
+  } else {
+    target.after(dropped)
+  }
+}
+
+function cancelDefault (e) {
+  e.preventDefault()
+  e.stopPropagation()
+  return false
+}
+
+  </script>
 </body>
 
 </html>

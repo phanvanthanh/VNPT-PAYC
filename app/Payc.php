@@ -25,14 +25,19 @@ class Payc extends Authenticatable
 
     public static function getDanhSachPaycChoTiepNhan($userId){
         $data=array();
-        $data=DB::select('select cbxl.id,p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat,
-            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, usdv.id_dich_vu, dv.ten_dich_vu
+        $data=DB::select('select cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat,
+            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, usdv.id_dich_vu, dv.ten_dich_vu, p.so_phieu
             from payc as p
             left join payc_canbo_xuly_yeucau as cbxl on p.id=cbxl.id_payc
             left join users_dich_vu as usdv on p.id_dich_vu=usdv.id_dich_vu
             left join dich_vu as dv on usdv.id_dich_vu=dv.id
-            where cbxl.id=(select max(cbxl2.id) as id from payc_canbo_xuly_yeucau cbxl2 where cbxl2.id_payc=cbxl.id_payc)
-            and cbxl.id_xu_ly=1 and usdv.id_user='.$userId);
+            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
+            where cbxl.id=(
+                select max(cbxl2.id) as id from payc_canbo_xuly_yeucau cbxl2 
+                left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
+                where cbxl2.id_payc=cbxl.id_payc and cbxl2.id_xu_ly and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+            )
+            and ttxl.ma_trang_thai="TAO_MOI" and usdv.id_user='.$userId);
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
 

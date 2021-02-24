@@ -54,7 +54,7 @@
 						                <td>
 						                    Đã chuyển xử lý
 						                </td>
-						                <td class="text-center">
+						                <td class="text-center cusor qtxl" value="{{$payc['id_payc']}}" data-toggle="modal" data-target="#modal-qtxl">
 						                    <i class="fa fa-sitemap text-primary"></i>
 						                </td>
 						            </tr>

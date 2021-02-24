@@ -18,9 +18,6 @@
                         <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-cap-nhat-dich-vu"><i class="fa fa-pencil"></i> Cập nhật</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt" data-toggle="modal" data-target="#modal-cap-nhat-dich-vu-va-chuyen-xu-ly"><i class="fa fa-sign-out"></i> Cập nhật & chuyển xử lý</button>
-                    </div>
-                    <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
                     </div>
                     <div class="btn-group mr-2">
@@ -50,7 +47,7 @@
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
 						            <tr class="tr-hover">
-						            	<th class="text-center check-one-checkbox" scope="row"><input type="checkbox" name="id[]" class="id" value="{{$payc['id']}}"></th>
+						            	<th class="text-center check-one-id-payc" scope="row"><input type="checkbox" name="id[]" class="id" value="{{$payc['id']}}"></th>
 						                <th class="text-center" scope="row">{{$stt}}</th>						                
 						                <td class="noi_dung" value="{{$payc['id']}}">
 						                    <b><?php echo $payc['tieu_de']; ?></b><br>
