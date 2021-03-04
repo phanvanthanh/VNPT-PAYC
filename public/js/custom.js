@@ -314,6 +314,43 @@
           }
             
         },
-    });
+    });   
+  }
+
+
+  /*
+  * _token là token của laravel
+  * id là id của dữ liệu cần get
+  * url để load dữ liệu
+  * className là tên class chứa table dữ liệu sau khi load thành công
+  */
+  chuyenKHDanhGia=function(_token, id, url){
+    loading('.error-mode');
+    var xhr1;
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
+          url:url,
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          error:function(){
+            errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+          },
+          success:function(data){
+            if(data.error==""){
+              errorLoader(".error-mode","");
+              location.reload();
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+            
+          },
+      });
   }
 })(jQuery);

@@ -168,6 +168,7 @@ class Helper
         foreach ($files as $key => $file) {
             $fileName=pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().$key.'.'.$file->getClientOriginalExtension();
             $fileNameSave.=str_replace(' ','',$fileName.';');
+            $fileName=str_replace(' ','',$fileName);
             $path = $file->storeAs(Helper::$pathFile, $fileName);
         }
         return $fileNameSave;

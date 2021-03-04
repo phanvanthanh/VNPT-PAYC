@@ -1,0 +1,2 @@
+1. Chỉnh sửa lại chỗ show users trong modal theo chức vụ
+2. Chỉnh sửa chỗ danh sách chức năng và phân quyền cho phép phân quyền 3 cấp

@@ -32,6 +32,43 @@ Route::group(
             'uses' => 'PaycController@tiepNhanVaChuyenXuLy'
         ]);
 
+        Route::get('danh-sach-payc-cho-xu-ly', [
+            'as' => 'danh-sach-payc-cho-xu-ly',
+            'uses' => 'PaycController@danhSachPaycChoXuLy'
+        ]);
+
+        Route::post('frm-xu-ly', [
+            'as' => 'frm-xu-ly',
+            'uses' => 'PaycController@frmXuLy'
+        ]);
+        Route::post('xu-ly', [
+            'as' => 'xu-ly',
+            'uses' => 'PaycController@xuLy'
+        ]);
+
+        Route::get('danh-sach-payc-cho-duyet', [
+            'as' => 'danh-sach-payc-cho-duyet',
+            'uses' => 'PaycController@danhSachPaycChoDuyet'
+        ]);
+        Route::post('frm-duyet', [
+            'as' => 'frm-duyet',
+            'uses' => 'PaycController@frmDuyet'
+        ]);
+        Route::post('duyet', [
+            'as' => 'duyet',
+            'uses' => 'PaycController@duyet'
+        ]);
+
+
+        Route::post('frm-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc', [
+            'as' => 'frm-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc',
+            'uses' => 'PaycController@frmChuyenBoPhanTiepNhanVaXuLyPayc'
+        ]);
+        Route::post('chuyen-bo-phan-tiep-nhan-va-xu-ly-payc', [
+            'as' => 'chuyen-bo-phan-tiep-nhan-va-xu-ly-payc',
+            'uses' => 'PaycController@chuyenBoPhanTiepNhanVaXuLyPayc'
+        ]);
+
         Route::post('frm-chuyen-lanh-dao', [
             'as' => 'frm-chuyen-lanh-dao',
             'uses' => 'PaycController@frmChuyenLanhDao'
@@ -78,98 +115,24 @@ Route::group(
             'uses' => 'PaycController@capNhatPayc'
         ]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        Route::get('danh-sach-payc-da-tiep-nhan', [
-            'as' => 'danh-sach-payc-da-tiep-nhan',
-            'uses' => 'PaycController@danhSachPaycDaTiepNhan'
-        ]);
-
         Route::get('danh-sach-payc-da-hoan-tat', [
             'as' => 'danh-sach-payc-da-hoan-tat',
             'uses' => 'PaycController@danhSachPaycDaHoanTat'
         ]);
 
-        Route::get('danh-sach-payc-da-chuyen-xu-ly', [
-            'as' => 'danh-sach-payc-da-chuyen-xu-ly',
-            'uses' => 'PaycController@danhSachPaycDaChuyenXuLy'
+        Route::post('chuyen-kh-danh-gia', [
+            'as' => 'chuyen-kh-danh-gia',
+            'uses' => 'PaycController@chuyenKHDanhGia'
+        ]);
+
+        Route::post('danh-gia', [
+            'as' => 'danh-gia',
+            'uses' => 'PaycController@danhGia'
         ]);
 
 
-        Route::get('danh-sach-payc-dang-xu-ly', [
-            'as' => 'danh-sach-payc-dang-xu-ly',
-            'uses' => 'PaycController@danhSachPaycDangXuLy'
-        ]);
+        
 
-        Route::get('danh-sach-payc-da-chuyen-lanh-dao-duyet', [
-            'as' => 'danh-sach-payc-da-chuyen-lanh-dao-duyet',
-            'uses' => 'PaycController@danhSachPaycDaChuyenLanhDaoDuyet'
-        ]);
-
-        Route::get('danh-sach-payc-da-chuyen-lanh-dao-khac-duyet', [
-            'as' => 'danh-sach-payc-da-chuyen-lanh-dao-khac-duyet',
-            'uses' => 'PaycController@danhSachPaycDaChuyenLanhDaoKhacDuyet'
-        ]);
-
-        Route::get('danh-sach-payc-cho-duyet', [
-            'as' => 'danh-sach-payc-cho-duyet',
-            'uses' => 'PaycController@danhSachPaycChoDuyet'
-        ]);
-
-        Route::get('danh-sach-payc-da-duyet', [
-            'as' => 'danh-sach-payc-da-duyet',
-            'uses' => 'PaycController@danhSachPaycDaDuyet'
-        ]);
-
-        Route::get('danh-sach-payc-tra-lai-buoc-tiep-nhan', [
-            'as' => 'danh-sach-payc-tra-lai-buoc-tiep-nhan',
-            'uses' => 'PaycController@danhSachPaycTraLaiBuocTiepNhan'
-        ]);
-
-
-        Route::get('danh-sach-payc-tra-lai-can-bo-xu-ly', [
-            'as' => 'danh-sach-payc-tra-lai-can-bo-xu-ly',
-            'uses' => 'PaycController@danhSachPaycTraLaiCanBoXuLy'
-        ]);
-
-
-        Route::get('danh-sach-payc-da-huy', [
-            'as' => 'danh-sach-payc-da-huy',
-            'uses' => 'PaycController@danhSachPaycDaHuy'
-        ]);
-
-
-        Route::get('danh-sach-payc-cho-khach-hang-danh-gia', [
-            'as' => 'danh-sach-payc-cho-khach-hang-danh-gia',
-            'uses' => 'PaycController@danhSachPaycChoKhachHangDanhGia'
-        ]);
-
-        Route::get('danh-sach-payc-cho-lanh-dao-danh-gia', [
-            'as' => 'danh-sach-payc-cho-lanh-dao-danh-gia',
-            'uses' => 'PaycController@danhSachPaycChoLanhDaoDanhGia'
-        ]);
-
-        Route::get('danh-sach-payc-cho-can-bo-danh-gia', [
-            'as' => 'danh-sach-payc-cho-can-bo-danh-gia',
-            'uses' => 'PaycController@danhSachPaycChoCanBoDanhGia'
-        ]);
-
-        Route::get('danh-sach-payc-cho-cap-nhat', [
-            'as' => 'danh-sach-payc-cho-cap-nhat',
-            'uses' => 'PaycController@danhSachPaycChoCapNhat'
-        ]);
 
         Route::post('qtxl', [
             'as' => 'qtxl',

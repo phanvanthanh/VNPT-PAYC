@@ -60,8 +60,9 @@
 						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
 						                <th class="text-center" scope="row">{{$payc['so_phieu']}}</th>						                
 						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
-						                    <b><?php echo $payc['tieu_de']; ?></b><br>
-						                    <?php echo $payc['noi_dung']; ?>
+						                <?php 
+						                	echo '<b>'.$payc['tieu_de'].'</b>';
+						                ?>
 						                </td>
 						                <td>
 						                <?php

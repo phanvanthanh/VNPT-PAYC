@@ -6,7 +6,7 @@
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">THÔNG TIN PHẢN ÁNH YÊU CẦU</h4>
+                    <h4 class="text-danger">YÊU CẦU</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -14,21 +14,34 @@
                 </div>
 	          	<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi">
                     {{ csrf_field() }}
-                    <h5 class="text-primary">1. Thông tin bắt buộc phải nhập <b class="text-danger">(*)</b></h5>
-			          <small class="form-text text-muted"><b class="text-danger">*</b> <b>Mô tả</b></small>
-			          <!-- <label for="summernote_mo_ta" class="text-title-input-size"><b class="text-danger">*</b> Mô tả</label> -->
-			          <div id="summernote_mo_ta" class="summernote"></div>
-			          <textarea class="form-control" id="noi_dung" name="noi_dung" rows="3" hidden="true"></textarea>
+                    <div class="row">
+                    	<div class="col-8">
+	                    	<h5 class="text-primary">1. Thông tin bắt buộc phải nhập <b class="text-danger">(*)</b></h5>
+	                    </div>
+	                    <div class="col-4 text-right">
+	                    	<div class="icheck-square">
+		                        <input name="is_an_danh" type="checkbox" id="is_an_danh" value="1">
+		                        <label for="is_an_danh">Phản ánh ẩn danh</label>
+		                    </div>
+	                    </div>
+                    </div>
+	                    
+                    
+	                    <small class="form-text text-muted"><b><b class="text-danger">* Tiêu đề</small>
+		          		<!-- <label for="tieu_de" class="text-title-input-size">* Tiêu đề</label> -->
+		          		<input type="Text" class="form-control" name="tieu_de" id="tieu_de" placeholder="Tiêu đề là thông tin rút gọn của nội dung yêu cầu." required="required">
+		          		<small class="form-text text-muted"> <div class="error error-tieu-de"></div></small>
+			          
 
 			          
 			          <h5 class="text-primary">2. Thông tin không bắt buộc</h5>
 			          <div class="row">
-			          	<div class="col-6">
-			          		<small class="form-text text-muted"><b>* Tiêu đề</b></small>
-			          		<!-- <label for="tieu_de" class="text-title-input-size">* Tiêu đề</label> -->
-			          		<input type="Text" class="form-control" name="tieu_de" id="tieu_de" placeholder="Tiêu đề là thông tin rút gọn của nội dung yêu cầu.">
+			          	<div class="col-12">
+			          		<small class="form-text text-muted">* <b>Mô tả</b></small>
+				          	<div id="summernote_mo_ta" class="summernote"></div>
+				          	<textarea class="form-control" id="noi_dung" name="noi_dung" rows="3" hidden="true"></textarea>
 			          	</div>
-			          	<div class="col-6">
+			          	<div class="col-12">
 			          		<small class="form-text text-muted"><b>* Upload file</b></small>
 			          		<!-- <label for="tieu_de" class="text-title-input-size">* Upload file</label> -->			          
 				            <div class="input-group col-xs-12">
@@ -47,7 +60,7 @@
 			          
 		    		  
 		    		  <div class="row">
-		    		  	<div class="col-6">
+		    		  	<div class="col-12">
 		    		  		<div class="row">
 		    		  			<div class="col-8">
 		    		  				<small class="form-text text-muted"><b>* Hạn xử lý</b></small>
@@ -58,7 +71,7 @@
 				                          <span class="mdi mdi-calendar"></span>
 				                        </div>
 				                      </div>
-				                      <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small>
+				                      <!-- <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small> -->
 		    		  			</div>
 		    		  			<div class="col-4">
 		    		  				<small class="form-text text-muted"><b>* Giờ</b></small>
@@ -69,12 +82,12 @@
 				                          <i class="mdi mdi-clock"></i>
 				                        </span>
 				                    </div>
-				                    <small id="gio_helper" class="form-text text-muted">Giờ mong muốn</small>
+				                    <!-- <small id="gio_helper" class="form-text text-muted">Giờ mong muốn</small> -->
 		    		  			</div>
 		    		  		</div>
 				    		  
 			    		  </div>
-				    	  <div class="col-6">
+				    	  <div class="col-12">
 				    	  	<small class="form-text text-muted"><b>* Dịch vụ</b></small>
 				    	  	<!-- <label for="id_dich_vu" class="text-title-input-size">* Dịch vụ</label> -->
 					          <select class="form-control" id="id_dich_vu" name="id_dich_vu" aria-describedby="dich_vu_helper">
@@ -82,7 +95,7 @@
 				                              <option value="{{$dichVu['id']}}">{{$dichVu['ten_dich_vu']}}</option>
 				                    @endforeach
 				                </select>
-				    		  <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small>
+				    		  <!-- <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small> -->
 				    	  </div>
 		    		  </div>
                 </form>
@@ -104,6 +117,11 @@
 	  var _token=jQuery('form[name="frm-them-moi"]').find("input[name='_token']").val();
 
 	  $('.btn-them-moi').on('click',function(){
+	  	jQuery('.error-tieu-de').text("");
+	  	if(!jQuery('#tieu_de').val()){
+	  		jQuery('.error-tieu-de').text("Tiêu đề không được để trống");
+	  		return false;
+	  	}
 	  	var moTa=jQuery('.note-editable').html();
 	  	jQuery('#noi_dung').val(moTa);
 	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('them-payc') }}");

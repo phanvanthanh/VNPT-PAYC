@@ -38,7 +38,6 @@
 						                <th class="text-center" scope="row">{{$stt}}</th>
 						                <td>
 						                    <b><?php echo $payc['tieu_de']; ?></b><br>
-						                    <?php echo $payc['noi_dung']; ?>
 						                </td>
 						                <td>
 						                <?php
@@ -51,10 +50,7 @@
 						                <td>
 						                	{{$payc['ngay_tao']}}
 						                </td>
-						                <td><?php
-						                    $trangThai=\Helper::getTrangThaiPaycKhachHangById($payc['id']);
-						                    echo $trangThai;
-						                ?>
+						                <td>
 						                </td>
 						                <td class="text-center">
 						                    <i class="fa fa-sitemap text-primary"></i>

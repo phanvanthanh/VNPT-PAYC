@@ -12,18 +12,25 @@
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
                     </div>
-                </div>	          	
+                </div>	  
+                <div class="text-right">
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-vnpt btn-kh-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star"></i> Khách hàng đánh giá</button>
+                    </div>                    
+                </div>        	
     		  	
     		  	<div class="row">
     		  		<div class="col-12">
     		  			<table id="order-listing" class="table table-hover table-striped">
 						    <thead>
 						        <tr class="text-center background-vnpt">
-						            <th scope="col" style="width: 10%;">STT #</th>
+						        	
+						        	<th scope="col" style="width: 2%;"><input type="checkbox" name="id_payc[]" class="id_payc"></th>
+						            <th scope="col" style="width: 8%;">Số phiếu</th>
 						            <th scope="col" style="width: 50%;">Nội dung</th>
 						            <th scope="col" style="width: 10%;">File</th>
+						            <th scope="col" style="width: 10%;">Dịch vụ</th>
 						            <th scope="col" style="width: 10%;">Ngày gửi</th>
-						            <th scope="col" style="width: 10%;">Trạng thái</th>
 						            <th scope="col" style="width: 10%;">QT xử lý</th>
 						        </tr>
 						    </thead>
@@ -35,34 +42,68 @@
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
 						            <tr class="tr-hover">
-						                <th class="text-center" scope="row">{{$stt}}</th>
-						                <td>
-						                    <b><?php echo $payc['tieu_de']; ?></b><br>
-						                    <?php echo $payc['noi_dung']; ?>
+						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
+						                <th class="text-center" scope="row">{{$payc['so_phieu']}}</th>						                
+						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
+						                <?php 
+						                	$trangThai='';
+						                	$style='text-default';
+						                	if($payc['ma_trang_thai']=="HOAN_TAT"){
+						                		$style='text-default';
+						                		$trangThai="";
+						                	}else{
+						                		if($payc['ma_trang_thai']=="KH_DANH_GIA" and $payc['state']==0){
+						                			$style='text-danger';
+							                		$trangThai="Chờ bạn đánh giá";
+						                		}
+						                		if($payc['state']==1 && $payc['ma_trang_thai']=="LD_DANH_GIA"){
+						                			$style='text-primary';
+							                		$trangThai="LĐ đánh giá";
+						                		}
+						                		if($payc['state']==1 && $payc['ma_trang_thai']=="KH_DANH_GIA"){
+						                			$style='text-primary';
+							                		$trangThai="Bạn đã đánh giá";
+						                		}
+							                	
+						                	}
+						                	if($payc['tieu_de']){
+						                    	echo '<b class="'.$style.'">'.$payc['tieu_de'].'</b>';
+						                	}
+							                	
+						                ?>
 						                </td>
 						                <td>
 						                <?php
 						                    $files=explode(';', $payc['file_payc']);
 						                    foreach ($files as $key => $file) {
-						                        echo '<div class="show-file">'.$file.'</div><br>';
+						                    	if($file){
+						                        	echo '<a href="/file/download/'.$file.'" class="a-file"><div class="show-file">'.$file.'</div></a><br>';
+						                        }
 						                    }
 						                ?>
 						                </td>
-						                <td>
-						                	{{$payc['ngay_tao']}}
+						                <td class="font-size-default">
+						                	{{$payc['ten_dich_vu']}}
 						                </td>
-						                <td><?php
-						                    $trangThai=\Helper::getTrangThaiPaycKhachHangById($payc['id']);
-						                    echo $trangThai;
-						                ?>
+						                <td class="font-size-default">
+						                	<span class="{{$style}}">{{$payc['ten_trang_thai_xu_ly']}}</span>
+						                	@if($payc['ngay_tao'])
+						                		<div class="text-default nowrap">{{$payc['ngay_tao']}}</div>
+						                	@endif
+						                	@if($payc['han_xu_ly_mong_muon'])
+						                		<div class="text-primary nowrap">{{$payc['han_xu_ly_mong_muon']}}</div>
+						                	@endif
+						                	@if($payc['han_xu_ly_duoc_giao'])
+						                		<div class="text-danger nowrap">{{$payc['han_xu_ly_duoc_giao']}}</div>
+						                	@endif
 						                </td>
-						                <td class="text-center">
+						                <td class="text-center cusor qtxl" value="{{$payc['id_payc']}}" data-toggle="modal" data-target="#modal-qtxl">
 						                    <i class="fa fa-sitemap text-primary"></i>
 						                </td>
 						            </tr>
 						        @endforeach    
 						    </tbody>
-						</table>     
+						</table>        
     		  		</div>
     		  </div>
 	        </div>

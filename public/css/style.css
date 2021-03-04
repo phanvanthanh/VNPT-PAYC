@@ -11679,7 +11679,7 @@ input[type="button"].btn-block {
   display: none;
   float: left;
   min-width: 10rem;
-  padding: 0.5rem 0;
+  /*padding: 0.5rem 0;*/
   margin: 0.125rem 0 0;
   font-size: 1rem;
   color: #212529;
@@ -11838,7 +11838,7 @@ input[type="button"].btn-block {
 
 .dropdown-divider {
   height: 0;
-  margin: 0.5rem 0;
+  /*margin: 0.5rem 0;*/
   overflow: hidden;
   border-top: 1px solid #f3f3f3;
 }
@@ -19516,9 +19516,12 @@ input:focus {
   color: #fff;
 }
 
+.sidebar-dark .sidebar .nav.sub-menu .nav-item .nav-link {
+  color: white;
+  /*color: #cecaca;*/
+}
 .sidebar-dark .sidebar .nav.sub-menu .nav-item .nav-link.active {
-  /*color: #8f8686;*/
-  color: #cecaca;
+  color: white;
 }
 
 .sidebar-dark .sidebar .nav.sub-menu .nav-item:hover > .nav-link {
@@ -29786,4 +29789,8 @@ a.a-file{
 
 .nowrap{
   white-space: nowrap;
+}
+
+.error{
+  color: #FF5733;
 }

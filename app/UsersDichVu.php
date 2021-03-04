@@ -41,9 +41,14 @@ class UsersDichVu extends Authenticatable
 
     public static function getUserDichVuByIdUser($idUser){
         $data=array();
-        $data=DB::select('select dv.id, dv.ten_dich_vu from users_dich_vu usdv
-            left join dich_vu dv on usdv.id_dich_vu=dv.id
-            where usdv.id_user='.$idUser);
+        if($idUser==1){
+            $data=DB::select('select dv.id, dv.ten_dich_vu from dich_vu dv');
+        }else{
+            $data=DB::select('select dv.id, dv.ten_dich_vu from users_dich_vu usdv
+                left join dich_vu dv on usdv.id_dich_vu=dv.id
+                where usdv.id_user='.$idUser);
+        }
+            
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
 

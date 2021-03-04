@@ -6,7 +6,7 @@
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC ĐÃ HOÀN TẤT</h4>
+                    <h4 class="text-danger">DANH SÁCH PAYC CHỜ XỬ LÝ</h4>
                     <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted"><!-- Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa được tiếp nhận, xử lý --></small>
                   </div>
                     <div class="col-6">
@@ -15,12 +15,23 @@
                 </div>
                 <div class="text-right">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-ld-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star"></i> Đánh giá</button>
+                        <button class="btn btn-sm btn-vnpt btn-xu-ly" data-toggle="modal" data-target="#modal-xu-ly"><i class="fa fa-mail-forward"></i> Xử lý</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-kh-danh-gia"><i class="fa fa-star-half-o"></i> Chuyển KH đánh giá</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển lãnh đạo</button>
                     </div>
-                    
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-vnpt btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-vnpt btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-danger btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
+                    </div>
                 </div>
     		  	
     		  	<div class="row">
@@ -50,30 +61,7 @@
 						                <th class="text-center" scope="row">{{$payc['so_phieu']}}</th>						                
 						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
 						                <?php 
-						                	$trangThai='';
-						                	$style='text-default';
-						                	if($payc['ma_trang_thai']=="HOAN_TAT"){
-						                		$style='text-default';
-						                		$trangThai="Chưa đánh giá";
-						                	}else{
-						                		if($payc['ma_trang_thai']=="KH_DANH_GIA" and $payc['state']==0){
-						                			$style='text-danger';
-							                		$trangThai="Chờ KH đánh giá";
-						                		}
-						                		if($payc['state']==1 && $payc['ma_trang_thai']=="LD_DANH_GIA"){
-						                			$style='text-primary';
-							                		$trangThai="LĐ đã đánh giá";
-						                		}
-						                		if($payc['state']==1 && $payc['ma_trang_thai']=="KH_DANH_GIA"){
-						                			$style='text-primary';
-							                		$trangThai="KH đã đánh giá";
-						                		}
-							                	
-						                	}
-						                	if($payc['tieu_de']){
-						                    	echo '<b class="'.$style.'">'.$payc['tieu_de'].'</b>';
-						                	}
-							                	
+						                	echo '<b>'.$payc['tieu_de'].'</b>';
 						                ?>
 						                </td>
 						                <td>
@@ -90,7 +78,6 @@
 						                	{{$payc['ten_dich_vu']}}
 						                </td>
 						                <td class="font-size-default">
-						                	<span class="{{$style}}">{{$payc['ten_trang_thai_xu_ly']}}</span>
 						                	@if($payc['ngay_tao'])
 						                		<div class="text-default nowrap">{{$payc['ngay_tao']}}</div>
 						                	@endif

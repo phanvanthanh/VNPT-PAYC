@@ -31,4 +31,24 @@ class PaycCanBoXuLuYeuCau extends Authenticatable
         return $data;
     }
 
+
+    public static function checkHoanTatById($id, $loaiDanhGia){
+        $data=array();
+        if($loaiDanhGia==1){
+            $data=PaycCanBoXuLuYeuCau::select('payc_canbo_xuly_yeucau.id')
+            ->leftJoin('payc_trang_thai_xu_ly','payc_canbo_xuly_yeucau.id_xu_ly','=','payc_trang_thai_xu_ly.id')
+            ->where('payc_trang_thai_xu_ly.ma_trang_thai','=','HOAN_TAT')
+            ->where('payc_canbo_xuly_yeucau.id_payc','=',$id)
+            ->get()->toArray();
+        }else{
+            $data=PaycCanBoXuLuYeuCau::select('payc_canbo_xuly_yeucau.id')
+            ->leftJoin('payc_trang_thai_xu_ly','payc_canbo_xuly_yeucau.id_xu_ly','=','payc_trang_thai_xu_ly.id')
+            ->where('payc_trang_thai_xu_ly.ma_trang_thai','=','KH_DANH_GIA')
+            ->where('payc_canbo_xuly_yeucau.state','=',0)
+            ->where('payc_canbo_xuly_yeucau.id_payc','=',$id)
+            ->get()->toArray();
+        }
+        return $data;
+    }
+
 }
