@@ -189,13 +189,18 @@
                 
         }); 
 
+
             jQuery('.check-id-payc').on('click', function(){
-              console.log("Vo 2");
-              if(jQuery(this).find('input:checkbox').is(":checked")){
-                jQuery(this).find('input:checkbox').prop('checked', false);
-              }else{
-                jQuery(this).find('input:checkbox').prop('checked', true);
-              }
+                if(jQuery(this).find('input:checkbox').is(":checked")){
+                  jQuery(this).find('input:checkbox').prop('checked', false);
+                }else{
+                  jQuery(this).find('input:checkbox').prop('checked', true);
+                }
+            });
+
+
+            jQuery("input[type='checkbox'].id_payc").on('click',function(){
+              jQuery(this).parent('.check-id-payc').click();
             });
 
             jQuery('.check-one-id-payc').on('click', function(){
@@ -207,9 +212,7 @@
               }
             });
 
-            jQuery("input[type='checkbox'].id_payc").on('click',function(){
-              console.log("Vo 1");
-            });
+            
 
 
         

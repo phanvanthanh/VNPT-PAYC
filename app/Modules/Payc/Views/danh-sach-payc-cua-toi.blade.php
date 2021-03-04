@@ -15,7 +15,7 @@
                 </div>	  
                 <div class="text-right">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-kh-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star"></i> Khách hàng đánh giá</button>
+                        <button class="btn btn-sm btn-vnpt btn-kh-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star-half-o"></i> Khách hàng đánh giá</button>
                     </div>                    
                 </div>        	
     		  	
