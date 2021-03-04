@@ -25,9 +25,9 @@
                             </div>
                             <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
                             <i class="remove"></i>
-                            <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="icon-wrench"></i></b>
+                            <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
                             </p>
-                            <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="icon-trash "></i></b>
+                            <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle"></i></b>
                             </p>
                         </li>
                         @endforeach             
