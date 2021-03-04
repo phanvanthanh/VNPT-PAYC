@@ -67,6 +67,9 @@
       <script type="text/javascript" src="{{ asset('public/js/tooltips.js') }}"></script>
       <script type="text/javascript" src="{{ asset('public/js/popover.js') }}"></script>
 
+     <!--  <script type="text/javascript" src="{{ asset('public/js/dragula.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('public/vendors/dragula/dragula.min.js') }}"></script> -->
+
       <script type="text/javascript">
          jQuery(document).ready(function(){
             $(".dropify").change(function() {
