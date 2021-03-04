@@ -140,12 +140,12 @@
 
 	  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 
+
 	  return false;
 	}
 
 	function handleDragEnter(e) {
-	     //console.log('handleDragEnter');
-	        e.preventDefault();
+	    e.preventDefault();
 
 	  // this / e.target is the current hover target.
 	}
@@ -178,8 +178,15 @@
 	}
 
 	function handleDragEnd(e) {
-	  // this/e.target is the source node.
-	  this.classList.remove('over');
+	   // this/e.target is the source node.
+        console.log('end');
+        var dsId='';
+        jQuery('.checkbox').each(function( index ) {
+          dsId+=jQuery(this).attr('data-id')+';';
+        });
+        // Post danh sách id chỗ này xài hàm này, 2 trường cuối để rổng ''
+        //postId(_token, id, url, urlRefreshData, classNameRefreshData);
+	   this.classList.remove('over');
 
 	  /*[].forEach.call(cols, function (col) {
 	    col.classList.remove('over');

@@ -107,6 +107,44 @@
 
   /*
   * _token là token của laravel
+  * id là id của dữ liệu cần get
+  * url để load dữ liệu
+  * className là tên class chứa table dữ liệu sau khi load thành công
+  */
+  postId=function(_token, id, url, urlRefreshData, classNameRefreshData){
+    loading('.error-mode');
+    var xhr1;
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
+          url:url,
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          error:function(){
+            errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+          },
+          success:function(data){
+            if(data.error==""){
+              errorLoader(".error-mode","");
+              if(urlRefreshData && classNameRefreshData){
+                loadTable(_token, urlRefreshData, classNameRefreshData);
+              }
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+            
+          },
+      });
+  }
+
+  /*
+  * _token là token của laravel
   * frmName là tên form chứa các input
   * url để load dữ liệu
   * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
