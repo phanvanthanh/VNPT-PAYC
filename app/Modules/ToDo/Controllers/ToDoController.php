@@ -23,8 +23,6 @@ class ToDoController extends Controller{
     }
 
     public function toDo(Request $request){
-        // $toDos=ToDo::get()->toArray();
-        // return view('ToDo::to-do',compact('toDos'));
         return view('ToDo::to-do');
     }
 
@@ -33,7 +31,7 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
 
-            $toDos=ToDo::get()->toArray();
+            $toDos=ToDo::orderBy('sap_xep', 'asc')->get()->toArray();
             $view=view('ToDo::danh-sach-to-do', compact('toDos','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -121,7 +119,7 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $id = $request->input('id');
             $toDo = ToDo::find($id);
-            $toDo->trang_thai = 1;
+            $toDo->ngay_hoan_thanh = date("Y-m-d H:i:s");
             $toDo->save();
             return 1;
         }
@@ -132,7 +130,7 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $id = $request->input('id');
             $toDo = ToDo::find($id);
-            $toDo->trang_thai = 0;
+            $toDo->ngay_hoan_thanh = null;
             $toDo->save();
             return 1;
         }

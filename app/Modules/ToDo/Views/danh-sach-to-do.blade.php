@@ -7,46 +7,36 @@
                     {{ csrf_field() }}
                 </div>
                 <div class="list-wrapper">
-                    <ul class="d-flex flex-column-reverse todo-list">
-                        @foreach($toDos as $toDo)
-                        <li draggable="true" @if($toDo['trang_thai']==1) class="draggable completed" @else class="draggable" @endif>
+                    <ul id="items-list" class="moveable flex-column-reverse todo-list">
+                        @foreach($toDos as $index => $toDo)                
+                        <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['trang_thai']==1) checked="checked" @endif>
+                                    <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
                                     {{$toDo['noi_dung']}}
                                 </label>               
-                            </div>
+                            </div>                 
                             <div style="padding-left: 20px">
-                                <small class="text-muted">Ngày tạo: {{$toDo['ngay_tao']}}<br>HXL: {{$toDo['han_xu_ly']}}</small>
+                            	@php
+                            	$ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
+                            	$han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
+                            	@endphp
+                                <small class="text-muted">Ngày tạo: {{$ngay_tao}}<br>HXL: {{$han_xu_ly}}</small>
                             </div>
                             <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
                             <i class="remove"></i>
-                            <button class="btn btn-vnpt dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="icon-list"></i>                  
-                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                    <a class="dropdown-item preview-item">
-                                        <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b><i class="icon-wrench"></i> Sửa</b>
-                                        </p>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item preview-item">
-                                        <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="icon-basket "></i> Xóa</b>
-                                        </p>
-                                    </a>                                 
-                                </div>
-                            </button>
+                            <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="icon-wrench"></i></b>
+                            </p>
+                            <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="icon-trash "></i></b>
+                            </p>
                         </li>
-                        @endforeach
+                        @endforeach             
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
-
-
 <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="modal-cap-nhat" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -131,6 +121,84 @@
             }
         });
     });
+	var dragSrcEl = null;
+
+	function handleDragStart(e) {
+	  // Target (this) element is the source node.
+	  dragSrcEl = this;
+
+	  e.dataTransfer.effectAllowed = 'move';
+	  e.dataTransfer.setData('text/html', this.outerHTML);
+
+	  this.classList.add('dragElem');
+	}
+	function handleDragOver(e) {
+	  if (e.preventDefault) {
+	    e.preventDefault(); // Necessary. Allows us to drop.
+	  }
+	  this.classList.add('over');
+
+	  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+
+	  return false;
+	}
+
+	function handleDragEnter(e) {
+	     //console.log('handleDragEnter');
+	        e.preventDefault();
+
+	  // this / e.target is the current hover target.
+	}
+
+	function handleDragLeave(e) {
+	  this.classList.remove('over');  // this / e.target is previous target element.
+	}
+
+	function handleDrop(e) {
+	  // this/e.target is current target element.
+	  if (e.stopPropagation) {
+	    e.stopPropagation(); // Stops some browsers from redirecting.
+	  }
+
+	  // Don't do anything if dropping the same column we're dragging.
+	  if (dragSrcEl != this) {
+	    // Set the source column's HTML to the HTML of the column we dropped on.
+	    //alert(this.outerHTML);
+	    //dragSrcEl.innerHTML = this.innerHTML;
+	    //this.innerHTML = e.dataTransfer.getData('text/html');
+	    dragSrcEl.parentNode.removeChild(dragSrcEl);
+	    var dropHTML = e.dataTransfer.getData('text/html');
+	    this.insertAdjacentHTML('beforebegin',dropHTML);
+	    var dropElem = this.previousSibling;
+	    addDnDHandlers(dropElem);
+
+	  }
+	  this.classList.remove('over');
+	  return false;
+	}
+
+	function handleDragEnd(e) {
+	  // this/e.target is the source node.
+	  this.classList.remove('over');
+
+	  /*[].forEach.call(cols, function (col) {
+	    col.classList.remove('over');
+	  });*/
+	}
+
+	function addDnDHandlers(elem) {
+	  elem.addEventListener('dragstart', handleDragStart, false);
+	  elem.addEventListener('dragenter', handleDragEnter, false)
+	  elem.addEventListener('dragover', handleDragOver, false);
+	  elem.addEventListener('dragleave', handleDragLeave, false);
+	  elem.addEventListener('drop', handleDrop, false);
+	  elem.addEventListener('dragend', handleDragEnd, false);
+
+	}
+
+	var cols = document.querySelectorAll('#items-list .draggable');
+	[].forEach.call(cols, addDnDHandlers);
+
 </script>
 
 

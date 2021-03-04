@@ -55,6 +55,7 @@
       <!-- endinject -->
       <link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}">
 
+      <link rel="stylesheet" href="{{ asset('public/vendors/dragula/dragula.min.css') }}">
 
       <style type="text/css">
         .image-tile:hover{
