@@ -29759,7 +29759,7 @@ label.text-title-input-size {
 }
 
 .show-file{
-  font-size: 13px;
+  font-size: 12px;
 }
 td.font-size-default{
   font-size: 13px;
@@ -29794,3 +29794,10 @@ a.a-file{
 .error{
   color: #FF5733;
 }
+
+/*body{
+  font-family: "Roboto", sans-serif !important;
+    background: url(/public/images/bgr.png) repeat-y 100% top transparent;
+    background-size: cover;
+    font-size: 12px;
+}*/

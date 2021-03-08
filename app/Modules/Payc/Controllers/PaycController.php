@@ -12,6 +12,11 @@ use App\AdminRole;
 use App\PaycCanBoXuLuYeuCau;
 use App\UsersDichVu;
 use App\PaycTrangThaiXuLy;
+use App\DmQuanHuyen;
+use App\DmPhuongXa;
+use App\UsersDonVi;
+use App\PaycDiaChi;
+use App\DmThamSoHeThong;
 use Request as RequestAjax;
 
 
@@ -31,8 +36,11 @@ class PaycController extends Controller{
         if(Auth::id()){
             $idUser=Auth::id();
         }
+        $dmQuanHuyens=DmQuanHuyen::all()->toArray();
+        $dmPhuongXas=DmPhuongXa::all()->toArray();
+        $donViMacDinh=UsersDonVi::getDonViMacDinh($idUser);
         $dichVus=UsersDichVu::getUserDichVuByIdUser($idUser);
-        return view('Payc::payc', compact('dichVus'));
+        return view('Payc::payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
     }
 
     public function danhSachPaycAnDanh(Request $request){
@@ -107,9 +115,20 @@ class PaycController extends Controller{
             $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
             $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
             $canBoXuLyYeuCau['noi_dung_xu_ly']='';
-            $canBoXuLyYeuCau['ds_id_user_nhan']='';
             $canBoXuLyYeuCau['file_xu_ly']='';
             $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+
+            // Lưu thông tin cấp xử lý 
+            $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
+            $dataDiaChi['id_payc']=$idPayc;
+            $dataDiaChi['ma_phuong_xa']=$data['ma_phuong_xa'];
+            $dataDiaChi['ma_don_vi']=$data['ma_don_vi'];
+            $dataDiaChi['cap']=$capMacDinh;
+            $diaChiTiepNhan=PaycDiaChi::create($dataDiaChi);
+            print_r($data);
+            // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
+            // Nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
