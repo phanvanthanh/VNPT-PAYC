@@ -49,5 +49,10 @@ Route::group(
             'as' => 'uncheck-to-do',
             'uses' => 'ToDoController@uncheckToDo'
         ]);
+
+        Route::post('sort-to-do', [
+            'as' => 'sort-to-do',
+            'uses' => 'ToDoController@sortToDo'
+        ]);
     }
 );

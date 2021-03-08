@@ -15,7 +15,13 @@
          <div class="form-group row">
             <label for="han_xu_ly" class="col-sm-4 col-form-label ">Hạn xử lý</label>
             <div class="col-sm-8">
-               <input type="Text" class="form-control han_xu_ly" name="han_xu_ly" placeholder="Vui lòng nhập nội dung cần tạo" @if($checkData==1) value="{{$data['han_xu_ly']}}" @endif>
+                @php
+                if($checkData==1){
+                    $hxl = strtotime($data['han_xu_ly']);
+                    $hxl2 = date('Y-m-d',$hxl).'T'. date('H:i:s',$hxl);
+                }
+                @endphp
+               <input type="datetime-local" class="form-control han_xu_ly" name="han_xu_ly" placeholder="Vui lòng nhập nội dung cần tạo" @if($checkData==1) value="{{$hxl2}}" @endif>
             </div>
          </div>
       

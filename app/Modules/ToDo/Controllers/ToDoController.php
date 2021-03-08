@@ -42,6 +42,9 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $data['id_user']=Auth::id();
+            if($data['noi_dung']=='' || $data['han_xu_ly']==''){
+                return array('error'=>"Thông tin nhập vào chưa đủ");
+            }
             ToDo::create($data); // Lưu dữ liệu vào DB
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
@@ -135,5 +138,20 @@ class ToDoController extends Controller{
             return 1;
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+    public function sortToDo(Request $request){
+        $dsId = $request->input('dsId');
+        $arr_id = explode(';', $dsId);
+        $toDo = ToDo::all();
+        $soLuongToDo = $toDo->count();
+        $j=1;
+        for($i=0; $i<$soLuongToDo; $i++){
+            $td = ToDo::find($arr_id[$i]);
+            $td->sap_xep = $j;
+            $td->save();
+            $j++;
+        }
+        return 1;
     }
 }

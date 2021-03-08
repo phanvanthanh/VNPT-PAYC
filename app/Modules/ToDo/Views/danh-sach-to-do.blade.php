@@ -179,11 +179,18 @@
 
 	function handleDragEnd(e) {
 	   // this/e.target is the source node.
-        console.log('end');
+        
         var dsId='';
         jQuery('.checkbox').each(function( index ) {
           dsId+=jQuery(this).attr('data-id')+';';
         });
+        var _token=jQuery('#xu-ly-to-do').find("input[name='_token']").val();
+        $.post('{{route('sort-to-do')}}',
+        {
+            "_token":_token,
+            dsId:dsId
+        });
+
         // Post danh sách id chỗ này xài hàm này, 2 trường cuối để rổng ''
         //postId(_token, id, url, urlRefreshData, classNameRefreshData);
 	   this.classList.remove('over');
