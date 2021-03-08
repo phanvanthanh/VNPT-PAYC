@@ -18,7 +18,7 @@ class PaycCanBoXuLuYeuCau extends Authenticatable
     protected $table='payc_canbo_xuly_yeucau';
 
     protected $fillable = [
-        'id','id_payc', 'id_user_xu_ly', 'id_xu_ly', 'ds_id_user_nhan', 'noi_dung_xu_ly', 'file_xu_ly', 'ngay_xu_ly', 'state'
+        'id','id_payc', 'id_user_xu_ly', 'id_xu_ly', 'noi_dung_xu_ly', 'file_xu_ly', 'ngay_xu_ly', 'state'
     ];
     public $timestamps=false;
 

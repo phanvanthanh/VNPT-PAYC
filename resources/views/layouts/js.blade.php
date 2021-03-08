@@ -519,6 +519,34 @@
           }
           
         }
+
+        // MỚI LOAD TRANG
+      var selectedQuanHuyen=jQuery('.ma_quan_huyen').val();
+      showPhuongXa=function(loai){ // loại =1 là mới load trang, ngước lại là do người dùng onchange
+        var co=0;
+        jQuery('.ma_phuong_xa option').each(function( index ) {
+              var maQuanHuyen=jQuery(this).attr('ma-quan-huyen');
+              if(loai!=1){
+          jQuery(this).removeAttr('selected');
+              }
+                
+              if(maQuanHuyen!=selectedQuanHuyen){
+                jQuery(this).css('display','none');
+              }else{
+                jQuery(this).css('display','block');
+                if(co==0 && loai!=1){
+                  jQuery(this).attr('selected','selected');
+                  co=1;
+                }
+              }
+          });
+      }
+      
+      showPhuongXa(1);
+      jQuery('.ma_quan_huyen').on('change',function(){
+        selectedQuanHuyen=jQuery(this).val();
+        showPhuongXa(2);
+      });
         
 
         
