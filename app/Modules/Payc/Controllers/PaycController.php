@@ -15,8 +15,8 @@ use App\PaycTrangThaiXuLy;
 use App\DmQuanHuyen;
 use App\DmPhuongXa;
 use App\UsersDonVi;
-use App\PaycDiaChi;
 use App\DmThamSoHeThong;
+use App\DichVu;
 use Request as RequestAjax;
 
 
@@ -32,6 +32,14 @@ class PaycController extends Controller{
     private $pathFile='public/file/payc';
 
     public function payc(Request $request){
+        /*$dichVus=DonVi::layCanBoThuocCapHuyenTheoMaHuyen(842);
+        echo '<pre>';
+        print_r($dichVus);
+        echo '</pre>';
+        die();*/
+
+
+
         $idUser=1;
         if(Auth::id()){
             $idUser=Auth::id();
@@ -118,16 +126,25 @@ class PaycController extends Controller{
             $canBoXuLyYeuCau['file_xu_ly']='';
             $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
 
-            // Lưu thông tin cấp xử lý 
-            $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
-            $dataDiaChi['id_payc']=$idPayc;
-            $dataDiaChi['ma_phuong_xa']=$data['ma_phuong_xa'];
-            $dataDiaChi['ma_don_vi']=$data['ma_don_vi'];
-            $dataDiaChi['cap']=$capMacDinh;
-            $diaChiTiepNhan=PaycDiaChi::create($dataDiaChi);
-            print_r($data);
-            // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
-            // Nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+            
+            $maNhomDichVu=DichVu::getMaNhomDichVuByIdDichVu($data['id_dich_vu']);
+            if($maNhomDichVu=='DV_CNTT'){ // Nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+
+            }else{ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
+                // Lấy thông tin cấp xử lý 
+                $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
+                if($capMacDinh=='XA'){
+                    $maXa=$data['ma_phuong_xa'];
+                }elseif ($capMacDinh=='HUYEN') {
+                    $maHuyen=$data['ma_quan_huyen'];
+
+                }else{ // Ngược lại không thuộc cấp nào hết
+
+                }
+            }
+            
+            
+            
 
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }

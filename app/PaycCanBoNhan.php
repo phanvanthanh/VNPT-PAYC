@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
-class PaycDiaChi extends Authenticatable
+class PaycCanBoNhan extends Authenticatable
 {
     use Notifiable;
 
@@ -15,16 +15,11 @@ class PaycDiaChi extends Authenticatable
      *
      * @var array
      */
-    protected $table='payc_dia_chi';
+    protected $table='payc_can_bo_nhan';
 
     protected $fillable = [
-        'id','id_payc', 'ma_phuong_xa', 'ma_don_vi'
+        'id','id_xu_ly_yeu_cau', 'id_user_nhan', 'ngay_nhan', 'trang_thai'
     ];
     public $timestamps=false;
-
-   
-
-
-   
 
 }

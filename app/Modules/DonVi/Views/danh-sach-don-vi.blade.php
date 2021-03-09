@@ -29,8 +29,7 @@
                 <td>
                     {{$donVi['di_dong']}}
                 </td>
-                <td>                    
-                    {{$donVi['dia_chi']}}
+                <td>                
                 </td>
                 <td>
                     <label class=" @if($donVi['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($donVi['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
