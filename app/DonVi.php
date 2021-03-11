@@ -12,6 +12,35 @@ class DonVi extends Model
     //protected $hidden=[''] // danh sách các trường muốn ẩn
     public $timestamps=false;
 
+    public static function getDonViCapXaByMaPhuongXa($maPhuongXa){
+    	$result=array();
+    	$data=DB::select('select dv.* from don_vi dv
+		left join dm_phuong_xa px on dv.ma_phuong_xa=px.ma_phuong_xa
+		where px.ma_phuong_xa='.$maPhuongXa.'
+		and ma_cap="XA"');
+		$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data){
+			$result=$data[0];
+		}
+		return $result;
+    }
+
+    public static function layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa, $maNhomChucVu, $idDichVu){
+    	$result=array();
+    	$parent=DonVi::getDonViCapXaByMaPhuongXa($maPhuongXa);
+    	$data=DB::select('select * from don_vi');
+    	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data && $parent){
+			$parentId=$parent['id'];
+			$result=\Helper::treeDonViByParentId($data, $parentId);
+		}
+		$resultCanBo=array();
+		foreach ($result as $key => $rs) {
+			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoPhuTrachTheoNhomChuVu($rs['id'],$maNhomChucVu, $idDichVu));
+		}
+		return $resultCanBo;
+    }
+
     public static function getDonViCapHuyenByMaHuyen($maHuyen){
     	$result=array();
     	$data=DB::select('select dv.* from don_vi dv
@@ -37,7 +66,7 @@ class DonVi extends Model
 		return $result;
     }
 
-    public static function layCanBoThuocCapHuyenTheoMaHuyen($maHuyen){
+    public static function layDonViCanBoThuocCapHuyenTheoMaHuyen($maHuyen){
     	$result=array();
     	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
     	$data=DB::select('select * from don_vi');
@@ -53,13 +82,59 @@ class DonVi extends Model
 		}
 		return $resultCanBo;
     }
+    public static function layCanBoThuocCapHuyenTheoMaHuyen($maHuyen){
+    	$result=array();
+    	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
+    	$data=DB::select('select * from don_vi');
+    	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data && $parent){
+			$parentId=$parent['id'];
+			$result=\Helper::treeDonViByParentId($data, $parentId);
+		}
+		$resultCanBo=array();
+		foreach ($result as $key => $rs) {
+			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoTheoIdDonVi($rs['id']));
+		}
+		return $resultCanBo;
+    }
+
+    public static function layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen, $maNhomChucVu, $idDichVu){
+    	$result=array();
+    	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
+    	$data=DB::select('select * from don_vi');
+    	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data && $parent){
+			$parentId=$parent['id'];
+			$result=\Helper::treeDonViByParentId($data, $parentId);
+		}
+		$resultCanBo=array();
+		foreach ($result as $key => $rs) {
+			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoPhuTrachTheoNhomChuVu($rs['id'],$maNhomChucVu, $idDichVu));
+		}
+		return $resultCanBo;
+    }
+
     public static function layCanBoTheoIdDonVi($idDonVi){
-    	$data=DB::select('select u.*, cd.ten_chuc_danh, cv.ten_chuc_vu, ncv.loai_nhom_chuc_vu from users_don_vi usdv
-			left join users u on usdv.id_users=u.id
+    	$data=DB::select('select u.*, cd.ten_chuc_danh, cv.ten_chuc_vu, ncv.ma_nhom_chuc_vu from users_don_vi usdv
+			left join users u on usdv.id_user=u.id
 			left join chuc_danh cd on usdv.id_chuc_danh=cd.id
 			left join chuc_vu cv on usdv.id_chuc_vu=cv.id
 			left join nhom_chuc_vu ncv on cv.id_nhom_chuc_vu=ncv.id
 			where usdv.id_don_vi='.$idDonVi);
+    	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+    	return $data;
+    }
+    public static function layCanBoPhuTrachTheoNhomChuVu($idDonVi, $maNhomChucVu, $idDichVu){
+    	$data=DB::select('select u.*, cd.ten_chuc_danh, cv.ten_chuc_vu, ncv.ma_nhom_chuc_vu 
+    		from users_don_vi usdv
+    		left join users_dich_vu usdvu on usdv.id_user=usdvu.id_user
+			left join users u on usdv.id_user=u.id
+			left join chuc_danh cd on usdv.id_chuc_danh=cd.id
+			left join chuc_vu cv on usdv.id_chuc_vu=cv.id
+			left join nhom_chuc_vu ncv on cv.id_nhom_chuc_vu=ncv.id
+			where usdv.id_don_vi='.$idDonVi.'
+			and ncv.ma_nhom_chuc_vu="'.$maNhomChucVu.'"
+			and usdvu.id_dich_vu='.$idDichVu);
     	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
     	return $data;
     }

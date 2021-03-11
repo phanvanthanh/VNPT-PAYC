@@ -10020,7 +10020,7 @@ pre code {
 
 .table th, .jsgrid .jsgrid-table th,
 .table td, .jsgrid .jsgrid-table td {
-  padding: 0.9375rem;
+  padding: 0.5rem;
   vertical-align: top;
   border-top: 1px solid #f3f3f3;
 }
@@ -25180,7 +25180,7 @@ dl li {
 .table td, .jsgrid .jsgrid-table td {
   vertical-align: middle;
   font-size: 0.875rem;
-  line-height: 1;
+  /*line-height: 1;*/
 }
 
 .table th img, .jsgrid .jsgrid-table th img,
@@ -29783,7 +29783,7 @@ a.a-file{
   color: #1f7ed0;
 }
 
-.float-right{
+.error-mode{
   min-height: 62.8px;
 }
 
@@ -29801,3 +29801,7 @@ a.a-file{
     background-size: cover;
     font-size: 12px;
 }*/
+
+table tbody tr.tr-small td, table tbody tr.tr-small th{
+  padding: 0px;
+}

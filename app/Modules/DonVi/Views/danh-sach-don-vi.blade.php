@@ -1,6 +1,7 @@
-<table id="order-listing" class="table table-hover">
+<table id="order-listing" class="table table-hover" data-ordering="false">
     <thead>
-        <tr class="background-vnpt">
+        <tr class="background-vnpt text-center">
+            <!-- <th></th> -->
             <th>STT #</th>
             <th>Tên đơn vị</th>
             <th>Di động</th>
@@ -16,14 +17,17 @@
         ?>
         @foreach($donVis as $donVi)
             <?php $stt++; ?>
-            <tr class="tr-hover">
-                <td class="text-center">{{$stt}}</td>
-                <td class='text-primary'>
+            <tr class="tr-hover tr-small">
+                <!-- <td></td> -->
+                <td class="">
                     @if($donVi['level']>0)
                         @for ($i = 0; $i < $donVi['level']; $i++)
-                            {{"____ "}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         @endfor
                     @endif
+                    {{$stt}}
+                </td>
+                <td class='text-primary'>                    
                     {{$donVi['ten_don_vi']}}
                 </td>
                 <td>
@@ -32,9 +36,9 @@
                 <td>                
                 </td>
                 <td>
-                    <label class=" @if($donVi['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($donVi['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
+                    <label class="">@if($donVi['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
                 </td>
-                <td>
+                <td class="text-center">
                     <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
                         <i class="icon-list"></i>                          
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -85,6 +89,7 @@
     jQuery(document).ready(function() {
         $.fn.dataTable.ext.errMode = 'none';
         $('.table').dataTable({
+            
             aLengthMenu: [
                 [25, 50, 100, 200, -1],
                 [25, 50, 100, 200, "All"]

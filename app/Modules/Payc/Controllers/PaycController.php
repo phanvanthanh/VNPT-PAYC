@@ -17,6 +17,7 @@ use App\DmPhuongXa;
 use App\UsersDonVi;
 use App\DmThamSoHeThong;
 use App\DichVu;
+use App\PaycCanBoNhan;
 use Request as RequestAjax;
 
 
@@ -32,14 +33,6 @@ class PaycController extends Controller{
     private $pathFile='public/file/payc';
 
     public function payc(Request $request){
-        /*$dichVus=DonVi::layCanBoThuocCapHuyenTheoMaHuyen(842);
-        echo '<pre>';
-        print_r($dichVus);
-        echo '</pre>';
-        die();*/
-
-
-
         $idUser=1;
         if(Auth::id()){
             $idUser=Auth::id();
@@ -126,25 +119,32 @@ class PaycController extends Controller{
             $canBoXuLyYeuCau['file_xu_ly']='';
             $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
 
-            
-            $maNhomDichVu=DichVu::getMaNhomDichVuByIdDichVu($data['id_dich_vu']);
-            if($maNhomDichVu=='DV_CNTT'){ // Nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
-
-            }else{ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
-                // Lấy thông tin cấp xử lý 
+            $idXuLyYeuCau=$xuLyTiepNhan->id;
+            $idDichVu=$data['id_dich_vu'];
+            $maNhomDichVu=DichVu::getMaNhomDichVuByIdDichVu($idDichVu);
+            $nhomChucVuNhanPakn=DmThamSoHeThong::getValueByName('MA_NHOM_CHUC_VU_NHAN_PAKN');
+            $dsCanBoNhans=array();
+            if($maNhomDichVu=='DV_VT'){ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
+                // Lấy danh sách cán bộ
                 $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
                 if($capMacDinh=='XA'){
-                    $maXa=$data['ma_phuong_xa'];
-                }elseif ($capMacDinh=='HUYEN') {
+                    $maPhuongXa=$data['ma_phuong_xa'];
                     $maHuyen=$data['ma_quan_huyen'];
-
-                }else{ // Ngược lại không thuộc cấp nào hết
-
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+                }else{ // Ngược lại là cấp huyện
+                    $maHuyen=$data['ma_quan_huyen'];
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
                 }
+            } 
+            else{ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+                
             }
-            
-            
-            
+            foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                $paknCanBoNhanData['trang_thai']=0;
+                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+            }
 
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }

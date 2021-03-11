@@ -22,7 +22,8 @@ class DonViController extends Controller{
     }
 
     public function donVi(Request $request){
-        $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
+        $donVis=DonVi::where('don_vi.state','=',1)->orderBy('id','asc')->get()->toArray();
+        
         $donVis=\Helper::paycTreeResource($donVis,null);
         return view('DonVi::don-vi',compact('donVis'));
     }
