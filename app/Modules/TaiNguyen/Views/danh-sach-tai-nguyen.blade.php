@@ -1,7 +1,7 @@
 <table id="order-listing" class="table table-hover">
     <thead>
         <tr class="background-vnpt">
-            <th>STT #</th>
+            <th>STT</th>
             <th>Tên chức năng</th>
             <th>Tên menu</th>
             <th>URL</th>

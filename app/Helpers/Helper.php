@@ -256,6 +256,29 @@ class Helper
 	}
 
 
+    private static $level_TreeDonViByParentId=0;
+    private static $arrItem_TreeDonViByParentId=array();
+    public static function treeDonViByParentId($data, $id){
+        foreach ($data as $key => $item) {
+            if($item['id']==$id){
+                $item['level']=Helper::$level_TreeDonViByParentId;
+                Helper::$arrItem_TreeDonViByParentId[$item['id']]=$item; 
+            }
+            if($item['parent_id']==$id && $item['ma_dinh_danh']==null){
+                Helper::$level_TreeDonViByParentId++;
+                $item['level']=Helper::$level_TreeDonViByParentId;
+                if(!isset(Helper::$arrItem_TreeDonViByParentId[$item['id']])){
+                    Helper::$arrItem_TreeDonViByParentId[$item['id']]=$item; 
+                }                        
+                unset($data[$key]);          
+                Helper::treeDonViByParentId($data, $item['id']);
+                Helper::$level_TreeDonViByParentId--;
+            }           
+        }
+        return Helper::$arrItem_TreeDonViByParentId;
+    }
+
+
 	
 }
 	
