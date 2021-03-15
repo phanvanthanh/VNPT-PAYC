@@ -21,23 +21,6 @@
     <script type="text/javascript" src="{{ asset('public/js/tree.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/uploadFile.js') }}"></script>
 
-    <script type="text/javascript">
-
-        //Initialization of treeviews
-        $('#tree1').treed();
-        $('li.tree-show').css('display','block');
-        $('.checkbox').on('click',function(){
-            if($(this).is(':checked')==true){
-                $(this).parent().find('input[type="checkbox"]').each(function () {
-                    $(this).prop('checked', true);
-                });    
-            }else{
-                $(this).parent().find('input[type="checkbox"]').each(function () {
-                    $(this).prop('checked', false);
-                });
-            }
-        });
-    </script>
 @else
   <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif

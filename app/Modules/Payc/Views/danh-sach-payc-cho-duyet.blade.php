@@ -43,13 +43,13 @@
 						    <thead>
 						        <tr class="text-center background-vnpt">
 						        	
-						        	<th scope="col" style="width: 2%;"><input type="checkbox" name="id_payc[]" class="id_payc"></th>
-						            <th scope="col" style="width: 8%;">Số phiếu</th>
-						            <th scope="col" style="width: 50%;">Nội dung</th>
-						            <th scope="col" style="width: 10%;">File</th>
-						            <th scope="col" style="width: 10%;">Dịch vụ</th>
-						            <th scope="col" style="width: 10%;">Ngày gửi</th>
-						            <th scope="col" style="width: 10%;">QT xử lý</th>
+						        	<th scope="col"><input type="checkbox" name="id_payc[]" class="id_payc"></th>
+						            <th scope="col">Số phiếu</th>
+						            <th scope="col">Nội dung</th>
+						            <th scope="col">File</th>
+						            <th scope="col">Dịch vụ</th>
+						            <th scope="col">Ngày gửi</th>
+						            <th scope="col">QT xử lý</th>
 						        </tr>
 						    </thead>
 						    <tbody>                       

@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Resource')
+@section('title', 'Đăng ký')
 @section('content')
 	<div class="col-12 stretch-card">
 		<div class="card">

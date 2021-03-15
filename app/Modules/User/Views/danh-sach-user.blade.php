@@ -1,6 +1,6 @@
 <table id="order-listing" class="table table-hover">
     <thead>
-        <tr class="background-vnpt">
+        <tr class="background-vnpt text-center">
             <th>STT #</th>
             <th>Họ tên</th>
             <th>Email</th>
@@ -16,7 +16,7 @@
         ?>
         @foreach($users as $user)
             <?php $stt++; ?>
-            <tr class="tr-hover">
+            <tr class="tr-hover tr-small">
                 <td class="text-center">{{$stt}}</td>
                 <td class='text-primary'>
                     {{$user['name']}}
@@ -30,7 +30,7 @@
                 <td>
                     <label class=" @if($user['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($user['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
                 </td>
-                <td>
+                <td class="text-center">
                     <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
                         <i class="icon-list"></i>                          
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">

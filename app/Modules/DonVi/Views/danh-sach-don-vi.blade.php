@@ -17,18 +17,28 @@
         ?>
         @foreach($donVis as $donVi)
             <?php $stt++; ?>
-            <tr class="tr-hover tr-small">
+            <tr class="tr-hover tr-small t-tree cusor" data-id="{{$donVi['id']}}" data-parent="{{$donVi['parent_id']}}" data-show="1">
                 <!-- <td></td> -->
-                <td class="">
+                <td class="text-center">                    
+                    {{$stt}}
+                </td>
+                <td>      
                     @if($donVi['level']>0)
                         @for ($i = 0; $i < $donVi['level']; $i++)
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         @endfor
+                    @endif              
+                    @if($donVi['has_child'])
+                        <span class="text-primary"><i class="tree-icon fa fa-minus-square-o text-primary"></i>&nbsp;&nbsp;{{$donVi['ten_don_vi']}}</span>
+                    @else
+                        @if($donVi['ma_cap']==null || $donVi['ma_cap']=='')
+                            <i>{{$donVi['ten_don_vi']}}</i>
+                        @else
+                            <span class="text-primary">{{$donVi['ten_don_vi']}}</span>
+                        @endif
+
                     @endif
-                    {{$stt}}
-                </td>
-                <td class='text-primary'>                    
-                    {{$donVi['ten_don_vi']}}
+                    
                 </td>
                 <td>
                     {{$donVi['di_dong']}}
@@ -83,7 +93,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {

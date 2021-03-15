@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\DonVi;
 use App\Payc;
 use App\AdminRole;
-use App\PaycCanBoXuLuYeuCau;
+use App\PaycXuLy;
 use App\UsersDichVu;
 use App\PaycTrangThaiXuLy;
 use App\DmQuanHuyen;
@@ -40,14 +40,8 @@ class PaycController extends Controller{
         $dmQuanHuyens=DmQuanHuyen::all()->toArray();
         $dmPhuongXas=DmPhuongXa::all()->toArray();
         $donViMacDinh=UsersDonVi::getDonViMacDinh($idUser);
-        $dichVus=UsersDichVu::getUserDichVuByIdUser($idUser);
+        $dichVus=DichVu::all()->toArray();
         return view('Payc::payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
-    }
-
-    public function danhSachPaycAnDanh(Request $request){
-        $error=''; // Khai báo biến
-        $paycs=Payc::where('id_user_tao','=',1)->get()->toArray();
-        return view('Payc::danh-sach-payc-an-danh', compact('paycs','error'));
     }
 
     public function danhSachPaycCuaToi(Request $request){
@@ -117,7 +111,7 @@ class PaycController extends Controller{
             $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
             $canBoXuLyYeuCau['noi_dung_xu_ly']='';
             $canBoXuLyYeuCau['file_xu_ly']='';
-            $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+            $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
 
             $idXuLyYeuCau=$xuLyTiepNhan->id;
             $idDichVu=$data['id_dich_vu'];
@@ -155,6 +149,9 @@ class PaycController extends Controller{
 
     public function danhSachPaycChoTiepNhan(Request $request){
         $userId=Auth::id();
+        if(!$userId){
+            return array("error"=>'Chưa đăng nhập vào hệ thống!');
+        }
         $error=''; // Khai báo biến
         $paycs=array();
         if($userId){
@@ -167,6 +164,10 @@ class PaycController extends Controller{
 
     public function frmTiepNhanVaChuyenXuLy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -196,7 +197,7 @@ class PaycController extends Controller{
                     }
                 }
                 // Điều kiện đúng thực hiện render form
-                $data=UsersDichVu::getDanhSachUsersDichVuByDichVuId($idDichVuFirst);
+                $data=UsersDichVu::layDanhSachCanBoXuLy($userId);
                 $error='';
                 $view=view('Payc::frm-tiep-nhan-va-chuyen-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
@@ -211,7 +212,6 @@ class PaycController extends Controller{
 
     public function tiepNhanVaChuyenXuLy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
-
             $userId=Auth::id();
             if(!$userId){
                 return array("error"=>'Chưa đăng nhập vào hệ thống!');
@@ -259,10 +259,32 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
                     $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_tiep_nhan_va_chuyen_xu_ly'];
-                    // $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
-                    // $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLyChuyenXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
+                    $idXuLyYeuCau=$xuLyTiepNhan->id;
+
+                    if($data['ds_id_user_tiep_nhan_va_chuyen_xu_ly']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_tiep_nhan_va_chuyen_xu_ly']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $dsDonVis=UsersDichVu::layDanhSachCanBoXuLy($userId);
+                        foreach ($dsDonVis as $key => $donVi) {
+                            foreach ($donVi['ds_can_bo'] as $key => $canBoNhan) {
+                                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                                $paknCanBoNhanData['trang_thai']=0;
+                                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                            }
+                                
+                        }
+                    }
+                        
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -274,6 +296,9 @@ class PaycController extends Controller{
 
     public function danhSachPaycChoXuLy(Request $request){
         $userId=Auth::id();
+        if(!$userId){
+            return array("error"=>'Chưa đăng nhập vào hệ thống!');
+        }
         $error=''; // Khai báo biến
         $paycs=array();
         if($userId){
@@ -286,6 +311,10 @@ class PaycController extends Controller{
 
     public function frmXuLy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -315,7 +344,7 @@ class PaycController extends Controller{
                     }
                 }
                 // Điều kiện đúng thực hiện render form
-                $data=UsersDichVu::getDanhSachUsersDichVuByDichVuId($idDichVuFirst);
+                $data=UsersDichVu::layDanhSachCanBoXuLy($userId);
                 $error='';
                 $view=view('Payc::frm-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
@@ -330,7 +359,6 @@ class PaycController extends Controller{
 
     public function xuLy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
-
             $userId=Auth::id();
             if(!$userId){
                 return array("error"=>'Chưa đăng nhập vào hệ thống!');
@@ -375,9 +403,27 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_xu_ly'];
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_xu_ly']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_xu_ly']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                        $paknCanBoNhanData['id_user_nhan']=$userId;
+                        $paknCanBoNhanData['trang_thai']=0;
+                        $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                    }
+                        
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -391,6 +437,10 @@ class PaycController extends Controller{
 
     public function frmChuyenLanhDao(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -420,7 +470,7 @@ class PaycController extends Controller{
                     }
                 }
                 // Điều kiện đúng thực hiện render form
-                $data=UsersDichVu::getDanhSachUsersDichVuByDichVuId($idDichVuFirst);
+                $data=UsersDichVu::layDanhSachLanhDao($userId);
                 $error='';
                 $view=view('Payc::frm-chuyen-lanh-dao', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
@@ -480,9 +530,31 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_chuyen_lanh_dao'];
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_chuyen_lanh_dao']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_chuyen_lanh_dao']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $dsDonVis=UsersDichVu::layDanhSachLanhDao($userId);
+                        foreach ($dsDonVis as $key => $donVi) {
+                            foreach ($donVi['ds_can_bo'] as $key => $canBoNhan) {
+                                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                                $paknCanBoNhanData['trang_thai']=0;
+                                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                            }
+                                
+                        }
+                    }
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -495,6 +567,10 @@ class PaycController extends Controller{
 
     public function frmHoanTat(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -582,13 +658,18 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']="1".';';
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=1;
                     $userTao=Payc::select('id_user_tao')->where('id','=',$idPayc)->get()->toArray();
                     if($userTao){
-                        $canBoXuLyYeuCau['ds_id_user_nhan']=$userTao[0]['id_user_tao'].';';
+                        $paknCanBoNhanData['id_user_nhan']=$userTao[0]['id_user_tao'];
                     }
-                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -601,6 +682,10 @@ class PaycController extends Controller{
 
     public function frmTraLaiKhongXuLy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -690,13 +775,18 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']="1".';';
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=1;
                     $userTao=Payc::select('id_user_tao')->where('id','=',$idPayc)->get()->toArray();
                     if($userTao){
-                        $canBoXuLyYeuCau['ds_id_user_nhan']=$userTao[0]['id_user_tao'].';';
+                        $paknCanBoNhanData['id_user_nhan']=$userTao[0]['id_user_tao'];
                     }
-                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -709,6 +799,10 @@ class PaycController extends Controller{
 
     public function frmHuy(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -797,13 +891,18 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']="1".';';
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=1;
                     $userTao=Payc::select('id_user_tao')->where('id','=',$idPayc)->get()->toArray();
                     if($userTao){
-                        $canBoXuLyYeuCau['ds_id_user_nhan']=$userTao[0]['id_user_tao'].';';
+                        $paknCanBoNhanData['id_user_nhan']=$userTao[0]['id_user_tao'];
                     }
-                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -815,6 +914,10 @@ class PaycController extends Controller{
 
     public function frmCapNhatPayc(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array(); $dichVus=array();
@@ -824,7 +927,7 @@ class PaycController extends Controller{
                 $view=view('Payc::frm-cap-nhat-payc', compact('data','dichVus','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
             }
-            $dichVus=UsersDichVu::getUserDichVuByIdUser($idUser);
+            $dichVus=DichVu::all()->toArray();
             // Kiểm tra dữ liệu không hợp lệ
             if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = Payc::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
@@ -875,9 +978,14 @@ class PaycController extends Controller{
                 $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                 $canBoXuLyYeuCau['noi_dung_xu_ly']=$dataForm['noi_dung'];
                 $canBoXuLyYeuCau['file_xu_ly']=$file;
-                $canBoXuLyYeuCau['ds_id_user_nhan']=$userId.';';
                 $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                $idXuLyYeuCau=$paycXuLy->id;
+                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                $paknCanBoNhanData['id_user_nhan']=$userId;
+                $paknCanBoNhanData['trang_thai']=0;
+                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
 
                 return array("error"=>'');
             }else{
@@ -906,6 +1014,10 @@ class PaycController extends Controller{
 
     public function frmDuyet(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -935,7 +1047,7 @@ class PaycController extends Controller{
                     }
                 }
                 // Điều kiện đúng thực hiện render form
-                $data=UsersDichVu::getDanhSachUsersDichVuByDichVuId($idDichVuFirst);
+                $data=UsersDichVu::layDanhSachLanhDao($userId);
                 $error='';
                 $view=view('Payc::frm-duyet', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
@@ -995,9 +1107,31 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_payc']=$idPayc;
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                    $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_duyet'];
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_duyet']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_duyet']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                        $paknCanBoNhanData['id_user_nhan']=$userId;
+                        $paknCanBoNhanData['trang_thai']=0;
+                        $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                    }
+
+
+
+
+                        
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -1009,6 +1143,10 @@ class PaycController extends Controller{
 
     public function frmChuyenBoPhanTiepNhanVaXuLyPayc(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
@@ -1038,7 +1176,7 @@ class PaycController extends Controller{
                     }
                 }
                 // Điều kiện đúng thực hiện render form
-                $data=UsersDichVu::getDanhSachUsersDichVuByDichVuId($idDichVuFirst);
+                $data=UsersDichVu::layDanhSachCanBoTiepNhanVaXuLy($userId);
                 $error='';
                 $view=view('Payc::frm-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
                 return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
@@ -1100,7 +1238,30 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
                     $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_chuyen_bo_phan_tiep_nhan_va_xu_ly_payc'];
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
-                    $xuLyTiepNhan=PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_chuyen_bo_phan_tiep_nhan_va_xu_ly_payc']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_chuyen_bo_phan_tiep_nhan_va_xu_ly_payc']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $dsDonVis=UsersDichVu::layDanhSachCanBoTiepNhanVaXuLy($userId);
+                        foreach ($dsDonVis as $key => $donVi) {
+                            foreach ($donVi['ds_can_bo'] as $key => $canBoNhan) {
+                                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                                $paknCanBoNhanData['trang_thai']=0;
+                                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                            }
+                                
+                        }
+                    }
                 }
                 return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
             }
@@ -1163,10 +1324,15 @@ class PaycController extends Controller{
                     $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
                     $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
                     $canBoXuLyYeuCau['noi_dung_xu_ly']='';
-                    $canBoXuLyYeuCau['ds_id_user_nhan']=$payc[0]['id_user_tao'].';';
                     $canBoXuLyYeuCau['file_xu_ly']='';
                     $canBoXuLyYeuCau['state']=0;
-                    PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=$payc[0]['id_user_tao'];
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
                 }
                 
             }
@@ -1200,15 +1366,15 @@ class PaycController extends Controller{
                 foreach ($dsIdPayc as $key => $idPayc) {
                     // nếu là lãnh đạo đánh giá
                     if($data['loai_danh_gia']==1){
-                        $canBoXuLyYeuCau=PaycCanBoXuLuYeuCau::checkHoanTatById($idPayc,1);
+                        $canBoXuLyYeuCau=PaycXuLy::checkHoanTatById($idPayc,1);
                         if(count($canBoXuLyYeuCau)<=0){
-                            return array("error"=>'Không thể đánh giá, do chưa hoàn tất.');
+                            return array("error"=>'Không thể đánh giá, do chưa hoàn tất hoặc đã được đánh giá.');
                         }
                         $dsIdCanBoXuLy[$idPayc]=$canBoXuLyYeuCau[0]['id'];
                     }else{ // ngược lại
-                        $canBoXuLyYeuCau=PaycCanBoXuLuYeuCau::checkHoanTatById($idPayc,2);
+                        $canBoXuLyYeuCau=PaycXuLy::checkHoanTatById($idPayc,2);
                         if(count($canBoXuLyYeuCau)<=0){
-                            return array("error"=>'Không thể đánh giá, do chưa hoàn tất.');
+                            return array("error"=>'Không thể đánh giá, do chưa hoàn tất hoặc đã được đánh giá.');
                         }
                         $dsIdCanBoXuLy[$idPayc]=$canBoXuLyYeuCau[0]['id'];
                     }
@@ -1221,17 +1387,22 @@ class PaycController extends Controller{
                 $idXuLy=$trangThai[0]['id'];
                 // Duyệt qua danh sách lưu đánh giá lại
                 foreach ($dsIdPayc as $key => $idPayc) {
-                    if($data['loai_danh_gia']==1){
+                    if($data['loai_danh_gia']==1){ // nếu là lãnh đạo thì thêm dòng đánh giá trực tiếp luôn
                         // insert đánh giá
                         $canBoXuLyYeuCau['id_payc']=$idPayc;
                         $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
                         $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
-                        $canBoXuLyYeuCau['ds_id_user_nhan']=$userId.';';
                         $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
                         $canBoXuLyYeuCau['state']=1;
-                        PaycCanBoXuLuYeuCau::create($canBoXuLyYeuCau);
-                    }else{
-                        $canBoXuLyYeuCau=PaycCanBoXuLuYeuCau::findOrFail($dsIdCanBoXuLy[$idPayc]);
+                        $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                        $idXuLyYeuCau=$paycXuLy->id;
+                        $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                        $paknCanBoNhanData['id_user_nhan']=$userId;
+                        $paknCanBoNhanData['trang_thai']=1;
+                        $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                    }else{ // ngược lại là khách hàng đánh giá thì chỉ sửa lại trạng thái đánh giá thôi vì dòng dữ liệu đánh giá đã được thêm ở lúc lãnh đạo chuyển khách hàng đánh giá rồi
+                        $canBoXuLyYeuCau=PaycXuLy::findOrFail($dsIdCanBoXuLy[$idPayc]);
                         $canBoXuLyYeuCau->noi_dung_xu_ly=$data['noi_dung_xu_ly'];
                         $canBoXuLyYeuCau->state=1;
                         $canBoXuLyYeuCau->update();
@@ -1253,7 +1424,7 @@ class PaycController extends Controller{
             $dataForm=RequestAjax::all(); $data=array();
             // Kiểm tra dữ liệu không hợp lệ
             if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
-                $data = PaycCanBoXuLuYeuCau::getQtxlById($dataForm['id']); // kiểm tra dữ liệu trong DB
+                $data = PaycXuLy::getQtxlById($dataForm['id']); // kiểm tra dữ liệu trong DB
             }else{
                 $error="Không tìm thấy dữ liệu cần xem";
             }   

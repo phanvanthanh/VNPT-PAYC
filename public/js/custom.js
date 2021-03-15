@@ -221,9 +221,11 @@
   */
 
   errorLoader=function(className, error){
+
     $(className).empty();            
-    if(error){      
-      var strError='<div class="alert alert-danger alert-dismissible fade show" role="alert">'
+    if(error){
+      showDangerToast(error);
+      /*var strError='<div class="alert alert-danger alert-dismissible fade show" role="alert">'
             +'<strong>Thất bại!</strong> '+error
             +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
               +'<span aria-hidden="true">&times;</span>'
@@ -232,9 +234,10 @@
       jQuery(className).html(strError);
       $(".alert-danger").fadeTo(2000, 500).slideUp(500, function(){
           $(".alert-danger").slideUp(500);
-      });
+      });*/
     }else{
-      var strError='<div class="alert alert-success alert-dismissible fade show" role="alert">'
+      showSuccessToast("Hệ thống xử lý thành công");
+      /*var strError='<div class="alert alert-success alert-dismissible fade show" role="alert">'
             +'<strong>Thành công!</strong> Hệ thống xử lý thành công.'
             +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
               +'<span aria-hidden="true">&times;</span>'
@@ -243,7 +246,7 @@
       jQuery(className).html(strError);
       $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
           $(".alert-success").slideUp(500);
-      });
+      });*/
     }    
   }
 

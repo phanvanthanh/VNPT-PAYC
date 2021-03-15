@@ -20,76 +20,70 @@
             <br>
             <table id="order-listing" class="table table-hover table-striped">
                 <thead>
-                    <tr class="text-center background-vnpt">
-                        <th class="text-center" scope="col"><input type="checkbox" name="id_user[]" class="check-all" check-all-on=".check-all-child"></th>
-                        <th class="text-center" scope="col">Tên cán bộ</th>
-                        <th class="text-center" scope="col">Tên đơn vị</th>
+                    <tr class="background-vnpt">
+                        <th class="text-center" scope="col">STT</th>
+                        <th scope="col"><input type="checkbox" name="id_user[]" class="check-all" check-all-on=".check-all-child" id="check-all-child">&nbsp;&nbsp;<label for="check-all-child">Tên đơn vị/Cán bộ</label></th>
+                        <td class="text-center">Chức vụ</td>
                     </tr>
                 </thead>
                 <tbody>
+                    
+
+                    @php $stt=0; @endphp
                     @foreach($data as $d)
-                    <tr class="tr-hover">
-                        <td class="text-center"><input type="checkbox" name="id_user" value="{{$d['id_user']}}" data-id="{{$d['id_user']}}" class="check-all-child id-child-user"></td>
-                        <td>{{$d['name']}}</td>
-                        <td>{{$d['ten_don_vi']}}</td>
-                    </tr>
+                    @php $stt++; @endphp
+                        <tr class="tr-hover tr-small t-tree cusor" data-id="{{$d['id']}}" data-parent="{{$d['parent_id']}}" data-show="1">
+                            <td class="text-center">{{$stt}}</td>
+                            <td>      
+                                @if($d['level']>0)
+                                    @for ($i = 0; $i < $d['level']; $i++)
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @endfor
+                                @endif              
+                                @if($d['has_child'])
+                                    <span class="text-primary"><i class="tree-icon fa fa-minus-square-o text-primary"></i>&nbsp;&nbsp;{{$d['ten_don_vi']}}</span>
+                                @else
+                                    @if($d['ma_cap']==null || $d['ma_cap']=='')
+                                        <i class="text-primary">{{$d['ten_don_vi']}}</i>
+                                    @else
+                                        <i class="text-primary">{{$d['ten_don_vi']}}</i>
+                                    @endif
+
+                                @endif
+                                
+                            </td>
+                            <td></td>
+                        </tr>
+                        @php $d['level']=$d['level']+2; @endphp
+                        @foreach($d['ds_can_bo'] as $canBo)
+                            @php $stt++; @endphp
+                            <tr class="tr-hover tr-small t-tree cusor" data-id="" data-parent="{{$canBo['id_don_vi']}}" data-show="1">
+                                <td class="text-center">{{$stt}}</td>
+                                <td>
+                                    @for ($i = 0; $i < $d['level']; $i++)
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @endfor
+                                    <input type="checkbox" name="id_user" value="{{$canBo['id']}}" data-id="{{$canBo['id']}}" class="check-all-child id-child-user" id="user-{{$canBo['id']}}"> &nbsp; <label for="user-{{$canBo['id']}}">{{$canBo['name']}}</label>
+                                </td>
+                                <td>{{$canBo['ten_nhom_chuc_vu']}}</td>
+                            </tr>
+                                    
+                        @endforeach
                     @endforeach
                 </tbody>
                     
                     
             </table>
-            <!-- <ul id="tree1">
-                <p class="well" style="height:135px;"><strong>Initialization no parameters</strong>
-
-                    <br /> <code>$('#tree1').treed();</code>
-
-                </p>
-                <li>
-                    <a href="#">TECH</a>
-
-                    <ul>
-                        <li class="child">Company Maintenance</li>
-                        <li>Employees
-                            <ul>
-                                <li>Reports
-                                    <ul>
-                                        <li class="child">Report1</li>
-                                        <li class="child">Report2</li>
-                                        <li class="child">Report3</li>
-                                    </ul>
-                                </li>
-                                <li class="child">Employee Maint.</li>
-                            </ul>
-                        </li>
-                        <li class="child">Human Resources</li>
-                    </ul>
-                </li>
-                
-            </ul> -->
+            
         </div>
         
     </div>
     <script type="text/javascript" src="{{ asset('public/js/checkAll.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/tree.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/uploadFile.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
 
-    <script type="text/javascript">
-
-        //Initialization of treeviews
-        $('#tree1').treed();
-        $('li.tree-show').css('display','block');
-        $('.checkbox').on('click',function(){
-            if($(this).is(':checked')==true){
-                $(this).parent().find('input[type="checkbox"]').each(function () {
-                    $(this).prop('checked', true);
-                });    
-            }else{
-                $(this).parent().find('input[type="checkbox"]').each(function () {
-                    $(this).prop('checked', false);
-                });
-            }
-        });
-    </script>
+    
 @else
   <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif

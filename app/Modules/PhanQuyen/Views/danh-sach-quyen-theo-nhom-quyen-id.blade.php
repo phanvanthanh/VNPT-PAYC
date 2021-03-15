@@ -1,6 +1,6 @@
 <table id="table-danh-sach-tai-nguyen" class="table table-hover table-danh-sach-tai-nguyen">
     <thead>
-        <tr class="background-vnpt">
+        <tr class="background-vnpt text-center">
             <th>STT #</th>
             <th>Tên chức năng</th>
         </tr>
@@ -12,7 +12,7 @@
         ?>
         @foreach($resources as $resource)
                 <?php $stt++; ?>
-                <tr>
+                <tr class="tr-small">
                     <td class="text-center">
                         <div class="icheck-square">
                             <input type="checkbox" name="resource[]" class="checkbox-resource" resource="{{$resource['id']}}"

@@ -1,14 +1,13 @@
 <table id="order-listing" class="table table-hover">
     <thead>
-        <tr class="background-vnpt">
+        <tr class="background-vnpt text-center">
             <th>STT</th>
             <th>Tên chức năng</th>
-            <th>Tên menu</th>
             <th>URL</th>
             <th>Phương thức</th>
             <th>Icon</th>
             <th>Sắp xếp</th>
-            <th>Trạng thái</th>
+            <th>State</th>
             <th>Xử lý</th>
         </tr>
     </thead>
@@ -20,30 +19,37 @@
         @foreach($resources as $resource)
             @if($resource['show_menu']<3)
                 <?php $stt++; ?>
-                <tr class="tr-hover @if($resource['parent_id']==1){{'active'}}@endif">
+                <tr class="tr-hover tr-small t-tree cusor" data-id="{{$resource['id']}}" data-parent="{{$resource['parent_id']}}" data-show="1">
                     <td class="text-center">{{$stt}}</td>
-                    <td class='text-primary'>
-                        @if($resource['level']>1)
+                    <td>
+                        <!-- @if($resource['level']>1)
                             {{"|"}}
                             @for ($i = 1; $i < $resource['level']; $i++)
                                 {{"____ "}}
                             @endfor
-                        @endif {{$resource['ten_hien_thi']}}
-                    </td>
-                    <td>
-                        
-                        @if($resource['level']>1)
-                            {{$resources[$resource['parent_id']]['ten_hien_thi']}}
+                        @endif {{$resource['ten_hien_thi']}} -->
+
+
+
+                        @if($resource['level']>0)
+                            @for ($i = 0; $i < $resource['level']; $i++)
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @endfor
+                        @endif              
+                        @if($resource['has_child'])
+                            <span class="text-primary"><i class="tree-icon fa fa-minus-square-o text-primary"></i>&nbsp;&nbsp;{{$resource['ten_hien_thi']}}</span>
+                        @else
+                            <i>{{$resource['ten_hien_thi']}}</i>
                         @endif
                     </td>
                     <td>{{$resource['uri']}}</td>
                     <td>{{$resource['method']}}</td>
-                    <td><?php echo $resource['icon']; ?></td>
-                    <td>{{$resource['order']}}</td>
-                    <td>
+                    <td class="text-center"><?php echo $resource['icon']; ?></td>
+                    <td class="text-center">{{$resource['order']}}</td>
+                    <td class="text-center">
                         <label class=" @if($resource['show_menu']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($resource['show_menu']==1) {{'Show'}} @else {{'Hide'}} @endif</label>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <button class="btn btn-vnpt" href="#" data-toggle="dropdown">
                             <i class="icon-list"></i>                          
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -89,7 +95,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {

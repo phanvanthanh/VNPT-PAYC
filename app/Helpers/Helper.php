@@ -138,7 +138,11 @@ class Helper
                 Helper::$paycLevel++;
                 $item['level']=Helper::$paycLevel;
                 if(!isset(Helper::$paycArrItem[$item['id']])){
-					Helper::$paycArrItem[$item['id']]=$item; 
+                    $item['has_child']=0;
+					Helper::$paycArrItem[$item['id']]=$item;
+                    if(isset(Helper::$paycArrItem[$item['parent_id']])){
+                        Helper::$paycArrItem[$item['parent_id']]['has_child']=Helper::$paycArrItem[$item['parent_id']]['has_child']+1; // Nếu có con thì tăng lên một đơn vị
+                    }
                 }                	     
                 unset($data[$key]);          
                 Helper::paycTreeResource($data, $item['id']);
@@ -276,6 +280,37 @@ class Helper
             }           
         }
         return Helper::$arrItem_TreeDonViByParentId;
+    }
+
+
+    private static $level_TreeDonViByParentIdAndMaxLevel=0;
+    private static $arrItem_TreeDonViByParentIdAndMaxLevel=array();
+    public static function treeDonViByParentIdAndMaxLevel($data, $id, $maxLevel){
+        foreach ($data as $key => $item) {
+            if(Helper::$level_TreeDonViByParentIdAndMaxLevel<=$maxLevel){
+                if($item['id']==$id){
+                    $item['has_child']=1;
+                    $item['level']=Helper::$level_TreeDonViByParentIdAndMaxLevel;
+                    Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['id']]=$item; 
+                }
+                if($item['parent_id']==$id && $item['ma_dinh_danh']==null){
+                    Helper::$level_TreeDonViByParentIdAndMaxLevel++;
+                    $item['has_child']=0;
+                    $item['level']=Helper::$level_TreeDonViByParentIdAndMaxLevel;
+                    if(!isset(Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['id']])){
+                        Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['id']]=$item; 
+                        if(isset(Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['parent_id']])){
+                            Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['parent_id']]['has_child']=Helper::$arrItem_TreeDonViByParentIdAndMaxLevel[$item['parent_id']]['has_child']+1; // Nếu có con thì tăng lên một đơn vị
+                        }
+                    }                        
+                    unset($data[$key]);          
+                    Helper::treeDonViByParentIdAndMaxLevel($data, $item['id'], $maxLevel);
+                    Helper::$level_TreeDonViByParentIdAndMaxLevel--;
+                }         
+            }
+                  
+        }
+        return Helper::$arrItem_TreeDonViByParentIdAndMaxLevel;
     }
 
 

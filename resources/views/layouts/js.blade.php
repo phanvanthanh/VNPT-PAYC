@@ -68,11 +68,15 @@
       <script type="text/javascript" src="{{ asset('public/js/tooltips.js') }}"></script>
       <script type="text/javascript" src="{{ asset('public/js/popover.js') }}"></script>
 
+      <script src="{{ asset('public/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+      <script src="{{ asset('public/js/toastDemo.js') }}"></script>
+      <!-- <script src="{{ asset('public/js/desktop-notification.js') }}"></script> -->
+
      <!--  <script type="text/javascript" src="{{ asset('public/js/dragula.js') }}"></script>
       <script type="text/javascript" src="{{ asset('public/vendors/dragula/dragula.min.js') }}"></script> -->
 
       <script type="text/javascript">
-         jQuery(document).ready(function(){
+         jQuery(document).ready(function(){          
             $(".dropify").change(function() {
                   $('#myImg').html('');
                   if (this.files && this.files[0]) {
@@ -146,6 +150,7 @@
             jQuery('.nav-item').removeClass('active');
             jQuery('.nav-link').each(function( index ) {
               var href=jQuery(this).attr("href");
+              if(href=='/') href='';
               if(href==pathname){
                 jQuery(this).parent().addClass('active');
               }
@@ -548,6 +553,41 @@
         showPhuongXa(2);
       });
         
+
+
+
+
+        /*Kỹ thuật t-tree là kỹ thuật Thanh-Tree do Thanh tự làm đó mà*/
+        jQuery('.t-tree').on('click',function(){
+            var id=jQuery(this).attr('data-id');
+            var dataShow=jQuery(this).attr('data-show');
+            if(dataShow==1){
+                jQuery(this).attr('data-show',0);
+                jQuery(this).find('.tree-icon').removeClass('fa-minus-square-o');
+                jQuery(this).find('.tree-icon').addClass('fa-plus-square-o');
+            }else{
+                jQuery(this).attr('data-show',1);
+                jQuery(this).find('.tree-icon').removeClass('fa-plus-square-o');
+                jQuery(this).find('.tree-icon').addClass('fa-minus-square-o');
+            }
+            tTree(id, dataShow);
+        });
+        tTree=function(id, dataShow){            
+            jQuery('.t-tree').each(function(){
+                if(jQuery(this).attr('data-parent')==id){
+                    if(dataShow==1){
+                        jQuery(this).hide();
+                        jQuery(this).find('.tree-icon').removeClass('fa-minus-square-o');
+                        jQuery(this).find('.tree-icon').addClass('fa-plus-square-o');
+                    }else{
+                        jQuery(this).show();
+                        jQuery(this).find('.tree-icon').removeClass('fa-plus-square-o');
+                        jQuery(this).find('.tree-icon').addClass('fa-minus-square-o');
+                    }
+                    tTree(jQuery(this).attr('data-id'), dataShow);
+                }
+            });
+        }
 
         
 

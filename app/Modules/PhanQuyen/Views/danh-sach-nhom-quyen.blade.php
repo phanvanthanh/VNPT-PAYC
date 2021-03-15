@@ -1,6 +1,6 @@
 <table id="table-danh-sach-nhom-quyen" class="table table-hover table-danh-sach-nhom-quyen">
     <thead>
-        <tr class="background-vnpt">
+        <tr class="background-vnpt text-center">
             <th>STT #</th>
             <th>Tên nhóm quyền</th>
             <th>Thuộc đơn vị</th>
@@ -13,7 +13,7 @@
         ?>
         @foreach($roles as $role)
             <?php $stt++; ?>
-            <tr class="cusor" data="{{$role['id']}}">
+            <tr class="cusor tr-small" data="{{$role['id']}}">
                 <td class="text-center">{{$stt}}</td>
                 <td class='text-primary'>
                     {{$role['role_name']}}

@@ -18612,7 +18612,7 @@ button.bg-dark:focus,
 .text-primary {
   /*color: #03a9f3 !important;*/
   color: #1f7ed0 !important;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -18654,7 +18654,7 @@ a.text-warning:hover, a.text-warning:focus {
 .text-danger {
   /*color: #fb9678 !important;*/
   color: #FF5733 !important;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 a.text-danger:hover, a.text-danger:focus {
@@ -28527,6 +28527,10 @@ div.tagsinput span.tag a {
   background-color: #00c292;
 }
 
+.jq-toast-wrap .jq-icon-primary {
+  background-color: #1f7ed0;
+}
+
 .jq-toast-wrap .jq-icon-info {
   background-color: #ab8ce4;
 }
@@ -29784,7 +29788,7 @@ a.a-file{
 }
 
 .error-mode{
-  min-height: 62.8px;
+  /*min-height: 62.8px;*/
 }
 
 .nowrap{
@@ -29804,4 +29808,5 @@ a.a-file{
 
 table tbody tr.tr-small td, table tbody tr.tr-small th{
   padding: 0px;
+  height: 34.6px;
 }

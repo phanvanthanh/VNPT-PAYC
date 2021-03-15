@@ -10,10 +10,6 @@ Route::group(
             'uses' => 'PaycController@payc'
         ]);
 
-        Route::get('danh-sach-payc-an-danh', [
-            'as' => 'danh-sach-payc-an-danh',
-            'uses' => 'PaycController@danhSachPaycAnDanh'
-        ]);
 
         Route::get('danh-sach-payc-cua-toi', [
             'as' => 'danh-sach-payc-cua-toi',

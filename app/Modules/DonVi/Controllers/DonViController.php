@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use DB;
-use App\AdminRole;
-use App\AdminResource;
 use App\DonVi;
+use App\DmCapDonVi;
+use App\DmPhuongXa;
+use App\DmQuanHuyen;
 use Request as RequestAjax;
 
 
@@ -22,7 +23,7 @@ class DonViController extends Controller{
     }
 
     public function donVi(Request $request){
-        $donVis=DonVi::where('don_vi.state','=',1)->orderBy('id','asc')->get()->toArray();
+        $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
         
         $donVis=\Helper::paycTreeResource($donVis,null);
         return view('DonVi::don-vi',compact('donVis'));
@@ -33,7 +34,7 @@ class DonViController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
 
-            $donVis=DonVi::get()->toArray();
+            $donVis=DonVi::orderBy('ma_cap','asc')->get()->toArray();
             $donVis=\Helper::paycTreeResource($donVis,null);
             $view=view('DonVi::danh-sach-don-vi', compact('donVis','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
@@ -44,7 +45,9 @@ class DonViController extends Controller{
     public function themDonVi(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
-            $data['id_users']=Auth::id();
+            if(isset($data['la_don_vi_xu_ly'])){
+                $data['la_don_vi_xu_ly']=1;
+            }
             DonVi::create($data); // Lưu dữ liệu vào DB
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
@@ -58,6 +61,10 @@ class DonViController extends Controller{
             $dataForm=RequestAjax::all(); $data=array();
             $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
             $donVis=\Helper::paycTreeResource($donVis,null);
+            $capDonVis=DmCapDonVi::all()->toArray();
+
+            $dmPhuongXas=DmPhuongXa::all()->toArray();
+            $dmQuanHuyens=DmQuanHuyen::all()->toArray();
             // Kiểm tra dữ liệu không hợp lệ
             if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = DonVi::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
@@ -68,7 +75,7 @@ class DonViController extends Controller{
                     $error="";
                 }
             }  
-            $view=view('DonVi::don-vi-single', compact('data','donVis','error'))->render(); // Trả dữ liệu ra view trước     
+            $view=view('DonVi::don-vi-single', compact('data','donVis', 'capDonVis', 'dmQuanHuyens', 'dmPhuongXas','error'))->render(); // Trả dữ liệu ra view trước     
             return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
         }
         return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
@@ -85,6 +92,10 @@ class DonViController extends Controller{
             $donVi=DonVi::where("id","=",$id)->get()->toArray();
             if(count($donVi)==1){
                 unset($dataForm["_token"]);
+                unset($dataForm["ma_quan_huyen"]);
+                if(isset($dataForm['la_don_vi_xu_ly'])){
+                    $dataForm['la_don_vi_xu_ly']=1;
+                }
                 $donVi=DonVi::where("id","=",$id);
                 $donVi->update($dataForm);
                 return array("error"=>'');

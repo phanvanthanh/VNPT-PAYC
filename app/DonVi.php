@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DonVi extends Model
 {
     protected $table='don_vi';
-    protected $fillable=['id','ten_don_vi', 'ma_phuong_xa', 'ma_cap', 'ma_dinh_danh', 'email', 'co_dinh', 'di_dong', 'fax', 'parent_id', 'level', 'state'];
+    protected $fillable=['id','ten_don_vi', 'ma_don_vi', 'ma_phuong_xa', 'ma_cap', 'ma_dinh_danh', 'email', 'co_dinh', 'di_dong', 'fax', 'parent_id', 'level', 'la_don_vi_xu_ly','state'];
     //protected $hidden=[''] // danh sách các trường muốn ẩn
     public $timestamps=false;
 
@@ -53,7 +53,7 @@ class DonVi extends Model
 		}
 		return $result;
     }
-
+/*
     public static function layToThuocCapHuyenTheoMaHuyen($maHuyen){
     	$result=array();
     	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
@@ -96,7 +96,7 @@ class DonVi extends Model
 			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoTheoIdDonVi($rs['id']));
 		}
 		return $resultCanBo;
-    }
+    }*/
 
     public static function layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen, $maNhomChucVu, $idDichVu){
     	$result=array();
@@ -109,12 +109,13 @@ class DonVi extends Model
 		}
 		$resultCanBo=array();
 		foreach ($result as $key => $rs) {
+			
 			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoPhuTrachTheoNhomChuVu($rs['id'],$maNhomChucVu, $idDichVu));
 		}
 		return $resultCanBo;
     }
 
-    public static function layCanBoTheoIdDonVi($idDonVi){
+    /*public static function layCanBoTheoIdDonVi($idDonVi){
     	$data=DB::select('select u.*, cd.ten_chuc_danh, cv.ten_chuc_vu, ncv.ma_nhom_chuc_vu from users_don_vi usdv
 			left join users u on usdv.id_user=u.id
 			left join chuc_danh cd on usdv.id_chuc_danh=cd.id
@@ -123,7 +124,7 @@ class DonVi extends Model
 			where usdv.id_don_vi='.$idDonVi);
     	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
     	return $data;
-    }
+    }*/
     public static function layCanBoPhuTrachTheoNhomChuVu($idDonVi, $maNhomChucVu, $idDichVu){
     	$data=DB::select('select u.*, cd.ten_chuc_danh, cv.ten_chuc_vu, ncv.ma_nhom_chuc_vu 
     		from users_don_vi usdv
@@ -141,7 +142,7 @@ class DonVi extends Model
 
 
 
-    public static function layToThuocCapTtvtTheoMaHuyen($maHuyen){
+    /*public static function layToThuocCapTtvtTheoMaHuyen($maHuyen){
     	$result=array();
     	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
     	$data=DB::select('select * from don_vi');
@@ -168,5 +169,5 @@ class DonVi extends Model
 			
 		}
 		return $result;
-    }
+    }*/
 }

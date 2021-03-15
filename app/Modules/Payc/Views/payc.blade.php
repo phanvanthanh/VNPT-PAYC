@@ -109,20 +109,17 @@ $userId=Auth::id();
 					                              <option @if($donViMacDinh && isset($donViMacDinh[0]['ma_quan_huyen']) && $donViMacDinh[0]['ma_quan_huyen']==$dmQuanHuyen['ma_quan_huyen']) {{"selected='selected'"}} @endif value="{{$dmQuanHuyen['ma_quan_huyen']}}">{{$dmQuanHuyen['ten_quan_huyen']}}</option>
 					                    @endforeach
 					                </select>
-					    		  <!-- <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small> -->
-					    	  </div>
-					    	  <div class="col-6">
+					    	</div>
+					    	<div class="col-6">
 					    	  	<small class="form-text text-muted"><b>&nbsp;</b></small>
-					    	  	<!-- <label for="ma_phuong_xa" class="text-title-input-size">* Dịch vụ</label> -->
 						          <select class="form-control ma_phuong_xa" name="ma_phuong_xa" aria-describedby="ma_phuong_xa_helper" >
 						          		@foreach($dmPhuongXas as $dmPhuongXa)
 					                              <option @if($donViMacDinh && isset($donViMacDinh[0]['ma_phuong_xa']) && $donViMacDinh[0]['ma_phuong_xa']==$dmPhuongXa['ma_phuong_xa']) {{"selected='selected'"}} @endif ma-quan-huyen="{{$dmPhuongXa['ma_quan_huyen']}}" value="{{$dmPhuongXa['ma_phuong_xa']}}">{{$dmPhuongXa['ten_phuong_xa']}}</option>
 					                    @endforeach
 					                </select>
-					    		  <!-- <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small> -->
-					    	  </div>
+					    	</div>
 					    	  
-		    		  </div>
+		    		  	</div>
                 </form>
     		  <div class="row">
     		  	<div class="col-12 text-right">

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\DmXaPhuong\Models;
+namespace App\Modules\DmPhuongXa\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use App\DmXaPhuong;
+use App\DmPhuongXa;
 
-class ReadFileExcelDmXaPhuong implements ToModel, WithHeadingRow
+class ReadFileExcelDmPhuongXa implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -16,7 +16,7 @@ class ReadFileExcelDmXaPhuong implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new DmXaPhuong([
+        return new DmPhuongXa([
             'MA_PHUONG_XA'     => $row['ma_phuong_xa'],
             'TEN_PHUONG_XA'     => $row['ten_phuong_xa'],
             'LOAI'     => $row['loai'],

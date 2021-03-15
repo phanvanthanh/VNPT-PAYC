@@ -4,10 +4,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-               <h4 class="color-vnpt">CHỨC NĂNG ĐỌC FILE EXCEL</h4>
+               <h4 class="text-danger">CHỨC NĂNG ĐỌC FILE EXCEL</h4>
 
                 <div class="text-right table-responsive">
-                    <form class="forms-sample text-right" method="POST" action="{{ route('dm-xa-phuong/import') }}" enctype="multipart/form-data">
+                    <form class="forms-sample text-right" method="POST" action="{{ route('dm-phuong-xa/import') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group mr-2">  
                             <div class="col-sm-12">                          
@@ -21,9 +21,9 @@
                 </div>
                 <br>
                <div class="table-responsive">
-                    <table id="order-listing" class="table">
+                    <table id="order-listing" class="table table-hover">
                     <thead>
-                        <tr class="background-vnpt">
+                        <tr class="background-vnpt text-center">
                             <th>STT #</th>
                             <th>Tên xã phường</th>
                             <th>Mã xã phường</th>
@@ -38,15 +38,15 @@
                         <?php $stt=0; ?>
                         @foreach($data as $xaPhuong)
                             <?php $stt++; ?>
-                            <tr>
+                            <tr class="tr-small">
                                 <td>{{$stt}}</td>
-                                <td class="color-vnpt"><b>{{$xaPhuong->TEN_PHUONG_XA}}</b></td>
-                                <td>{{$xaPhuong->MA_PHUONG_XA}}</td>
+                                <td class="text-primary">{{$xaPhuong->ten_phuong_xa}}</td>
+                                <td class="text-center">{{$xaPhuong->ma_phuong_xa}}</td>
                                 
-                                <td>{{$xaPhuong->LOAI}}</td>
-                                <td>{{$xaPhuong->MA_QUAN_HUYEN}}</td>
-                                <td>{{$xaPhuong->updated_at}}</td>
-                                <td>
+                                <td class="text-center">{{$xaPhuong->loai}}</td>
+                                <td class="text-center">{{$xaPhuong->ma_quan_huyen}}</td>
+                                <td class="text-center">{{$xaPhuong->updated_at}}</td>
+                                <td class="text-center">
                                     <button class="btn btn-vnpt" id="notificationDropdown" href="#" data-toggle="dropdown">
                                         <i class="icon-list"></i>
                                       

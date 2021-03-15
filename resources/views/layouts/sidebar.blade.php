@@ -1,9 +1,12 @@
 <?php
    use App\AdminResource;
    use App\AdminRule;
+   use App\User;
    $resources=array();
    $userId=Auth::id();
+   $user=array();
    if($userId){
+      $user=User::select('name')->where('id','=',$userId)->get()->toArray();
       $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
       $resources=\Helper::paycTreeResourceHasChild($resources, 1);
    }else{
@@ -58,7 +61,11 @@
                                  PHẢN ÁNH YÊU CẦU
                               </p>
                               <p class="designation">
-                                 chế độ ẩn danh
+                                 @if($user)
+                                    {{$user[0]['name']}}
+                                 @else
+                                    Chế độ ẩn danh
+                                 @endif
                               </p>
                            </div>
                         </div>

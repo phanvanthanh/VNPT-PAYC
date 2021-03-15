@@ -1,15 +1,15 @@
 <?php
-namespace App\Modules\DmXaPhuong\Controllers;
+namespace App\Modules\DmPhuongXa\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Excel;
-use App\Modules\DmXaPhuong\Models\ReadFileExcelDmXaPhuong;
-use App\DmXaPhuong;
+use App\Modules\DmPhuongXa\Models\ReadFileExcelDmPhuongXa;
+use App\DmPhuongXa;
 
 
 
-class DmXaPhuongController extends Controller{
+class DmPhuongXaController extends Controller{
     /**
      * Create a new authentication controller instance.
      *
@@ -22,10 +22,10 @@ class DmXaPhuongController extends Controller{
      * View load dữ liệu THÔNG TIN XÃ PHƯỜNG
      * Đọc từ cơ sở dữ liệu ra
     */
-    public function dmXaPhuong(Request $request){
+    public function dmPhuongXa(Request $request){
         $data=array();
-        $data=DmXaPhuong::all();
-        return view('DmXaPhuong::dm-xa-phuong', compact('data'));
+        $data=DmPhuongXa::all();
+        return view('DmPhuongXa::dm-phuong-xa', compact('data'));
     }
     /*
      * Chức năng import dữ liệu THÔNG TIN XÃ PHUONG theo mẫu số 01 từ file excel 
@@ -33,11 +33,11 @@ class DmXaPhuongController extends Controller{
      * Sau đó, return sang hàm view phía trên để lấy dữ liệu ra
     */
 
-    public function dmXaPhuongAndImport(Request $request){
+    public function dmPhuongXaAndImport(Request $request){
         $data=array();
         if($request->isMethod('post')){
-            Excel::import(new ReadFileExcelDmXaPhuong,request()->file('file_excel'));
+            Excel::import(new ReadFileExcelDmPhuongXa,request()->file('file_excel'));
         }
-        return redirect(route("dm-xa-phuong"));
+        return redirect(route("dm-phuong-xa"));
     }
 }

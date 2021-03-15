@@ -56,6 +56,7 @@
       <link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}">
 
       <link rel="stylesheet" href="{{ asset('public/vendors/dragula/dragula.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('public/vendors/jquery-toast-plugin/jquery.toast.min.css') }}">
 
       <style type="text/css">
         .image-tile:hover{
