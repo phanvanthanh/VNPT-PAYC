@@ -55,7 +55,7 @@
 
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
-          jQuery("#modal-them-moi").modal('hide');
+          location.reload();
       });
 
       $('.btn-load-form-them-moi').on('click',function(){
