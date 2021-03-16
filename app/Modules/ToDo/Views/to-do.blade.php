@@ -26,7 +26,7 @@
   </div>
 </div>
 
-    <div class="modal fade" id="modal-them-moi" tabindex="-1" role="dialog" aria-labelledby="modal-them-moi" aria-hidden="true">
+    <div class="modal" id="modal-them-moi" tabindex="-1" role="dialog" aria-labelledby="modal-them-moi" aria-hidden="true">
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header background-vnpt">
@@ -55,7 +55,9 @@
 
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
-          location.reload();
+          $("#modal-them-moi").removeClass("in");
+          $(".modal-backdrop").remove();
+          $("#modal-them-moi").hide();
       });
 
       $('.btn-load-form-them-moi').on('click',function(){

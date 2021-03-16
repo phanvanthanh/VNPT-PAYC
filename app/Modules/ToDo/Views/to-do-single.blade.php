@@ -5,7 +5,6 @@
     <input type="hidden" name="id" class="id" value="{{$data['id']}}">
     @endif    
         {{ csrf_field() }}
-        <input type="hidden" name="id" class="id" @if($checkData==1) value="{{$data['id']}}" @endif>
         <div class="form-group row">
             <label for="noi_dung" class="col-sm-4 col-form-label ">Nội dung</label>
             <div class="col-sm-8">

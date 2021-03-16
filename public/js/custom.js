@@ -59,6 +59,7 @@
             loadTable(_token, urlRefreshData, classNameRefreshData);
             
           }else{
+            jQuery('.btn-them-moi').attr("disabled",false);
             errorLoader(".error-mode",data.error);
           }
             
