@@ -9,14 +9,13 @@
             <th>Xử lý</th>
         </tr>
     </thead>
-    <tbody>                       
-                     
+    <tbody>          
         <?php 
             $stt=0;
         ?>
         @foreach($users as $user)
             <?php $stt++; ?>
-            <tr class="tr-hover">
+            <tr class="tr-hover tr-small">
                 <td class="text-center">{{$stt}}</td>
                 <td class='text-primary'>
                     {{$user['name']}}
@@ -108,7 +107,7 @@
             jQuery("#modal-cap-nhat").modal('hide'); // Tắt form sửa    
         });
 
-        /*Sự kiện bấm nút cập nhật*/
+        /*Sự kiện bấm nút xóa*/
         jQuery('.btn-xoa').on('click',function(){      
             var id=jQuery(this).attr("data"); // lấy id
             var result = confirm("Bạn thật sự muốn xóa thông tin này?  Nếu đồng ý xóa chúng tôi sẽ không phục hồi lại được.");

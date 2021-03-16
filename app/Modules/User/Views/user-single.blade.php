@@ -6,26 +6,30 @@
     <input type="hidden" name="id" class="id" value="{{$data['id']}}">
     @endif
     <div class="form-group row">
-        <label for="role_name" class="col-sm-4 col-form-label ">Tên nhóm quyền</label>
+        <label for="hoten" class="col-sm-4 col-form-label ">Họ tên</label>
         <div class="col-sm-8">
-           <input type="Text" class="form-control role_name" name="role_name" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['role_name']}}" @endif>
+           <input type="Text" class="form-control hoten" name="hoten" required placeholder="Vui lòng nhập họ tên cần tạo" @if($checkData==1)  value="{{$data['name']}}" @endif>
         </div>
      </div>
      
      <div class="form-group row">
-        <label for="id_don_vi" class="col-sm-4 col-form-label">Đơn vị</label>
+        <label for="email" class="col-sm-4 col-form-label">Email</label>
         <div class="col-sm-8">
-           <select class="form-control id_don_vi" name="id_don_vi">
-            @foreach($donVis as $donVi)
-                <option value="{{$donVi['id']}}" @if($checkData==1) @if($data['id_don_vi']==$donVi['id']){{'selected="selected"'}}@endif @endif>
-                  @if($donVi['level']>0)
-                      @for ($i = 0; $i < $donVi['level']; $i++)
-                          {{"____ "}}
-                      @endfor
-                  @endif {{$donVi['ten_don_vi']}}
-                </option>
-            @endforeach
-          </select>
+            <input type="Text" class="form-control email" name="email" required placeholder="Vui lòng nhập email cần tạo" @if($checkData==1)  value="{{$data['email']}}" @endif>
+        </div>
+     </div>
+
+     <div class="form-group row">
+        <label for="email" class="col-sm-4 col-form-label">Mật khẩu</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control matkhau" name="matkhau" required placeholder="Vui lòng nhập mật khẩu cần tạo" @if($checkData==1)  value="{{$data['password']}}" @endif>
+        </div>
+     </div>
+
+     <div class="form-group row">
+        <label for="email" class="col-sm-4 col-form-label">Số điện thoại</label>
+        <div class="col-sm-8">
+            <input type="tel" class="form-control sdt" name="sdt" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required placeholder="Vui lòng nhập số điện thoại cần tạo" @if($checkData==1)  value="{{$data['di_dong']}}" @endif>
         </div>
      </div>
 
