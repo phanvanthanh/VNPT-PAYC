@@ -9,8 +9,7 @@
             <th>Xử lý</th>
         </tr>
     </thead>
-    <tbody>                       
-                     
+    <tbody>          
         <?php 
             $stt=0;
         ?>
@@ -108,7 +107,7 @@
             jQuery("#modal-cap-nhat").modal('hide'); // Tắt form sửa    
         });
 
-        /*Sự kiện bấm nút cập nhật*/
+        /*Sự kiện bấm nút xóa*/
         jQuery('.btn-xoa').on('click',function(){      
             var id=jQuery(this).attr("data"); // lấy id
             var result = confirm("Bạn thật sự muốn xóa thông tin này?  Nếu đồng ý xóa chúng tôi sẽ không phục hồi lại được.");
