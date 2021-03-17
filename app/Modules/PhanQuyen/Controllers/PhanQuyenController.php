@@ -90,11 +90,13 @@ class PhanQuyenController extends Controller{
                 // Thêm quyền đó
                 $rule=AdminRule::create($data); 
                 // Thêm các quyền con của quyền đó
-                $childResources=AdminResource::select('id')->where('parent_id','=',$resourceId)->get()->toArray();
+                /*$childResources=AdminResource::select('id')->where('parent_id','=',$resourceId)->get()->toArray();
                 foreach ($childResources as $key => $childResources) {
                     $data['resource_id']=$childResources['id'];
                     $rule=AdminRule::create($data);
-                }
+                }*/
+                $resources=AdminResource::all()->toArray();
+                $this->phanQuyenTheoResourceId($resources, $roleId, $resourceId);
 
             }
             // thực hiện thêm quyền nếu chưa có
@@ -104,6 +106,19 @@ class PhanQuyenController extends Controller{
             
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+    public function phanQuyenTheoResourceId($data, $roleId, $resourceId){
+        foreach ($data as $key => $d) {
+            if($d['parent_id']==$resourceId){
+                // phân quyền
+                $dataRule['role_id']=$roleId;
+                $dataRule['resource_id']=$resourceId;
+                $rule=AdminRule::create($dataRule); 
+                // duyệt tiếp
+                $this->phanQuyenTheoResourceId($data, $roleId, $d['id']);
+            }
+        }
     }
 
     
