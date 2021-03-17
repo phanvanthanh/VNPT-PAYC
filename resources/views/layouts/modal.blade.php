@@ -132,6 +132,33 @@
       </div>
    </div>
 </div>
+
+<div class="modal fade" id="modal-chuyen-cap-tren" tabindex="-1" role="dialog" aria-labelledby="modal-chuyen-cap-tren" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-chuyen-cap-tren">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">CHUYỂN CẤP GIẢI QUYẾT CAO HƠN</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-chuyen-cap-tren" id="frm-chuyen-cap-tren">
+               <input type="hidden" class="ds_id_payc_chuyen_cap_tren" name="ds_id_payc_chuyen_cap_tren">
+               <input type="hidden" class="ds_id_don_vi_cap_tren" name="ds_id_don_vi_cap_tren">
+                  {{ csrf_field() }}
+               <div class="frm-chuyen-cap-tren">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-vnpt btn-chuyen-cap-tren-2"><i class="fa fa-group"></i>  Chuyển cấp trên</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
       
 
 <div class="modal fade" id="modal-hoan-tat-xu-ly" tabindex="-1" role="dialog" aria-labelledby="modal-hoan-tat-xu-ly" aria-hidden="true">

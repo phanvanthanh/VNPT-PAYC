@@ -40,8 +40,15 @@
                <select class="form-control parent_id" name="parent_id" @if($checkData==1) value="{{$data->parent_id}}" @endif>
                 <option value="1" >Menu trái</option>
                 @foreach($resources as $resource)
-                  @if($resource->parent_id==1)
-                    <option @if($checkData==1) @if($data->parent_id==$resource->id){{'selected="selected"'}}@endif @endif value="{{$resource->id}}">{{$resource->ten_hien_thi}}</option>
+                  @if($resource['id']!=1)
+                    <option @if($checkData==1) @if($data->parent_id==$resource['id']){{'selected="selected"'}}@endif @endif value="{{$resource['id']}}">
+                      @if($resource['level']>0)
+                          @for ($i = 0; $i < $resource['level']; $i++)
+                              __ 
+                          @endfor
+                      @endif  
+                      {{$resource['ten_hien_thi']}}
+                    </option>
                   @endif
                 @endforeach
               </select>

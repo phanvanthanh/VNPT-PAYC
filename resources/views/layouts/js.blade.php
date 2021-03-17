@@ -350,6 +350,30 @@
           
         });
 
+        // Chuyển cấp trên
+        $('.btn-chuyen-cap-tren').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-chuyen-cap-tren"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            jQuery('.ds_id_payc_chuyen_cap_tren').val(dsId);
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('frm-chuyen-cap-tren') }}", ".frm-chuyen-cap-tren");  
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
+          
+        });
+
+        $('.btn-chuyen-cap-tren-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
+          var dsIdUser=getDsIdUserCheckbox(); // lấy tất cả id user được check chọn trong modal
+          jQuery('.ds_id_don_vi_cap_tren').val(dsIdUser);
+
+          xuLy($("form#frm-chuyen-cap-tren"), "{{ route('chuyen-cap-tren') }}", "");
+          jQuery("#modal-chuyen-cap-tren").modal('hide');
+          
+        });
+
 
         // Hoàn tất
         $('.btn-hoan-tat-xu-ly').on('click',function(){ // Bấm nút chuyển trên các danh sách payc

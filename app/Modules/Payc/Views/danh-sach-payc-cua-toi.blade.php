@@ -40,34 +40,35 @@
 						            $stt=0;
 						        ?>
 						        @foreach($paycs as $payc)
-						            <?php $stt++; ?>
+						            <?php 
+						            	$stt++; 
+						            	$style='text-default';
+					                	$trangThai=$payc['ten_trang_thai_xu_ly'];
+					                	if($payc['ma_trang_thai']=="HOAN_TAT"){
+					                		$style='text-default';
+					                	}else{
+					                		if($payc['ma_trang_thai']=="KH_DANH_GIA" and $payc['state']==0){
+					                			$style='text-danger';
+					                			$trangThai='Chờ '.$payc['ten_trang_thai_xu_ly'];
+					                		}
+					                		if($payc['state']==1 && $payc['ma_trang_thai']=="LD_DANH_GIA"){
+					                			$style='text-primary';
+					                			$trangThai='Lãnh đạo đã hoàn tất đánh giá';
+					                		}
+					                		if($payc['state']==1 && $payc['ma_trang_thai']=="KH_DANH_GIA"){
+					                			$style='text-primary';
+					                			$trangThai='Khách hàng đã hoàn tất đánh giá';
+					                		}
+						                	
+					                	}
+						            ?>
 						            <tr class="tr-hover">
 						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
-						                <th class="text-center" scope="row">{{$payc['so_phieu']}}</th>						                
+						                <td class="text-center {{$style}}" scope="row">{{$payc['so_phieu']}}</td>						                
 						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
-						                <?php 
-						                	$trangThai='';
-						                	$style='text-default';
-						                	if($payc['ma_trang_thai']=="HOAN_TAT"){
-						                		$style='text-default';
-						                		$trangThai="";
-						                	}else{
-						                		if($payc['ma_trang_thai']=="KH_DANH_GIA" and $payc['state']==0){
-						                			$style='text-danger';
-							                		$trangThai="Chờ bạn đánh giá";
-						                		}
-						                		if($payc['state']==1 && $payc['ma_trang_thai']=="LD_DANH_GIA"){
-						                			$style='text-primary';
-							                		$trangThai="LĐ đánh giá";
-						                		}
-						                		if($payc['state']==1 && $payc['ma_trang_thai']=="KH_DANH_GIA"){
-						                			$style='text-primary';
-							                		$trangThai="Bạn đã đánh giá";
-						                		}
-							                	
-						                	}
+						                <?php
 						                	if($payc['tieu_de']){
-						                    	echo '<b class="'.$style.'">'.$payc['tieu_de'].'</b>';
+						                    	echo $payc['tieu_de'];
 						                	}
 							                	
 						                ?>
@@ -87,7 +88,7 @@
 						                	{{$payc['ten_dich_vu']}}
 						                </td>
 						                <td class="font-size-default">
-						                	<span class="{{$style}}">{{$payc['ten_trang_thai_xu_ly']}}</span>
+						                	<span class="{{$style}}">{{$trangThai}}</span>
 						                	@if($payc['ngay_tao'])
 						                		<div class="text-default nowrap">{{$payc['ngay_tao']}}</div>
 						                	@endif
