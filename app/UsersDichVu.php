@@ -82,6 +82,25 @@ class UsersDichVu extends Authenticatable
         return $result;
     }
 
+    public static function layDanhSachDonViCapTren($userId){
+        // Lấy danh sách các đơn vị mà user hiện tại đang công tác
+        $donVis=DonVi::where('la_don_vi_xu_ly','=',1)->orderBy('ma_cap','asc')->get()->toArray();
+        $donVis=\Helper::paycTreeResource($donVis,null);
+        return $donVis;
+    }
+
+    public static function layDanhSachCanBoTheoIdDonViVaMaNhomChucVu($idDonVi, $maNhomChucVu){
+        $dsCanBo=DB::select('select u.*, usdv.id_don_vi, dv.ten_don_vi, dv.parent_id, ncv.ten_nhom_chuc_vu from users_don_vi usdv
+            left join users u on usdv.id_user=u.id
+            left join chuc_vu cv on usdv.id_chuc_vu=cv.id
+            left join nhom_chuc_vu ncv on cv.id_nhom_chuc_vu=ncv.id
+            left join don_vi dv on usdv.id_don_vi=dv.id
+            where usdv.id_don_vi='.$idDonVi.'
+            and ncv.ma_nhom_chuc_vu="'.$maNhomChucVu.'"');
+        $dsCanBo = collect($dsCanBo)->map(function($x){ return (array) $x; })->toArray(); 
+        return $dsCanBo;
+    }
+
 
     public static function layDanhSachCanBo($userId){
         // Lấy danh sách các đơn vị mà user hiện tại đang công tác

@@ -18,13 +18,16 @@
                         <button class="btn btn-sm btn-vnpt btn-duyet" data-toggle="modal" data-target="#modal-duyet"><i class="fa fa-mail-forward"></i> Duyệt</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc" data-toggle="modal" data-target="#modal-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc"><i class="fa fa-mail-forward"></i> Chuyển lại bộ phận TN/XL yêu cầu</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc" data-toggle="modal" data-target="#modal-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc"><i class="fa fa-mail-forward"></i> Chuyển lại TN&XL</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển lãnh đạo khác</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển LĐ khác</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
+                        <button class="btn btn-sm btn-info btn-chuyen-cap-tren" data-toggle="modal" data-target="#modal-chuyen-cap-tren"><i class="fa fa-group"></i> Chuyển cấp trên</button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-success btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
                     </div>
                     <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-vnpt btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
@@ -61,10 +64,10 @@
 						            <?php $stt++; ?>
 						            <tr class="tr-hover">
 						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
-						                <th class="text-center" scope="row">{{$payc['so_phieu']}}</th>						                
+						                <td class="text-center text-primary" scope="row">{{$payc['so_phieu']}}</td>						                
 						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
 						                <?php 
-						                	echo '<b>'.$payc['tieu_de'].'</b>';
+						                	echo $payc['tieu_de'];
 						                ?>
 						                </td>
 						                <td>

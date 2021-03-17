@@ -35,9 +35,9 @@ class Payc extends Authenticatable
             where cbxl.id=(
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc and cbxl2.id_xu_ly and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+                where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
             )
-            and (ttxl.ma_trang_thai="TAO_MOI"  or ttxl.ma_trang_thai="CHUYEN_CAN_BO")
+            and (ttxl.ma_trang_thai="TAO_MOI"  or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN")
             and cbn.id_user_nhan='.$userId);
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
@@ -56,9 +56,9 @@ class Payc extends Authenticatable
             where cbxl.id=(
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc and cbxl2.id_xu_ly and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+                where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
             )
-            and (ttxl.ma_trang_thai="CHUYEN_XU_LY" or ttxl.ma_trang_thai="XU_LY" or ttxl.ma_trang_thai="CHUYEN_CAN_BO") 
+            and (ttxl.ma_trang_thai="CHUYEN_XU_LY" or ttxl.ma_trang_thai="XU_LY" or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN") 
             and cbn.id_user_nhan='.$userId);
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
@@ -78,9 +78,9 @@ class Payc extends Authenticatable
             where cbxl.id=(
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc and cbxl2.id_xu_ly and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+                where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
             )
-            and (ttxl.ma_trang_thai="CHUYEN_LANH_DAO" or ttxl.ma_trang_thai="DUYET" or ttxl.ma_trang_thai="LD_DANH_GIA") 
+            and (ttxl.ma_trang_thai="CHUYEN_LANH_DAO" or ttxl.ma_trang_thai="DUYET" or ttxl.ma_trang_thai="LD_DANH_GIA" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN") 
             and cbn.id_user_nhan='.$userId);
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
@@ -99,7 +99,7 @@ class Payc extends Authenticatable
             where cbxl.id=(
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc and cbxl2.id_xu_ly and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+                where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
             )
             and (ttxl.ma_trang_thai="HOAN_TAT" OR ttxl.ma_trang_thai="KH_DANH_GIA" or ttxl.ma_trang_thai="LD_DANH_GIA") 
             and (cbn.id_user_nhan='.$userId.' or cbxl.id_user_xu_ly='.$userId.')');
@@ -125,6 +125,50 @@ class Payc extends Authenticatable
             and (p.id_user_tao='.$userId.' or p.id_user_tao=1)');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
+
+    }
+
+    public static function danhSachPaycTheoTaiKhoan($userId){
+        $data=array();
+        $data=DB::select('select distinct(cbxl.id_payc), cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat, ttxl.ma_trang_thai,
+            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, ttxl.ten_trang_thai_xu_ly,
+            cbn.id_user_nhan
+            from payc as p
+            left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
+            left join dich_vu as dv on p.id_dich_vu=dv.id
+            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
+            left join payc_can_bo_nhan cbn on cbxl.id=cbn.id_xu_ly_yeu_cau
+            where (cbxl.id_user_xu_ly='.$userId.' or cbn.id_user_nhan='.$userId.')');
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        $result=array();
+        foreach ($data as $key => $d) {
+            $result[$d['id_payc']]=$d;
+        }
+        return $result;
+    }
+
+    public static function danhSachPaycChuaCoCanBoNhan($userId){
+        $data=array();
+        $data=DB::select('select cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat, ttxl.ma_trang_thai, cbxl.state,
+            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, ttxl.ten_trang_thai_xu_ly,
+            cbn.id_user_nhan
+            from payc as p
+            left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
+            left join dich_vu as dv on p.id_dich_vu=dv.id
+            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
+            left join payc_can_bo_nhan cbn on cbxl.id=cbn.id_xu_ly_yeu_cau
+            where cbxl.id=(
+                select max(cbxl2.id) as id from payc_xu_ly cbxl2 
+                left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
+                where cbxl2.id_payc=cbxl.id_payc
+            )
+            and cbn.id_user_nhan is null');
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        $result=array();
+        foreach ($data as $key => $d) {
+            $result[$d['id_payc']]=$d;
+        }
+        return $result;
 
     }
 

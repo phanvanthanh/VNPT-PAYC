@@ -74,6 +74,15 @@ Route::group(
             'uses' => 'PaycController@chuyenLanhDao'
         ]);
 
+        Route::post('frm-chuyen-cap-tren', [
+            'as' => 'frm-chuyen-cap-tren',
+            'uses' => 'PaycController@frmChuyenCapTren'
+        ]);
+        Route::post('chuyen-cap-tren', [
+            'as' => 'chuyen-cap-tren',
+            'uses' => 'PaycController@chuyenCapTren'
+        ]);
+
         Route::post('frm-hoan-tat', [
             'as' => 'frm-hoan-tat',
             'uses' => 'PaycController@frmHoanTat'
@@ -141,6 +150,16 @@ Route::group(
         Route::post('them-payc', [
             'as' => 'them-payc',
             'uses' => 'PaycController@themPayc'
+        ]);
+
+        Route::get('danh-sach-payc-theo-tai-khoan', [
+            'as' => 'danh-sach-payc-theo-tai-khoan',
+            'uses' => 'PaycController@danhSachPaycTheoTaiKhoan'
+        ]);
+
+        Route::get('danh-sach-payc-chua-co-can-bo-nhan', [
+            'as' => 'danh-sach-payc-chua-co-can-bo-nhan',
+            'uses' => 'PaycController@danhSachPaycChuaCoCanBoNhan'
         ]);
 
     }

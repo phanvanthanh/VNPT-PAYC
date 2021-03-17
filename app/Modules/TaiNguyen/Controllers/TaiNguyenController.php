@@ -174,7 +174,9 @@ class TaiNguyenController extends Controller{
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array();
-            $resources = AdminResource::where("parent_id","=",1)->get();
+            //$resources = AdminResource::all();
+            $resources = AdminResource::orderBy('order')->get()->toArray();
+            $resources=\Helper::paycTreeResource($resources,null);
             // Kiểm tra dữ liệu không hợp lệ
             if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $data = AdminResource::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
