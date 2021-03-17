@@ -21,7 +21,7 @@
                         </div>
                     </td>
                     <td class='text-primary'>
-                        {{$resource['ten_hien_thi']}}
+                        @php echo $resource['icon']; @endphp &nbsp;&nbsp;{{$resource['ten_hien_thi']}}
                     </td>
                 </tr>
         @endforeach    
