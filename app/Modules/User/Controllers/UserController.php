@@ -9,6 +9,8 @@ use DB;
 use App\AdminRole;
 use App\AdminResource;
 use App\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Request as RequestAjax;
 
 
@@ -44,7 +46,10 @@ class UserController extends Controller{
             User::create([
                 'name' => $request->hoten,
                 'email' => $request->email,
+                //'password' => bcrypt($request->matkhau),
+                'password' => Hash::make($request->matkhau),
                 'password' => bcrypt($request->matkhau),
+                'api_token' => Str::random(60),
                 'di_dong' => $request->sdt,
                 'state' => $request->state
             ]); // Lưu dữ liệu vào DB

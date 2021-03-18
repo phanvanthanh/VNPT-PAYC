@@ -5,6 +5,18 @@ use DB;
 
 class Helper
 {
+    public static function layDanhSachQuyenTheoUserId($userId){
+        // Lấy quyền theo user id
+       $adminRules=DB::select('select adru.resource_id from users_role ur
+        left join admin_rule adru on ur.role_id=adru.role_id
+        where ur.user_id='.$userId);
+       $adminRules = collect($adminRules)->map(function($x){ return (array) $x; })->toArray();
+       $rules=array();
+       foreach ($adminRules as $key => $adminRule) {
+          $rules[$adminRule['resource_id']]=$adminRule;
+       }
+       return $rules;
+    }
     public static function getTrangThaiPaycKhachHangById($id){
         $trangThai=DB::select('select t1.id, t1.tieu_de, t2.id_user_xu_ly, t2.id_xu_ly, t3.ma_trang_thai, t3.ten_trang_thai_xu_ly, t4.name from payc t1
             right join payc_canbo_xuly_yeucau t2 on t2.id_payc=t1.id
