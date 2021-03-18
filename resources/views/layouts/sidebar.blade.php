@@ -5,21 +5,15 @@
    $resources=array();
    $userId=Auth::id();
    $user=array();
-   if($userId){
-      $user=User::select('name')->where('id','=',$userId)->get()->toArray();
-      $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
-      $resources=\Helper::paycTreeResourceHasChild($resources, 1);
-   }else{
-      $resources = AdminRule::select('admin_resource.id', 'admin_resource.ten_hien_thi', 'admin_resource.parent_id', 'admin_resource.icon', 'admin_resource.uri')
-         ->leftJoin('admin_resource','admin_rule.resource_id','=','admin_resource.id')
-         ->where('admin_resource.status','=',1)
-         ->where('admin_resource.id','!=',1)
-         ->where('admin_resource.show_menu','=',1)
-         ->where('admin_rule.role_id','=',1) // Lay quyen cua role vang lai
-         ->orderBy('admin_resource.order')
-         ->get()->toArray();
-      $resources=\Helper::paycTreeResourceHasChild($resources, 1);
+   if(!$userId){
+      $userId=1;
    }
+   // Lấy thông tin user ra để hiển thị lên giao diện
+   $user=User::select('name')->where('id','=',$userId)->get()->toArray();
+   // Lấy tất cả các quyền ra để đưa lên lưới
+   $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+   $resources=\Helper::paycTreeResourceHasChild($resources, 1);
+   $rules=\Helper::layDanhSachQuyenTheoUserId($userId);
       
 ?>              
                <div id="right-sidebar" class="settings-panel">
@@ -72,33 +66,35 @@
                      </li>
 
                      @foreach($resources as $resource)
-                        @if($resource['has_child']==0 && $resource['level']==0)
-                        <li class="nav-item">
-                           <a class="nav-link" href="{{$resource['uri']}}">
-                              <?php echo $resource['icon']; ?>
-                              <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
-                           </a>
-                        </li>
-                        @else
-                           @if($resource['has_child']>0 && $resource['level']==0)
+                        @if(isset($rules[$resource['id']]))
+                           @if($resource['has_child']==0 && $resource['level']==0)
                            <li class="nav-item">
-                              <a class="nav-link" data-toggle="collapse" href="#icons{{$resource['id']}}" aria-expanded="false" aria-controls="icons{{$resource['id']}}">
-                              <?php echo $resource['icon']; ?>&nbsp;
-                              <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
-                              <span class="badge badge-primary">{{$resource['has_child']}}</span>
+                              <a class="nav-link" href="{{$resource['uri']}}">
+                                 <?php echo $resource['icon']; ?>
+                                 <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
                               </a>
-                              <div class="collapse" id="icons{{$resource['id']}}">
-                                 <ul class="nav flex-column sub-menu">
-                                    <!-- Chạy lại dòng forearch để lấy ra những phần tử con -->
-                                    @foreach($resources as $resourceChild)
-                                       @if($resourceChild['parent_id']==$resource['id'])
-                                       <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
-                                       </a></li>
-                                       @endif
-                                    @endforeach                                 
-                                 </ul>
-                              </div>
                            </li>
+                           @else
+                              @if($resource['has_child']>0 && $resource['level']==0)
+                              <li class="nav-item">
+                                 <a class="nav-link" data-toggle="collapse" href="#icons{{$resource['id']}}" aria-expanded="false" aria-controls="icons{{$resource['id']}}">
+                                 <?php echo $resource['icon']; ?>&nbsp;
+                                 <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
+                                 <span class="badge badge-primary">{{$resource['has_child']}}</span>
+                                 </a>
+                                 <div class="collapse" id="icons{{$resource['id']}}">
+                                    <ul class="nav flex-column sub-menu">
+                                       <!-- Chạy lại dòng forearch để lấy ra những phần tử con -->
+                                       @foreach($resources as $resourceChild)
+                                          @if($resourceChild['parent_id']==$resource['id'])
+                                          <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
+                                          </a></li>
+                                          @endif
+                                       @endforeach                                 
+                                    </ul>
+                                 </div>
+                              </li>
+                              @endif
                            @endif
                         @endif
                      @endforeach                     
