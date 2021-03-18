@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use App\Http\Controllers\Controller;
 class PassportAuthController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class PassportAuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
+            'email' => 'required|string|unique:users',
             'password' => 'required|string|confirmed'
         ]);
         $user = new User([
@@ -30,7 +31,7 @@ class PassportAuthController extends Controller
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully đã tạo tài khoản thành công!'
         ], 201);
     }
   
@@ -47,7 +48,7 @@ class PassportAuthController extends Controller
     public function apiDangNhap(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required|string',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
@@ -80,7 +81,7 @@ class PassportAuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully đăng xuất thành công'
         ]);
     }
   

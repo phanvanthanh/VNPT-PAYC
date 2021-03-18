@@ -2,7 +2,7 @@
 $namespace = 'App\Modules\API\Controllers';
 
 Route::group(
-    ['module'=>'API', 'namespace' => $namespace, 'prefix' => 'auth'],
+    ['module'=>'API', 'namespace' => $namespace, 'prefix' => 'api/auth'],
     function() {
         Route::post('api-dang-nhap', 'PassportAuthController@apiDangNhap');
     	Route::post('api-tao-tai-khoan', 'PassportAuthController@apiTaoTaiKhoan');
