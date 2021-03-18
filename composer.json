@@ -13,7 +13,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "kartik-v/bootstrap-fileinput": "dev-master",
         "laravel/framework": "^6.2",
-        "laravel/passport": "^9.3",
+        "laravel/passport": "^10.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.2",
         "maatwebsite/excel": "^3.1"
