@@ -13,7 +13,7 @@
      </div>
      
      <div class="form-group row">
-        <label for="email" class="col-sm-4 col-form-label">Email</label>
+        <label for="email" class="col-sm-4 col-form-label">Tên đăng nhập</label>
         <div class="col-sm-8">
             <input type="Text" class="form-control email" name="email" required placeholder="Vui lòng nhập email cần tạo" @if($checkData==1)  value="{{$data['email']}}" @endif>
         </div>
@@ -22,7 +22,7 @@
      <div class="form-group row">
         <label for="email" class="col-sm-4 col-form-label">Mật khẩu</label>
         <div class="col-sm-8">
-            <input type="password" class="form-control matkhau" name="matkhau" required placeholder="Vui lòng nhập mật khẩu cần tạo" @if($checkData==1)  value="{{$data['password']}}" @endif>
+            <input type="password" class="form-control matkhau" name="matkhau" required placeholder="Vui lòng nhập mật khẩu cần tạo">
         </div>
      </div>
 

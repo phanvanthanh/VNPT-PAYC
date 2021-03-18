@@ -1,4 +1,4 @@
-<table id="order-listing" class="table table-hover">
+    <table id="order-listing" class="table table-hover">
     <thead>
         <tr class="background-vnpt text-center">
             <th>STT #</th>
@@ -34,6 +34,10 @@
                         <i class="icon-list"></i>                          
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <a class="dropdown-item preview-item">
+                                <p class="mb-0 font-weight-normal float-left text-primary btn-cau-hinh-don-vi" data="{{$user['id']}}"><b><i class="fa fa-gear"></i> Cấu hình đơn vị</b>
+                                </p>
+                            </a>
+                            <a class="dropdown-item preview-item">
                                 <p class="mb-0 font-weight-normal float-left text-primary btn-sua" data="{{$user['id']}}"><b><i class="icon-wrench"></i> Sửa</b>
                                 </p>
                             </a>
@@ -67,6 +71,29 @@
            </div>
            <div class="modal-footer">
               <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+           </div>
+        </div>
+     </div>
+</div>
+
+<div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+           <div class="modal-header background-vnpt">
+              <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO USER</h5>
+              
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body card">
+                <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
+                    {{ csrf_field() }}
+                </form>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-vnpt btn-luu-cau-hinh-don-vi"><i class="icon-check"></i> Cập nhật</button>
               <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
            </div>
         </div>
@@ -116,6 +143,11 @@
             }
         });
         
+        jQuery('.btn-cau-hinh-don-vi').on('click',function(){ 
+            var id=jQuery(this).attr("data");
+            getById(_token, id, "{{ route('user-donvi') }}", ".frm-cau-hinh-don-vi");
+            $('#modal-cau-hinh-don-vi').modal('show');
+        });
     });
 </script>
 

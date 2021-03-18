@@ -34,5 +34,10 @@ Route::group(
             'as' => 'xoa-user',
             'uses' => 'UserController@xoaUser'
         ]);
+
+        Route::post('user-donvi', [
+            'as' => 'user-donvi',
+            'uses' => 'UserController@userDonVi'
+        ]);
     }
 );
