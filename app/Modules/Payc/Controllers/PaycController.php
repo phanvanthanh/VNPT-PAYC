@@ -121,12 +121,16 @@ class PaycController extends Controller{
             if($maNhomDichVu=='DV_VT'){ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
                 // Lấy danh sách cán bộ
                 $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
+                $maPhuongXa=$data['ma_phuong_xa'];
+                // Từ mã phường xã suy ra mã quận huyện
+                $phuongXa=DmPhuongXa::where('ma_phuong_xa','=',$maPhuongXa)->get()->toArray();
+                $maHuyen=null;
+                if($phuongXa){
+                    $maHuyen=$phuongXa[0]['ma_quan_huyen'];
+                }
                 if($capMacDinh=='XA'){
-                    $maPhuongXa=$data['ma_phuong_xa'];
-                    $maHuyen=$data['ma_quan_huyen'];
                     $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
                 }else{ // Ngược lại là cấp huyện
-                    $maHuyen=$data['ma_quan_huyen'];
                     $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
                 }
             } 

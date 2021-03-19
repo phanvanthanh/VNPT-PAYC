@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
+use App\DmThamSoHeThong;
 use App\Http\Controllers\Controller;
 class PassportAuthController extends Controller
 {
@@ -20,10 +21,22 @@ class PassportAuthController extends Controller
     public function apiTaoTaiKhoan(Request $request)
     {
         $request->validate([
+            'secret_key'=>'required|string',
             'name' => 'required|string',
             'email' => 'required|string|unique:users',
             'password' => 'required|string|confirmed'
         ]);
+        $secretKey=DmThamSoHeThong::getValueByName('SECRET_KEY_API_TAO_TAI_KHOAN');
+        if($request->secret_key!=$secretKey){
+            return response()->json([
+                'message'   => 'Tạo tài khoản thất bại.',
+                "errors"     => [
+                    "secret_key" => [
+                        "Sercret key không hợp lệ"
+                    ]
+                ]
+            ], 201);
+        }
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
@@ -31,7 +44,8 @@ class PassportAuthController extends Controller
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully đã tạo tài khoản thành công!'
+            'message' => 'Tạo tài khoản thành công!',
+            "errors"     =>[]
         ], 201);
     }
   
@@ -55,7 +69,8 @@ class PassportAuthController extends Controller
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
+                'message'   => 'Unauthorized',
+                'errors'    =>1
             ], 401);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
@@ -64,9 +79,11 @@ class PassportAuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
+            'message'       => 'Đăng nhập thành công',
+            'errors'        => 0,
+            'access_token'  => $tokenResult->accessToken,
+            'token_type'    => 'Bearer',
+            'expires_at'    => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
@@ -81,7 +98,8 @@ class PassportAuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
-            'message' => 'Successfully đăng xuất thành công'
+            'message' => 'Đăng xuất thành công',
+            'errors'        => 0
         ]);
     }
   
