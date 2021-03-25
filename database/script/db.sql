@@ -2,7 +2,7 @@
 -- Host:                         10.90.199.89
 -- Server version:               8.0.23 - MySQL Community Server - GPL
 -- Server OS:                    Win64
--- HeidiSQL Version:             11.2.0.6213
+-- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -10,7 +10,6 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- Dumping database structure for vnptpayc
@@ -624,11 +623,14 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.oauth_access_tokens: ~9 rows (approximately)
+-- Dumping data for table vnptpayc.oauth_access_tokens: ~15 rows (approximately)
 /*!40000 ALTER TABLE `oauth_access_tokens` DISABLE KEYS */;
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('0722aea24ad957fb1448fc6528ba3013f2ed4efb44bfc1caf5c8c4e82251804bd0950c286db29ee5', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-19 11:07:08', '2021-03-19 11:07:08', '2021-03-26 11:07:08'),
 	('22edd3437e1d05ad0901b01237b7df55215bb93089bdea70eafe72a7b8f953da171bd651d193e64e', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-23 16:13:30', '2021-03-23 16:13:30', '2021-03-30 16:13:30'),
+	('284251f273d739d53ca0fe403f9404827b04da62e45bddfcc7d06cc0280aebe6cb319d520fdd733f', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-24 09:04:51', '2021-03-24 09:04:51', '2021-03-31 09:04:51'),
+	('3ee132edacb1e1f27e0cbc4dd3691cf037fdc1701a31fdf42c4292efd46e4355623bc0cb46851f1f', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-24 09:34:03', '2021-03-24 09:34:03', '2021-03-31 09:34:03'),
+	('444a3e10ad367e6f3fb95dc59f3237638696314ead9c71a178db8c6e9423847f577ceb94fceb2227', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-24 16:41:31', '2021-03-24 16:41:31', '2021-03-31 16:41:31'),
 	('5686828bc20556864bd052738a401e2d0e895e00e16ab87c3f0705219f58b6ca00b5b08fbdc9d942', 9, 1, 'Personal Access Token', '[]', 0, '2021-03-18 10:33:58', '2021-03-18 10:33:58', '2022-03-18 10:33:58'),
 	('77ce018aaa53c802abf194d4d6704745be07c3406ffbbc00e95a9b9e1360f95a3c9e58d53f21c88d', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-19 10:40:12', '2021-03-19 10:40:12', '2021-03-26 10:40:12'),
 	('877cd02f5c4acd58baf85ac200d38c0535df43c5a7625cef75e25809176b7fb79cc3dbe33f44b8a3', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-19 08:12:07', '2021-03-19 08:12:07', '2021-03-26 08:12:07'),
@@ -956,7 +958,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `state` int DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table vnptpayc.users: ~10 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
@@ -966,11 +968,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_to
 	(3, 'Trần Thị Thanh Mỹ', 'tttmy.tvh', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', '2VL7V5IJ5oyynFEszYPlIcjBgSqtNL9x9glcRe4JRHHtkweEMeePq0gk6nrx', NULL, '2021-03-15 15:06:59', '0941138484', 1),
 	(6, 'Phan Văn Thanh', 'thanhpv.tvh', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', NULL, '2021-03-15 10:52:12', '2021-03-15 13:38:20', '0911123234', 1),
 	(7, 'Nguyễn Chí Thanh', 'thanhnc.tvh', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', '/user.png', NULL, '2021-03-15 10:52:12', '2021-03-15 15:07:27', '0911123234', 1),
-	(8, 'Phạm Kim Tín', 'tinpk.tvh', '$2y$10$ZFnG0PHNMukCTzFoSJpzGOzK1o9K8fMZOtFMtYWecdULn6tbbvALe', '/user.png', NULL, '2021-03-16 08:35:21', '2021-03-16 08:35:21', '0944564033', 1),
+	(8, 'Phạm Kim Tín', 'tinpk.tvh', '$2y$10$Yj/anpFE2cCgfmt7MgRaX.R6zg4ShRYMfiCr7Sf0fdHleEl0KrE5C', '/user.png', NULL, '2021-03-16 08:35:21', '2021-03-25 08:00:24', '0944564033', 1),
 	(9, 'Phan Văn Thanh', 'p.thanhit@gmail.com', '$2y$10$MfNiHOroU.Qf08k9MFc8D.amoOVSAoaRhc5s/Q4w0WivVeObNhMQW', '/user.png', NULL, '2021-03-18 10:28:58', '2021-03-18 10:28:58', NULL, 1),
 	(10, 'Phan Văn Thanh', 'ngochtb.tvh', '$2y$10$mB/AcU8GPxu2csmglNmE1uec4ad.mSuNvG7QSvqr8SGtAS.uSl8lC', '/user.png', NULL, '2021-03-18 10:42:13', '2021-03-18 10:42:13', NULL, 1),
-	(11, 'Phan Văn Thanh', 'minhbn.tvh', '$2y$10$q2z32V6ff3QLNZyJFWB3pejgSVj.8LLHWXnXOzUof9Yp5.lD9dtSm', '/user.png', NULL, '2021-03-18 10:49:47', '2021-03-18 10:49:47', NULL, 1),
-	(12, 'Test 2', 'test2', '$2y$10$yREo9qvK6EXDoYAADuN3GuOOUfXFbJdSjoAzV8L9IsTYCkzmBpxL6', '/user.png', NULL, '2021-03-22 10:26:08', '2021-03-22 10:26:08', '0944564033', 1);
+	(11, 'Phan Văn Thanh', 'minhbn.tvh', '$2y$10$q2z32V6ff3QLNZyJFWB3pejgSVj.8LLHWXnXOzUof9Yp5.lD9dtSm', '/user.png', NULL, '2021-03-18 10:49:47', '2021-03-18 10:49:47', NULL, 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_dich_vu
@@ -1003,7 +1004,6 @@ CREATE TABLE IF NOT EXISTS `users_don_vi` (
   `id_user` int unsigned NOT NULL,
   `id_chuc_danh` int unsigned NOT NULL DEFAULT '1',
   `id_chuc_vu` int unsigned NOT NULL DEFAULT '1',
-  `cap` int DEFAULT '2' COMMENT '1 cấp tỉnh; 2 cấp huyện; 3 cấp xã',
   `ngay_bat_dau_cong_tac` datetime DEFAULT CURRENT_TIMESTAMP,
   `ngay_ket_thuc_cong_tac` datetime DEFAULT NULL,
   `state` int unsigned NOT NULL DEFAULT '1',
@@ -1016,18 +1016,18 @@ CREATE TABLE IF NOT EXISTS `users_don_vi` (
   CONSTRAINT `FK_users_don_vi_chuc_vu` FOREIGN KEY (`id_chuc_vu`) REFERENCES `chuc_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_don_vi_don_vi` FOREIGN KEY (`id_don_vi`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_don_vi_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.users_don_vi: ~7 rows (approximately)
+-- Dumping data for table vnptpayc.users_don_vi: ~15 rows (approximately)
 /*!40000 ALTER TABLE `users_don_vi` DISABLE KEYS */;
-INSERT INTO `users_don_vi` (`id`, `id_don_vi`, `id_user`, `id_chuc_danh`, `id_chuc_vu`, `cap`, `ngay_bat_dau_cong_tac`, `ngay_ket_thuc_cong_tac`, `state`) VALUES
-	(14, 27, 6, 1, 3, 2, '2021-03-15 13:27:35', NULL, 1),
-	(15, 27, 7, 1, 2, 2, '2021-03-15 13:27:35', NULL, 1),
-	(16, 27, 3, 1, 4, 2, '2021-03-15 13:27:35', NULL, 1),
-	(17, 27, 6, 1, 4, 2, '2021-03-15 13:27:35', NULL, 1),
-	(18, 18, 8, 2, 3, 1, '2021-03-01 00:00:00', '2021-03-19 00:00:00', 1),
-	(19, 19, 8, 1, 3, 0, '2021-03-01 00:00:00', '2021-03-22 00:00:00', 1),
-	(20, 31, 12, 1, 4, 3, '2021-03-01 00:00:00', '2021-03-22 00:00:00', 1);
+INSERT INTO `users_don_vi` (`id`, `id_don_vi`, `id_user`, `id_chuc_danh`, `id_chuc_vu`, `ngay_bat_dau_cong_tac`, `ngay_ket_thuc_cong_tac`, `state`) VALUES
+	(14, 27, 6, 1, 3, '2021-03-15 13:27:35', NULL, 1),
+	(15, 27, 7, 1, 2, '2021-03-15 13:27:35', NULL, 1),
+	(16, 27, 3, 1, 4, '2021-03-15 13:27:35', NULL, 1),
+	(17, 27, 6, 1, 4, '2021-03-15 13:27:35', NULL, 1),
+	(19, 19, 8, 1, 3, '2021-03-01 00:00:00', '2021-03-22 00:00:00', 1),
+	(60, 31, 11, 1, 2, NULL, NULL, 1),
+	(61, 33, 11, 2, 2, NULL, NULL, 1);
 /*!40000 ALTER TABLE `users_don_vi` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_role
@@ -1042,16 +1042,17 @@ CREATE TABLE IF NOT EXISTS `users_role` (
   KEY `FK_users_role_admin_role` (`role_id`),
   CONSTRAINT `FK_users_role_admin_role` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_role_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.users_role: ~2 rows (approximately)
+-- Dumping data for table vnptpayc.users_role: ~4 rows (approximately)
 /*!40000 ALTER TABLE `users_role` DISABLE KEYS */;
 INSERT INTO `users_role` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, '2021-03-17 11:02:46', '2021-03-17 11:02:47'),
-	(2, 2, 2, '2021-03-17 11:02:46', '2021-03-17 15:42:16');
+	(2, 2, 2, '2021-03-17 11:02:46', '2021-03-17 15:42:16'),
+	(3, 3, 2, '2021-03-17 11:02:46', '2021-03-17 15:42:16'),
+	(7, 6, 2, '2021-03-17 11:02:46', '2021-03-17 15:42:16');
 /*!40000 ALTER TABLE `users_role` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
