@@ -3,7 +3,7 @@
             <tr class="background-vnpt text-center">
                 <th>STT #</th>
                 <th>Họ tên</th>
-                <th>Email</th>
+                <th>Tên đăng nhập</th>
                 <th>Di động</th>
                 <th>Trạng thái</th>
                 <th>Xử lý</th>
