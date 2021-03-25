@@ -1,19 +1,19 @@
     <table id="order-listing" class="table table-hover">
-    <thead>
-        <tr class="background-vnpt text-center">
-            <th>STT #</th>
-            <th>Họ tên</th>
-            <th>Email</th>
-            <th>Di động</th>
-            <th>Trạng thái</th>
-            <th>Xử lý</th>
-        </tr>
-    </thead>
-    <tbody>          
-        <?php 
+        <thead>
+            <tr class="background-vnpt text-center">
+                <th>STT #</th>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Di động</th>
+                <th>Trạng thái</th>
+                <th>Xử lý</th>
+            </tr>
+        </thead>
+        <tbody>          
+            <?php 
             $stt=0;
-        ?>
-        @foreach($users as $user)
+            ?>
+            @foreach($users as $user)
             <?php $stt++; ?>
             <tr class="tr-hover tr-small">
                 <td class="text-center">{{$stt}}</td>
@@ -23,10 +23,10 @@
                 <td>                    
                     {{$user['email']}}
                 </td>
-                <td>                    
+                <td class="text-center">                    
                     {{$user['di_dong']}}
                 </td>
-                <td>
+                <td class="text-center">
                     <label class=" @if($user['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($user['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
                 </td>
                 <td class="text-center">
@@ -50,54 +50,53 @@
                     </button>
                 </td>
             </tr>
-        @endforeach    
-    </tbody>
-</table>             
+            @endforeach    
+        </tbody>
+    </table>             
 
-<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="modal-cap-nhat" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-           <div class="modal-header background-vnpt">
+    <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="modal-cap-nhat" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+             <div class="modal-header background-vnpt">
               <h5 class="modal-title">SỬA NHÓM QUYỀN</h5>
               
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true">&times;</span>
               </button>
-           </div>
-           <div class="modal-body card">
-                <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
-                    {{ csrf_field() }}
-                </form>
-           </div>
-           <div class="modal-footer">
-              <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
-              <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-           </div>
+          </div>
+          <div class="modal-body card">
+            <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
+                {{ csrf_field() }}
+            </form>
         </div>
-     </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+      </div>
+  </div>
+</div>
 </div>
 
 <div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-           <div class="modal-header background-vnpt">
-              <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO USER</h5>
-              
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <div class="modal-header background-vnpt">
+          <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO USER</h5>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-              </button>
-           </div>
-           <div class="modal-body card">
-                <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
-                    {{ csrf_field() }}
-                </form>
-           </div>
-           <div class="modal-footer">
-              <button type="button" class="btn btn-vnpt btn-luu-cau-hinh-don-vi"><i class="icon-check"></i> Cập nhật</button>
-              <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-           </div>
-        </div>
-     </div>
+          </button>
+      </div>
+      <div class="modal-body card">
+        <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
+            {{ csrf_field() }}
+        </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+  </div>
+</div>
+</div>
 </div>
 
 
@@ -108,8 +107,8 @@
         $.fn.dataTable.ext.errMode = 'none';
         $('.table').dataTable({
             aLengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, "All"]
+            [25, 50, 100, 200, -1],
+            [25, 50, 100, 200, "All"]
             ],
             iDisplayLength: -1
         });

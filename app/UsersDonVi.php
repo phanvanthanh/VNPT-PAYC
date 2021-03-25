@@ -18,7 +18,7 @@ class UsersDonVi extends Authenticatable
     protected $table='users_don_vi';
 
     protected $fillable = [
-        'id','id_don_vi', 'id_user', 'id_chuc_danh', 'id_chuc_vu', 'ma_phuong_xa', 'cap', 'ngay_bat_dau_cong_tac', 'ngay_ket_thuc_cong_tac', 'state'
+        'id','id_don_vi', 'id_user', 'id_chuc_danh', 'id_chuc_vu', 'ngay_bat_dau_cong_tac', 'ngay_ket_thuc_cong_tac', 'state'
     ];
     public $timestamps=false;
 
