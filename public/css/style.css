@@ -29810,3 +29810,14 @@ table tbody tr.tr-small td, table tbody tr.tr-small th{
   padding: 0px;
   height: 34.6px;
 }
+
+@media (max-width: 991.98px) {
+  div.row.grid-margin{
+    margin-top: 15px;
+  }
+}
+@media (min-width: 992px) {
+  div.row.grid-margin{
+    margin-top: -15px;
+  }
+}

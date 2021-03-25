@@ -9,7 +9,7 @@
                @INCLUDE('layouts.sidebar')
                <!-- partial -->
                <div class="content-wrapper">
-                  <div class="row grid-margin" style="margin-top: -15px">  
+                  <div class="row grid-margin">  
                      @yield('content')
                   </div>
                   @INCLUDE('layouts.footer')
