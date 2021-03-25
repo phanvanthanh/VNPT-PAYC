@@ -4,7 +4,7 @@
          @INCLUDE('layouts.navbar')
          <!-- partial -->
          <div class="container-fluid page-body-wrapper">
-            <div class="row row-offcanvas row-offcanvas-right">
+            <div class="row row-offcanvas row-offcanvas-left">
                @INCLUDE('layouts.setting')
                @INCLUDE('layouts.sidebar')
                <!-- partial -->

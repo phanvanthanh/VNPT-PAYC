@@ -78,11 +78,12 @@ class TaiNguyenController extends Controller{
             $method=$value->methods(); $method=$method[0];
             $action=$value->getActionName();
             $action2=explode("\\", $action);
+
             $arrayParrameterName=$value->parameterNames();
-            if($action!='Closure' && $action2[0]!="Facade"){
+            if($action!='Closure' && $action2[0]!="Facade" && (isset($action2[2]) && $action2[2]!='Passport')){
                 $stt++;
                 // kiểm tra dữ liệu trong bảng AdminResource theo điều kiện
-                $adminResourceExist=AdminResource::where('method',$method)->where('action',$action)->where('status',0)->get();
+                $adminResourceExist=AdminResource::where('method',$method)->where('uri',$value->uri())->get();
                 $adminResourceExist1=$adminResourceExist;
                 $adminResourceExist=$adminResourceExist->toArray();
                 // nếu chưa tồn tại resource thì tạo mới
