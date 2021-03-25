@@ -39,5 +39,20 @@ Route::group(
             'as' => 'user-donvi',
             'uses' => 'UserController@userDonVi'
         ]);
+
+        Route::post('luu-user-dv', [
+            'as' => 'luu-user-dv',
+            'uses' => 'UserController@luuUserDonVi'
+        ]);
+
+        Route::post('load-danh-sach-user-donvi', [
+            'as' => 'load-danh-sach-user-donvi',
+            'uses' => 'UserController@loadDsUserDonvi'
+        ]);
+
+        Route::post('xoa-user-donvi', [
+            'as' => 'xoa-user-donvi',
+            'uses' => 'UserController@xoaUserDonVi'
+        ]);
     }
 );

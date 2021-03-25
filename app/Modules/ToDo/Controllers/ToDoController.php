@@ -112,11 +112,6 @@ class ToDoController extends Controller{
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
-    
-    public function xuLyToDo(Request $request){
-        $toDos=ToDo::get()->toArray();
-        return view('ToDo::xu-ly-to-do',compact('toDos'));
-    }
 
     public function checkToDo(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX

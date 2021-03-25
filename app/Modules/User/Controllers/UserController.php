@@ -11,6 +11,7 @@ use App\AdminResource;
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\UsersDonVi;
 use Request as RequestAjax;
 
 
@@ -149,4 +150,35 @@ class UserController extends Controller{
         return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
     }
 
+    public function luuUserDonVi(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $UsersDonVi = new UsersDonVi();
+            $UsersDonVi->id_don_vi = $request->idDonVi;
+            $UsersDonVi->id_user = $request->idUser;
+            $UsersDonVi->id_chuc_danh = $request->chucDanh;
+            $UsersDonVi->id_chuc_vu = $request->chucVu;
+            $UsersDonVi->ngay_bat_dau_cong_tac = $request->ngayBatDau;
+            $UsersDonVi->ngay_ket_thuc_cong_tac = $request->ngayKetThuc;
+            $UsersDonVi->state = $request->state;
+            $UsersDonVi->save();
+            return 1;
+            // $view=view('User::user-donvi', compact('data','users','error'))->render(); // Trả dữ liệu ra view trước     
+            // return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function loadDsUserDonvi(Request $request){
+        $idUser = $request->idUser;
+        return view('User::danh-sach-user-donvi', compact('idUser'));
+    }
+    public function xoaUserDonVi(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            UsersDonVi::find($data['idUserDonVi'])->delete();
+            return 1;
+            // return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
 }

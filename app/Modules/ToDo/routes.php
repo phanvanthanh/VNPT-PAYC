@@ -35,11 +35,6 @@ Route::group(
             'uses' => 'ToDoController@xoaToDo'
         ]);
 
-        Route::get('xu-ly-to-do', [
-            'as' => 'xu-ly-to-do',
-            'uses' => 'ToDoController@xuLyToDo'
-        ]);
-
         Route::post('check-to-do', [
             'as' => 'check-to-do',
             'uses' => 'ToDoController@checkToDo'
