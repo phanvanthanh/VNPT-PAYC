@@ -1629,5 +1629,121 @@ class PaycController extends Controller{
         return view('Payc::danh-sach-payc-chua-co-can-bo-nhan', compact('paycs','error'));
     }
 
+
+    public function dangKyPayc(Request $request){
+        $idUser=1;
+        if(Auth::id()){
+            $idUser=Auth::id();
+        }
+        $dmQuanHuyens=DmQuanHuyen::all()->toArray();
+        $dmPhuongXas=DmPhuongXa::all()->toArray();
+        $donViMacDinh=UsersDonVi::getDonViMacDinh($idUser);
+        $dichVus=DichVu::all()->toArray();
+        return view('Payc::dang-ky-payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
+    }
+
+    public function luuDangKyPayc(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $userId=Auth::id();
+            if(!$userId){ // Nếu chưa đăng nhập thì nhận chế độ ẩn danh
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            
+            $data['id_user_tao']=$userId;
+            if ($request->hasFile('file_payc')) {
+                $data['file_payc']=\Helper::getAndStoreFile($request->file('file_payc'));
+            }
+            $data['han_xu_ly_mong_muon']=\Helper::toDatePayc($data['ngay'].' '.$data['gio'].':00');
+            $data['id_users']=$userId;
+            $data['so_phieu']=Payc::taoSoPhieu();
+            $payc=Payc::create($data); // Lưu dữ liệu vào DB
+            $idPayc=$payc->id;
+
+            // Tạo lịch sử xử lý là tạo yêu cầu
+            $trangThaiTiepNhan=PaycTrangThaiXuLy::where('ma_trang_thai','=','DANG_KY_PAYC')->get()->toArray();
+            if(count($trangThaiTiepNhan)<1){
+                return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+            }
+            
+            $idXuLyTiepNhan=$trangThaiTiepNhan[0]['id'];
+            
+            $canBoXuLyYeuCau['id_payc']=$idPayc;
+            $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
+            $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
+            $canBoXuLyYeuCau['noi_dung_xu_ly']='';
+            $canBoXuLyYeuCau['file_xu_ly']='';
+            $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau); // lưu log tạo pakn
+
+            $idXuLyYeuCau=$xuLyTiepNhan->id;
+            $idDichVu=$data['id_dich_vu'];
+            $maNhomDichVu=DichVu::getMaNhomDichVuByIdDichVu($idDichVu);
+            $nhomChucVuNhanPakn=DmThamSoHeThong::getValueByName('MA_NHOM_CHUC_VU_DUYET_DANG_KY_PAKN');
+            $dsCanBoNhans=array();
+            if($maNhomDichVu=='DV_VT'){ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
+                // Lấy danh sách cán bộ
+                $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
+                $maPhuongXa=$data['ma_phuong_xa'];
+                // Từ mã phường xã suy ra mã quận huyện
+                $phuongXa=DmPhuongXa::where('ma_phuong_xa','=',$maPhuongXa)->get()->toArray();
+                $maHuyen=null;
+                if($phuongXa){
+                    $maHuyen=$phuongXa[0]['ma_quan_huyen'];
+                }
+                if($capMacDinh=='XA'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+                }else{ // Ngược lại là cấp huyện
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+                }
+            } 
+            else{ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+                
+            }
+            // Nếu nhóm chức vụ nhận là LANH_DAO hoặc XU_LY thì ghi thêm log chuyển lãnh đạo hoặc chuyển xử lý
+            if($nhomChucVuNhanPakn=='LANH_DAO'){
+                // Tạo lịch sử xử lý là chuyển lãnh đạo
+                $trangThaiTiepNhan=PaycTrangThaiXuLy::where('ma_trang_thai','=','CHUYEN_LANH_DAO')->get()->toArray();
+                if(count($trangThaiTiepNhan)<1){
+                    return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                }
+                
+                $idXuLyTiepNhan=$trangThaiTiepNhan[0]['id'];
+                
+                $canBoXuLyYeuCau['id_payc']=$idPayc;
+                $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
+                $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
+                $canBoXuLyYeuCau['noi_dung_xu_ly']='';
+                $canBoXuLyYeuCau['file_xu_ly']='';
+                $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
+                $idXuLyYeuCau=$xuLyTiepNhan->id;
+            }elseif ($nhomChucVuNhanPakn=='XU_LY') {
+                // Tạo lịch sử xử lý là chuyển bộ phận xử lý
+                $trangThaiTiepNhan=PaycTrangThaiXuLy::where('ma_trang_thai','=','CHUYEN_XU_LY')->get()->toArray();
+                if(count($trangThaiTiepNhan)<1){
+                    return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                }
+                
+                $idXuLyTiepNhan=$trangThaiTiepNhan[0]['id'];
+                
+                $canBoXuLyYeuCau['id_payc']=$idPayc;
+                $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
+                $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
+                $canBoXuLyYeuCau['noi_dung_xu_ly']='';
+                $canBoXuLyYeuCau['file_xu_ly']='';
+                $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
+                $idXuLyYeuCau=$xuLyTiepNhan->id;
+            }
+            foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                $paknCanBoNhanData['trang_thai']=0;
+                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+            }
+
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
     
 }

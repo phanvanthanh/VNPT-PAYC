@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Danh sách PAYC chưa có cán bộ nhận')
+@section('title', 'PA/YC chưa có cán bộ nhận')
 @section('content')
 	<div class="col-lg-12">
 	    <div class="card">

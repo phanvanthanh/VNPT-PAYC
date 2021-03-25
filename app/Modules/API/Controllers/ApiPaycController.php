@@ -23,6 +23,8 @@ class ApiPaycController extends Controller
     
     public function apiGuiPakn(Request $request){
         $request->validate([
+            'id_user'               => 'nullable|numeric',
+            'email'                 => 'nullable|string',
             'id_dich_vu'            => 'required|numeric',
             'tieu_de'               => 'required|string',
             'noi_dung'              => 'nullable|string',
@@ -34,8 +36,18 @@ class ApiPaycController extends Controller
             'is_an_danh'            => 'numeric'
         ]);
         $userId=1;
-        if($request->user()){
-            $userId=$request->user()->id;
+        if($request->id_user && $request->email){
+            $user=User::where('id','=',$request->id_user)->where('email','=',$request->email)->get()->toArray();
+            if($user){
+                $userId=$user[0]['id'];
+            }else{
+                return response()->json(
+                    [
+                        'message'   => 'Tài khoản không hợp lệ',
+                        'error'     => 2
+                    ]
+                );
+            }
         }
         // hoặc nếu bật chế độ ẩn danh cũng tiếp nhận ẩn danh luôn
         if($request->is_an_danh==1){ // nếu là ẩn danh thì user id =1

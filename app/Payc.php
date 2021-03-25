@@ -38,7 +38,8 @@ class Payc extends Authenticatable
                 where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
             )
             and (ttxl.ma_trang_thai="TAO_MOI"  or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN")
-            and cbn.id_user_nhan='.$userId);
+            and cbn.id_user_nhan='.$userId.'
+            order by p.id desc');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
 

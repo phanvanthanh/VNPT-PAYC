@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Gửi PAKN')
+@section('title', 'Đề nghị nhận xử lý PAKN')
 @section('content')
 <?php
 use Illuminate\Support\Facades\Auth;
@@ -18,27 +18,17 @@ $userId=Auth::id();
                 </div>
 	          	<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi">
                     {{ csrf_field() }}
-                    @if(Auth::id())
+                   
+	                    
                     <div class="row">
-                    	<div class="col-12">
-	                    	<!-- <h5 class="text-primary">1. Thông tin bắt buộc phải nhập <b class="text-danger">(*)</b></h5>
-	                    </div>
-	                    <div class="col-4 text-right"> -->
-	                    	<div class="icheck-square">
-		                        <input name="is_an_danh" type="checkbox" id="is_an_danh" value="1" @if(!$userId) {{"checked='checked'"}} @endif>
-		                        <label for="is_an_danh">Phản ánh ẩn danh</label>
-		                    </div>
-	                    </div>
-                    </div>
-	                @endif
-                    <div class="row">
-                    	<div class="col-12">
+			          	<div class="col-12">
 		                    <small class="form-text text-muted"><b class="text-danger">* Tiêu đề</b></small>
 			          		<!-- <label for="tieu_de" class="text-title-input-size">* Tiêu đề</label> -->
 			          		<input type="Text" class="form-control" name="tieu_de" id="tieu_de" placeholder="Tiêu đề là thông tin rút gọn của nội dung yêu cầu." required="required">
 			          		<small class="form-text text-muted"> <div class="error error-tieu-de"></div></small>
 			          	</div>
 			        </div>
+			          
 
 			          
 			          <!-- <h5 class="text-primary">2. Thông tin không bắt buộc</h5> -->
@@ -70,7 +60,7 @@ $userId=Auth::id();
 		    		  	<div class="col-12">
 		    		  		<div class="row">
 		    		  			<div class="col-8">
-		    		  				<small class="form-text text-muted"><b>Hạn xử lý mong muốn</b></small>
+		    		  				<small class="form-text text-muted"><b>Hạn xử lý</b></small>
 		    		  				<!-- <label for="datepicker-popup" class="text-title-input-size">* Hạn xử lý</label> -->		
 		    		  				<div id="datepicker-popup" class="input-group date datepicker">
 				                        <input type="text" id="ngay" name="ngay" class="form-control" aria-describedby="ngay_helper" value="{{date('m/d/Y')}}">
@@ -127,7 +117,7 @@ $userId=Auth::id();
     		  <div class="row">
     		  	<div class="col-12 text-right">
     		  		<div class="btn-group mr-2">
-                        <button class="btn btn-vnpt btn-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Gửi yêu cầu</button>
+                        <button class="btn btn-vnpt btn-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Đề nghị duyệt</button>
                     </div>
     		  	</div>
     		  </div>
@@ -149,7 +139,7 @@ $userId=Auth::id();
 	  	}
 	  	var moTa=jQuery('.note-editable').html();
 	  	jQuery('#noi_dung').val(moTa);
-	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('them-payc') }}");
+	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('luu-dang-ky-payc') }}");
 	  });
 
 	  	

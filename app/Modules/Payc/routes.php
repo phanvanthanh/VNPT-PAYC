@@ -162,5 +162,15 @@ Route::group(
             'uses' => 'PaycController@danhSachPaycChuaCoCanBoNhan'
         ]);
 
+        Route::get('dang-ky-payc', [
+            'as' => 'dang-ky-payc',
+            'uses' => 'PaycController@dangKyPayc'
+        ]);
+
+        Route::post('luu-dang-ky-payc', [
+            'as' => 'luu-dang-ky-payc',
+            'uses' => 'PaycController@luuDangKyPayc'
+        ]);
+
     }
 );

@@ -75,27 +75,19 @@ class PhanQuyenController extends Controller{
             $resourceId=$dataForm['resource_id']; //ngược lại có resource id
             // kiểm tra đã có quyền này chưa
             $checkRule=AdminRule::select('id')->where('role_id','=',$roleId)->where('resource_id','=',$resourceId)->get()->toArray();
+            $resources=AdminResource::all()->toArray();
             // thực hiện xóa quyền nếu đã có
             if(count($checkRule)>0){
                 // Xóa quyền đó
                 $rule=AdminRule::where('role_id','=',$roleId)->where('resource_id','=',$resourceId)->delete();
                 // Xóa các quyền con của quyền đó
-                $childResources=AdminResource::select('id')->where('parent_id','=',$resourceId)->get()->toArray();
-                foreach ($childResources as $key => $childResources) {
-                    $rule=AdminRule::where('role_id','=',$roleId)->where('resource_id','=',$childResources['id'])->delete();
-                }
+                $this->xoaQuyenTheoResourceId($resources, $roleId, $resourceId);
             }else{
                 $data['role_id']=$roleId;
                 $data['resource_id']=$resourceId;
                 // Thêm quyền đó
                 $rule=AdminRule::create($data); 
                 // Thêm các quyền con của quyền đó
-                /*$childResources=AdminResource::select('id')->where('parent_id','=',$resourceId)->get()->toArray();
-                foreach ($childResources as $key => $childResources) {
-                    $data['resource_id']=$childResources['id'];
-                    $rule=AdminRule::create($data);
-                }*/
-                $resources=AdminResource::all()->toArray();
                 $this->phanQuyenTheoResourceId($resources, $roleId, $resourceId);
 
             }
@@ -108,12 +100,24 @@ class PhanQuyenController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
 
+    public function xoaQuyenTheoResourceId($data, $roleId, $resourceId){
+        foreach ($data as $key => $d) {
+            if($d['parent_id']==$resourceId){
+                // xóa quyền
+                $rule=AdminRule::where('role_id','=',$roleId)->where('resource_id','=',$d['id'])->delete();
+                // duyệt tiếp
+                $this->xoaQuyenTheoResourceId($data, $roleId, $d['id']);
+            }
+        }
+    }
+
     public function phanQuyenTheoResourceId($data, $roleId, $resourceId){
         foreach ($data as $key => $d) {
             if($d['parent_id']==$resourceId){
                 // phân quyền
+                $dataRule=array();
                 $dataRule['role_id']=$roleId;
-                $dataRule['resource_id']=$resourceId;
+                $dataRule['resource_id']=$d['id'];
                 $rule=AdminRule::create($dataRule); 
                 // duyệt tiếp
                 $this->phanQuyenTheoResourceId($data, $roleId, $d['id']);
