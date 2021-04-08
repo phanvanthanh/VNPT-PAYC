@@ -32,6 +32,38 @@
 
   /*
   * _token là token của laravel
+  * url để load dữ liệu
+  * className là tên class chứa table dữ liệu sau khi load thành công
+  */
+  loadTableById = function(_token, id, url, className){
+      'use strict';
+      loading('.error-mode');
+      var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
+          url:url,
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              "id":id,
+          },
+          error:function(){
+            errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+          },
+          success:function(data){
+            errorLoader(".error-mode","");
+            $(className).empty();
+            jQuery(className).html(data.html);
+          },
+      });
+  }
+
+  /*
+  * _token là token của laravel
   * frmName là tên form chứa các input
   * url để load dữ liệu
   * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
@@ -56,7 +88,10 @@
           if(data.error==""){
             errorLoader(".error-mode","");
             jQuery('.btn-them-moi').attr("disabled",false);
-            loadTable(_token, urlRefreshData, classNameRefreshData);
+            if(urlRefreshData){
+              loadTable(_token, urlRefreshData, classNameRefreshData);
+            }
+            
             
           }else{
             jQuery('.btn-them-moi').attr("disabled",false);
@@ -95,11 +130,16 @@
 
             $(className).empty();
             if(data.error==""){
-              jQuery(className).html(data.html);
+              if(className){
+                jQuery(className).html(data.html);
+              }
+                
               errorLoader(".error-mode","");
             }else{
               errorLoader(".error-mode",data.error);
-              jQuery(className).html(data.html);
+              if(className){
+                jQuery(className).html(data.html);
+              }
             }
             
           },

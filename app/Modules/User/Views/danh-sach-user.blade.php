@@ -5,6 +5,8 @@
                 <th>Họ tên</th>
                 <th>Tên đăng nhập</th>
                 <th>Di động</th>
+                <th>Đơn vị</th>
+                <th>Quyền</th>
                 <th>Trạng thái</th>
                 <th>Xử lý</th>
             </tr>
@@ -26,6 +28,17 @@
                 <td class="text-center">                    
                     {{$user['di_dong']}}
                 </td>
+                <td>
+                    @php
+                        $donVis=Helper::layDanhSachDonViTheoUserId($user['id']);
+                        foreach($donVis as $donVi){
+                            echo $donVi['ten_don_vi'].' - '.$donVi['ten_don_vi_cha'].'<br>';
+                        }
+                    @endphp
+                </td>
+                <td>
+                    
+                </td>
                 <td class="text-center">
                     <label class=" @if($user['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($user['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
                 </td>
@@ -35,6 +48,10 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <a class="dropdown-item preview-item">
                                 <p class="mb-0 font-weight-normal float-left text-primary btn-cau-hinh-don-vi" data="{{$user['id']}}"><b><i class="fa fa-gear"></i> Cấu hình đơn vị</b>
+                                </p>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <p class="mb-0 font-weight-normal float-left text-primary btn-phan-quyen-can-bo" data="{{$user['id']}}"><b><i class="fa fa-cogs"></i> Phân quyền</b>
                                 </p>
                             </a>
                             <a class="dropdown-item preview-item">
@@ -80,23 +97,45 @@
 <div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-         <div class="modal-header background-vnpt">
-          <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO USER</h5>
-          
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body card">
-        <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
-            {{ csrf_field() }}
-        </form>
+            <div class="modal-header background-vnpt">
+                <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO CÁN BỘ</h5>
+              
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card">
+            <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
+                {{ csrf_field() }}
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-  </div>
 </div>
-</div>
+
+<div class="modal fade" id="modal-phan-quyen-can-bo" tabindex="-1" role="dialog" aria-labelledby="modal-phan-quyen-can-bo" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header background-vnpt">
+                <h5 class="modal-title">PHÂN QUYỀN CHO CÁN BỘ</h5>
+              
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card">
+            <form class="forms-sample frm-phan-quyen-can-bo" id="frm-phan-quyen-can-bo" name="frm-phan-quyen-can-bo">
+                {{ csrf_field() }}
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -144,8 +183,14 @@
         
         jQuery('.btn-cau-hinh-don-vi').on('click',function(){ 
             var id=jQuery(this).attr("data");
-            getById(_token, id, "{{ route('user-donvi') }}", ".frm-cau-hinh-don-vi");
+            getById(_token, id, "{{ route('user-don-vi-single') }}", ".frm-cau-hinh-don-vi");
             $('#modal-cau-hinh-don-vi').modal('show');
+        });
+
+        jQuery('.btn-phan-quyen-can-bo').on('click',function(){ 
+            var id=jQuery(this).attr("data");
+            getById(_token, id, "{{ route('user-role-single') }}", ".frm-phan-quyen-can-bo");
+            $('#modal-phan-quyen-can-bo').modal('show');
         });
     });
 </script>

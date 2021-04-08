@@ -35,9 +35,14 @@ Route::group(
             'uses' => 'UserController@xoaUser'
         ]);
 
-        Route::post('user-donvi', [
-            'as' => 'user-donvi',
-            'uses' => 'UserController@userDonVi'
+        Route::post('user-don-vi-single', [
+            'as' => 'user-don-vi-single',
+            'uses' => 'UserController@userDonViSingle'
+        ]);
+
+        Route::post('user-role-single', [
+            'as' => 'user-role-single',
+            'uses' => 'UserController@userRoleSingle'
         ]);
 
         Route::post('luu-user-dv', [

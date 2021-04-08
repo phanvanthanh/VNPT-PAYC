@@ -52,6 +52,7 @@ class UserController extends Controller{
                 'password' => bcrypt($request->matkhau),
                 'api_token' => Str::random(60),
                 'di_dong' => $request->sdt,
+                'loai_tai_khoan' => 'CAN_BO',
                 'state' => $request->state
             ]); // Lưu dữ liệu vào DB
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
@@ -128,7 +129,7 @@ class UserController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
  
-    public function userDonVi(Request $request){
+    public function userDonViSingle(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
@@ -144,7 +145,7 @@ class UserController extends Controller{
                     $error="";
                 }
             }            
-            $view=view('User::user-donvi', compact('data','users','error'))->render(); // Trả dữ liệu ra view trước     
+            $view=view('User::user-don-vi-single', compact('data','users','error'))->render(); // Trả dữ liệu ra view trước     
             return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
         }
         return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
@@ -180,5 +181,28 @@ class UserController extends Controller{
             // return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+    public function userRoleSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array();
+            $users=User::where('state','=',1)->get()->toArray();
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                $data = User::where("id","=",$dataForm['id'])->get(); // kiểm tra dữ liệu trong DB
+                if(count($data)<1){ // Nếu dữ liệu ko tồn tại trong DB
+                    $error="Không tìm thấy dữ liệu cần sửa";
+                }else{ // ngược lại dữ liệu tồn tại trong DB
+                    $data=$data[0];
+                    $error="";
+                }
+            }            
+            $view=view('User::user-role-single', compact('data','users','error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
     }
 }

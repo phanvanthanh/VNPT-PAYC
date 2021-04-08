@@ -1,10 +1,39 @@
 <?php
 namespace App\Helpers;
 use App\Payc;
+use App\ThongBao;
 use DB;
 
 class Helper
 {
+
+    public static function layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId){
+        $data=ThongBao::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
+        return $data;
+    }
+    public static function layDanhSachDonViTheoUserId($userId){
+        // Lấy quyền theo user id
+       $userDonVis=DB::select('SELECT usdv.id_don_vi, dv.ten_don_vi, (SELECT dv2.ten_don_vi as ten_don_vi_cha FROM don_vi dv2 where dv2.id=dv.parent_id ) as ten_don_vi_cha FROM users_don_vi usdv 
+            LEFT JOIN don_vi dv ON usdv.id_don_vi=dv.id
+            WHERE usdv.id_user='.$userId);
+       $userDonVis = collect($userDonVis)->map(function($x){ return (array) $x; })->toArray();
+       return $userDonVis;
+    }
+
+    public static function laySoLieuDanhGiaTheoIdPayc($id){
+        $data=DB::select("select xl.noi_dung_xu_ly from payc_xu_ly xl
+            left join payc_trang_thai_xu_ly tt on xl.id_xu_ly=tt.id
+            where xl.id_payc=".$id."
+            and (tt.ma_trang_thai='KH_DANH_GIA' or tt.ma_trang_thai='LD_DANH_GIA')
+            and xl.noi_dung_xu_ly>0
+            order by xl.id desc");
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        $result=null;
+        if($data){
+            $result=$data[0]['noi_dung_xu_ly'];
+        }
+        return $result;
+    }
     public static function layDanhSachQuyenTheoUserId($userId){
         // Lấy quyền theo user id
        $adminRules=DB::select('select adru.resource_id from users_role ur

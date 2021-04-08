@@ -29813,11 +29813,33 @@ table tbody tr.tr-small td, table tbody tr.tr-small th{
 
 @media (max-width: 991.98px) {
   div.row.grid-margin{
-    margin-top: 15px;
+    margin-top: 0px;
   }
 }
 @media (min-width: 992px) {
   div.row.grid-margin{
     margin-top: -15px;
   }
+}
+
+
+.t-rate-active{
+  color: #ffb463;
+}
+.t-rate-default{
+  color: #aab2bd;
+}
+.xem-chi-tiet-payc{
+  cursor: pointer;
+}
+
+
+.count-success{
+    position: absolute;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background: #009b74;
+    top: 5px;
 }

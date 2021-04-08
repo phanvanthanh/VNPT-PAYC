@@ -65,6 +65,17 @@ Route::group(
             'uses' => 'PaycController@chuyenBoPhanTiepNhanVaXuLyPayc'
         ]);
 
+        Route::post('frm-duyet-va-chuyen-xu-ly-payc', [
+            'as' => 'frm-duyet-va-chuyen-xu-ly-payc',
+            'uses' => 'PaycController@frmDuyetVaChuyenXuLyPayc'
+        ]);
+        Route::post('duyet-va-chuyen-xu-ly-payc', [
+            'as' => 'duyet-va-chuyen-xu-ly-payc',
+            'uses' => 'PaycController@duyetVaChuyenXuLyPayc'
+        ]);
+
+
+
         Route::post('frm-chuyen-lanh-dao', [
             'as' => 'frm-chuyen-lanh-dao',
             'uses' => 'PaycController@frmChuyenLanhDao'
@@ -72,6 +83,15 @@ Route::group(
         Route::post('chuyen-lanh-dao', [
             'as' => 'chuyen-lanh-dao',
             'uses' => 'PaycController@chuyenLanhDao'
+        ]);
+
+        Route::post('frm-xu-ly-va-chuyen-lanh-dao', [
+            'as' => 'frm-xu-ly-va-chuyen-lanh-dao',
+            'uses' => 'PaycController@frmXuLyVaChuyenLanhDao'
+        ]);
+        Route::post('xu-ly-va-chuyen-lanh-dao', [
+            'as' => 'xu-ly-va-chuyen-lanh-dao',
+            'uses' => 'PaycController@xuLyVaChuyenLanhDao'
         ]);
 
         Route::post('frm-chuyen-cap-tren', [
@@ -90,6 +110,15 @@ Route::group(
         Route::post('hoan-tat', [
             'as' => 'hoan-tat',
             'uses' => 'PaycController@hoanTat'
+        ]);
+
+        Route::post('frm-duyet-va-hoan-tat-xu-ly', [
+            'as' => 'frm-duyet-va-hoan-tat-xu-ly',
+            'uses' => 'PaycController@frmDuyetVaHoanTatXuLy'
+        ]);
+        Route::post('duyet-va-hoan-tat-xu-ly', [
+            'as' => 'duyet-va-hoan-tat-xu-ly',
+            'uses' => 'PaycController@duyetVahoanTatXuLy'
         ]);
 
         Route::post('frm-tra-lai-khong-xu-ly', [
@@ -172,5 +201,54 @@ Route::group(
             'uses' => 'PaycController@luuDangKyPayc'
         ]);
 
+        Route::get('chi-tiet-payc', [
+            'as' => 'chi-tiet-payc',
+            'uses' => 'PaycController@chiTietPayc'
+        ]);
+
+        Route::post('chi-tiet-payc-noi-dung-single', [
+            'as' => 'chi-tiet-payc-noi-dung-single',
+            'uses' => 'PaycController@chiTietPaycNoiDungSingle'
+        ]);
+        Route::post('chi-tiet-payc-frm-binh-luan-single', [
+            'as' => 'chi-tiet-payc-frm-binh-luan-single',
+            'uses' => 'PaycController@chiTietPaycFrmBinhLuanSingle'
+        ]);
+
+
+        Route::post('gui-binh-luan', [
+            'as' => 'gui-binh-luan',
+            'uses' => 'PaycController@guiBinhLuan'
+        ]);
+
+        Route::post('danh-sach-binh-luan', [
+            'as' => 'danh-sach-binh-luan',
+            'uses' => 'PaycController@danhSachBinhLuan'
+        ]);
+
+        Route::post('hai-long', [
+            'as' => 'hai-long',
+            'uses' => 'PaycController@haiLong'
+        ]);
+
+        Route::post('khong-hai-long', [
+            'as' => 'khong-hai-long',
+            'uses' => 'PaycController@khongHaiLong'
+        ]);
+
+        Route::post('chi-tiet-payc-frm-can-bo-phan-hoi-binh-luan-single', [
+            'as' => 'chi-tiet-payc-frm-can-bo-phan-hoi-binh-luan-single',
+            'uses' => 'PaycController@chiTietPaycFrmCanBoPhanHoiBinhLuanSingle'
+        ]);
+
+        Route::post('tra-loi-binh-luan', [
+            'as' => 'tra-loi-binh-luan',
+            'uses' => 'PaycController@traLoiBinhLuan'
+        ]);
+
+        Route::post('danh-dau-da-xem', [
+            'as' => 'danh-dau-da-xem',
+            'uses' => 'PaycController@danhDauDaXem'
+        ]);
     }
 );

@@ -1,5 +1,5 @@
-@extends('layouts.index')
-@section('title', 'PA/YC của tôi')
+@extends('layouts.front-end')
+@section('title', 'Phản ánh / yêu cầu của tôi')
 @section('content')
 	<div class="col-lg-12">
 	    <div class="card">
@@ -25,13 +25,12 @@
 						    <thead>
 						        <tr class="text-center background-vnpt">
 						        	
-						        	<th scope="col"><input type="checkbox" name="id_payc[]" class="id_payc"></th>
-						            <th scope="col">Số phiếu</th>
-						            <th scope="col">Nội dung</th>
-						            <th scope="col">File</th>
-						            <th scope="col">Dịch vụ</th>
-						            <th scope="col">Ngày gửi</th>
-						            <th scope="col">QT xử lý</th>
+						        	<th scope="col" style="width: 10%;"><!-- <input type="checkbox" name="id_payc[]" class="id_payc"> -->STT</th>
+						            <th scope="col" style="width: 10%;">Số phiếu</th>
+						            <th scope="col" style="width: 60%;">Nội dung</th>
+						            <th scope="col" style="width: 10%;">Dịch vụ</th>
+						            <th scope="col" style="width: 10%;">Ngày gửi</th>
+						            <!-- <th scope="col">QT xử lý</th> -->
 						        </tr>
 						    </thead>
 						    <tbody>                       
@@ -63,32 +62,32 @@
 					                	}
 						            ?>
 						            <tr class="tr-hover">
-						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
-						                <td class="text-center {{$style}}" scope="row">{{$payc['so_phieu']}}</td>						                
-						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
+						            	<th class="text-center check-id-payc" scope="row"><!-- <input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"> -->
+						            		{{$stt}}
+						            	</th>
+						                <td class="text-center text-primary xem-chi-tiet-payc" value="{{$payc['id_payc']}}" scope="row">{{$payc['so_phieu']}}</td>						                
+						                <td class="noi_dung xem-chi-tiet-payc" value="{{$payc['id_payc']}}">
 						                <?php
 						                	if($payc['tieu_de']){
 						                    	echo $payc['tieu_de'];
 						                	}
-							                	
-						                ?>
-						                </td>
-						                <td>
-						                <?php
-						                    $files=explode(';', $payc['file_payc']);
-						                    foreach ($files as $key => $file) {
-						                    	if($file){
-						                        	echo '<a href="/file/download/'.$file.'" class="a-file"><div class="show-file">'.$file.'</div></a><br>';
-						                        }
-						                    }
-						                ?>
+						                ?> <br>
+					                	@php
+						                	$danhGia=\Helper::laySoLieuDanhGiaTheoIdPayc($payc['id_payc']);
+						                @endphp
+						                @if($danhGia)
+						                	@for($i=1; $i<=5; $i++)
+						                		<i class="fa fa-star @if($i<=$danhGia) t-rate-active @else t-rate-default @endif" alt="{{$i}} sao"></i>
+						                	@endfor						                	
+						                @endif
+						                
 						                </td>
 						                <td class="font-size-default">
-						                	{{$payc['name']}} <br>
-						                	{{$payc['ten_dich_vu']}}
+						                	{{$payc['ten_dich_vu']}}<br>
+						                	{{$payc['name']}} 
 						                </td>
 						                <td class="font-size-default">
-						                	<span class="{{$style}}">{{$trangThai}}</span>
+						                	<span class="{{$style}}">{{$trangThai}}</span>						                	
 						                	@if($payc['ngay_tao'])
 						                		<div class="text-default nowrap">{{$payc['ngay_tao']}}</div>
 						                	@endif
@@ -99,9 +98,9 @@
 						                		<div class="text-danger nowrap">{{$payc['han_xu_ly_duoc_giao']}}</div>
 						                	@endif
 						                </td>
-						                <td class="text-center cusor qtxl" value="{{$payc['id_payc']}}" data-toggle="modal" data-target="#modal-qtxl">
+						                <!-- <td class="text-center cusor qtxl" value="{{$payc['id_payc']}}" data-toggle="modal" data-target="#modal-qtxl">
 						                    <i class="fa fa-sitemap text-primary"></i>
-						                </td>
+						                </td> -->
 						            </tr>
 						        @endforeach    
 						    </tbody>
@@ -111,7 +110,6 @@
 	        </div>
 	    </div>
     </div>
-
 
     <script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
 	<script type="text/javascript">

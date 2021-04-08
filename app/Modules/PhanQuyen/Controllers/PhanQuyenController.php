@@ -56,6 +56,8 @@ class PhanQuyenController extends Controller{
                 }
             }          
             $resources = AdminResource::where('id','!=',1)->where('status','=',1)->where('parent_id','=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
+            // $resources = AdminResource::orderBy('order')->get()->toArray();
+            // $resources=\Helper::paycTreeResource($resources,null);
             $view=view('PhanQuyen::danh-sach-quyen-theo-nhom-quyen-id', compact('rules','resources','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }

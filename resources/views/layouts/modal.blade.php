@@ -106,6 +106,34 @@
    </div>
 </div>
 
+<div class="modal fade" id="modal-duyet-va-chuyen-xu-ly-payc" tabindex="-1" role="dialog" aria-labelledby="modal-duyet-va-chuyen-xu-ly-payc" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-duyet-va-chuyen-xu-ly-payc">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">DUYỆT VÀ CHUYỂN XỬ LÝ PHẢN ÁNH, YÊU CẦU</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-duyet-va-chuyen-xu-ly-payc" id="frm-duyet-va-chuyen-xu-ly-payc">
+               <input type="hidden" class="ds_id_payc_duyet_va_chuyen_xu_ly_payc" name="ds_id_payc_duyet_va_chuyen_xu_ly_payc">
+               <input type="hidden" class="ds_id_user_duyet_va_chuyen_xu_ly_payc" name="ds_id_user_duyet_va_chuyen_xu_ly_payc">
+                  {{ csrf_field() }}
+               <div class="frm-duyet-va-chuyen-xu-ly-payc">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-vnpt btn-duyet-va-chuyen-xu-ly-payc-2"><i class="fa fa-mail-forward"></i>  Duyệt và chuyển</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
 <div class="modal fade" id="modal-chuyen-lanh-dao" tabindex="-1" role="dialog" aria-labelledby="modal-chuyen-lanh-dao" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content modal-chuyen-lanh-dao">
@@ -128,6 +156,33 @@
          <div class="modal-footer">
             <button type="button" class="btn btn-vnpt btn-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
             <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="modal-xu-ly-va-chuyen-lanh-dao" tabindex="-1" role="dialog" aria-labelledby="modal-xu-ly-va-chuyen-lanh-dao" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-xu-ly-va-chuyen-lanh-dao">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">XỬ LÝ VÀ CHUYỂN LÃNH ĐẠO DUYỆT</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-xu-ly-va-chuyen-lanh-dao" id="frm-xu-ly-va-chuyen-lanh-dao">
+               <input type="hidden" class="ds_id_payc_xu_ly_va_chuyen_lanh_dao" name="ds_id_payc_xu_ly_va_chuyen_lanh_dao">
+               <input type="hidden" class="ds_id_user_xu_ly_va_chuyen_lanh_dao" name="ds_id_user_xu_ly_va_chuyen_lanh_dao">
+                  {{ csrf_field() }}
+               <div class="frm-xu-ly-va-chuyen-lanh-dao">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-vnpt btn-xu-ly-va-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -181,6 +236,33 @@
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-vnpt btn-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Hoàn tất xử lý</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="modal fade" id="modal-duyet-va-hoan-tat-xu-ly" tabindex="-1" role="dialog" aria-labelledby="modal-duyet-va-hoan-tat-xu-ly" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-duyet-va-hoan-tat-xu-ly">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">DUYỆT VÀ HOÀN TẤT XỬ LÝ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-duyet-va-hoan-tat-xu-ly" id="frm-duyet-va-hoan-tat-xu-ly">
+               <input type="hidden" class="ds_id_payc_duyet_va_hoan_tat_xu_ly" name="ds_id_payc_duyet_va_hoan_tat_xu_ly">
+                  {{ csrf_field() }}
+               <div class="frm-duyet-va-hoan-tat-xu-ly">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-vnpt btn-duyet-va-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Duyệt Hoàn tất</button>
             <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
          </div>
       </div>
@@ -309,7 +391,7 @@
                      Yêu cầu đã được xử lý hoàn tất. <br> 
                      Vui lòng cho ý kiến đánh giá thái độ xử lý yêu cầu. <br>
                      Xin cảm ơn!</span>
-               <select id="example-fontawesome" name="noi_dung_xu_ly" autocomplete="off">
+                  <select id="example-fontawesome" name="noi_dung_xu_ly" autocomplete="off">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

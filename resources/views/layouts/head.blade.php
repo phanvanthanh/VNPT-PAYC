@@ -68,4 +68,3 @@
 
 
    </head>
-   <body class="sidebar-dark">

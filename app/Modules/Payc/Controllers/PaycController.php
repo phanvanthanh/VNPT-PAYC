@@ -18,6 +18,9 @@ use App\UsersDonVi;
 use App\DmThamSoHeThong;
 use App\DichVu;
 use App\PaycCanBoNhan;
+use App\PaycBinhLuan;
+use App\User;
+use App\ThongBao;
 use Request as RequestAjax;
 
 
@@ -43,6 +46,8 @@ class PaycController extends Controller{
         $dichVus=DichVu::all()->toArray();
         return view('Payc::payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
     }
+    
+
 
     public function danhSachPaycCuaToi(Request $request){
         $userId=1;
@@ -177,7 +182,6 @@ class PaycController extends Controller{
                 $paknCanBoNhanData['trang_thai']=0;
                 $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
             }
-
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -1743,6 +1747,612 @@ class PaycController extends Controller{
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+
+    public function frmDuyetVaChuyenXuLyPayc(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array();
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsId=explode(';', $dataForm['id']);
+                if(count($dsId)<2){
+                    $error='Vui lòng chọn PAYC cần duyệt!';
+                    $view=view('Payc::frm-duyet-va-chuyen-xu-ly-payc', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                    return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsId[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                array_pop($dsId); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null
+                foreach ($dsId as $key => $id) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$id)->get()->toArray();
+                    if(!is_numeric($id) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        $error="Không được chọn nhiều dịch vụ khác nhau!";
+                        $view=view('Payc::frm-duyet-va-chuyen-xu-ly-payc', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                        return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                    }
+                }
+                // Điều kiện đúng thực hiện render form
+                $data=UsersDichVu::layDanhSachCanBoTiepNhanVaXuLy($userId);
+                $error='';
+                $view=view('Payc::frm-duyet-va-chuyen-xu-ly-payc', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+
+            }
+            $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+            $view=view('Payc::frm-duyet-va-chuyen-xu-ly-payc', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function duyetVaChuyenXuLyPayc(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            if(isset($data['ds_id_payc_duyet_va_chuyen_xu_ly_payc'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsIdPayc=explode(';', $data['ds_id_payc_duyet_va_chuyen_xu_ly_payc']);
+                if(count($dsIdPayc)<2){
+                    $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+                    return array("error"=>$error);
+                }
+                $lastIndex=count($dsIdPayc)-1;
+                if(isset($dsIdPayc[$lastIndex]) and $dsIdPayc[$lastIndex]==null){
+                    array_pop($dsIdPayc); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null    
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsIdPayc[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                // Kiểm tra tính hợp lệ của các payc
+                foreach ($dsIdPayc as $key => $idPayc) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$idPayc)->get()->toArray();
+                    if(!is_numeric($idPayc) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        return array("error"=>"Không được chọn nhiều dịch vụ khác nhau!");
+                    }
+                }
+                 // Thực hiện lưu thông tin
+                $trangThai=PaycTrangThaiXuLy::where('ma_trang_thai','=','DUYET_CHUYEN_XU_LY')->get()->toArray();
+                if(count($trangThai)<1){
+                    return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                }
+                $idXuLy=$trangThai[0]['id'];
+                $canBoXuLyYeuCau=array();
+                if ($request->hasFile('file_xu_ly')) {
+                    $canBoXuLyYeuCau['file_xu_ly']=\Helper::getAndStoreFile($request->file('file_xu_ly'));
+                }
+                foreach ($dsIdPayc as $key => $idPayc) {
+                    $canBoXuLyYeuCau['id_payc']=$idPayc;
+                    $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
+                    $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
+                    $canBoXuLyYeuCau['ds_id_user_nhan']=$data['ds_id_user_duyet_va_chuyen_xu_ly_payc'];
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_duyet_va_chuyen_xu_ly_payc']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_duyet_va_chuyen_xu_ly_payc']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $dsDonVis=UsersDichVu::layDanhSachCanBoTiepNhanVaXuLy($userId);
+                        foreach ($dsDonVis as $key => $donVi) {
+                            foreach ($donVi['ds_can_bo'] as $key => $canBoNhan) {
+                                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                                $paknCanBoNhanData['trang_thai']=0;
+                                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                            }
+                                
+                        }
+                    }
+                }
+                return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+            }
+            return array("error"=>'Dữ liệu không hợp lệ vui lòng kiểm tra lại!'); // Trả về thông báo lưu dữ liệu thất bại
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+
+    public function frmDuyetVaHoanTatXuLy(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array();
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsId=explode(';', $dataForm['id']);
+                if(count($dsId)<2){
+                    $error='Vui lòng chọn PAYC cần duyệt và hoàn tất xử lý!';
+                    $view=view('Payc::frm-duyet-va-hoan-tat-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                    return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsId[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                array_pop($dsId); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null
+                foreach ($dsId as $key => $id) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$id)->get()->toArray();
+                    if(!is_numeric($id) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        $error="Không được chọn nhiều dịch vụ khác nhau!";
+                        $view=view('Payc::frm-duyet-va-hoan-tat-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                        return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                    }
+                }
+                // Điều kiện đúng thực hiện render form
+                $error='';
+                $view=view('Payc::frm-duyet-va-hoan-tat-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+
+            }
+            $error='Vui lòng chọn PAYC cần duyệt và hoàn tất xử lý!';
+            $view=view('Payc::frm-duyet-va-hoan-tat-xu-ly', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function duyetVaHoanTatXuLy(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            if(isset($data['ds_id_payc_duyet_va_hoan_tat_xu_ly'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsIdPayc=explode(';', $data['ds_id_payc_duyet_va_hoan_tat_xu_ly']);
+                if(count($dsIdPayc)<2){
+                    $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+                    return array("error"=>$error);
+                }
+                $lastIndex=count($dsIdPayc)-1;
+                if(isset($dsIdPayc[$lastIndex]) and $dsIdPayc[$lastIndex]==null){
+                    array_pop($dsIdPayc); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null    
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsIdPayc[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                // Kiểm tra tính hợp lệ của các payc
+                foreach ($dsIdPayc as $key => $idPayc) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$idPayc)->get()->toArray();
+                    if(!is_numeric($idPayc) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        return array("error"=>"Không được chọn nhiều dịch vụ khác nhau!");
+                    }
+                }
+                // Thực hiện lưu thông tin
+                $trangThai=PaycTrangThaiXuLy::where('ma_trang_thai','=','DUYET_HOAT_TAT')->get()->toArray();
+                if(count($trangThai)<1){
+                    return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                }
+                $idXuLy=$trangThai[0]['id'];
+                $canBoXuLyYeuCau=array();
+                if ($request->hasFile('file_xu_ly')) {
+                    $canBoXuLyYeuCau['file_xu_ly']=\Helper::getAndStoreFile($request->file('file_xu_ly'));
+                }
+                foreach ($dsIdPayc as $key => $idPayc) {                    
+                    $canBoXuLyYeuCau['id_payc']=$idPayc;
+                    $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
+                    $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=1;
+                    $userTao=Payc::select('id_user_tao')->where('id','=',$idPayc)->get()->toArray();
+                    if($userTao){
+                        $paknCanBoNhanData['id_user_nhan']=$userTao[0]['id_user_tao'];
+                    }
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                }
+                return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+            }
+            return array("error"=>'Dữ liệu không hợp lệ vui lòng kiểm tra lại!'); // Trả về thông báo lưu dữ liệu thất bại
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+    public function frmXuLyVaChuyenLanhDao(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array();
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsId=explode(';', $dataForm['id']);
+                if(count($dsId)<2){
+                    $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+                    $view=view('Payc::frm-xu-ly-va-chuyen-lanh-dao', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                    return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsId[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                array_pop($dsId); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null
+                foreach ($dsId as $key => $id) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$id)->get()->toArray();
+                    if(!is_numeric($id) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        $error="Không được chọn nhiều dịch vụ khác nhau!";
+                        $view=view('Payc::frm-xu-ly-va-chuyen-lanh-dao', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                        return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+                    }
+                }
+                // Điều kiện đúng thực hiện render form
+                $data=UsersDichVu::layDanhSachLanhDao($userId);
+                $error='';
+                $view=view('Payc::frm-xu-ly-va-chuyen-lanh-dao', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+
+            }
+            $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+            $view=view('Payc::frm-xu-ly-va-chuyen-lanh-dao', compact('data','error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function xuLyVaChuyenLanhDao(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array("error"=>'Chưa đăng nhập vào hệ thống!');
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            //print_r($data);
+            if(isset($data['ds_id_payc_xu_ly_va_chuyen_lanh_dao'])){ // ngược lại dữ liệu hợp lệ
+                // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
+                $dsIdPayc=explode(';', $data['ds_id_payc_xu_ly_va_chuyen_lanh_dao']);
+                if(count($dsIdPayc)<2){
+                    $error='Vui lòng chọn PAYC cần chuyển xử lý!';
+                    return array("error"=>$error);
+                }
+                // Lấy dịch vụ đầu tiên ra để đối chiếu với các dịch vụ còn lại phải thống nhất 1 dịch vụ
+                $idDichVuFirst=0;
+                $dichVuFist=Payc::select('id_dich_vu')->where('id','=',$dsIdPayc[0])->get()->toArray();
+                if($dichVuFist){
+                    $idDichVuFirst=$dichVuFist[0]['id_dich_vu'];
+                }
+                $lastIndex=count($dsIdPayc)-1;
+                if(isset($dsIdPayc[$lastIndex]) and $dsIdPayc[$lastIndex]==null){
+                    array_pop($dsIdPayc); // bỏ phần tử cuối vì phần tử cuối do cắt theo dấu ; sẽ bị null    
+                }
+                // Kiểm tra tính hợp lệ của các payc
+                foreach ($dsIdPayc as $key => $idPayc) {
+                    // kiểm tra id có hợp lệ không
+                    $dichVu=Payc::select('id_dich_vu')->where('id','=',$idPayc)->get()->toArray();
+                    if(!is_numeric($idPayc) || !$dichVu || $dichVu[0]['id_dich_vu']!=$idDichVuFirst){
+                        return array("error"=>"Không được chọn nhiều dịch vụ khác nhau!");
+                    }
+                }
+                // Thực hiện lưu thông tin
+                $trangThai=PaycTrangThaiXuLy::where('ma_trang_thai','=','XU_LY_VA_CHUYEN_LANH_DAO')->get()->toArray();
+                if(count($trangThai)<1){
+                    return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                }
+                $idXuLy=$trangThai[0]['id'];
+                $canBoXuLyYeuCau=array();
+                if ($request->hasFile('file_xu_ly')) {
+                    $canBoXuLyYeuCau['file_xu_ly']=\Helper::getAndStoreFile($request->file('file_xu_ly'));
+                }
+                foreach ($dsIdPayc as $key => $idPayc) {
+                    $canBoXuLyYeuCau['id_payc']=$idPayc;
+                    $canBoXuLyYeuCau['id_user_xu_ly']=$userId;                    
+                    $canBoXuLyYeuCau['noi_dung_xu_ly']=$data['noi_dung_xu_ly'];
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLy;
+                    $paycXuLy=PaycXuLy::create($canBoXuLyYeuCau);
+
+                    $idXuLyYeuCau=$paycXuLy->id;
+                    if($data['ds_id_user_xu_ly_va_chuyen_lanh_dao']){
+                        $dsCanBoNhans=explode(';', $data['ds_id_user_xu_ly_va_chuyen_lanh_dao']);
+                        array_pop($dsCanBoNhans);
+                        foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                            $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                            $paknCanBoNhanData['id_user_nhan']=$canBoNhan;
+                            $paknCanBoNhanData['trang_thai']=0;
+                            $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                        }
+                    }else{
+                        $dsDonVis=UsersDichVu::layDanhSachLanhDao($userId);
+                        foreach ($dsDonVis as $key => $donVi) {
+                            foreach ($donVi['ds_can_bo'] as $key => $canBoNhan) {
+                                $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                                $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                                $paknCanBoNhanData['trang_thai']=0;
+                                $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                            }
+                                
+                        }
+                    }
+                }
+                return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+            }
+            return array("error"=>'Dữ liệu không hợp lệ vui lòng kiểm tra lại!'); // Trả về thông báo lưu dữ liệu thất bại
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function chiTietPayc(Request $request){
+        $error=''; $data=array(); $id=0;
+        if(isset($request->id)){
+            $idUser=1;
+            if(Auth::id()){
+                $idUser=Auth::id();
+            }
+            $id=$request->id;
+            if(!is_numeric($id)){
+                $error='PAKN không tồn tại, vui lòng kiểm tra lại!';
+                return view('Payc::chi-tiet-payc', compact('error', 'id'));
+            }
+            $data=Payc::getChiTietPaycTheoId($id);
+            if(count($data)<=0){
+                $error='PAKN không tồn tại, vui lòng kiểm tra lại!';
+            }
+            return view('Payc::chi-tiet-payc', compact('error', 'id'));
+        }else{
+            $error='Không tìm thấy PAKN yêu cầu';
+            return view('Payc::chi-tiet-payc', compact('error', 'id'));
+        }
+    }
+    public function chiTietPaycNoiDungSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $error=''; $data=array(); $id=0;
+            if(isset($request->id) || !is_numeric($id)){
+                $idUser=1;
+                if(Auth::id()){
+                    $idUser=Auth::id();
+                }
+                $id=$request->id;
+                $data=Payc::getChiTietPaycTheoId($id);
+                if(count($data)<=0){
+                    $error='PAKN không tồn tại, vui lòng kiểm tra lại!';
+                }
+                $view=view('Payc::chi-tiet-payc-noi-dung-single', compact('data', 'error'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+            }
+            $error='Không tìm thấy PAKN yêu cầu';
+            $view=view('Payc::chi-tiet-payc-noi-dung-single', compact('data', 'error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau           
+
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function chiTietPaycFrmBinhLuanSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $error=''; $data=array(); $id=0;
+            if(isset($request->id) || !is_numeric($id)){
+                $idUser=1;
+                if(Auth::id()){
+                    $idUser=Auth::id();
+                }
+                $id=$request->id;
+                $data=array();
+                $view=view('Payc::chi-tiet-payc-frm-binh-luan-single', compact('data', 'error', 'id'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+            }
+            $error='Không tìm thấy PAKN yêu cầu';
+            $view=view('Payc::chi-tiet-payc-frm-binh-luan-single', compact('data', 'error', 'id'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function guiBinhLuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                $userId=1;
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $data['id_user']=$userId;
+            $data['parent_id']=null;
+            $data['ma_loai']='BINH_LUAN';
+            $binhLuan=PaycBinhLuan::create($data);
+            
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thất bại
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function danhSachBinhLuan(Request $request){
+        $error=''; $id=0;
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                $userId=1;
+            }
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu
+            
+
+            if(isset($dataForm['id'])){
+                $id=$dataForm['id'];
+                $data=PaycBinhLuan::layDanhSachBinhLuanTheoIdPayc($dataForm['id']);
+                $view=view('Payc::chi-tiet-payc-danh-sach-binh-luan', compact('data','error','id'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+            }
+            $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
+            $view=view('Payc::chi-tiet-payc-danh-sach-binh-luan', compact('data','error','id'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        $error='Phương thức gửi dữ liệu không hợp lệ vui lòng kiểm tra lại';
+        $view=view('Payc::chi-tiet-payc-danh-sach-binh-luan', compact('data','error','id'))->render(); // Trả dữ liệu ra view trước     
+        return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+    }
+
+    public function haiLong(Request $request){
+        $error='';
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                $userId=1;
+            }
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu
+
+            if(isset($dataForm['id'])){
+                $binhLuan=PaycBinhLuan::find($dataForm['id']);
+                $dataForm['hai_long']=$binhLuan->hai_long+1;
+                $binhLuan->update($dataForm);
+                $error='';
+                return array('error'=>$error);
+            }
+            $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
+            return array('error'=>$error);
+        }
+        $error='Phương thức gửi dữ liệu không hợp lệ vui lòng kiểm tra lại';
+        return array('error'=>$error);
+    }
+
+
+    public function khongHaiLong(Request $request){
+        $error='';
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                $userId=1;
+            }
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu
+
+            if(isset($dataForm['id'])){
+                $binhLuan=PaycBinhLuan::find($dataForm['id']);
+                $dataForm['khong_hai_long']=$binhLuan->khong_hai_long+1;
+                $binhLuan->update($dataForm);
+                $error='';
+                return array('error'=>$error);
+            }
+            $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
+            return array('error'=>$error);
+        }
+        $error='Phương thức gửi dữ liệu không hợp lệ vui lòng kiểm tra lại';
+        return array('error'=>$error);
+    }
+
+    public function chiTietPaycFrmCanBoPhanHoiBinhLuanSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $error=''; $data=array(); $id=0;
+            if(isset($request->id) || !is_numeric($id)){
+                $idUser=1;
+                if(Auth::id()){
+                    $idUser=Auth::id();
+                }
+                $id=$request->id;
+                $data=array();
+                $view=view('Payc::chi-tiet-payc-frm-can-bo-phan-hoi-binh-luan-single', compact('data', 'error', 'id'))->render(); // Trả dữ liệu ra view trước     
+                return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+            }
+            $error='Không tìm thấy PAKN yêu cầu';
+            $view=view('Payc::chi-tiet-payc-frm-can-bo-phan-hoi-binh-luan-single', compact('data', 'error', 'id'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function traLoiBinhLuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                $userId=1;
+            }
+            $user=User::find($userId);
+            $hoTen='';
+            if($user){
+                $hoTen=$user->name;
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $data['id_user']=$userId;
+            $data['parent_id']=null;
+            $data['ma_loai']='TRA_LOI';
+            $data['ho_ten']=$hoTen;
+            if ($request->hasFile('file')) {
+                $data['file']=\Helper::getAndStoreFile($request->file('file'));
+            }
+            $traLoi=PaycBinhLuan::create($data);
+            
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thất bại
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function danhDauDaXem(Request $request){
+        $error='';
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            $loaiTaiKhoan='KHACH_HANG';
+            if(!$userId){
+                $userId=1;
+                $loaiTaiKhoan='KHACH_HANG';
+            }else{
+                $loaiTaiKhoan=Auth::user()->loai_tai_khoan;
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            if(!isset($data['id']) || $data['id']=='' || $data['id']==null){
+                $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
+                return array('error'=>$error);
+            }
+            $checkQuyenCapNhatDaXem=ThongBao::kiemTraQuyenDanhDauDaXem($data['id'], $userId, $loaiTaiKhoan);
+            if(count($checkQuyenCapNhatDaXem)>0){
+                
+                $binhLuan=PaycBinhLuan::find($data['id']);
+                $data['trang_thai']=1;
+                $binhLuan->update($data);
+            }
+            $error='';
+            return array('error'=>$error);
+        }
+        $error='Phương thức gửi dữ liệu không hợp lệ vui lòng kiểm tra lại';
+        return array('error'=>$error);
     }
 
     

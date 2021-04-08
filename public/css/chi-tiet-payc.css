@@ -1,0 +1,158 @@
+.main-title {
+    margin: 0px;
+    font-size: 28px;
+    font-weight: 300;
+    display: block;
+    margin-bottom: 20px;
+    color: #333333;
+    font-weight: 500;
+    line-height: 36px;
+    position: relative;
+    text-align: justify;
+}
+
+.post-info {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 7px;
+}
+.section-pakn .ques-item .title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.article {
+    line-height: 24px;
+    text-align: justify;
+}
+
+.file {
+    position: relative;
+    padding-left: 80px;
+}
+
+.file .icon {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 24px;
+    background: #CE7A58;
+    color: #fff;
+    border-radius: 4px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+}
+.file .content {
+    display: block;
+    padding: 10px 10px;
+    min-height: 70px;
+    border-radius: 4px;
+    background: rgba(234, 160, 49, 0.2);
+    position: relative;
+}
+.file .text {
+    display: block;
+    font-size: 14px;
+}
+.text {
+    color: #1E2F41 !important;
+}
+.file .link {
+    color: #1E2F41;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
+
+.section-pakn .ques-item .avatar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+}
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.section-pakn .ques-item:last-child {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border-bottom: 0px;
+}
+.section-pakn .ques-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    padding-left: 140px;
+    border-bottom: 1px solid #E9F0F8;
+}
+
+.section-pakn .ques-item .title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+element.style {
+    width: 100%;
+    border: none;
+    resize: none;
+    margin-bottom: 20px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    height: 266px;
+}
+ol, ul, li, textarea {
+    text-align: justify;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+textarea {
+    overflow: auto;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.section-pakn .ques-item .title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.divider-gray {
+    margin: 10px 0px;
+    height: 1px;
+    background: #E9F0F8;
+    width: 100%;
+}
+.main-title-sub {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 30px;
+    margin-bottom: 20px;
+    text-align: justify;
+}

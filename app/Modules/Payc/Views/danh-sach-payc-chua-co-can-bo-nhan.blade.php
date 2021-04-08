@@ -38,22 +38,32 @@
 						            <?php $stt++; ?>
 						            <tr class="tr-hover">
 						            	<th class="text-center check-id-payc" scope="row">{{$stt}}</th>
-						                <td class="text-center text-primary" scope="row">{{$payc['so_phieu']}}</td>						                
-						                <td class="noi_dung cusor" value="{{$payc['id_payc']}}">
+						                <td class="text-center text-primary xem-chi-tiet-payc" value="{{$payc['id_payc']}}" scope="row">{{$payc['so_phieu']}}</td>						                
+						                <td class="noi_dung xem-chi-tiet-payc" value="{{$payc['id_payc']}}">
 						                	{{$payc['tieu_de']}}
+						                	<br>
+							                @php
+							                	$danhGia=\Helper::laySoLieuDanhGiaTheoIdPayc($payc['id_payc']);
+							                @endphp
+							                @if($danhGia)
+							                	@for($i=1; $i<=5; $i++)
+							                		<i class="fa fa-star @if($i<=$danhGia) t-rate-active @else t-rate-default @endif" alt="{{$i}} sao"></i>
+							                	@endfor						                	
+							                @endif
 						                </td>
 						                <td>
 						                <?php
 						                    $files=explode(';', $payc['file_payc']);
 						                    foreach ($files as $key => $file) {
 						                    	if($file){
-						                        	echo '<a href="/file/download/'.$file.'" class="a-file"><div class="show-file">'.$file.'</div></a><br>';
+						                        	echo '<a href="/file/download/'.$file.'" class="a-file"><div class="show-file">'.$file.'</div></a>';
 						                        }
 						                    }
 						                ?>
 						                </td>
 						                <td class="font-size-default">
-						                	{{$payc['ten_dich_vu']}}
+						                	{{$payc['ten_dich_vu']}}<br>
+						                	{{$payc['name']}} 
 						                </td>
 						                <td class="font-size-default">
 						                	@if($payc['ngay_tao'])

@@ -1,7 +1,8 @@
-<?php
+@php
 use Illuminate\Support\Facades\Auth;
 $userId=Auth::id();
-?>
+$binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
+@endphp
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"><!-- thêm các class sau để đổi màu navbar-primary navbar-success navbar-warning navbar-danger navbar-pink navbar-info navbar-dark  -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                <a class="navbar-brand brand-logo" href="/">VNPT TV - PAYC<!-- <img src="{{ asset('public/images/logo.svg') }}" alt="logo"> --></a>
@@ -74,14 +75,32 @@ $userId=Auth::id();
                   <li class="nav-item dropdown">
                      <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                      <i class="icon-bell mx-0"></i>
-                     <span class="count"></span>
+                     <span class="@if(count($binhLuanChuaXems)==0) count-success @else count @endif"></span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                         <a class="dropdown-item background-vnpt">
                            <p class="mb-0 font-weight-normal float-left">Danh sách thông báo
                            </p>
-                           <span class="badge badge-pill badge-danger float-right">2</span>
+                           <span class="badge badge-pill badge-danger float-right">@php echo count($binhLuanChuaXems); @endphp</span>
                         </a>
+                        @foreach($binhLuanChuaXems as $binhLuan)
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item preview-item btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                              <div class="preview-thumbnail">
+                                 
+                                 <div class="preview-icon bg-danger">
+                                    <i class="icon-speech mx-0 btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}"></i>
+                                 </div>
+                              </div>
+                              <div class="preview-item-content btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                                 <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">({{$binhLuan['so_phieu']}}) {{$binhLuan['tieu_de']}}</h6>
+                                 <p class="font-weight-light small-text btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                                    Tin mới từ {{$binhLuan['name']}} <br>{{$binhLuan['ngay_binh_luan']}}
+                                 </p>
+                              </div>
+                           </a>
+                        @endforeach
+                        @if(count($binhLuanChuaXems)==0)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
@@ -90,26 +109,13 @@ $userId=Auth::id();
                               </div>
                            </div>
                            <div class="preview-item-content">
-                              <h6 class="preview-subject font-weight-medium">Hệ thống thông báo</h6>
+                              <h6 class="preview-subject font-weight-medium">Hệ thống</h6>
                               <p class="font-weight-light small-text">
-                                 Tin mới từ Phan Văn Thanh <br>18/07/2020 15:00:00
+                                 Bạn chưa có thông báo hay bình luận nào
                               </p>
                            </div>
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                           <div class="preview-thumbnail">
-                              <div class="preview-icon bg-danger">
-                                 <i class="icon-speech mx-0"></i>
-                              </div>
-                           </div>
-                           <div class="preview-item-content">
-                              <h6 class="preview-subject font-weight-medium">Hệ thống thông báo</h6>
-                              <p class="font-weight-light small-text">
-                                 Bình luận từ Phan Văn Thanh <br>18/07/2020 15:00:00
-                              </p>
-                           </div>
-                        </a>
+                        @endif
                         
                      </div>
                   </li>

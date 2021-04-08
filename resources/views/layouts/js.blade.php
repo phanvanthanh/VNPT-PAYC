@@ -76,7 +76,24 @@
       <script type="text/javascript" src="{{ asset('public/vendors/dragula/dragula.min.js') }}"></script> -->
 
       <script type="text/javascript">
-         jQuery(document).ready(function(){          
+         jQuery(document).ready(function(){     
+          
+          function checkSlidebarIconOnly(){
+            if(jQuery('body').hasClass('sidebar-icon-only')){
+              jQuery('.navbar-brand').text('PAYC');
+            }else{
+              console.log('sfas');
+              jQuery('.navbar-brand').text('VNPT - PAYC');
+            }
+            jQuery('.icon-menu').on('click',function(){
+              if(jQuery('body').hasClass('sidebar-icon-only')){
+                jQuery('.navbar-brand').text('VNPT - PAYC');
+              }else{
+                jQuery('.navbar-brand').text('PAYC');
+              }
+            });
+          }
+          checkSlidebarIconOnly();
             $(".dropify").change(function() {
                   $('#myImg').html('');
                   if (this.files && this.files[0]) {
@@ -326,6 +343,31 @@
           
         });
 
+
+        // Duyệt và chuyển xử lý payc
+        $('.btn-duyet-va-chuyen-xu-ly-payc').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-duyet-va-chuyen-xu-ly-payc"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            jQuery('.ds_id_payc_duyet_va_chuyen_xu_ly_payc').val(dsId);
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('frm-duyet-va-chuyen-xu-ly-payc') }}", ".frm-duyet-va-chuyen-xu-ly-payc");  
+            $('.btn-duyet-va-chuyen-xu-ly-payc-2').attr("disabled",false);
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
+          
+        });
+
+        $('.btn-duyet-va-chuyen-xu-ly-payc-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
+          var dsIdUser=getDsIdUserCheckbox(); // lấy tất cả id user được check chọn trong modal
+          jQuery('.ds_id_user_duyet_va_chuyen_xu_ly_payc').val(dsIdUser);
+          xuLy($("form#frm-duyet-va-chuyen-xu-ly-payc"), "{{ route('duyet-va-chuyen-xu-ly-payc') }}", "");
+          jQuery("#modal-duyet-va-chuyen-xu-ly-payc").modal('hide');
+          
+        });
+
         // Chuyển lãnh đạo
         $('.btn-chuyen-lanh-dao').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
           var _token=jQuery('form[name="frm-chuyen-lanh-dao"]').find("input[name='_token']").val();
@@ -347,6 +389,30 @@
 
           xuLy($("form#frm-chuyen-lanh-dao"), "{{ route('chuyen-lanh-dao') }}", "");
           jQuery("#modal-chuyen-lanh-dao").modal('hide');
+          
+        });
+
+        // Xử lý và chuyển lãnh đạo
+        $('.btn-xu-ly-va-chuyen-lanh-dao').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-xu-ly-va-chuyen-lanh-dao"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            jQuery('.ds_id_payc_xu_ly_va_chuyen_lanh_dao').val(dsId);
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('frm-xu-ly-va-chuyen-lanh-dao') }}", ".frm-xu-ly-va-chuyen-lanh-dao");  
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
+          
+        });
+
+        $('.btn-xu-ly-va-chuyen-lanh-dao-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
+          var dsIdUser=getDsIdUserCheckbox(); // lấy tất cả id user được check chọn trong modal
+          jQuery('.ds_id_user_xu_ly_va_chuyen_lanh_dao').val(dsIdUser);
+
+          xuLy($("form#frm-xu-ly-va-chuyen-lanh-dao"), "{{ route('xu-ly-va-chuyen-lanh-dao') }}", "");
+          jQuery("#modal-xu-ly-va-chuyen-lanh-dao").modal('hide');
           
         });
 
@@ -393,6 +459,27 @@
         $('.btn-hoan-tat-xu-ly-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
           xuLy($("form#frm-hoan-tat"), "{{ route('hoan-tat') }}", "");
           jQuery("#modal-hoan-tat").modal('hide');
+          
+        });
+
+        // Duyệt và Hoàn tất
+        $('.btn-duyet-va-hoan-tat-xu-ly').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-duyet-va-hoan-tat-xu-ly"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            jQuery('.ds_id_payc_duyet_va_hoan_tat_xu_ly').val(dsId);
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('frm-duyet-va-hoan-tat-xu-ly') }}", ".frm-duyet-va-hoan-tat-xu-ly");  
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
+          
+        });
+
+        $('.btn-duyet-va-hoan-tat-xu-ly-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
+          xuLy($("form#frm-duyet-va-hoan-tat-xu-ly"), "{{ route('duyet-va-hoan-tat-xu-ly') }}", "");
+          jQuery("#modal-duyet-va-hoan-tat-xu-ly").modal('hide');
           
         });
 
@@ -613,6 +700,18 @@
             });
         }
 
+        jQuery('.xem-chi-tiet-payc').on('click',function(){
+          var id=jQuery(this).attr('value');
+          location.href = "{{ route('chi-tiet-payc') }}?id="+id;
+        });
+
+        jQuery('.btn-danh-dau-da-xem').on('click',function(){
+          var _token="{{ csrf_token() }}";
+            var idBinhLuan=jQuery(this).attr('data');
+            var idPayc=jQuery(this).attr('data2');
+            getById(_token, idBinhLuan, "{{ route('danh-dau-da-xem') }}", "");
+            location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+        });
         
 
             

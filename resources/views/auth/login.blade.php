@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.front-end')
 @section('title', 'Đăng nhập')
 @section('content')
 	<div class="col-12 stretch-card">

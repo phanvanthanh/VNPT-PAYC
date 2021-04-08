@@ -1,10 +1,10 @@
 @extends('layouts.index')
 @section('title', 'Đề nghị nhận xử lý PAKN')
 @section('content')
-<?php
-use Illuminate\Support\Facades\Auth;
-$userId=Auth::id();
-?>
+@php
+	use Illuminate\Support\Facades\Auth;
+	$userId=Auth::id();
+@endphp
 	<div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">

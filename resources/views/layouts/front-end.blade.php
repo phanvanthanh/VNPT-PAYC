@@ -1,5 +1,5 @@
 @INCLUDE('layouts.head')
-   <body class="sidebar-dark">
+   <body class="sidebar-dark sidebar-icon-only">
       <div class="container-scroller">
          <!-- partial:../../partials/_navbar.html -->
          @INCLUDE('layouts.navbar')
