@@ -12,8 +12,6 @@ Route::group(
 	    ], function() {
 	        Route::get('api-dang-xuat', 'PassportAuthController@apiDangXuat');
 	        Route::get('api-get-user', 'PassportAuthController@apiGetUser');
-            Route::post('api-gui-pakn', 'ApiPaycController@apiGuiPakn');
-
 	    });
 
     }
