@@ -22,8 +22,7 @@
 	                    
                     <div class="row">
 			          	<div class="col-12">
-		                    <small class="form-text text-muted"><b class="text-danger">* Tiêu đề</b></small>
-			          		<!-- <label for="tieu_de" class="text-title-input-size">* Tiêu đề</label> -->
+		                    <small class="form-text text-muted">Tiêu đề <b class="text-danger">(*)</b></small>
 			          		<input type="Text" class="form-control" name="tieu_de" id="tieu_de" placeholder="Tiêu đề là thông tin rút gọn của nội dung yêu cầu." required="required">
 			          		<small class="form-text text-muted"> <div class="error error-tieu-de"></div></small>
 			          	</div>
@@ -34,12 +33,12 @@
 			          <!-- <h5 class="text-primary">2. Thông tin không bắt buộc</h5> -->
 			          <div class="row">
 			          	<div class="col-12">
-			          		<small class="form-text text-muted"><b>Mô tả</b></small>
+			          		<small class="form-text text-muted">Mô tả</small>
 				          	<div id="summernote_mo_ta" class="summernote"></div>
 				          	<textarea class="form-control" id="noi_dung" name="noi_dung" rows="3" hidden="true"></textarea>
 			          	</div>
 			          	<div class="col-12">
-			          		<small class="form-text text-muted"><b>Upload file</b></small>
+			          		<small class="form-text text-muted">Upload file</small>
 			          		<!-- <label for="tieu_de" class="text-title-input-size">* Upload file</label> -->			          
 				            <div class="input-group col-xs-12">
 				                <input type="text" class="form-control d-none d-sm-block" disabled="" placeholder="Có thể upload các file hình ảnh, video, word, excel, pdf.">
@@ -59,8 +58,8 @@
 		    		  <div class="row">
 		    		  	<div class="col-12">
 		    		  		<div class="row">
-		    		  			<div class="col-8">
-		    		  				<small class="form-text text-muted"><b>Hạn xử lý</b></small>
+		    		  			<div class="col-12">
+		    		  				<small class="form-text text-muted">Hạn xử lý</small>
 		    		  				<!-- <label for="datepicker-popup" class="text-title-input-size">* Hạn xử lý</label> -->		
 		    		  				<div id="datepicker-popup" class="input-group date datepicker">
 				                        <input type="text" id="ngay" name="ngay" class="form-control" aria-describedby="ngay_helper" value="{{date('m/d/Y')}}">
@@ -70,8 +69,8 @@
 				                      </div>
 				                      <!-- <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small> -->
 		    		  			</div>
-		    		  			<div class="col-4">
-		    		  				<small class="form-text text-muted"><b>Giờ</b></small>
+		    		  			<div class="col-4 d-none">
+		    		  				<small class="form-text text-muted">Giờ</small>
 		    		  				<!-- <label for="datepicker-popup" class="text-title-input-size">* Giờ</label> -->
 		    		  				<div class="input-group clockpicker">
 				                        <input type="text" class="form-control" id="gio" name="gio" value="17:00" aria-describedby="gio_helper">
@@ -85,7 +84,7 @@
 				    		  
 			    		  </div>
 				    	  <div class="col-12">
-				    	  	<small class="form-text text-muted"><b>Dịch vụ cần được hỗ trợ</b></small>
+				    	  	<small class="form-text text-muted">Dịch vụ cần được hỗ trợ</small>
 				    	  	<!-- <label for="id_dich_vu" class="text-title-input-size">* Dịch vụ</label> -->
 					          <select class="form-control" id="id_dich_vu" name="id_dich_vu" aria-describedby="dich_vu_helper">
 					          		@foreach($dichVus as $dichVu)
@@ -95,7 +94,7 @@
 				    		  <!-- <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small> -->
 				    	  </div>
 				    	  	<div class="col-6">
-					    	  	<small class="form-text text-muted"><b>Địa chỉ yêu cầu</b></small>
+					    	  	<small class="form-text text-muted">Địa chỉ yêu cầu</small>
 					    	  	<!-- <label for="ma_quan_huyen" class="text-title-input-size">* Dịch vụ</label> -->
 						          <select class="form-control ma_quan_huyen" name="ma_quan_huyen" aria-describedby="ma_quan_huyen_helper">
 						          		@foreach($dmQuanHuyens as $dmQuanHuyen)

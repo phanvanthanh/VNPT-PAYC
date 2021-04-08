@@ -1,7 +1,7 @@
-@extends('layouts.template.index')
-
+@extends('layouts.front-end')
+@section('title', 'RESET MẬT KHẨU')
 @section('content')
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-12">
         <div class="card-box">
             <div class="row">
@@ -42,17 +42,16 @@
                 </div>
 
             </form>
-        </div> <!-- end card-box -->
+        </div> 
     </div>
-    <!-- end col -->
+    
 </div>
 
 
-        <script src="{{ asset('public/template/default/assets/js/jquery.min.js') }}"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function() {
-               
-            });
-
-        </script>
+<script src="{{ asset('public/template/default/assets/js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+       
+    });
+</script> --}}
 @endsection

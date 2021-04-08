@@ -121,6 +121,10 @@
                   window.location.href = "{{ route('login') }}";
             });
 
+            jQuery('.dang-ky').on('click',function(){
+                  window.location.href = "{{ route('register') }}";
+            });
+
 
             jQuery('.btn-browse-file').on('click',function(){
                   var inputClass=jQuery(this).attr('click-on-class');

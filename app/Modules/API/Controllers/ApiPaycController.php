@@ -174,5 +174,37 @@ class ApiPaycController extends Controller
             ]
         );
     }
+
+    public function layPaycCuaToi(Request $request){
+        $request->validate([
+            'id_user'               => 'nullable|numeric',
+            'email'                 => 'nullable|string'
+        ]);
+        $userId=1;
+        if($request->id_user && $request->email){
+            $user=User::where('id','=',$request->id_user)->where('email','=',$request->email)->get()->toArray();
+            if($user){
+                $userId=$user[0]['id'];
+            }else{
+                return response()->json(
+                    [
+                        'message'   => 'Tài khoản không hợp lệ',
+                        'error'     => 2
+                    ]
+                );
+            }
+        }
+        $paycs=array();
+        if($userId){
+            $paycs=Payc::getDanhSachPaycCuaToi($userId);
+        }
+        return response()->json(
+            [
+                'message'   => 'Lấy dữ liệu thành công',
+                'error'     => 0,
+                'data'      => $paycs
+            ]
+        );
+    }
 }
 ?>

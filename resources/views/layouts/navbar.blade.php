@@ -138,8 +138,8 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                                  <i class="icon-user-following mx-0"></i>
                               </div>
                            </div>
-                           <div class="preview-item-content dang-nhap">
-                              <h6 class="preview-subject font-weight-medium">Đăng nhập/Đăng ký</h6>
+                           <div class="preview-item-content">
+                              <h6 class="preview-subject font-weight-medium "><div class="d-inline dang-nhap">Đăng nhập </div><div class="d-inline dang-ky">/ Đăng ký</div></h6>
                            </div>
                         </a>
                         @else

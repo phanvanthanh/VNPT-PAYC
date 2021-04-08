@@ -1,4 +1,4 @@
-@extends('layouts.template.index')
+@extends('layouts.front-end')
 
 @section('content')
 <div class="row">

@@ -13,7 +13,7 @@
 
 Auth::routes();
 Auth::routes([
-  'verify' => true,
+  'verify' => false,
   'reset' => false
 ]);
 
