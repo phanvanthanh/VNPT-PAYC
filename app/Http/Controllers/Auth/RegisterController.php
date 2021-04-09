@@ -87,7 +87,6 @@ class RegisterController extends Controller
         );
         $userRole=UsersRole::create($dataUserRole);
         //$this->guard()->login($user);
-        $success='Đăng ký tài khoản thành công';
         $request->session()->flash('notification', 'Chúc mừng! Bạn đã <b>tạo tài khoản thành công</b>.');
         return redirect()->route('register');
     }

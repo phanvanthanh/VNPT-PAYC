@@ -82,7 +82,6 @@
             if(jQuery('body').hasClass('sidebar-icon-only')){
               jQuery('.navbar-brand').text('PAYC');
             }else{
-              console.log('sfas');
               jQuery('.navbar-brand').text('VNPT - PAYC');
             }
             jQuery('.icon-menu').on('click',function(){
@@ -237,6 +236,8 @@
                 jQuery(this).find('input:checkbox').prop('checked', true);
               }
             });
+
+            
 
             
 

@@ -16,4 +16,9 @@ class AdminResource extends Model
     public function Menu(){
     	return $this->hasMany('App\AdminMenu');
     }
+
+    public static function layDanhSachReourceTheoParentId($parentId){
+        $data=AdminResource::where('parent_id','=',$parentId)->where('show_menu','=',1)->get()->toArray();
+        return $data;
+    }
 }

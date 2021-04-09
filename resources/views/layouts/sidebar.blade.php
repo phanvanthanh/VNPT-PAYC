@@ -1,4 +1,4 @@
-<?php
+@php
    use App\AdminResource;
    use App\AdminRule;
    use App\User;
@@ -14,8 +14,7 @@
    $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
    $resources=\Helper::paycTreeResourceHasChild($resources, 1);
    $rules=\Helper::layDanhSachQuyenTheoUserId($userId);
-      
-?>              
+@endphp         
                <div id="right-sidebar" class="settings-panel">
                   <i class="settings-close mdi mdi-close"></i>
                   <ul class="nav nav-tabs" id="setting-panel" role="tablist">
@@ -67,7 +66,15 @@
 
                      @foreach($resources as $resource)
                         @if(isset($rules[$resource['id']]))
-                           @if($resource['has_child']==0 && $resource['level']==0)
+                           @php $child=0; @endphp
+                           @if($resource['has_child']>0)
+                              @foreach($resources as $resourceChild)
+                                 @if($resourceChild['parent_id']==$resource['id'] && isset($rules[$resourceChild['id']]))
+                                    @php $child++; @endphp
+                                 @endif
+                              @endforeach
+                           @endif
+                           @if($resource['has_child']==0 && $resource['level']==0 && $child==0)
                            <li class="nav-item">
                               <a class="nav-link" href="{{$resource['uri']}}">
                                  <?php echo $resource['icon']; ?>
@@ -80,13 +87,13 @@
                                  <a class="nav-link" data-toggle="collapse" href="#icons{{$resource['id']}}" aria-expanded="false" aria-controls="icons{{$resource['id']}}">
                                  <?php echo $resource['icon']; ?>&nbsp;
                                  <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
-                                 <span class="badge badge-primary">{{$resource['has_child']}}</span>
+                                 <span class="badge badge-primary">{{$child}}</span>
                                  </a>
                                  <div class="collapse" id="icons{{$resource['id']}}">
                                     <ul class="nav flex-column sub-menu">
                                        <!-- Chạy lại dòng forearch để lấy ra những phần tử con -->
                                        @foreach($resources as $resourceChild)
-                                          @if($resourceChild['parent_id']==$resource['id'])
+                                          @if($resourceChild['parent_id']==$resource['id'] && isset($rules[$resourceChild['id']]))
                                           <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
                                           </a></li>
                                           @endif

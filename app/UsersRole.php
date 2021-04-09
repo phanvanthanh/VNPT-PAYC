@@ -22,5 +22,12 @@ class UsersRole extends Authenticatable
     ];
     public $timestamps=false;
   
-
+    public static function layDanhSachNhomQuyenTheoUserId($id){
+        $data=UsersRole::where("user_id","=",$id)->get()->toArray(); // kiểm tra dữ liệu trong DB
+        $result=array();
+        foreach ($data as $key => $d) {
+            $result[$d['role_id']]=$d;
+        }
+        return $result;
+    }
 }

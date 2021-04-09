@@ -30,10 +30,7 @@ class PhanQuyenController extends Controller{
     public function phanQuyenDanhSachNhomQuyen(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $roles = AdminRole::select('admin_role.id', 'admin_role.role_name','admin_role.id_don_vi','admin_role.state','don_vi.ten_don_vi')
-            ->leftJoin('don_vi','admin_role.id_don_vi','don_vi.id')
-            ->where('admin_role.state','=',1)
-            ->get()->toArray(); // điều kiện nhóm quyền còn hoạt động
+            $roles = AdminRole::layDanhSachNhomQuyen();
             $view=view('PhanQuyen::danh-sach-nhom-quyen', compact('roles','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }

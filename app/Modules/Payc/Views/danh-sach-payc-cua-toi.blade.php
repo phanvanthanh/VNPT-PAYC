@@ -1,4 +1,9 @@
-@extends('layouts.front-end')
+@if(!Auth()->id() || Auth::user()->loai_tai_khoan=='KHACH_HANG')
+  @php $layout='layouts.front-end'; @endphp
+@else
+  @php $layout='layouts.index'; @endphp
+@endif
+@extends($layout)
 @section('title', 'Phản ánh / yêu cầu của tôi')
 @section('content')
 	<div class="col-lg-12">

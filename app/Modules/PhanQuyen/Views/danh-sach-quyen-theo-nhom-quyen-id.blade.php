@@ -1,18 +1,18 @@
 <table id="table-danh-sach-tai-nguyen" class="table table-hover table-danh-sach-tai-nguyen">
     <thead>
         <tr class="background-vnpt text-center">
-            <th>STT #</th>
+            <th>STT</th>
+            <th>#</th>
             <th>Tên chức năng</th>
         </tr>
     </thead>
     <tbody>                       
                      
-        <?php 
-            $stt=0;
-        ?>
+        @php $stt=0; @endphp
         @foreach($resources as $resource)
-                <?php $stt++; ?>
+                @php $stt++; @endphp
                 <tr class="tr-small">
+                    <td class="text-center">{{$stt}}</td>
                     <td class="text-center">
                         <div class="icheck-square">
                             <input type="checkbox" name="resource[]" class="checkbox-resource" resource="{{$resource['id']}}"
@@ -24,6 +24,30 @@
                         @php echo $resource['icon']; @endphp &nbsp;&nbsp;{{$resource['ten_hien_thi']}}
                     </td>
                 </tr>
+                @php
+                    $childResources=\Helper::layDanhSachReourceTheoParentId($resource['id']);
+                    if($childResources){
+                        foreach ($childResources as $key => $childResource) {
+                        $stt++;
+                        @endphp
+                            <tr class="tr-small">
+                                <td class="text-center">{{$stt}}</td>
+                                <td class="text-center">
+                                    
+                                </td>
+                                <td class='text-primary'>
+                                    <div class="icheck-square">
+                                        <input type="checkbox" name="resource[]" class="checkbox-resource" resource="{{$childResource['id']}}"
+                                        @if(count($rules)>0 && isset($rules[$childResource['id']])) checked="true" @endif
+                                        > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @php echo $resource['icon']; @endphp &nbsp;&nbsp;{{$childResource['ten_hien_thi']}}
+                                    </div>
+                                </td>
+                            </tr>
+                        @php
+                        }
+                    }
+                @endphp
+
         @endforeach    
     </tbody>
 </table>             

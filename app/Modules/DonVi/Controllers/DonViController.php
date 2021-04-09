@@ -110,7 +110,7 @@ class DonViController extends Controller{
     public function xoaDonVi(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
-            if(!isset($dataForm['id']) || $dataForm['id']==1 || $dataForm['id']==2){ // Kiểm tra nếu ko tồn tại id
+            if(!isset($dataForm['id']) || $dataForm['id']==1 || $dataForm['id']==2){ // Kiểm tra nếu ko tồn tại id, không xóa vnpt và viễn thông tỉnh
                 return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
             }
             $id=$dataForm['id']; //ngược lại có id

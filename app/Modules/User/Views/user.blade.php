@@ -64,9 +64,6 @@
       $('.btn-load-form-them-moi').on('click',function(){
         getById(_token, "", "{{ route('user-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });
-      
-
-      
     });
   </script>
 @endsection

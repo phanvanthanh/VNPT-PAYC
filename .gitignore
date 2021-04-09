@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+.env
+.env.example
 .gitignore
 .phpunit.result.cache
 Homestead.json

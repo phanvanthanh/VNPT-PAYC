@@ -334,6 +334,36 @@
       });
   }
 
+  phanNhomQuyen=function(_token, roleId, userId, url){
+    loading('.error-mode');
+    var xhr1;
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
+          url:url,
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'role_id':roleId,
+              'user_id':userId,
+          },
+          error:function(){
+            errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+          },
+          success:function(data){
+            if(data.error==""){
+              errorLoader(".error-mode","");
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+            
+          },
+      });
+  }
+
   /*
   * _token là token của laravel
   * frmName là tên form chứa các input

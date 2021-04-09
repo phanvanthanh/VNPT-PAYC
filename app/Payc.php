@@ -143,7 +143,7 @@ class Payc extends Authenticatable
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 where cbxl2.id_payc=cbxl.id_payc
             )
-            and (p.id_user_tao='.$userId.' or p.id_user_tao=1)'.'
+            and (p.id_user_tao='.$userId.')'.'
             order by p.id desc');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;

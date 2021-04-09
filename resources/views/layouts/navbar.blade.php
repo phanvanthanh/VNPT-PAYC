@@ -5,8 +5,7 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
 @endphp
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"><!-- thêm các class sau để đổi màu navbar-primary navbar-success navbar-warning navbar-danger navbar-pink navbar-info navbar-dark  -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-               <a class="navbar-brand brand-logo" href="/">VNPT TV - PAYC<!-- <img src="{{ asset('public/images/logo.svg') }}" alt="logo"> --></a>
-               <a class="navbar-brand brand-logo-mini" href="/">VNPT - PAYC</a>
+               <a class="navbar-brand brand-logo" href="/">VNPT - PAYC</a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center">
                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -95,7 +94,7 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                               <div class="preview-item-content btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
                                  <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">({{$binhLuan['so_phieu']}}) {{$binhLuan['tieu_de']}}</h6>
                                  <p class="font-weight-light small-text btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
-                                    Tin mới từ {{$binhLuan['name']}} <br>{{$binhLuan['ngay_binh_luan']}}
+                                    Tin mới từ <b class="font-weight-bold">{{$binhLuan['name']}}</b> <br>{{$binhLuan['ngay_binh_luan']}}
                                  </p>
                               </div>
                            </a>
@@ -144,7 +143,7 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                         </a>
                         @else
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
+                        <a class="dropdown-item preview-item" href="{{ route('thong-tin-ca-nhan') }}">
                            <div class="preview-thumbnail">
                               <div class="preview-icon bg-info">
                                  <i class="icon-info mx-0"></i>
@@ -154,7 +153,7 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                               <h6 class="preview-subject font-weight-medium">Thông tin cá nhân</h6>
                            </div>
                         </a>
-                        <div class="dropdown-divider"></div>
+                        {{-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
                               <div class="preview-icon bg-danger">
@@ -164,7 +163,7 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                            <div class="preview-item-content">
                               <h6 class="preview-subject font-weight-medium">Thay đổi mật khẩu</h6>
                            </div>
-                        </a>
+                        </a> --}}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">

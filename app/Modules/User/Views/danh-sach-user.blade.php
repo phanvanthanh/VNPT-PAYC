@@ -6,7 +6,7 @@
                 <th>Tên đăng nhập</th>
                 <th>Di động</th>
                 <th>Đơn vị</th>
-                <th>Quyền</th>
+                <th>Nhóm quyền</th>
                 <th>Trạng thái</th>
                 <th>Xử lý</th>
             </tr>
@@ -37,7 +37,12 @@
                     @endphp
                 </td>
                 <td>
-                    
+                    @php
+                        $roles=Helper::layDanhSachNhomQuyenTheoUserId($user['id']);
+                        foreach($roles as $role){
+                            echo $role['role_name'].'<br>';
+                        }
+                    @endphp
                 </td>
                 <td class="text-center">
                     <label class=" @if($user['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($user['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
@@ -74,24 +79,24 @@
     <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="modal-cap-nhat" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-             <div class="modal-header background-vnpt">
-              <h5 class="modal-title">SỬA NHÓM QUYỀN</h5>
-              
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body card">
-            <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
-                {{ csrf_field() }}
-            </form>
+                <div class="modal-header background-vnpt">
+                  <h5 class="modal-title">SỬA NHÓM QUYỀN</h5>
+                  
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body card">
+                <form class="forms-sample frm-cap-nhat" id="frm-cap-nhat" name="frm-cap-nhat">
+                    {{ csrf_field() }}
+                </form>
+                </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
-          <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
-      </div>
-  </div>
-</div>
+    </div>
 </div>
 
 <div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
@@ -110,17 +115,17 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade" id="modal-phan-quyen-can-bo" tabindex="-1" role="dialog" aria-labelledby="modal-phan-quyen-can-bo" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header background-vnpt">
-                <h5 class="modal-title">PHÂN QUYỀN CHO CÁN BỘ</h5>
+                <h5 class="modal-title">PHÂN NHÓM QUYỀN TÀI KHOẢN</h5>
               
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -132,7 +137,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -191,6 +196,10 @@
             var id=jQuery(this).attr("data");
             getById(_token, id, "{{ route('user-role-single') }}", ".frm-phan-quyen-can-bo");
             $('#modal-phan-quyen-can-bo').modal('show');
+        });
+
+        $('#modal-phan-quyen-can-bo').on('hide.bs.modal', function () {
+            location.reload();
         });
     });
 </script>

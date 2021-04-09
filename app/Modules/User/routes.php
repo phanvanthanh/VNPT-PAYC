@@ -44,6 +44,10 @@ Route::group(
             'as' => 'user-role-single',
             'uses' => 'UserController@userRoleSingle'
         ]);
+        Route::post('phan-quyen-user-role', [
+            'as' => 'phan-quyen-user-role',
+            'uses' => 'UserController@phanQuyenUserRole'
+        ]);
 
         Route::post('luu-user-dv', [
             'as' => 'luu-user-dv',
@@ -58,6 +62,16 @@ Route::group(
         Route::post('xoa-user-donvi', [
             'as' => 'xoa-user-donvi',
             'uses' => 'UserController@xoaUserDonVi'
+        ]);
+
+        Route::get('thong-tin-ca-nhan', [
+            'as' => 'thong-tin-ca-nhan',
+            'uses' => 'UserController@thongTinCaNhan'
+        ]);
+
+        Route::post('cap-nhat-thong-tin-ca-nhan', [
+            'as' => 'cap-nhat-thong-tin-ca-nhan',
+            'uses' => 'UserController@capNhatThongTinCaNhan'
         ]);
     }
 );

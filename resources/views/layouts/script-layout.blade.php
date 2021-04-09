@@ -1,5 +1,3 @@
 @INCLUDE('layouts.head')
-   @yield('content')
-   @INCLUDE('layouts.js')
-   </body>
-</html>
+@INCLUDE('layouts.js')
+@yield('content')

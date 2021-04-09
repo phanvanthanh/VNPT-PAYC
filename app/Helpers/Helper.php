@@ -2,6 +2,7 @@
 namespace App\Helpers;
 use App\Payc;
 use App\ThongBao;
+use App\AdminResource;
 use DB;
 
 class Helper
@@ -11,6 +12,12 @@ class Helper
         $data=ThongBao::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
         return $data;
     }
+
+    public static function layDanhSachReourceTheoParentId($parentId){
+        $data=AdminResource::layDanhSachReourceTheoParentId($parentId);
+        return $data;
+    }
+
     public static function layDanhSachDonViTheoUserId($userId){
         // Lấy quyền theo user id
        $userDonVis=DB::select('SELECT usdv.id_don_vi, dv.ten_don_vi, (SELECT dv2.ten_don_vi as ten_don_vi_cha FROM don_vi dv2 where dv2.id=dv.parent_id ) as ten_don_vi_cha FROM users_don_vi usdv 
@@ -18,6 +25,15 @@ class Helper
             WHERE usdv.id_user='.$userId);
        $userDonVis = collect($userDonVis)->map(function($x){ return (array) $x; })->toArray();
        return $userDonVis;
+    }
+
+    public static function layDanhSachNhomQuyenTheoUserId($userId){
+        // Lấy quyền theo user id
+       $userRoles=DB::select('SELECT ar.role_name FROM users_role ur
+            LEFT JOIN admin_role ar ON ur.role_id=ar.id
+            WHERE ur.user_id='.$userId);
+       $userRoles = collect($userRoles)->map(function($x){ return (array) $x; })->toArray();
+       return $userRoles;
     }
 
     public static function laySoLieuDanhGiaTheoIdPayc($id){
@@ -159,7 +175,7 @@ class Helper
                 if(!isset(Helper::$paycHasChildArrItem[$item['id']])){
                 	$item['has_child']=0;
 					Helper::$paycHasChildArrItem[$item['id']]=$item;
-					if(isset(Helper::$paycHasChildArrItem[$item['parent_id']])){
+					if(isset(Helper::$paycHasChildArrItem[$item['parent_id']]) && Helper::$paycHasChildArrItem[$item['parent_id']]['show_menu']==1){
 						Helper::$paycHasChildArrItem[$item['parent_id']]['has_child']=Helper::$paycHasChildArrItem[$item['parent_id']]['has_child']+1; // Nếu có con thì tăng lên một đơn vị
 					}
                 }                	     
