@@ -246,9 +246,14 @@ Route::group(
             'uses' => 'PaycController@traLoiBinhLuan'
         ]);
 
-        Route::post('danh-dau-da-xem', [
-            'as' => 'danh-dau-da-xem',
-            'uses' => 'PaycController@danhDauDaXem'
+        Route::post('danh-dau-da-xem-binh-luan', [
+            'as' => 'danh-dau-da-xem-binh-luan',
+            'uses' => 'PaycController@danhDauDaXemBinhLuan'
+        ]);
+
+        Route::post('danh-dau-da-xem-pakn', [
+            'as' => 'danh-dau-da-xem-pakn',
+            'uses' => 'PaycController@danhDauDaXemPakn'
         ]);
     }
 );

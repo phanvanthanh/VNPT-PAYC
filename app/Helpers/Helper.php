@@ -8,6 +8,11 @@ use DB;
 class Helper
 {
 
+    public static function layDanhSachPaknChuaXemTheoTaiKhoan($userId){
+        $data=ThongBao::layDanhSachPaknChuaXemTheoTaiKhoan($userId);
+        return $data;
+    }
+
     public static function layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId){
         $data=ThongBao::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
         return $data;
@@ -20,8 +25,10 @@ class Helper
 
     public static function layDanhSachDonViTheoUserId($userId){
         // Lấy quyền theo user id
-       $userDonVis=DB::select('SELECT usdv.id_don_vi, dv.ten_don_vi, (SELECT dv2.ten_don_vi as ten_don_vi_cha FROM don_vi dv2 where dv2.id=dv.parent_id ) as ten_don_vi_cha FROM users_don_vi usdv 
+       $userDonVis=DB::select('SELECT usdv.id_don_vi, ncv.ten_nhom_chuc_vu, dv.ten_don_vi, (SELECT dv2.ten_don_vi as ten_don_vi_cha FROM don_vi dv2 where dv2.id=dv.parent_id ) as ten_don_vi_cha FROM users_don_vi usdv 
             LEFT JOIN don_vi dv ON usdv.id_don_vi=dv.id
+            LEFT JOIN chuc_vu cv ON usdv.id_chuc_vu=cv.id
+            LEFT JOIN nhom_chuc_vu ncv ON cv.id_nhom_chuc_vu=ncv.id
             WHERE usdv.id_user='.$userId);
        $userDonVis = collect($userDonVis)->map(function($x){ return (array) $x; })->toArray();
        return $userDonVis;
@@ -34,6 +41,15 @@ class Helper
             WHERE ur.user_id='.$userId);
        $userRoles = collect($userRoles)->map(function($x){ return (array) $x; })->toArray();
        return $userRoles;
+    }
+
+    public static function layDanhSachDichVuTheoUserId($userId){
+       $data=array();
+        $data=DB::select('SELECT usdv.id, dv.ten_dich_vu, usdv.id_dich_vu, usdv.tu_ngay, usdv.den_ngay FROM users_dich_vu usdv
+            LEFT JOIN dich_vu dv ON usdv.id_dich_vu=dv.id
+            WHERE usdv.id_user='.$userId);
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        return $data;
     }
 
     public static function laySoLieuDanhGiaTheoIdPayc($id){

@@ -196,4 +196,14 @@ class UsersDichVu extends Authenticatable
 
     }
 
+
+    public static function danhSachDichVuTheoTaiKhoan($userId){
+        $data=array();
+        $data=DB::select('SELECT usdv.id, dv.ten_dich_vu, usdv.id_dich_vu, usdv.tu_ngay, usdv.den_ngay FROM users_dich_vu usdv
+            LEFT JOIN dich_vu dv ON usdv.id_dich_vu=dv.id
+            WHERE usdv.id_user='.$userId);
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        return $data;
+    }
+
 }

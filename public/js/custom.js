@@ -255,6 +255,79 @@
     });
   }
 
+   /*
+  * _token là token của laravel
+  * id là id dòng dữ liệu cần xóa
+  * url để load dữ liệu
+  * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
+  * classNameRefreshData là tên class loadTable chứa dữ liệu của  để sau khi thực hiện thêm mới dữ liệu xong sẽ refresh lại dữ liệu và add vô bảng dữ liệu
+  */
+  xoaKhongRefresh=function(_token, id, url){
+    loading('.error-mode');
+    var xhr1;
+    if(xhr1 && xhr1.readyState != 4){
+        xhr1.abort(); //huy lenh ajax truoc do
+    }
+    xhr1 = $.ajax({
+        url:url,
+        type:'POST',
+        dataType:'json',
+        cache: false,
+        data:{
+            "_token":_token,
+            'id':id,
+        },
+        error:function(){
+          errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+        },
+        success:function(data){          
+          $(".error-mode").empty();
+          if(data.error==""){
+            errorLoader(".error-mode","");
+          }else{
+            errorLoader(".error-mode",data.error);
+          }
+        },
+    });
+  }
+
+   /*
+  * _token là token của laravel
+  * id là id dòng dữ liệu cần xóa
+  * url để load dữ liệu
+  * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
+  * classNameRefreshData là tên class loadTable chứa dữ liệu của  để sau khi thực hiện thêm mới dữ liệu xong sẽ refresh lại dữ liệu và add vô bảng dữ liệu
+  */
+  xoaVaRefreshDuLieuTheoId=function(_token, id, url, idRefresh, urlRefreshData, classNameRefreshData){
+    loading('.error-mode');
+    var xhr1;
+    if(xhr1 && xhr1.readyState != 4){
+        xhr1.abort(); //huy lenh ajax truoc do
+    }
+    xhr1 = $.ajax({
+        url:url,
+        type:'POST',
+        dataType:'json',
+        cache: false,
+        data:{
+            "_token":_token,
+            'id':id,
+        },
+        error:function(){
+          errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+        },
+        success:function(data){          
+          $(".error-mode").empty();
+          if(data.error==""){
+            errorLoader(".error-mode","");
+            getById(_token, idRefresh, urlRefreshData, classNameRefreshData);  
+          }else{
+            errorLoader(".error-mode",data.error);
+          }
+        },
+    });
+  }
+
   /*
   * className là tên class body của modal chứa các input sửa dữ liệu
   * Nếu lỗi = rổng thì hiển thị LOADER
@@ -393,7 +466,40 @@
           }else{
             errorLoader(".error-mode",data.error);
           }
-            
+        },
+    });
+  }
+
+  /*
+  * _token là token của laravel
+  * frmName là tên form chứa các input
+  * url để load dữ liệu
+  * urlRefreshData là url load dữ liệu là url load dữ liệu để làm mới dữ liệu vào bảng, sử dụng trong hàm loadTable
+  * classNameRefreshData là tên class loadTable chứa dữ liệu của  để sau khi thực hiện thêm mới dữ liệu xong sẽ refresh lại dữ liệu và add vô bảng dữ liệu
+  */
+
+  themMoiVaRefreshDuLieuTheoId=function(_token, frmName, url, idRefresh, urlRefreshData, classNameRefreshData){
+    loading('.error-mode');
+    jQuery('.btn-them-moi').attr("disabled",true);
+    var formData = new FormData(frmName[0]);
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: formData,
+        contentType: false,
+        processData: false,
+        error:function(){   
+          jQuery('.btn-them-moi').attr("disabled",false);
+          errorLoader(".error-mode","Đã có lỗi xảy ra, vui lòng liên hệ quản trị để được hỗ trợ!");
+        },
+        success:function(data){
+          if(data.error==""){
+            errorLoader(".error-mode","");
+            jQuery('.btn-them-moi').attr("disabled",false);
+            getById(_token, idRefresh, urlRefreshData, classNameRefreshData);         
+          }else{
+            errorLoader(".error-mode",data.error);
+          }
         },
     });
   }

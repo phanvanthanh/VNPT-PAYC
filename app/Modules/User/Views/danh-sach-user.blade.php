@@ -5,7 +5,9 @@
                 <th>Họ tên</th>
                 <th>Tên đăng nhập</th>
                 <th>Di động</th>
+                <th>Nhóm xử lý</th>
                 <th>Đơn vị</th>
+                <th>Dịch vụ</th>
                 <th>Nhóm quyền</th>
                 <th>Trạng thái</th>
                 <th>Xử lý</th>
@@ -32,7 +34,22 @@
                     @php
                         $donVis=Helper::layDanhSachDonViTheoUserId($user['id']);
                         foreach($donVis as $donVi){
+                            echo $donVi['ten_nhom_chuc_vu'].'<br>';
+                        }
+                    @endphp
+                </td>
+                <td>
+                    @php
+                        foreach($donVis as $donVi){
                             echo $donVi['ten_don_vi'].' - '.$donVi['ten_don_vi_cha'].'<br>';
+                        }
+                    @endphp
+                </td>
+                <td>
+                    @php
+                        $dichVus=Helper::layDanhSachDichVuTheoUserId($user['id']);
+                        foreach($dichVus as $dichVu){
+                            echo $dichVu['ten_dich_vu'].'; ';
                         }
                     @endphp
                 </td>
@@ -53,6 +70,10 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <a class="dropdown-item preview-item">
                                 <p class="mb-0 font-weight-normal float-left text-primary btn-cau-hinh-don-vi" data="{{$user['id']}}"><b><i class="fa fa-gear"></i> Cấu hình đơn vị</b>
+                                </p>
+                            </a>
+                            <a class="dropdown-item preview-item">
+                                <p class="mb-0 font-weight-normal float-left text-primary btn-cau-hinh-dich-vu" data="{{$user['id']}}"><b><i class="fa fa-gear"></i> Cấu hình dịch vụ</b>
                                 </p>
                             </a>
                             <a class="dropdown-item preview-item">
@@ -143,6 +164,25 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-cau-hinh-dich-vu" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-dich-vu" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header background-vnpt">
+                <h5 class="modal-title">CẤU HÌNH DỊCH VỤ CHO TÀI KHOẢN</h5>
+              
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card">
+            <form class="forms-sample frm-cau-hinh-dich-vu" id="frm-cau-hinh-dich-vu" name="frm-cau-hinh-dich-vu">
+                {{ csrf_field() }}
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -199,6 +239,19 @@
         });
 
         $('#modal-phan-quyen-can-bo').on('hide.bs.modal', function () {
+            location.reload();
+        });
+        $('#modal-cau-hinh-don-vi').on('hide.bs.modal', function () {
+            location.reload();
+        });
+
+        jQuery('.btn-cau-hinh-dich-vu').on('click',function(){ 
+            var id=jQuery(this).attr("data");
+            getById(_token, id, "{{ route('user-dich-vu-single') }}", ".frm-cau-hinh-dich-vu");
+            $('#modal-cau-hinh-dich-vu').modal('show');
+        });
+
+        $('#modal-cau-hinh-dich-vu').on('hide.bs.modal', function () {
             location.reload();
         });
     });

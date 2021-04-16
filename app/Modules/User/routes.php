@@ -4,7 +4,7 @@ $namespace = 'App\Modules\User\Controllers';
 Route::group(
     ['module'=>'User', 'namespace' => $namespace, 'middleware'=>['web', 'auth','check-role']],
     function() {
-        Route::get('user', [
+        Route::get('tai-khoan', [
             'as' => 'user',
             'uses' => 'UserController@user'
         ]);
@@ -72,6 +72,26 @@ Route::group(
         Route::post('cap-nhat-thong-tin-ca-nhan', [
             'as' => 'cap-nhat-thong-tin-ca-nhan',
             'uses' => 'UserController@capNhatThongTinCaNhan'
+        ]);
+
+        Route::post('user-dich-vu-single', [
+            'as' => 'user-dich-vu-single',
+            'uses' => 'UserController@userDichVuSingle'
+        ]);
+
+        Route::post('danh-sach-dich-vu-theo-tai-khoan', [
+            'as' => 'danh-sach-dich-vu-theo-tai-khoan',
+            'uses' => 'UserController@danhSachDichVuTheoTaiKhoan'
+        ]);
+
+        Route::post('them-user-dich-vu', [
+            'as' => 'them-user-dich-vu',
+            'uses' => 'UserController@themUserDichVu'
+        ]);
+
+        Route::post('xoa-user-dich-vu', [
+            'as' => 'xoa-user-dich-vu',
+            'uses' => 'UserController@xoaUserDichVu'
         ]);
     }
 );

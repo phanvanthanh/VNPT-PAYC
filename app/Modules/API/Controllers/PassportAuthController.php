@@ -40,7 +40,8 @@ class PassportAuthController extends Controller
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'loai_tai_khoan'=>'API'
         ]);
         $user->save();
         return response()->json([

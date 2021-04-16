@@ -710,11 +710,19 @@
           location.href = "{{ route('chi-tiet-payc') }}?id="+id;
         });
 
-        jQuery('.btn-danh-dau-da-xem').on('click',function(){
+        jQuery('.btn-danh-dau-da-xem-binh-luan').on('click',function(){
           var _token="{{ csrf_token() }}";
             var idBinhLuan=jQuery(this).attr('data');
             var idPayc=jQuery(this).attr('data2');
-            getById(_token, idBinhLuan, "{{ route('danh-dau-da-xem') }}", "");
+            getById(_token, idBinhLuan, "{{ route('danh-dau-da-xem-binh-luan') }}", "");
+            location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+        });
+
+        jQuery('.btn-danh-dau-da-xem-pakn').on('click',function(){
+          var _token="{{ csrf_token() }}";
+            var idNhanPakn=jQuery(this).attr('data');
+            var idPayc=jQuery(this).attr('data2');
+            getById(_token, idNhanPakn, "{{ route('danh-dau-da-xem-pakn') }}", "");
             location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
         });
         

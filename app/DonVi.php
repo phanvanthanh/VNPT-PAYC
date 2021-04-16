@@ -140,9 +140,7 @@ class DonVi extends Model
     	return $data;
     }
 
-
-
-    /*public static function layToThuocCapTtvtTheoMaHuyen($maHuyen){
+    public static function layCanBoThuocCapTtvtTheoMaHuyenVaMaNhomChucVu($maHuyen, $maNhomChucVu, $idDichVu){
     	$result=array();
     	$parent=DonVi::getDonViCapHuyenByMaHuyen($maHuyen);
     	$data=DB::select('select * from don_vi');
@@ -151,8 +149,47 @@ class DonVi extends Model
 			$parentId=$parent['parent_id']; // id cấp trung tâm viễn thông
 			$result=\Helper::treeDonViByParentId($data, $parentId);
 		}
+
+		$resultCanBo=array();
+		foreach ($result as $key => $rs) {
+			
+			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoPhuTrachTheoNhomChuVu($rs['id'],$maNhomChucVu, $idDichVu));
+		}
+		return $resultCanBo;
+    }
+
+    public static function getDonViCapTrungTamTheoMaCap($maCap){
+    	$result=array();
+    	$data=DB::select('SELECT * FROM don_vi
+		WHERE ma_cap="'.$maCap.'"');
+		$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data){
+			$result=$data[0];
+		}
 		return $result;
     }
+
+    public static function layCanBoThuocCapTrungTamTheoMaNhomChucVu($maCap, $maNhomChucVu, $idDichVu){
+    	$result=array();
+    	$parent=DonVi::getDonViCapTrungTamTheoMaCap($maCap);
+    	$data=DB::select('select * from don_vi');
+    	$data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+		if($data && $parent){
+			$parentId=$parent['id']; // id cấp trung tâm viễn thông
+			$result=\Helper::treeDonViByParentId($data, $parentId);
+		}
+
+		$resultCanBo=array();
+		foreach ($result as $key => $rs) {
+			
+			$resultCanBo=array_merge($resultCanBo,DonVi::layCanBoPhuTrachTheoNhomChuVu($rs['id'],$maNhomChucVu, $idDichVu));
+		}
+		return $resultCanBo;
+    }
+
+
+
+    /*
 
     public static function layToThuocCapVttTheoMaHuyen($maHuyen){
     	$result=array();

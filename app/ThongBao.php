@@ -9,6 +9,31 @@ use DB;
 class ThongBao extends Authenticatable
 {
     use Notifiable;
+    
+    public static function layDanhSachPaknChuaXemTheoTaiKhoan($userId){
+        if(!isset($userId)){
+            $userId=1;
+        }
+        $data=array();
+        $data=DB::select('SELECT p.id AS id_payc, pcbn.id, u.name as ten_user_xu_ly, pcbn.ngay_nhan, p.so_phieu, p.tieu_de FROM payc p
+            LEFT JOIN payc_xu_ly pxl ON p.id=pxl.id_payc
+            LEFT JOIN users u ON pxl.id_user_xu_ly=u.id
+            LEFT JOIN payc_can_bo_nhan pcbn ON pxl.id=pcbn.id_xu_ly_yeu_cau
+            WHERE pxl.id=(
+                SELECT MAX(pxl2.id) AS id FROM payc_xu_ly pxl2
+                WHERE pxl2.id_payc=pxl.id_payc
+            )
+            AND pcbn.id_user_nhan='.$userId.'
+            AND pcbn.trang_thai=0
+            order by pcbn.id desc');
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        $result=array();
+        foreach ($data as $key => $d) {
+            $result[$d['id']]=$d;
+        }
+        return $result;
+
+    }
 
     public static function layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId){
         if(!isset($userId)){
@@ -37,7 +62,7 @@ class ThongBao extends Authenticatable
 
     }
 
-    public static function kiemTraQuyenDanhDauDaXem($idBinhLuan, $idUser, $maLoaiTaiKhoan){
+    public static function kiemTraQuyenDanhDauDaXemBinhLuan($idBinhLuan, $idUser, $maLoaiTaiKhoan){
         $data=array();
         if($maLoaiTaiKhoan=='KHACH_HANG'){
             $data=DB::select('SELECT bl.id, bl.id_payc FROM payc_binh_luan bl
@@ -62,6 +87,16 @@ class ThongBao extends Authenticatable
             order by bl.id desc'
             );
         }
+            
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        return $data;
+
+    }
+
+    public static function kiemTraQuyenDanhDauDaXemPakn($idNhanPakn, $idUser){
+        $data=array();
+        $data=DB::select('SELECT id FROM payc_can_bo_nhan WHERE id='.$idNhanPakn.' AND id_user_nhan='.$idUser
+            );
             
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;

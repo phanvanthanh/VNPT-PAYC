@@ -15,7 +15,8 @@ use App\UsersDonVi;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\UsersRole;
-
+use App\DichVu;
+use App\UsersDichVu;
 use Request as RequestAjax;
 
 
@@ -38,7 +39,7 @@ class UserController extends Controller{
     public function danhSachUser(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $users=User::all()->toArray();
+            $users=User::where('loai_tai_khoan','=','CAN_BO')->get()->toArray();
             $view=view('User::danh-sach-user', compact('users','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         } 
@@ -309,5 +310,68 @@ class UserController extends Controller{
             'password'          => ['nullable', 'string', 'min:6', 'same:password_confirm'],
             'password_confirm'  => ['nullable', 'string', 'min:6'],
         ]);
+    }
+
+
+    public function userDichVuSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array(); $userId=0;
+            $dichVus=DichVu::where('state','=',1)->get()->toArray();
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                $userId=$dataForm['id'];
+            }            
+            $view=view('User::user-dich-vu-single', compact('userId','dichVus','error'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    
+    public function danhSachDichVuTheoTaiKhoan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $dataForm=RequestAjax::all();
+            $error=''; // Khai báo biến
+            $dichVus=array();
+            $userId=0;
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                $userId=$dataForm['id'];
+                $dichVus=UsersDichVu::danhSachDichVuTheoTaiKhoan($userId);
+            } 
+            $view=view('User::danh-sach-dich-vu-theo-tai-khoan', compact('dichVus','error', 'userId'))->render(); // Trả dữ liệu ra view 
+            return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
+    }
+
+    public function themUserDichVu(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            
+            UsersDichVu::create($data); // Lưu dữ liệu vào DB
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function xoaUserDichVu(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
+            if(!isset($dataForm['id'])){ // Kiểm tra nếu ko tồn tại id, không xóa vnpt và viễn thông tỉnh
+                return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
+            }
+            $id=$dataForm['id']; //ngược lại có id
+            $donVi=UsersDichVu::where("id","=",$id)->get();
+            if(count($donVi)==1){
+                UsersDichVu::where("id","=",$id)->delete();
+                return array("error"=>'');
+            }else{
+                return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
+            }         
+            
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
 }

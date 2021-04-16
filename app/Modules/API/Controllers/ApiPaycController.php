@@ -113,8 +113,25 @@ class ApiPaycController extends Controller
                 $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
             }
         } 
-        else{ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
-            
+        elseif($maNhomDichVu=='DV_XA'){ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+            $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+        }
+        elseif($maNhomDichVu=='DV_HUYEN'){
+            $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+        }
+        elseif($maNhomDichVu=='DV_TTVT'){
+            $dsCanBoNhans=DonVi::layCanBoThuocCapTtvtTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+        }
+        elseif($maNhomDichVu=='DV_DHTT'){
+            $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTDHTT',$nhomChucVuNhanPakn, $idDichVu);
+        }
+        elseif($maNhomDichVu=='DV_KD'){
+            $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTKD',$nhomChucVuNhanPakn, $idDichVu);
+        }
+        elseif($maNhomDichVu=='DV_CNTT'){
+            $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTCNTT',$nhomChucVuNhanPakn, $idDichVu);
+        }else{
+            return array("error"=>"Lỗi nhóm dịch vụ");
         }
         // Nếu nhóm chức vụ nhận là LANH_DAO hoặc XU_LY thì ghi thêm log chuyển lãnh đạo hoặc chuyển xử lý
         if($nhomChucVuNhanPakn=='LANH_DAO'){

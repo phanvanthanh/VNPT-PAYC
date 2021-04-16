@@ -49,9 +49,9 @@ class Payc extends Authenticatable
             where cbxl.id=(
                 select max(cbxl2.id) as id from payc_xu_ly cbxl2 
                 left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc and ttxl2.ma_trang_thai NOT IN ("CAP_NHAT")
+                where cbxl2.id_payc=cbxl.id_payc
             )
-            and (ttxl.ma_trang_thai="TAO_MOI"  or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN")
+            and (ttxl.ma_trang_thai="TAO_MOI"  or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN" or ttxl.ma_trang_thai="CAP_NHAT")
             and cbn.id_user_nhan='.$userId.'
             order by p.id desc');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 

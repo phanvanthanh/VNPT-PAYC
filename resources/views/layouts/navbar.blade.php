@@ -2,10 +2,13 @@
 use Illuminate\Support\Facades\Auth;
 $userId=Auth::id();
 $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
+$paknChuaXems=\Helper::layDanhSachPaknChuaXemTheoTaiKhoan($userId);
+$soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
 @endphp
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"><!-- thêm các class sau để đổi màu navbar-primary navbar-success navbar-warning navbar-danger navbar-pink navbar-info navbar-dark  -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
                <a class="navbar-brand brand-logo" href="/">VNPT - PAYC</a>
+               <a class="navbar-brand brand-logo-mini" href="/">PAYC</a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center">
                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -74,32 +77,49 @@ $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
                   <li class="nav-item dropdown">
                      <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                      <i class="icon-bell mx-0"></i>
-                     <span class="@if(count($binhLuanChuaXems)==0) count-success @else count @endif"></span>
+                     <span class="@if($soTinNhan<=0) count-success @else count @endif"></span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                         <a class="dropdown-item background-vnpt">
                            <p class="mb-0 font-weight-normal float-left">Danh sách thông báo
                            </p>
-                           <span class="badge badge-pill badge-danger float-right">@php echo count($binhLuanChuaXems); @endphp</span>
+                           <span class="badge badge-pill badge-danger float-right">@php echo $soTinNhan; @endphp</span>
                         </a>
                         @foreach($binhLuanChuaXems as $binhLuan)
                            <div class="dropdown-divider"></div>
-                           <a class="dropdown-item preview-item btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                           <a class="dropdown-item preview-item btn-danh-dau-da-xem-binh-luan" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
                               <div class="preview-thumbnail">
                                  
                                  <div class="preview-icon bg-danger">
-                                    <i class="icon-speech mx-0 btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}"></i>
+                                    <i class="icon-speech mx-0 btn-danh-dau-da-xem-binh-luan" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}"></i>
                                  </div>
                               </div>
-                              <div class="preview-item-content btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
-                                 <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">({{$binhLuan['so_phieu']}}) {{$binhLuan['tieu_de']}}</h6>
-                                 <p class="font-weight-light small-text btn-danh-dau-da-xem" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                              <div class="preview-item-content btn-danh-dau-da-xem-binh-luan" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
+                                 <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem-binh-luan" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">({{$binhLuan['so_phieu']}}) {{$binhLuan['tieu_de']}}</h6>
+                                 <p class="font-weight-light small-text btn-danh-dau-da-xem-binh-luan" data="{{$binhLuan['id']}}" data2="{{$binhLuan['id_payc']}}">
                                     Tin mới từ <b class="font-weight-bold">{{$binhLuan['name']}}</b> <br>{{$binhLuan['ngay_binh_luan']}}
                                  </p>
                               </div>
                            </a>
                         @endforeach
-                        @if(count($binhLuanChuaXems)==0)
+                        @foreach($paknChuaXems as $paknChuaXem)
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item preview-item btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">
+                              <div class="preview-thumbnail">
+                                 
+                                 <div class="preview-icon bg-danger">
+                                    <i class="icon-speech mx-0 btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}"></i>
+                                 </div>
+                              </div>
+                              <div class="preview-item-content btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">
+                                 <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">({{$paknChuaXem['so_phieu']}}) {{$paknChuaXem['tieu_de']}}</h6>
+                                 <p class="font-weight-light small-text btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">
+                                    Tin mới từ <b class="font-weight-bold">{{$paknChuaXem['ten_user_xu_ly']}}</b> vào ngày {{$paknChuaXem['ngay_nhan']}}
+                                 </p>
+                              </div>
+                           </a>
+                        @endforeach
+                        @if($soTinNhan==0)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">

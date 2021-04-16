@@ -139,8 +139,25 @@ class PaycController extends Controller{
                     $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
                 }
             } 
-            else{ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
-                
+            elseif($maNhomDichVu=='DV_XA'){ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+                $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+            }
+            elseif($maNhomDichVu=='DV_HUYEN'){
+                $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+            }
+            elseif($maNhomDichVu=='DV_TTVT'){
+                $dsCanBoNhans=DonVi::layCanBoThuocCapTtvtTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+            }
+            elseif($maNhomDichVu=='DV_DHTT'){
+                $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTDHTT',$nhomChucVuNhanPakn, $idDichVu);
+            }
+            elseif($maNhomDichVu=='DV_KD'){
+                $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTKD',$nhomChucVuNhanPakn, $idDichVu);
+            }
+            elseif($maNhomDichVu=='DV_CNTT'){
+                $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTCNTT',$nhomChucVuNhanPakn, $idDichVu);
+            }else{
+                return array("error"=>"Lỗi nhóm dịch vụ");
             }
             // Nếu nhóm chức vụ nhận là LANH_DAO hoặc XU_LY thì ghi thêm log chuyển lãnh đạo hoặc chuyển xử lý
             if($nhomChucVuNhanPakn=='LANH_DAO'){
@@ -1156,6 +1173,89 @@ class PaycController extends Controller{
                 $paknCanBoNhanData['trang_thai']=0;
                 $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
 
+
+
+                //
+                $idDichVu=$dataForm['id_dich_vu'];
+                $maNhomDichVu=DichVu::getMaNhomDichVuByIdDichVu($idDichVu);
+                $nhomChucVuNhanPakn=DmThamSoHeThong::getValueByName('MA_NHOM_CHUC_VU_NHAN_PAKN');
+                $dsCanBoNhans=array();
+                if($maNhomDichVu=='DV_VT'){ // Nếu nhóm dịch vụ viễn thông thì cấp xã hoặc huyện tiếp nhận
+                    // Lấy danh sách cán bộ
+                    $capMacDinh=DmThamSoHeThong::getValueByName('CAP_TIEP_NHAN_MAC_DINH');
+                    $maPhuongXa=$payc->ma_phuong_xa;
+                    // Từ mã phường xã suy ra mã quận huyện
+                    $phuongXa=DmPhuongXa::where('ma_phuong_xa','=',$maPhuongXa)->get()->toArray();
+                    $maHuyen=null;
+                    if($phuongXa){
+                        $maHuyen=$phuongXa[0]['ma_quan_huyen'];
+                    }
+                    if($capMacDinh=='XA'){
+                        $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+                    }else{ // Ngược lại là cấp huyện
+                        $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+                    }
+                } 
+                elseif($maNhomDichVu=='DV_XA'){ // Có thể mở rộng chỗ này: nếu nhóm dịch vụ công nghệ thông tin thì cấp trung tâm tiếp nhận
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapXaTheoMaPhuongXaVaMaNhomChucVu($maPhuongXa,$nhomChucVuNhanPakn, $idDichVu);
+                }
+                elseif($maNhomDichVu=='DV_HUYEN'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapHuyenTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+                }
+                elseif($maNhomDichVu=='DV_TTVT'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapTtvtTheoMaHuyenVaMaNhomChucVu($maHuyen,$nhomChucVuNhanPakn, $idDichVu);
+                }
+                elseif($maNhomDichVu=='DV_DHTT'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTDHTT',$nhomChucVuNhanPakn, $idDichVu);
+                }
+                elseif($maNhomDichVu=='DV_KD'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTKD',$nhomChucVuNhanPakn, $idDichVu);
+                }
+                elseif($maNhomDichVu=='DV_CNTT'){
+                    $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTCNTT',$nhomChucVuNhanPakn, $idDichVu);
+                }else{
+                    return array("error"=>"Lỗi nhóm dịch vụ");
+                }
+                // Nếu nhóm chức vụ nhận là LANH_DAO hoặc XU_LY thì ghi thêm log chuyển lãnh đạo hoặc chuyển xử lý
+                if($nhomChucVuNhanPakn=='LANH_DAO'){
+                    // Tạo lịch sử xử lý là chuyển lãnh đạo
+                    $trangThaiTiepNhan=PaycTrangThaiXuLy::where('ma_trang_thai','=','CHUYEN_LANH_DAO')->get()->toArray();
+                    if(count($trangThaiTiepNhan)<1){
+                        return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                    }
+                    
+                    $idXuLyTiepNhan=$trangThaiTiepNhan[0]['id'];
+                    
+                    $canBoXuLyYeuCau['id_payc']=$idPayc;
+                    $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
+                    $canBoXuLyYeuCau['noi_dung_xu_ly']='';
+                    $canBoXuLyYeuCau['file_xu_ly']='';
+                    $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
+                    $idXuLyYeuCau=$xuLyTiepNhan->id;
+                }elseif ($nhomChucVuNhanPakn=='XU_LY') {
+                    // Tạo lịch sử xử lý là chuyển bộ phận xử lý
+                    $trangThaiTiepNhan=PaycTrangThaiXuLy::where('ma_trang_thai','=','CHUYEN_XU_LY')->get()->toArray();
+                    if(count($trangThaiTiepNhan)<1){
+                        return array("error"=>"Lỗi trạng thái xử lý vui lòng liên hệ quản trị");
+                    }
+                    
+                    $idXuLyTiepNhan=$trangThaiTiepNhan[0]['id'];
+                    
+                    $canBoXuLyYeuCau['id_payc']=$idPayc;
+                    $canBoXuLyYeuCau['id_user_xu_ly']=$userId;
+                    $canBoXuLyYeuCau['id_xu_ly']=$idXuLyTiepNhan;
+                    $canBoXuLyYeuCau['noi_dung_xu_ly']='';
+                    $canBoXuLyYeuCau['file_xu_ly']='';
+                    $xuLyTiepNhan=PaycXuLy::create($canBoXuLyYeuCau);
+                    $idXuLyYeuCau=$xuLyTiepNhan->id;
+                }
+                foreach ($dsCanBoNhans as $key => $canBoNhan) {
+                    $paknCanBoNhanData['id_xu_ly_yeu_cau']=$idXuLyYeuCau;
+                    $paknCanBoNhanData['id_user_nhan']=$canBoNhan['id'];
+                    $paknCanBoNhanData['trang_thai']=0;
+                    $paknCanBoNhan=PaycCanBoNhan::create($paknCanBoNhanData);
+                }
                 return array("error"=>'');
             }else{
                 return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
@@ -2325,7 +2425,7 @@ class PaycController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
-    public function danhDauDaXem(Request $request){
+    public function danhDauDaXemBinhLuan(Request $request){
         $error='';
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $userId=Auth::id();
@@ -2341,12 +2441,37 @@ class PaycController extends Controller{
                 $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
                 return array('error'=>$error);
             }
-            $checkQuyenCapNhatDaXem=ThongBao::kiemTraQuyenDanhDauDaXem($data['id'], $userId, $loaiTaiKhoan);
+            $checkQuyenCapNhatDaXem=ThongBao::kiemTraQuyenDanhDauDaXemBinhLuan($data['id'], $userId, $loaiTaiKhoan);
             if(count($checkQuyenCapNhatDaXem)>0){
                 
                 $binhLuan=PaycBinhLuan::find($data['id']);
                 $data['trang_thai']=1;
                 $binhLuan->update($data);
+            }
+            $error='';
+            return array('error'=>$error);
+        }
+        $error='Phương thức gửi dữ liệu không hợp lệ vui lòng kiểm tra lại';
+        return array('error'=>$error);
+    }
+
+    public function danhDauDaXemPakn(Request $request){
+        $error='';
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=Auth::id();
+            if(!$userId){
+                return array('error'=>'Chưa đăng nhập vào hệ thống');
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            if(!isset($data['id']) || $data['id']=='' || $data['id']==null){
+                $error='Dữ liệu không hợp lệ vui lòng kiểm tra lại';
+                return array('error'=>$error);
+            }
+            $checkQuyenCapNhatDaXem=ThongBao::kiemTraQuyenDanhDauDaXemPakn($data['id'], $userId);
+            if(count($checkQuyenCapNhatDaXem)>0){
+                $paycCanBoNhan=PaycCanBoNhan::find($data['id']);
+                $data['trang_thai']=1;
+                $paycCanBoNhan->update($data);
             }
             $error='';
             return array('error'=>$error);
