@@ -12,17 +12,17 @@
                             @php
                                 $ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
                                 $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
-                                $text=$toDo['noi_dung'].'<br>'.$ngay_tao;
+                                $text=$toDo['noi_dung'].'<br>Ngày tạo: '.$ngay_tao.' Hạn xử lý: '.$han_xu_ly;
                             @endphp           
                             <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif>
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
-                                        {{$toDo['noi_dung']}}
+                                        @php
+                                            echo $text;
+                                        @endphp
                                     </label>               
-                                </div>       
-                                <br> 
-                                test         
+                                </div>        
                                 {{-- <div style="padding-left: 20px; text-align: right;">
                                     <small class="text-muted">Ngày tạo: {{$ngay_tao}}<br>HXL: {{$han_xu_ly}}</small>
                                 </div> --}}
