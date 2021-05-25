@@ -112,6 +112,16 @@ Route::group(
             'uses' => 'PaycController@hoanTat'
         ]);
 
+        Route::post('hoan-tat-da-xem', [
+            'as' => 'hoan-tat-da-xem',
+            'uses' => 'PaycController@hoanTatDaXem'
+        ]);
+
+        Route::post('hoan-tat-phoi-hop', [
+            'as' => 'hoan-tat-phoi-hop',
+            'uses' => 'PaycController@hoanTatPhoiHop'
+        ]);
+
         Route::post('frm-duyet-va-hoan-tat-xu-ly', [
             'as' => 'frm-duyet-va-hoan-tat-xu-ly',
             'uses' => 'PaycController@frmDuyetVaHoanTatXuLy'

@@ -40,6 +40,7 @@ class UserController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
             $users=User::where('loai_tai_khoan','=','CAN_BO')->get()->toArray();
+            //$users=User::all()->toArray();
             $view=view('User::danh-sach-user', compact('users','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         } 

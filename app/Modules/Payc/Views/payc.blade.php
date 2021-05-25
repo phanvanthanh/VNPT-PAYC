@@ -90,8 +90,8 @@
 					                        <div class="input-group-addon input-group-text">
 					                          <span class="mdi mdi-calendar"></span>
 					                        </div>
-					                      </div>
-					                      <!-- <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small> -->
+					                    </div>
+					                    <!-- <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small> -->
 			    		  			</div>
 			    		  			<div class="col-12 d-none">
 			    		  				<small class="form-text text-muted">Giờ</small>

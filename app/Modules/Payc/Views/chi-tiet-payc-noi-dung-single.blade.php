@@ -5,8 +5,8 @@
     @endphp
     <div class="row pakn-detail">
         <div class="col-12">
-            <div class="main-title">
-                Phản ánh, yêu cầu về việc: {{$payc['tieu_de']}} - <b>[{{$payc['so_phieu']}}]</b>
+            <div class="main-title"> 
+                <b>[{{$payc['so_phieu']}}]</b> {{$payc['tieu_de']}}
             </div>
             <div class="post-info">{{$payc['name']}} - {{$payc['ngay_tao']}}</div>
             <div class="post-info">Đánh giá: @if(!$danhGia) chưa đánh giá
@@ -24,7 +24,16 @@
         <div class="col-10 ques-item -question">
             <div class="title" style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Nội dung phản ánh, yêu cầu:</div>
             <div class="article">
-                <div style="width: 100%; border: none; resize: none; margin-bottom: 20px; overflow: hidden; overflow-wrap: break-word;"><?php echo $payc['noi_dung']; ?></div>
+                <div style="width: 100%; border: none; resize: none; margin-bottom: 20px; overflow: hidden; overflow-wrap: break-word;">
+                    @if ($payc['noi_dung'] && $payc['noi_dung']!='<p><br></p>')
+                        @php
+                            echo $payc['noi_dung'];
+                        @endphp 
+                    @else
+                        {{$payc['tieu_de']}} 
+                    @endif
+                        
+                </div>
             </div>
             <div class="col-10">
                 

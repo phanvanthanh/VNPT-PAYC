@@ -335,7 +335,6 @@
   */
 
   errorLoader=function(className, error){
-
     $(className).empty();            
     if(error){
       showDangerToast(error);

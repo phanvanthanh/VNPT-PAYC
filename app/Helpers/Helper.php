@@ -4,10 +4,43 @@ use App\Payc;
 use App\ThongBao;
 use App\AdminResource;
 use DB;
+use App\PaycXuLy;
+use App\DmThamSoHeThong;
 
 class Helper
 {
-
+    public static function getValueThamSoTheoMa($maThamSo){
+        $value=DmThamSoHeThong::getValueByName($maThamSo);
+        return $value;
+    }
+    public static function layDanhSachCanBoXuLyPakn($idPakn){
+        $data=PaycXuLy::layDanhSachCanBoXuLyPakn($idPakn);
+        return $data;
+    }
+    public static function getTrangThaiXuLy($maTrangThai){
+        $trangThaiXuLy=array(
+            0   => 'Chưa xem',
+            1   => 'Đã xem',
+            2   => 'Đã xử lý',
+        );
+        $trangThai='Chưa xác định';
+        if(isset($trangThaiXuLy[$maTrangThai])){
+            $trangThai=$trangThaiXuLy[$maTrangThai];
+        }
+        return $trangThai;
+    }
+    public static function getVaiTroXuLy($maTrangThai){
+        $trangThaiXuLy=array(
+            0   => 'Xem để biết',
+            1   => 'Xử lý chính',
+            2   => 'Phối hợp xử lý',
+        );
+        $trangThai='Chưa xác định';
+        if(isset($trangThaiXuLy[$maTrangThai])){
+            $trangThai=$trangThaiXuLy[$maTrangThai];
+        }
+        return $trangThai;
+    }
     public static function layDanhSachPaknChuaXemTheoTaiKhoan($userId){
         $data=ThongBao::layDanhSachPaknChuaXemTheoTaiKhoan($userId);
         return $data;

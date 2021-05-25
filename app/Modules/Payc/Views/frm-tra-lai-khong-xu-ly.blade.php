@@ -16,6 +16,15 @@
               </div>
             <span class="show-file giz-upload-01"></span>
         </div>
+        @php
+            $checkPhanHoiKhiHoanTat=\Helper::getValueThamSoTheoMa('TRA_LOI_KHI_HOAN_TAT');
+        @endphp
+        <div class="col-12">
+            <div class="icheck-square" style="margin-top: 10px;">
+                <input name="co_gui_phan_hoi_binh_luan" type="checkbox" id="co_gui_phan_hoi_binh_luan" value="1" @if($checkPhanHoiKhiHoanTat==1) {{"checked='checked'"}} @endif>
+                <label for="co_gui_phan_hoi_binh_luan" class="label">Gửi nội dung và file phía trên sang mục phản hồi bình luận</label>
+            </div>
+        </div>
         
     <script type="text/javascript" src="{{ asset('public/js/checkAll.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/tree.js') }}"></script>

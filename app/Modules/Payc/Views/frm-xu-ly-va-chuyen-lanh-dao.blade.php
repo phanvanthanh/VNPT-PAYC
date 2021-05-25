@@ -81,7 +81,19 @@
     <script type="text/javascript" src="{{ asset('public/js/tree.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/uploadFile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        jQuery('.btn-modal').removeClass('disabled').attr('disabled', false);
+        jQuery('.btn-close-modal').removeClass('disabled').attr('disabled', false);
+      });
+  </script>
 @else
   <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
+  <script type="text/javascript">
+      jQuery(document).ready(function(){
+        jQuery('.btn-modal').addClass('disabled').attr('disabled', true);
+        jQuery('.btn-close-modal').removeClass('disabled').attr('disabled', false);
+      });
+  </script>
 @endif
 

@@ -15,7 +15,24 @@
                         </div>
                         <div class="timeline-body">
                             <small class="form-text">
-
+                            @php
+                                if ($d['ma_trang_thai']=='DUYET_CHUYEN_XU_LY'){
+                                    $dsCanBoXuLys=\Helper::layDanhSachCanBoXuLyPakn($d['id_payc']);
+                                    $stt2=0;
+                                    foreach ($dsCanBoXuLys as $key => $canBoXuLy) {
+                                        $stt2++;
+                                        $vaiTro=\Helper::getVaiTroXuLy($canBoXuLy['vai_tro']);
+                                        $trangThai=\Helper::getTrangThaiXuLy($canBoXuLy['trang_thai']);
+                                        $style='text-danger';
+                                        if($canBoXuLy['trang_thai']>0){
+                                            $style='text-primary';
+                                        }
+                                        echo '<b>'.$stt2.'. '.$canBoXuLy['name'].'</b> - '.$vaiTro.' - <b class="'.$style.'">'.$trangThai.'</b><br>';
+                                    }
+                                }
+                            @endphp
+                        </small>
+                        <small class="form-text">
                             <?php
                                 if($d['noi_dung_xu_ly']){ 
                                     echo "<b>Nội dung: </b>".$d['noi_dung_xu_ly'];

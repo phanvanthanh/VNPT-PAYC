@@ -131,7 +131,10 @@ class ApiPaycController extends Controller
         elseif($maNhomDichVu=='DV_CNTT'){
             $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu('TTCNTT',$nhomChucVuNhanPakn, $idDichVu);
         }else{
-            return array("error"=>"Lỗi nhóm dịch vụ");
+            $arrMaNhom=explode('_', $maNhomDichVu);
+            $countArrMaNhom=count($arrMaNhom)-1;
+            $maNhomDichVu=$arrMaNhom[$countArrMaNhom];
+            $dsCanBoNhans=DonVi::layCanBoThuocCapTrungTamTheoMaNhomChucVu($maNhomDichVu,$nhomChucVuNhanPakn, $idDichVu);
         }
         // Nếu nhóm chức vụ nhận là LANH_DAO hoặc XU_LY thì ghi thêm log chuyển lãnh đạo hoặc chuyển xử lý
         if($nhomChucVuNhanPakn=='LANH_DAO'){

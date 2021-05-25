@@ -18,8 +18,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-tiep-nhan-va-chuyen-xu-ly-2"><i class="fa fa-mail-forward"></i>  Tiếp nhận & chuyển xử lý</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-tiep-nhan-va-chuyen-xu-ly-2"><i class="fa fa-mail-forward"></i>  Tiếp nhận & chuyển xử lý</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -45,8 +45,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-xu-ly-2"><i class="fa fa-mail-forward"></i>  Xử lý</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-xu-ly-2"><i class="fa fa-mail-forward"></i>  Xử lý</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -72,8 +72,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-duyet-2"><i class="fa fa-mail-forward"></i>  Duyệt</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-duyet-2"><i class="fa fa-mail-forward"></i>  Duyệt</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -99,15 +99,15 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc-2"><i class="fa fa-mail-forward"></i>  Chuyển</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc-2"><i class="fa fa-mail-forward"></i>  Chuyển</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
 </div>
 
 <div class="modal fade" id="modal-duyet-va-chuyen-xu-ly-payc" tabindex="-1" role="dialog" aria-labelledby="modal-duyet-va-chuyen-xu-ly-payc" aria-hidden="true">
-   <div class="modal-dialog" role="document">
+   <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content modal-duyet-va-chuyen-xu-ly-payc">
          <div class="modal-header background-vnpt">
             <h5 class="modal-title">DUYỆT VÀ CHUYỂN XỬ LÝ PHẢN ÁNH, YÊU CẦU</h5>
@@ -126,8 +126,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-duyet-va-chuyen-xu-ly-payc-2"><i class="fa fa-mail-forward"></i>  Duyệt và chuyển</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-duyet-va-chuyen-xu-ly-payc-2"><i class="fa fa-mail-forward"></i>  Duyệt và chuyển</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -154,8 +154,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -181,8 +181,62 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-xu-ly-va-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-xu-ly-va-chuyen-lanh-dao-2"><i class="fa fa-group"></i>  Chuyển lãnh đạo</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+{{-- Modal này được tạo để lấy csrf thôi --}}
+<div class="modal fade" id="modal-hoan-tat-da-xem" tabindex="-1" role="dialog" aria-labelledby="modal-hoan-tat-da-xem" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-hoan-tat-da-xem">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">HOÀN TẤT ĐÃ XEM</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-hoan-tat-da-xem" id="frm-hoan-tat-da-xem">
+               <input type="hidden" class="ds_id_payc_hoan_tat_da_xem" name="ds_id_payc_hoan_tat_da_xem">
+                  {{ csrf_field() }}
+               <div class="frm-hoan-tat-da-xem">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-modal btn-vnpt btn-hoan-tat-da-xem-2"><i class="fa fa-group"></i> Đã xem</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+{{-- Modal này được tạo để lấy csrf thôi --}}
+<div class="modal fade" id="modal-hoan-tat-phoi-hop" tabindex="-1" role="dialog" aria-labelledby="modal-hoan-tat-phoi-hop" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-hoan-tat-phoi-hop">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">HOÀN TẤT PHỐI HỢP XỬ LÝ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <form class="forms-sample" name="frm-hoan-tat-phoi-hop" id="frm-hoan-tat-phoi-hop">
+               <input type="hidden" class="ds_id_payc_hoan_tat_phoi_hop" name="ds_id_payc_hoan_tat_phoi_hop">
+                  {{ csrf_field() }}
+               <div class="frm-hoan-tat-phoi-hop">
+                  
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-modal btn-vnpt btn-hoan-tat-phoi-hop-2"><i class="fa fa-group"></i> Đã phối hợp</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -208,8 +262,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-chuyen-cap-tren-2"><i class="fa fa-group"></i>  Chuyển cấp trên</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-chuyen-cap-tren-2"><i class="fa fa-group"></i>  Chuyển cấp trên</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -235,8 +289,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Hoàn tất xử lý</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Hoàn tất xử lý</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -262,8 +316,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-duyet-va-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Duyệt Hoàn tất</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-duyet-va-hoan-tat-xu-ly-2"><i class="fa fa-check-circle"></i>  Duyệt Hoàn tất</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -289,8 +343,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly-2"><i class="fa fa-mail-reply"></i>  Hoàn trả</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-danger btn-tra-lai-khong-xu-ly-2"><i class="fa fa-mail-reply"></i>  Hoàn trả</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -316,8 +370,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-huy-2"><i class="fa fa-window-close-o"></i>  Hủy yêu cầu</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-danger btn-huy-2"><i class="fa fa-window-close-o"></i>  Hủy yêu cầu</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -343,8 +397,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-cap-nhat-payc-2"><i class="fa fa-pencil"></i>  Cập nhật</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-cap-nhat-payc-2"><i class="fa fa-pencil"></i>  Cập nhật</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -366,7 +420,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>
@@ -401,8 +455,8 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-vnpt btn-danh-gia-2"><i class="fa fa-check-circle"></i>  Đánh giá</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-modal btn-vnpt btn-danh-gia-2"><i class="fa fa-check-circle"></i>  Đánh giá</button>
+            <button type="button" class="btn btn-light btn-close-modal" data-dismiss="modal">Đóng</button>
          </div>
       </div>
    </div>

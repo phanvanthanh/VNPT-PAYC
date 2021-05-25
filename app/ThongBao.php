@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
+use App\PaycCanBoNhan;
+use App\PaycXuLy;
 
 class ThongBao extends Authenticatable
 {
@@ -101,6 +103,33 @@ class ThongBao extends Authenticatable
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
 
+    }
+
+    public static function capNhatTrangThaiDaXem($idPakn, $idUser){
+        $datas=PaycCanBoNhan::select('payc_can_bo_nhan.id')
+            ->leftJoin('payc_xu_ly','payc_can_bo_nhan.id_xu_ly_yeu_cau','=','payc_xu_ly.id')
+            ->where('payc_xu_ly.id_payc','=',$idPakn)
+            ->where('payc_can_bo_nhan.id_user_nhan','=',$idUser)
+            ->where('payc_can_bo_nhan.vai_tro','=',0)
+            ->get()->toArray();
+        foreach ($datas as $key => $data) {
+            $canBoNhan=PaycCanBoNhan::find($data['id']);
+            $canBoNhan->trang_thai=1;
+            $canBoNhan->update();
+        }
+        return 1;
+    }
+
+    public static function getIdPaknTheoIdPaycCanBoNhan($idCanBoNhan){
+        $datas=PaycCanBoNhan::select('payc_xu_ly.id_payc')
+            ->leftJoin('payc_xu_ly','payc_can_bo_nhan.id_xu_ly_yeu_cau','=','payc_xu_ly.id')
+            ->where('payc_can_bo_nhan.id','=',$idCanBoNhan)
+            ->get()->toArray();
+        $id=0;
+        if(count($datas)>0){
+            $id=$datas[0]['id_payc'];
+        }
+        return $id;
     }
 
 

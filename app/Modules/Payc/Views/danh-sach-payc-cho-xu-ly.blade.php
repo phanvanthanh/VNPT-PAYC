@@ -21,20 +21,26 @@
                         <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển lãnh đạo</button>
                     </div> -->
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-xu-ly-va-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-xu-ly-va-chuyen-lanh-dao"><i class="fa fa-group"></i> Xử lý & Chuyển lãnh đạo</button>
+                        <button class="btn btn-sm btn-vnpt disabled btn-disabled btn-xu-ly-va-chuyen-lanh-dao" disabled="disabled" data-toggle="modal" data-target="#modal-xu-ly-va-chuyen-lanh-dao"><i class="fa fa-group"></i> Hoàn tất & chuyển lãnh đạo duyệt</button>
                     </div>
                     <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-vnpt disabled btn-disabled btn-hoan-tat-phoi-hop" disabled="disabled"><i class="fa fa-group"></i> Đã hoàn tất phối hợp</button>
+                    </div>
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-vnpt disabled btn-disabled btn-hoan-tat-da-xem" disabled="disabled"><i class="fa fa-group"></i> Đã xem</button>
+                    </div>
+                    {{--<div class="btn-group mr-2">
                         <button class="btn btn-sm btn-success btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
                     </div>
-                    <div class="btn-group mr-2">
+                     <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-vnpt btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
-                    </div>
+                    </div> 
                     <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
                     </div>
                     <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
-                    </div>
+                    </div> --}}
                 </div>
     		  	
     		  	<div class="row">
@@ -59,6 +65,7 @@
 						        ?>
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
+						            
 						            <tr class="tr-hover">
 						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
 						                <td class="text-center text-primary xem-chi-tiet-payc" value="{{$payc['id_payc']}}" scope="row">{{$payc['so_phieu']}}</td>						                
@@ -67,6 +74,8 @@
 						                	echo $payc['tieu_de'];
 						                ?><br>
 						                @php
+						                	$vaiTro=\Helper::getVaiTroXuLy($payc['vai_tro']);
+						                	echo '<b class="text-danger vai-tro" data="'.$payc['vai_tro'].'">'.$vaiTro.'</b><br>';
 						                	$danhGia=\Helper::laySoLieuDanhGiaTheoIdPayc($payc['id_payc']);
 						                @endphp
 						                @if($danhGia)

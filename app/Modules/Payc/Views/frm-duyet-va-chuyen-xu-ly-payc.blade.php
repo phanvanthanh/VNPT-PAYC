@@ -17,13 +17,21 @@
             <span class="show-file giz-upload-01"></span>
         </div>
         <div class="col-12">
+            <small class="form-text text-muted">Hạn xử lý</small>
+            <div class="input-group col-xs-12">
+                <input type="datetime-local" class="form-control han_xu_ly" name="han_xu_ly[1]" placeholder="Hạn xử lý">
+            </div>
+        </div>
+        <div class="col-12">
             <br>
             <table id="order-listing" class="table table-hover table-striped">
                 <thead>
                     <tr class="background-vnpt">
                         <th class="text-center" scope="col">STT</th>
                         <th scope="col"><input type="checkbox" name="id_user[]" class="check-all" check-all-on=".check-all-child" id="check-all-child">&nbsp;&nbsp;<label for="check-all-child">Tên đơn vị/Cán bộ</label></th>
-                        <td class="text-center">Chức vụ</td>
+                        <th class="text-center">Chức vụ</th>
+                        <th class="text-center">Vai trò</th>
+                        <th class="text-center">Hạn xử lý</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +61,8 @@
                                 
                             </td>
                             <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         @php $d['level']=$d['level']+2; @endphp
                         @foreach($d['ds_can_bo'] as $canBo)
@@ -66,6 +76,16 @@
                                     <input type="checkbox" name="id_user" value="{{$canBo['id']}}" data-id="{{$canBo['id']}}" class="check-all-child id-child-user" id="user-{{$canBo['id']}}"> &nbsp; <label for="user-{{$canBo['id']}}">{{$canBo['name']}}</label>
                                 </td>
                                 <td>{{$canBo['ten_nhom_chuc_vu']}}</td>
+                                <td>
+                                    <select class="form-control" name="vai_tro[{{$canBo['id']}}]">
+                                        <option value="0">Xem để biết</option>
+                                        <option value="1">Xử lý chính</option>
+                                        <option value="2">Phối hợp xử lý</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="datetime-local" class="form-control han_xu_ly" name="han_xu_ly[{{$canBo['id']}}]" placeholder="Hạn xử lý">
+                                </td>
                             </tr>
                                     
                         @endforeach

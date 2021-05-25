@@ -24,7 +24,7 @@
                         <button class="btn btn-sm btn-vnpt btn-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc" data-toggle="modal" data-target="#modal-chuyen-bo-phan-tiep-nhan-va-xu-ly-payc"><i class="fa fa-mail-forward"></i> Chuyển lại TN&XL</button>
                     </div> -->
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển LĐ khác</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Chuyển lãnh đạo khác</button>
                     </div>
                     <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-info btn-chuyen-cap-tren" data-toggle="modal" data-target="#modal-chuyen-cap-tren"><i class="fa fa-group"></i> Chuyển cấp trên</button>
@@ -32,18 +32,36 @@
                     <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-success btn-duyet-va-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-duyet-va-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Duyệt & Hoàn tất</button>
                     </div>
+                    @php
+                    	$checkTraLaiYeuCau=\Helper::getValueThamSoTheoMa('CHO_PHEP_TRA_LAI_KH_KHI_LANH_DAO_DUYET');
+                    	if($checkTraLaiYeuCau==1){
+                    	@endphp
+							<div class="btn-group mr-2">
+		                        <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
+		                    </div>
+		                @php
+                    	}
+                    	$checkHuyYeuCau=\Helper::getValueThamSoTheoMa('CHO_PHEP_HUY_YC_KHI_LANH_DAO_DUYET');
+                    	if($checkHuyYeuCau==1){
+                    	@endphp
+							<div class="btn-group mr-2">
+		                        <button type="button" class="btn btn-danger btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
+		                    </div>
+		                @php
+                    	}
+                    @endphp
                     <!-- <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-success btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
                     </div> -->
-                    <div class="btn-group mr-2">
+                    {{-- <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-vnpt btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
-                    </div>
-                    <div class="btn-group mr-2">
+                    </div> --}}
+                    {{-- <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
                     </div>
                     <div class="btn-group mr-2">
                         <button type="button" class="btn btn-danger btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
-                    </div>
+                    </div> --}}
                 </div>
     		  	
     		  	<div class="row">

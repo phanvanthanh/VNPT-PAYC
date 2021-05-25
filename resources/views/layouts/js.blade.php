@@ -214,18 +214,51 @@
                 
         }); 
 
+            btnDisabled=function(){
+              jQuery('.btn-disabled').addClass('disabled').attr('disabled', true);
+              var checkLoaiVaiTro=''; var coCheckLoaiVaiTro=0;
+              jQuery("input[type='checkbox'].id_payc").each(function( index ){
+                if(jQuery(this).is(":checked")){
+                  var tr=jQuery(this).parent('th').parent('tr');
+                  var vaiTro=tr.find('.vai-tro').attr('data');
+                  if(checkLoaiVaiTro==''){
+                    checkLoaiVaiTro=vaiTro;
+                    coCheckLoaiVaiTro++;
+                  }
+                  if(checkLoaiVaiTro!='' && checkLoaiVaiTro!=vaiTro){
+                    coCheckLoaiVaiTro++;
+                  }
+                  if(vaiTro==0){ // xem để biết
+                    jQuery('.btn-hoan-tat-da-xem').removeClass('disabled').attr('disabled', false);
+                  }else{
+                    if (vaiTro==1) { // xử lý chính
+                      jQuery('.btn-xu-ly-va-chuyen-lanh-dao').removeClass('disabled').attr('disabled', false);
+                    } else { // phối hợp xử lý
+                      jQuery('.btn-hoan-tat-phoi-hop').removeClass('disabled').attr('disabled', false);
+                    }
+                  }
+                  if(coCheckLoaiVaiTro>1){
+                    jQuery('.btn-disabled').addClass('disabled').attr('disabled', true);
+                  }
+                }
+              });
+            }
+
 
             jQuery('.check-id-payc').on('click', function(){
                 if(jQuery(this).find('input:checkbox').is(":checked")){
                   jQuery(this).find('input:checkbox').prop('checked', false);
+                  
                 }else{
                   jQuery(this).find('input:checkbox').prop('checked', true);
                 }
+                btnDisabled();
             });
 
 
             jQuery("input[type='checkbox'].id_payc").on('click',function(){
               jQuery(this).parent('.check-id-payc').click();
+
             });
 
             jQuery('.check-one-id-payc').on('click', function(){
@@ -418,6 +451,38 @@
 
           xuLy($("form#frm-xu-ly-va-chuyen-lanh-dao"), "{{ route('xu-ly-va-chuyen-lanh-dao') }}", "");
           jQuery("#modal-xu-ly-va-chuyen-lanh-dao").modal('hide');
+          
+        });
+
+        // Hoàn tất các task xem để biết
+        $('.btn-hoan-tat-da-xem').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-hoan-tat-da-xem"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            //jQuery('.ds_id_payc_hoan_tat_da_xem').val(dsId); // Không cần lưu vì gửi thẳng qua route luôn
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('hoan-tat-da-xem') }}", "");
+            location.reload();
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
+          
+        });
+
+        // Hoàn tất phối hợp xử lý
+        $('.btn-hoan-tat-phoi-hop').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+          var _token=jQuery('form[name="frm-hoan-tat-phoi-hop"]').find("input[name='_token']").val();
+          var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
+          if(dsId){
+            //jQuery('.ds_id_payc_hoan_tat_da_xem').val(dsId); // Không cần lưu vì gửi thẳng qua route luôn
+            // tạo form chuyển
+            getById(_token, dsId, "{{ route('hoan-tat-phoi-hop') }}", "");
+            location.reload();
+          }else{
+            alert("Vui lòng chọn các yêu cầu cần xử lý!");
+            return false;
+          }
           
         });
 
@@ -707,7 +772,13 @@
 
         jQuery('.xem-chi-tiet-payc').on('click',function(){
           var id=jQuery(this).attr('value');
-          location.href = "{{ route('chi-tiet-payc') }}?id="+id;
+          //location.href = "{{ route('chi-tiet-payc') }}?id="+id;
+          var win = window.open("{{ route('chi-tiet-payc') }}?id="+id, '_blank');
+          if (win) {
+              win.focus();
+          } else {
+              alert('Please allow popups for this website');
+          }
         });
 
         jQuery('.btn-danh-dau-da-xem-binh-luan').on('click',function(){
@@ -715,7 +786,13 @@
             var idBinhLuan=jQuery(this).attr('data');
             var idPayc=jQuery(this).attr('data2');
             getById(_token, idBinhLuan, "{{ route('danh-dau-da-xem-binh-luan') }}", "");
-            location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+            //location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+            var win = window.open("{{ route('chi-tiet-payc') }}?id="+idPayc, '_blank');
+            if (win) {
+                win.focus();
+            } else {
+                alert('Please allow popups for this website');
+            }
         });
 
         jQuery('.btn-danh-dau-da-xem-pakn').on('click',function(){
@@ -723,7 +800,13 @@
             var idNhanPakn=jQuery(this).attr('data');
             var idPayc=jQuery(this).attr('data2');
             getById(_token, idNhanPakn, "{{ route('danh-dau-da-xem-pakn') }}", "");
-            location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+            //location.href = "{{ route('chi-tiet-payc') }}?id="+idPayc;
+            var win = window.open("{{ route('chi-tiet-payc') }}?id="+idPayc, '_blank');
+            if (win) {
+                win.focus();
+            } else {
+                alert('Please allow popups for this website');
+            }
         });
         
 

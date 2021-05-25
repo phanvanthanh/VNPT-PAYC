@@ -51,4 +51,15 @@ class PaycXuLy extends Authenticatable
         return $data;
     }
 
+    public static function layDanhSachCanBoXuLyPakn($idPakn){
+        $data=PaycXuLy::select('payc_can_bo_nhan.id', 'payc_can_bo_nhan.vai_tro', 'payc_can_bo_nhan.trang_thai', 'users.id', 'users.email', 'users.name')
+        ->leftJoin('payc_trang_thai_xu_ly','payc_xu_ly.id_xu_ly','=','payc_trang_thai_xu_ly.id')
+        ->leftJoin('payc_can_bo_nhan','payc_xu_ly.id','=','payc_can_bo_nhan.id_xu_ly_yeu_cau')
+        ->leftJoin('users','payc_can_bo_nhan.id_user_nhan','=','users.id')
+        ->where('payc_xu_ly.id_payc','=',$idPakn)
+        ->where('payc_trang_thai_xu_ly.ma_trang_thai','=','DUYET_CHUYEN_XU_LY')
+        ->get()->toArray();
+        return $data;
+    }
+
 }

@@ -37,7 +37,7 @@
     height: 70px;
     line-height: 70px;
     font-size: 24px;
-    background: #CE7A58;
+    background: #1d78c9; /*#CE7A58;*/
     color: #fff;
     border-radius: 4px;
     position: absolute;
@@ -50,7 +50,7 @@
     padding: 10px 10px;
     min-height: 70px;
     border-radius: 4px;
-    background: rgba(234, 160, 49, 0.2);
+    background: #a6cff2; /*rgba(234, 160, 49, 0.2);*/
     position: relative;
 }
 .file .text {
