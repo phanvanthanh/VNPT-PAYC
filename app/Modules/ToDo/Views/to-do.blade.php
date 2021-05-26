@@ -15,7 +15,7 @@
 
       <div class="text-right table-responsive">
         <div class="btn-group mr-2">
-          <button class="btn btn-sm btn-vnpt btn-load-form-them-moi" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm to do</button>
+          <button class="btn btn-sm btn-vnpt btn-load-form-them-moi" data-toggle="modal" data-target="#modal-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Thêm mới</button>
         </div>
       </div>
       <br>

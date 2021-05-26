@@ -2,6 +2,7 @@
     @php
         $payc=$data['payc'];
         $danhGia=\Helper::laySoLieuDanhGiaTheoIdPayc($payc['id']);
+
     @endphp
     <div class="row pakn-detail">
         <div class="col-12">
@@ -10,6 +11,15 @@
             </div>
             <div class="post-info">{{$payc['name']}} - {{$payc['ngay_tao']}}</div>
             <div class="post-info">Đánh giá: @if(!$danhGia) chưa đánh giá
+                @php
+                    $loaiDanhGia=\Helper::kiemTraLoaiDanhGiaTheoIdPayc($payc['id']);
+                    //die(var_dump($loaiDanhGia));
+                    if($loaiDanhGia && $loaiDanhGia=='KH_DANH_GIA'){
+                    @endphp
+                        <button class="btn text-warning btn-link btn-kh-danh-gia-2" data="{{$payc['id']}};" data-toggle="modal" data-target="#modal-danh-gia">(Bấm vào đây để thực hiện đánh giá)</button>
+                    @php
+                    }
+                @endphp
                 @else
                     @for($i=1; $i<=5; $i++)
                         <i class="fa fa-star @if($i<=$danhGia) t-rate-active @else t-rate-default @endif" alt="{{$i}} sao"></i>
@@ -59,6 +69,22 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.btn-kh-danh-gia-2').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
+            var _token=jQuery('form[name="frm-danh-gia"]').find("input[name='_token']").val();
+            jQuery('.loai_danh_gia').val(2);
+            var dsId=jQuery(this).attr('data');
+            console.log(dsId);
+            if(dsId){
+              // tạo form chuyển
+              jQuery('.ds_id_payc_danh_gia').val(dsId);
+            }else{
+              alert("Vui lòng chọn các yêu cầu cần xử lý!");
+              return false;
+            }
+          
+        });
+    </script>
 @else
   <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif

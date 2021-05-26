@@ -18,20 +18,20 @@
                         <button class="btn btn-sm btn-vnpt btn-tiep-nhan-va-chuyen-xu-ly" data-toggle="modal" data-target="#modal-tiep-nhan-va-chuyen-xu-ly"><i class="fa fa-mail-forward"></i> Tiếp nhận & chuyển xử lý</button>
                     </div> --}}
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Tiếp nhận và Chuyển lãnh đạo</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuc-nang btn-chuyen-lanh-dao" data-toggle="modal" data-target="#modal-chuyen-lanh-dao"><i class="fa fa-group"></i> Tiếp nhận và Chuyển lãnh đạo</button>
                     </div>
                     {{-- <div class="btn-group mr-2">
                         <button class="btn btn-sm btn-success btn-hoan-tat-xu-ly" data-toggle="modal" data-target="#modal-hoan-tat-xu-ly"><i class="fa fa-check-circle"></i> Hoàn tất</button>
                     </div> --}}
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuc-nang btn-cap-nhat-payc" data-toggle="modal" data-target="#modal-cap-nhat-payc"><i class="fa fa-pencil"></i> Cập nhật</button>
                     </div>
                     @php
                     	$checkTraLaiYeuCau=\Helper::getValueThamSoTheoMa('CHO_PHEP_TRA_LAI_KH_KHI_TIEP_NHAN');
                     	if($checkTraLaiYeuCau==1){
                     	@endphp
 							<div class="btn-group mr-2">
-		                        <button type="button" class="btn btn-danger btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
+		                        <button type="button" class="btn btn-danger btn-chuc-nang btn-tra-lai-khong-xu-ly" data-toggle="modal" data-target="#modal-tra-lai-khong-xu-ly"><i class="fa fa-mail-reply"></i> Trả lại, không xử lý</button>
 		                    </div>
 		                @php
                     	}
@@ -39,7 +39,7 @@
                     	if($checkHuyYeuCau==1){
                     	@endphp
 							<div class="btn-group mr-2">
-		                        <button type="button" class="btn btn-danger btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
+		                        <button type="button" class="btn btn-danger btn-chuc-nang btn-huy" data-toggle="modal" data-target="#modal-huy"><i class="fa fa-window-close-o"></i> Hủy</button>
 		                    </div>
 		                @php
                     	}

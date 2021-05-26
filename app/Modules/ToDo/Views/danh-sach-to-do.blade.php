@@ -10,9 +10,12 @@
                     <ul id="items-list" class="moveable flex-column-reverse todo-list">
                         @foreach($toDos as $index => $toDo)     
                             @php
-                                $ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
-                                $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
-                                $text=$toDo['noi_dung'].'<br>Ngày tạo: '.$ngay_tao.' Hạn xử lý: '.$han_xu_ly;
+                                $ngay_tao = 'Ngày tạo: '.date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
+                                $han_xu_ly='';
+                                if ($toDo['han_xu_ly']) {
+                                    $han_xu_ly = ' - Hạn xử lý: '.date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
+                                }
+                                $text=$toDo['noi_dung'].'<br><samll class="text-muted">'.$ngay_tao.$han_xu_ly.'</small>';
                             @endphp           
                             <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif>
                                 <div class="form-check">

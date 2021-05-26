@@ -15,10 +15,10 @@
                 </div>
                 <div class="text-right">
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-ld-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star"></i> Đánh giá</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuc-nang btn-ld-danh-gia" data-toggle="modal" data-target="#modal-danh-gia"><i class="fa fa-star"></i> Đánh giá</button>
                     </div>
                     <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-vnpt btn-chuyen-kh-danh-gia"><i class="fa fa-star-half-o"></i> Chuyển KH đánh giá</button>
+                        <button class="btn btn-sm btn-vnpt btn-chuc-nang btn-chuyen-kh-danh-gia"><i class="fa fa-star-half-o"></i> Chuyển KH đánh giá</button>
                     </div>
                     
                 </div>

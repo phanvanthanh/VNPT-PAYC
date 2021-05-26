@@ -217,8 +217,10 @@
             btnDisabled=function(){
               jQuery('.btn-disabled').addClass('disabled').attr('disabled', true);
               var checkLoaiVaiTro=''; var coCheckLoaiVaiTro=0;
+              
               jQuery("input[type='checkbox'].id_payc").each(function( index ){
                 if(jQuery(this).is(":checked")){
+                  
                   var tr=jQuery(this).parent('th').parent('tr');
                   var vaiTro=tr.find('.vai-tro').attr('data');
                   if(checkLoaiVaiTro==''){
@@ -241,8 +243,23 @@
                     jQuery('.btn-disabled').addClass('disabled').attr('disabled', true);
                   }
                 }
-              });
+              });              
             }
+
+            onOffButtonChucNang=function(){
+              var coCheckDanhSachChoTiepNhan=0;
+              jQuery("input[type='checkbox'].id_payc").each(function( index ){
+                if(jQuery(this).is(":checked")){
+                  coCheckDanhSachChoTiepNhan++;
+                }
+              });
+              if(coCheckDanhSachChoTiepNhan>0){
+                jQuery('.btn-chuc-nang').removeClass('disabled').attr('disabled', false);
+              }else{
+                jQuery('.btn-chuc-nang').addClass('disabled').attr('disabled', true);
+              }
+            }
+            onOffButtonChucNang();
 
 
             jQuery('.check-id-payc').on('click', function(){
@@ -253,6 +270,7 @@
                   jQuery(this).find('input:checkbox').prop('checked', true);
                 }
                 btnDisabled();
+                onOffButtonChucNang();
             });
 
 
@@ -635,7 +653,7 @@
 
         // Đánh giá
         $('.btn-ld-danh-gia').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
-            var _token=jQuery('form[name="frm-danh-gia"]').find("input[name='_token']").val();
+            var _token=jQuery('form[name="frm-danh-gia-sao"]').find("input[name='_token']").val();
             jQuery('.loai_danh_gia').val(1);
             var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
             if(dsId){
@@ -648,7 +666,7 @@
           
         });
         $('.btn-kh-danh-gia').on('click',function(){ // Bấm nút chuyển trên các danh sách payc
-            var _token=jQuery('form[name="frm-danh-gia"]').find("input[name='_token']").val();
+            var _token=jQuery('form[name="frm-danh-gia-sao"]').find("input[name='_token']").val();
             jQuery('.loai_danh_gia').val(2);
             var dsId=getDsIdPaycCheckbox(); // Lấy danh sách id pay đã check chọn trong danh sách chờ tiếp nhận
             if(dsId){
@@ -661,8 +679,10 @@
           
         });
 
+
         $('.btn-danh-gia-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
-          xuLy($("form#frm-danh-gia"), "{{ route('danh-gia') }}", "");
+          console.log($("form#frm-danh-gia-sao"));
+          xuLy($("form#frm-danh-gia-sao"), "{{ route('danh-gia') }}", "");
           jQuery("#modal-danh-gia").modal('hide');
           
         });
@@ -807,6 +827,15 @@
             } else {
                 alert('Please allow popups for this website');
             }
+        });
+
+        jQuery('#id_dich_vu').on('change',function(){
+          var value=jQuery(this).val();
+          if(value==1){
+            jQuery('.dia_chi').removeClass('d-none');
+          }else{
+            jQuery('.dia_chi').addClass('d-none');
+          }
         });
         
 

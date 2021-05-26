@@ -1694,6 +1694,7 @@ class PaycController extends Controller{
                 return array("error"=>'Chưa đăng nhập vào hệ thống.');
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            //print_r($data);
             if(isset($data['ds_id_payc_danh_gia'])){ // ngược lại dữ liệu hợp lệ
                 // Cắt lấy từng id ra, do id lúc gửi qua theo dạng danh sách cách nhau bởi dấu ;
                 $dsIdPayc=explode(';', $data['ds_id_payc_danh_gia']);

@@ -431,15 +431,15 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content modal-danh-gia">
          <div class="modal-header background-vnpt">
-            <h5 class="modal-title">ĐÁNH GIÁ XỬ LÝ</h5>
+            <h5 class="modal-title">ĐÁNH GIÁ XỬ LÝ tttt</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
          <div class="modal-body card text-center">
-            <form class="forms-sample" name="frm-danh-gia" id="frm-danh-gia">
-               <input type="hidden" class="ds_id_payc_danh_gia" name="ds_id_payc_danh_gia">
-               <input type="hidden" name="loai_danh_gia" class="loai_danh_gia">
+            <form class="forms-sample" name="frm-danh-gia-sao" id="frm-danh-gia-sao">
+               <input type="hidden" class="ds_id_payc_danh_gia" name="ds_id_payc_danh_gia" value="1">
+               <input type="hidden" name="loai_danh_gia" class="loai_danh_gia" value="1">
                   {{ csrf_field() }}
                   <span class="text-success text-center">Thông báo! 
                      Yêu cầu đã được xử lý hoàn tất. <br> 

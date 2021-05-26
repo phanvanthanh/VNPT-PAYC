@@ -42,7 +42,7 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $data['id_user']=Auth::id();
-            if($data['noi_dung']=='' || $data['han_xu_ly']==''){
+            if($data['noi_dung']==''){
                 return array('error'=>"Thông tin nhập vào chưa đủ");
             }
             ToDo::create($data); // Lưu dữ liệu vào DB

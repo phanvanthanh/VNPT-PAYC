@@ -26011,7 +26011,8 @@ dl li {
 .list-wrapper ul li {
   font-size: .9375rem;
   padding: .4rem 0;
-  border-bottom: 1px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+  /*border-bottom: 2px solid #f3f3f3;*/
 }
 
 .list-wrapper ul li .form-check {

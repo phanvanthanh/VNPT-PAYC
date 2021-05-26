@@ -99,6 +99,21 @@ class Helper
         }
         return $result;
     }
+
+    public static function kiemTraLoaiDanhGiaTheoIdPayc($id){ // kiểm tra loại đánh giá là khách hàng đánh giá hay lãnh đạo dánh giá
+        $data=DB::select("select tt.ma_trang_thai from payc_xu_ly xl
+            left join payc_trang_thai_xu_ly tt on xl.id_xu_ly=tt.id
+            where xl.id_payc=".$id."
+            and (tt.ma_trang_thai='KH_DANH_GIA' or tt.ma_trang_thai='LD_DANH_GIA')
+            order by xl.id desc");
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        $result=null;
+        if($data){
+            $result=$data[0]['ma_trang_thai'];
+        }
+        return $result;
+    }
+
     public static function layDanhSachQuyenTheoUserId($userId){
         // Lấy quyền theo user id
        $adminRules=DB::select('select adru.resource_id from users_role ur

@@ -112,12 +112,12 @@
 					    	  	<!-- <label for="id_dich_vu" class="text-title-input-size">* Dịch vụ</label> -->
 						          <select class="form-control" id="id_dich_vu" name="id_dich_vu" aria-describedby="dich_vu_helper">
 						          		@foreach($dichVus as $dichVu)
-					                              <option value="{{$dichVu['id']}}">{{$dichVu['ten_dich_vu']}}</option>
+					                              <option value="{{$dichVu['id']}}" @if ($dichVu['id']==2) {{'selected="selected"'}} @endif>{{$dichVu['ten_dich_vu']}}</option>
 					                    @endforeach
 					                </select>
 					    		  <!-- <small id="dich_vu_helper" class="form-text text-muted">Bạn muốn chúng tôi hỗ trợ bạn về sản phẩm, dịch vụ (phần mềm) nào?</small> -->
 					    	  </div>
-					    	  	<div class="col-6">
+					    	  	<div class="col-6 dia_chi d-none">
 						    	  	<small class="form-text text-muted">Địa chỉ yêu cầu</small>
 						    	  	<!-- <label for="ma_quan_huyen" class="text-title-input-size">* Dịch vụ</label> -->
 							          <select class="form-control ma_quan_huyen" name="ma_quan_huyen" aria-describedby="ma_quan_huyen_helper">
@@ -126,19 +126,18 @@
 						                    @endforeach
 						                </select>
 						    	</div>
-						    	<div class="col-6">
+						    	<div class="col-6 dia_chi d-none">
 						    	  	<small class="form-text text-muted"><b>&nbsp;</b></small>
 							          <select class="form-control ma_phuong_xa" name="ma_phuong_xa" aria-describedby="ma_phuong_xa_helper" >
 							          		@foreach($dmPhuongXas as $dmPhuongXa)
 						                              <option @if($donViMacDinh && isset($donViMacDinh[0]['ma_phuong_xa']) && $donViMacDinh[0]['ma_phuong_xa']==$dmPhuongXa['ma_phuong_xa']) {{"selected='selected'"}} @endif ma-quan-huyen="{{$dmPhuongXa['ma_quan_huyen']}}" value="{{$dmPhuongXa['ma_phuong_xa']}}">{{$dmPhuongXa['ten_phuong_xa']}}</option>
 						                    @endforeach
 						                </select>
-						    	</div>
-						    	  
+						    	</div>						    	  
 			    		  	</div>
 	                </form>
 		    		<div class="row">
-		    		  	<div class="col-12 text-right">
+		    		  	<div class="col-12 text-right" style="margin-top: 5px;">
 		    		  		<div class="btn-group mr-2">
 		                        <button class="btn btn-vnpt btn-them-moi"><i class="mdi mdi-plus-circle-outline"></i> Gửi yêu cầu</button>
 		                    </div>
