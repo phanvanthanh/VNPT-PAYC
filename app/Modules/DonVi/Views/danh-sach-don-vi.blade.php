@@ -17,12 +17,12 @@
         ?>
         @foreach($donVis as $donVi)
             <?php $stt++; ?>
-            <tr class="tr-hover tr-small t-tree cusor" data-id="{{$donVi['id']}}" data-parent="{{$donVi['parent_id']}}" data-show="1">
+            <tr class="tr-hover tr-small">
                 <!-- <td></td> -->
                 <td class="text-center">                    
                     {{$stt}}
                 </td>
-                <td>      
+                <td class="t-tree cusor" data-id="{{$donVi['id']}}" data-parent="{{$donVi['parent_id']}}" data-show="1">      
                     @if($donVi['level']>0)
                         @for ($i = 0; $i < $donVi['level']; $i++)
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
