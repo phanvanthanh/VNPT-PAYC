@@ -50,12 +50,15 @@
 <table id="table-dhsxkd-xu-ly-su-co" class="table table-hover table-dhsxkd-xu-ly-su-co">
   <thead>
       <tr class="background-vnpt text-center">
-          <th style="width: 10%;">STT</th>
-          <th style="width: 40;">Cán bộ xử lý</th>
-          <th style="width: 35%;">Số lượng</th>
-          <th style="width: 15%;">
-            Ghi chú
-          </th>
+        <th style="width: 10%;">STT #</th>
+        <th style="width: 30;">Cán bộ xử lý</th>
+        <th style="width: 10%;">Suy hao</th>
+        <th style="width: 10%;">Xử lý</th>
+        <th style="width: 15%;">Còn lại</th>
+        <th style="width: 10%;">(+)/(-)</th>
+        <th style="width: 15%;">
+          Nguyên nhân
+        </th>
       </tr>
   </thead>
   <tbody>    
@@ -72,7 +75,27 @@
             @endif
           </td>
           <td>
+            {{$xlsc['suy_hao']}}
+          </td>
+          <td>
             {{$xlsc['gia_tri']}}
+          </td>
+          <td>
+            {{$xlsc['suy_hao_con_lai']}}
+          </td>
+          <td>
+            @php
+              $sh=0;
+              if($xlsc['gia_tri']==0 || $xlsc['gia_tri']=='' || $xlsc['gia_tri']==null){
+                $sh=$xlsc['suy_hao_con_lai']-$xlsc['suy_hao'];
+              }
+              if($sh>0){
+                echo '+'.$sh;
+              }
+              if($sh<0){
+                echo $sh;
+              }
+            @endphp
           </td>
           <td class="text-center">
             <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">

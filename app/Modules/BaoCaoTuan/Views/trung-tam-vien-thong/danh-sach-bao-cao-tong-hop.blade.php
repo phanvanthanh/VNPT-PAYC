@@ -32,7 +32,7 @@
           </li>
         @endforeach
       </ul>
-      <div class="font-weight-bold" style="margin-left: 20px;">2. Báo cáo số liệu ĐHSXKD</div>
+      <div class="font-weight-bold" style="margin-left: 20px;">2. Báo cáo số liệu tổng hợp</div>
         <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div>
           @if (count($baoCaoPakns)>0)
             <div style="margin-left: 40px; margin-bottom: 30px;">
@@ -84,6 +84,8 @@
           </li>
         @endforeach
       </ul>
+
+      <div class="font-weight-bold" style="margin-left: 20px;">4. Tổng hợp từ các Viễn Thông trực thuộc</div>
     </div>
   </div>
 

@@ -522,13 +522,10 @@ class VienThongHuyenController extends Controller{
 
 
             
-            // Nếu chưa vượt thời gian chốt số liệu
-                // lấy lại số liệu
-                // Cập nhật lại ngày lay du lieu hoac them ngay lay du lieu
-            // Ngược lại, vượt thời gian chốt số liệu
-                // Không lấy lại số liệu, cũng không làm gì hết
-            $vuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
-            if($vuotThoiGianChotSoLieu==0){
+            // Nếu chưa chốt số liệu thì cho lấy số liệu
+            // Ngược lại không lấy
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
+            if($daChoSoLieu==0){
                 $thoiGianLaySoLieu=date('Y-m-d H:i:s');
                 $idThoiGianBaoCaoDhsxkd=0;
                 
@@ -660,7 +657,9 @@ class VienThongHuyenController extends Controller{
                 $dataDhsxkd['trang_thai']=0;
                 $dataDhsxkd['sap_xep']=0;
                 $dataDhsxkd['chi_so']='Phan Văn Thanh';
-                $dataDhsxkd['gia_tri']=11;
+                $dataDhsxkd['gia_tri']=0;
+                $dataDhsxkd['suy_hao']=10;
+                $dataDhsxkd['suy_hao_con_lai']=12;
                 $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
                 $bcDhsxkd3=BcDhsxkd::create($dataDhsxkd);
 
@@ -676,6 +675,8 @@ class VienThongHuyenController extends Controller{
                 $dataDhsxkd['sap_xep']=0;
                 $dataDhsxkd['chi_so']='Nguyễn Minh Vương';
                 $dataDhsxkd['gia_tri']=14;
+                $dataDhsxkd['suy_hao']=10;
+                $dataDhsxkd['suy_hao_con_lai']=12;
                 $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
                 $bcDhsxkd4=BcDhsxkd::create($dataDhsxkd);
 
@@ -691,6 +692,8 @@ class VienThongHuyenController extends Controller{
                 $dataDhsxkd['sap_xep']=0;
                 $dataDhsxkd['chi_so']='Nguyễn Thanh Tùng';
                 $dataDhsxkd['gia_tri']=13;
+                $dataDhsxkd['suy_hao']=10;
+                $dataDhsxkd['suy_hao_con_lai']=12;
                 $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
                 $bcDhsxkd5=BcDhsxkd::create($dataDhsxkd);
 
