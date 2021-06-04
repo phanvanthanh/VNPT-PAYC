@@ -6,9 +6,35 @@ use App\AdminResource;
 use DB;
 use App\PaycXuLy;
 use App\DmThamSoHeThong;
+use App\BcDmThoiGianBaoCao;
+use App\BcDmChiSo;
 
 class Helper
 {
+    public static function getParentDmChiSo($parentId){
+        $dmChiSoDhsxkd=BcDmChiSo::where('id','=',$parentId)->get()->toArray();
+        if(count($dmChiSoDhsxkd)>0){
+            $dmChiSoDhsxkd=$dmChiSoDhsxkd[0];
+        }
+        return $dmChiSoDhsxkd;
+    }
+    public static function kiemTraVuotNgayChotSoLieu($idTuan){
+        return BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+    }
+
+    public static function kiemTraDaChotSoLieu($idTuan, $donVi){
+        return BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $donVi);
+    }
+    public static function layTuanHienTai(){
+        // Xem ngày hiện tại thuộc tuần thứ mấy trong năm ?
+        $date = date('Y-m-d');
+        while (date('w', strtotime($date)) != 1) {
+        $tmp = strtotime('-1 day', strtotime($date));
+        $date = date('Y-m-d', $tmp);
+        }
+        $week = date('W', strtotime($date));
+        return $week;
+    }
     public static function getValueThamSoTheoMa($maThamSo){
         $value=DmThamSoHeThong::getValueByName($maThamSo);
         return $value;

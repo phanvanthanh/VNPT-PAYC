@@ -114,7 +114,7 @@
                 </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
@@ -158,7 +158,7 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>

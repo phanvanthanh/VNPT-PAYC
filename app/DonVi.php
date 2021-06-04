@@ -2,6 +2,7 @@
 
 namespace App;
 use DB;
+use App\UsersDonVi;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,68 @@ class DonVi extends Model
     protected $fillable=['id','ten_don_vi', 'ma_don_vi', 'ma_phuong_xa', 'ma_cap', 'ma_dinh_danh', 'email', 'co_dinh', 'di_dong', 'fax', 'parent_id', 'level', 'la_don_vi_xu_ly','state'];
     //protected $hidden=[''] // danh sách các trường muốn ẩn
     public $timestamps=false;
+
+
+    /*
+		Cho phép lấy đơn vị cấp trên vô tận
+		VD: cấp xã, cấp huyện, cấp ttvt, cấp các trung tâm trực thuộc viễn thông, cấp viễn thông tỉnh
+    */
+    public static function getDonViCapTrenTheoTaiKhoan($userId, $maCap){
+    	// Lấy đơn vị hiện tại của tài khoản
+    	$donViHienTai=UsersDonVi::layDonViTheoTaiKhoan($userId);
+    	if(count($donViHienTai)<=0){
+    		$result['error']=1;
+    		$result['message']='Đơn vị không tồn tại';
+    		$result['data']=null;
+    		return $result;
+    	}
+    	$idDonViHienTai=$donViHienTai[0]['id'];
+    	// Lấy đơn vị chỉ định $maCap
+    	$result=DonVi::layDonViTheoMaCap($idDonViHienTai,$maCap);
+    	return $result;
+    }
+
+    public static function layDonViTheoMaCap($idDonViHienTai,$maCap){
+    	$result=array();
+    	// Check mã cấp đơn vị hiện tại 
+    	$donVi=DonVi::where('id','=',$idDonViHienTai)->get()->toArray();
+    	if(count($donVi)<=0){
+    		$result['error']=1;
+    		$result['message']='Đơn vị không tồn tại';
+    		$result['data']=null;
+    		return $result;
+    	}
+        if($maCap=='KHAC'){
+            // Lấy danh mục mã các đơn vị trực thuộc khác trong DM THAM SỐ HỆ THỐNG
+            $dsDonViTrucThuocKhac=DmThamSoHeThong::getValueByName('BC_DM_MA_CAP_DON_VI_TRUC_THUOC_KHAC');
+            $arrDonViTrucThuocKhac=explode(',', $dsDonViTrucThuocKhac);
+            foreach ($arrDonViTrucThuocKhac as $key => $maDvTt) {
+                if($donVi[0]['ma_cap']==$maDvTt){
+                    $result['error']=0;
+                    $result['message']='Thành công';
+                    $result['data']=$donVi[0];
+                    return $result;
+                }
+            }
+        }
+    	// Nếu mã cấp bằng thì return
+    	if($donVi[0]['ma_cap']==$maCap){
+    		$result['error']=0;
+    		$result['message']='Thành công';
+    		$result['data']=$donVi[0];
+    		return $result;
+    	} // Nếu chưa bằng thì tiếp tục đệ quy
+		if ($donVi[0]['parent_id']==null || $donVi[0]['id']==1 || $donVi[0]['parent_id']==0 || $donVi[0]['parent_id']=='') {
+			$result['error']=2;
+    		$result['message']='Tài khoản không thuộc cấp '.$maCap;
+    		$result['data']=null;
+    		return $result;
+		}else{
+			return DonVi::layDonViTheoMaCap($donVi[0]['parent_id'],$maCap);
+		}
+    			
+    	
+    }
 
     public static function getDonViCapXaByMaPhuongXa($maPhuongXa){
     	$result=array();

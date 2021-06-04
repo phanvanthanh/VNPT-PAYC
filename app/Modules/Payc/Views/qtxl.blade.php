@@ -3,10 +3,23 @@
     <div class="row">
         <div class="col-12">
             <div class="timeline">
-                <?php $stt=0; ?>
+                @php
+                    $stt=0;
+                    $dsMau=array(
+                        0   => 'warning',
+                        1   => 'danger',
+                        2   => 'success',
+                        3   => 'info',
+                        4   => 'primary',
+                    );
+                @endphp
                 @foreach($data as $d)
-                <?php $stt++; ?>
-                <div class="timeline-wrapper timeline-wrapper-primary @if($stt%2==0){{'timeline-inverted'}}@endif">
+                @php
+                    $stt++;
+                    $indexColor=$stt%4;
+                    $color=$dsMau[$indexColor];
+                @endphp
+                <div class="timeline-wrapper timeline-wrapper-{{$color}} @if($stt%2==0){{'timeline-inverted'}}@endif">
                     <div class="timeline-badge"></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">

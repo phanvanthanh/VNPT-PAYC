@@ -19,9 +19,9 @@
         @foreach($resources as $resource)
             @if($resource['show_menu']<3)
                 <?php $stt++; ?>
-                <tr class="tr-hover tr-small t-tree cusor" data-id="{{$resource['id']}}" data-parent="{{$resource['parent_id']}}" data-show="1">
+                <tr class="tr-hover tr-small">
                     <td class="text-center">{{$stt}}</td>
-                    <td>
+                    <td class="t-tree cusor" data-id="{{$resource['id']}}" data-parent="{{$resource['parent_id']}}" data-show="1">
                         <!-- @if($resource['level']>1)
                             {{"|"}}
                             @for ($i = 1; $i < $resource['level']; $i++)

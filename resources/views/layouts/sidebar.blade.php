@@ -2,6 +2,7 @@
    use App\AdminResource;
    use App\AdminRule;
    use App\User;
+   use Illuminate\Support\Facades\Route;
    $resources=array();
    $userId=Auth::id();
    $user=array();
@@ -19,11 +20,11 @@
                   <i class="settings-close mdi mdi-close"></i>
                   <ul class="nav nav-tabs" id="setting-panel" role="tablist">
                      <li class="nav-item">
-                        <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">THÔNG BÁO HỆ THỐNG</a>
+                        <a class="nav-link" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">THÔNG BÁO HỆ THỐNG</a>
                      </li>
                   </ul>
                   <div class="tab-content" id="setting-content">
-                     <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                     <div class="tab-pane fade show scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
                         <div class="list-wrapper px-3">
                            <ul class="d-flex flex-column-reverse todo-list">
                               <li class="logout">
@@ -50,8 +51,8 @@
                               <!-- <span class="online-status online"></span> --> <!--change class online to offline or busy as needed-->
                            </div>
                            <div class="profile-name">
-                              <p class="name">
-                                 PHẢN ÁNH YÊU CẦU
+                              <p class="name ten-phan-mem">
+                                 <b>PAKN VÀ YÊU CẦU HỖ TRỢ</b>
                               </p>
                               <p class="designation">
                                  @if($user)
@@ -62,8 +63,7 @@
                               </p>
                            </div>
                         </div>
-                     </li>
-
+                     </li> 
                      @foreach($resources as $resource)
                         @if(isset($rules[$resource['id']]))
                            @php $child=0; @endphp
@@ -76,7 +76,7 @@
                            @endif
                            @if($resource['has_child']==0 && $resource['level']==0 && $child==0)
                            <li class="nav-item">
-                              <a class="nav-link" href="{{$resource['uri']}}">
+                              <a class="nav-link" href="/{{$resource['uri']}}" >
                                  <?php echo $resource['icon']; ?>
                                  <span class="menu-title">{{$resource['ten_hien_thi']}}</span>
                               </a>
@@ -94,10 +94,10 @@
                                        <!-- Chạy lại dòng forearch để lấy ra những phần tử con -->
                                        @foreach($resources as $resourceChild)
                                           @if($resourceChild['parent_id']==$resource['id'] && isset($rules[$resourceChild['id']]))
-                                          <li class="nav-item"> <a class="nav-link" href="{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
+                                          <li class="nav-item"> <a class="nav-link" href="/{{$resourceChild['uri']}}"><?php echo $resource['icon']; ?>&nbsp;{{$resourceChild['ten_hien_thi']}}
                                           </a></li>
                                           @endif
-                                       @endforeach                                 
+                                       @endforeach                               
                                     </ul>
                                  </div>
                               </li>

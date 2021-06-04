@@ -117,7 +117,7 @@ INSERT INTO `admin_resource` (`id`, `ten_hien_thi`, `resource`, `method`, `actio
 	(993, 'Thêm PAKN', 'POST | App\\Modules\\Payc\\Controllers\\PaycController@themPayc', 'POST', 'App\\Modules\\Payc\\Controllers\\PaycController@themPayc', '', '', 964, '2021-03-17 08:35:39', '2021-04-09 17:09:00', 'them-payc', 1, 2, 1000, NULL),
 	(994, 'PAKN theo tài khoản', 'GET | App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycTheoTaiKhoan', 'GET', 'App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycTheoTaiKhoan', '', '', 1006, '2021-03-17 08:35:39', '2021-04-09 17:09:00', 'danh-sach-payc-theo-tai-khoan', 1, 1, 1000, NULL),
 	(995, 'PAKN chưa thụ lý', 'GET | App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycChuaCoCanBoNhan', 'GET', 'App\\Modules\\Payc\\Controllers\\PaycController@danhSachPaycChuaCoCanBoNhan', '', '', 1006, '2021-03-17 08:35:39', '2021-04-09 17:09:00', 'danh-sach-payc-chua-co-can-bo-nhan', 1, 1, 1000, NULL),
-	(996, 'Ghi chú công việc (To do)', 'GET | App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', 'GET', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', '', '', 1, '2021-03-17 08:35:40', '2021-04-09 17:09:00', 'to-do', 1, 1, 6, '<i class="fa fa-clock-o menu-icon"></i>'),
+	(996, 'To do', 'GET | App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', 'GET', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDo', '', '', 1, '2021-03-17 08:35:40', '2021-05-25 10:09:28', 'to-do', 1, 1, 6, '<i class="fa fa-clock-o menu-icon"></i>'),
 	(997, 'Xem danh sách ghi chú', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@danhSachToDo', '', '', 996, '2021-03-17 08:35:40', '2021-04-09 17:09:00', 'danh-sach-to-do', 1, 2, 1000, NULL),
 	(998, 'Thêm ghi chú', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@themToDo', '', '', 996, '2021-03-17 08:35:40', '2021-04-09 17:09:00', 'them-to-do', 1, 2, 1000, NULL),
 	(999, 'Load thông tin ghi chú', 'POST | App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', 'POST', 'App\\Modules\\ToDo\\Controllers\\ToDoController@toDoSingle', '', '', 996, '2021-03-17 08:35:40', '2021-04-09 17:09:00', 'to-do-single', 1, 2, 1000, NULL),
@@ -357,13 +357,13 @@ CREATE TABLE IF NOT EXISTS `dich_vu` (
   PRIMARY KEY (`id`),
   KEY `FK_dich_vu_nhom_dich_vu` (`id_nhom_dich_vu`),
   CONSTRAINT `FK_dich_vu_nhom_dich_vu` FOREIGN KEY (`id_nhom_dich_vu`) REFERENCES `nhom_dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.dich_vu: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.dich_vu: ~2 rows (approximately)
 /*!40000 ALTER TABLE `dich_vu` DISABLE KEYS */;
 INSERT INTO `dich_vu` (`id`, `id_nhom_dich_vu`, `ten_dich_vu`, `state`) VALUES
 	(1, 1, 'Dịch vụ viễn thông', 1),
-	(5, 7, 'Dịch vụ CNTT', 1);
+	(2, 7, 'Dịch vụ CNTT', 1);
 /*!40000 ALTER TABLE `dich_vu` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.dm_cap_don_vi
@@ -585,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `don_vi` (
   CONSTRAINT `FK_don_vi_don_vi` FOREIGN KEY (`parent_id`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.don_vi: ~25 rows (approximately)
+-- Dumping data for table vnptpayc.don_vi: ~27 rows (approximately)
 /*!40000 ALTER TABLE `don_vi` DISABLE KEYS */;
 INSERT INTO `don_vi` (`id`, `ma_don_vi`, `ten_don_vi`, `ma_phuong_xa`, `ma_cap`, `ma_dinh_danh`, `email`, `co_dinh`, `di_dong`, `fax`, `parent_id`, `order`, `la_don_vi_xu_ly`, `state`) VALUES
 	(1, NULL, 'Tỉnh Trà Vinh', 29239, 'UBT', '000.00.00.H59', NULL, NULL, NULL, NULL, NULL, 0, 1, 1),
@@ -765,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.oauth_personal_access_clients: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.oauth_personal_access_clients: ~1 rows (approximately)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, '2021-03-18 09:02:45', '2021-03-18 09:02:45');
@@ -793,7 +793,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.password_resets: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.password_resets: ~2 rows (approximately)
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 	('thanhpv.tvh', '$2y$10$GeJq5nbaNzdeY8UqlCnDIOIh6uSHYw5iZcRhpKuPxDrBtqBT4qAG.', '2019-06-20 02:17:07'),
@@ -824,17 +824,20 @@ CREATE TABLE IF NOT EXISTS `payc` (
   CONSTRAINT `FK_payc_dich_vu` FOREIGN KEY (`id_dich_vu`) REFERENCES `dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_dm_phuong_xa` FOREIGN KEY (`ma_phuong_xa`) REFERENCES `dm_phuong_xa` (`ma_phuong_xa`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_users` FOREIGN KEY (`id_user_tao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc: ~6 rows (approximately)
+-- Dumping data for table vnptpayc.payc: ~9 rows (approximately)
 /*!40000 ALTER TABLE `payc` DISABLE KEYS */;
 INSERT INTO `payc` (`id`, `id_user_tao`, `id_dich_vu`, `so_phieu`, `tieu_de`, `noi_dung`, `file_payc`, `ma_phuong_xa`, `vi_do`, `kinh_do`, `ngay_tao`, `han_xu_ly_mong_muon`, `han_xu_ly_duoc_giao`, `ngay_hoan_tat`, `trang_thai`) VALUES
-	(74, 6, 5, '190521-0001', 'Phan Văn Thanh test phản ánh kiến nghị lần 1', '<p><br></p>', '176566833_23847359228720477_5838744416113785765_n_16213907020.jpg;181550071_180764673904248_5605939069989805932_n_16213907021.jpg;', 29236, NULL, NULL, '2021-05-19 09:18:22', '2021-05-19 17:00:00', NULL, NULL, 1),
-	(75, 6, 5, '190521-0002', 'Phan Văn Thanh test phản ánh kiến nghị lần 2', '<p><br></p>', '176566833_23847359228720477_5838744416113785765_n_16213947550.jpg;181550071_180764673904248_5605939069989805932_n_16213947551.jpg;', 29236, NULL, NULL, '2021-05-19 10:25:55', '2021-05-19 17:00:00', NULL, NULL, 1),
-	(76, 7, 5, '240521-0001', 'test', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 08:54:23', '2021-05-24 17:00:00', NULL, NULL, 1),
-	(77, 7, 5, '240521-0002', 'đang ký 1', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 09:10:55', '2021-05-24 17:00:00', NULL, NULL, 1),
-	(78, 7, 5, '240521-0003', 'test luôn 3', '<p>test luôn nè</p>', NULL, 29236, NULL, NULL, '2021-05-24 09:42:59', '2021-05-24 17:00:00', NULL, NULL, 1),
-	(79, 7, 5, '240521-0004', 'test luôn 1', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 09:45:44', '2021-05-24 17:00:00', NULL, NULL, 1);
+	(74, 6, 2, '190521-0001', 'Phan Văn Thanh test phản ánh kiến nghị lần 1', '<p><br></p>', '176566833_23847359228720477_5838744416113785765_n_16213907020.jpg;181550071_180764673904248_5605939069989805932_n_16213907021.jpg;', 29236, NULL, NULL, '2021-05-19 09:18:22', '2021-05-19 17:00:00', NULL, NULL, 1),
+	(75, 6, 2, '190521-0002', 'Phan Văn Thanh test phản ánh kiến nghị lần 2', '<p><br></p>', '176566833_23847359228720477_5838744416113785765_n_16213947550.jpg;181550071_180764673904248_5605939069989805932_n_16213947551.jpg;', 29236, NULL, NULL, '2021-05-19 10:25:55', '2021-05-19 17:00:00', NULL, NULL, 1),
+	(76, 7, 2, '240521-0001', 'test', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 08:54:23', '2021-05-24 17:00:00', NULL, NULL, 1),
+	(77, 7, 2, '240521-0002', 'đang ký 1', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 09:10:55', '2021-05-24 17:00:00', NULL, NULL, 1),
+	(78, 7, 2, '240521-0003', 'test luôn 3', '<p>test luôn nè</p>', NULL, 29236, NULL, NULL, '2021-05-24 09:42:59', '2021-05-24 17:00:00', NULL, NULL, 1),
+	(79, 7, 2, '240521-0004', 'test luôn 1', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-24 09:45:44', '2021-05-24 17:00:00', NULL, NULL, 1),
+	(80, 2, 2, '250521-0001', 'test', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-25 15:50:19', '2021-05-25 17:00:00', NULL, NULL, 1),
+	(81, 2, 2, '260521-0001', 'test', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-26 09:49:04', '2021-05-26 17:00:00', NULL, NULL, 1),
+	(82, 7, 2, '260521-0002', 'test luôn 3', '<p><br></p>', NULL, 29236, NULL, NULL, '2021-05-26 14:11:36', '2021-05-26 17:00:00', NULL, NULL, 1);
 /*!40000 ALTER TABLE `payc` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.payc_binh_luan
@@ -858,17 +861,18 @@ CREATE TABLE IF NOT EXISTS `payc_binh_luan` (
   CONSTRAINT `FK_payc_binh_luan_payc` FOREIGN KEY (`id_payc`) REFERENCES `payc` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_binh_luan_payc_binh_luan` FOREIGN KEY (`parent_id`) REFERENCES `payc_binh_luan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_binh_luan_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_binh_luan: ~6 rows (approximately)
+-- Dumping data for table vnptpayc.payc_binh_luan: ~7 rows (approximately)
 /*!40000 ALTER TABLE `payc_binh_luan` DISABLE KEYS */;
 INSERT INTO `payc_binh_luan` (`id`, `id_payc`, `id_user`, `parent_id`, `file`, `ma_loai`, `ho_ten`, `noi_dung`, `hai_long`, `khong_hai_long`, `trang_thai`, `ngay_binh_luan`) VALUES
-	(69, 74, 7, NULL, '176566833_23847359228720477_5838744416113785765_n_16213946640.jpg;181550071_180764673904248_5605939069989805932_n_16213946641.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'Đã hoàn tất xử lý', 0, 0, 1, '2021-05-19 10:24:24'),
+	(69, 74, 7, NULL, '176566833_23847359228720477_5838744416113785765_n_16213946640.jpg;181550071_180764673904248_5605939069989805932_n_16213946641.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'Đã hoàn tất xử lý', 3, 4, 1, '2021-05-19 10:24:24'),
 	(70, 75, 9, NULL, '176566833_23847359228720477_5838744416113785765_n_16213958680.jpg;', 'TRA_LOI', 'p.thanhit@gmail.com', 'Hoàn tất rồi nha sếp ơi', 0, 0, 0, '2021-05-19 10:44:28'),
 	(71, 77, 7, NULL, '1_16218240190.jpg;1bf7cf1a1972ec2cb563_16218240191.jpg;2_16218240192.jpg;5ffe2630f05805065c49_16218240193.jpg;6ea630abe5c3109d49d2_16218240194.jpg;9e5b6b70be184b461209_16218240195.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'Trả lại hok xử lý đó chịu hok', 0, 0, 0, '2021-05-24 09:40:19'),
 	(72, 76, 7, NULL, '1_16218241070.jpg;1bf7cf1a1972ec2cb563_16218241071.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'test', 0, 0, 0, '2021-05-24 09:41:47'),
 	(73, 78, 7, NULL, '5ffe2630f05805065c49_16218242000.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'Không xử lý chuyện của thế giới', 0, 0, 0, '2021-05-24 09:43:20'),
-	(74, 79, 7, NULL, '9e5b6b70be184b461209_16218245790.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'test', 0, 0, 0, '2021-05-24 09:49:39');
+	(74, 79, 7, NULL, '9e5b6b70be184b461209_16218245790.jpg;', 'TRA_LOI', 'Nguyễn Chí Thanh', 'test', 0, 0, 0, '2021-05-24 09:49:39'),
+	(75, 81, 7, NULL, NULL, 'TRA_LOI', 'Nguyễn Chí Thanh', NULL, 0, 0, 0, '2021-05-26 10:31:16');
 /*!40000 ALTER TABLE `payc_binh_luan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.payc_can_bo_nhan
@@ -886,23 +890,23 @@ CREATE TABLE IF NOT EXISTS `payc_can_bo_nhan` (
   KEY `FK_payc_can_bo_nhan_users` (`id_user_nhan`),
   CONSTRAINT `FK_payc_can_bo_nhan_payc_canbo_xuly_yeucau` FOREIGN KEY (`id_xu_ly_yeu_cau`) REFERENCES `payc_xu_ly` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_can_bo_nhan_users` FOREIGN KEY (`id_user_nhan`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_can_bo_nhan: ~22 rows (approximately)
+-- Dumping data for table vnptpayc.payc_can_bo_nhan: ~31 rows (approximately)
 /*!40000 ALTER TABLE `payc_can_bo_nhan` DISABLE KEYS */;
 INSERT INTO `payc_can_bo_nhan` (`id`, `id_xu_ly_yeu_cau`, `id_user_nhan`, `ngay_nhan`, `han_xu_ly`, `ngay_hoan_tat`, `vai_tro`, `trang_thai`) VALUES
-	(153, 305, 7, '2021-05-19 09:18:22', NULL, '2021-05-19 09:19:13', 0, 2),
+	(153, 305, 7, '2021-05-19 09:18:22', NULL, '2021-05-19 09:19:13', 0, 1),
 	(154, 305, 2, '2021-05-19 09:18:22', NULL, NULL, 0, 1),
 	(155, 306, 8, '2021-05-19 09:19:13', NULL, '2021-05-19 09:36:02', 2, 2),
 	(156, 306, 6, '2021-05-19 09:19:13', NULL, '2021-05-19 09:39:19', 1, 2),
-	(159, 308, 7, '2021-05-19 09:39:19', NULL, '2021-05-19 10:09:32', 0, 2),
+	(159, 308, 7, '2021-05-19 09:39:19', NULL, '2021-05-19 10:09:32', 0, 1),
 	(162, 311, 6, '2021-05-19 10:24:24', NULL, NULL, 0, 1),
 	(163, 313, 7, '2021-05-19 10:25:55', NULL, '2021-05-19 10:27:05', 0, 2),
 	(164, 313, 2, '2021-05-19 10:25:55', NULL, NULL, 0, 0),
 	(165, 314, 2, '2021-05-19 10:27:05', NULL, '2021-05-19 10:27:38', 0, 2),
 	(166, 315, 7, '2021-05-19 10:27:38', NULL, '2021-05-19 10:37:40', 0, 2),
 	(167, 317, 9, '2021-05-19 10:40:09', NULL, '2021-05-19 10:44:28', 0, 1),
-	(168, 318, 6, '2021-05-19 10:44:28', NULL, NULL, 0, 0),
+	(168, 318, 6, '2021-05-19 10:44:28', NULL, NULL, 0, 1),
 	(169, 320, 7, '2021-05-24 08:54:23', NULL, '2021-05-24 08:54:34', 0, 1),
 	(170, 320, 2, '2021-05-24 08:54:23', NULL, NULL, 0, 0),
 	(174, 325, 7, '2021-05-24 09:10:55', NULL, NULL, 0, 1),
@@ -914,7 +918,14 @@ INSERT INTO `payc_can_bo_nhan` (`id`, `id_xu_ly_yeu_cau`, `id_user_nhan`, `ngay_
 	(182, 332, 7, '2021-05-24 09:43:20', NULL, '2021-05-24 09:43:20', 0, 1),
 	(183, 334, 7, '2021-05-24 09:45:44', NULL, NULL, 0, 1),
 	(184, 334, 2, '2021-05-24 09:45:44', NULL, NULL, 0, 0),
-	(185, 335, 7, '2021-05-24 09:49:39', NULL, '2021-05-24 09:49:39', 0, 1);
+	(185, 335, 7, '2021-05-24 09:49:39', NULL, '2021-05-24 09:49:39', 0, 1),
+	(186, 336, 8, '2021-05-25 15:50:19', NULL, NULL, 0, 0),
+	(187, 337, 8, '2021-05-26 09:49:04', NULL, '2021-05-26 09:49:42', 0, 2),
+	(188, 338, 7, '2021-05-26 09:49:42', NULL, '2021-05-26 10:31:16', 0, 1),
+	(189, 339, 6, '2021-05-26 09:52:22', NULL, NULL, 0, 1),
+	(190, 340, 2, '2021-05-26 10:31:16', NULL, NULL, 0, 0),
+	(191, 342, 7, '2021-05-26 14:11:36', NULL, NULL, 0, 0),
+	(192, 342, 2, '2021-05-26 14:11:36', NULL, NULL, 0, 0);
 /*!40000 ALTER TABLE `payc_can_bo_nhan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.payc_trang_thai_xu_ly
@@ -929,7 +940,7 @@ CREATE TABLE IF NOT EXISTS `payc_trang_thai_xu_ly` (
   UNIQUE KEY `ten_xu_ly` (`ten_trang_thai_xu_ly`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_trang_thai_xu_ly: ~17 rows (approximately)
+-- Dumping data for table vnptpayc.payc_trang_thai_xu_ly: ~18 rows (approximately)
 /*!40000 ALTER TABLE `payc_trang_thai_xu_ly` DISABLE KEYS */;
 INSERT INTO `payc_trang_thai_xu_ly` (`id`, `ma_trang_thai`, `ten_trang_thai_xu_ly`, `mo_ta`, `order`, `trang_thai`) VALUES
 	(1, 'TAO_MOI', 'Tạo mới PAKN', 'Khách hàng hoặc cán bộ tạo PAYC', 1, 1),
@@ -969,9 +980,9 @@ CREATE TABLE IF NOT EXISTS `payc_xu_ly` (
   CONSTRAINT `FK_payc_canbo_xuly_yeucau_payc` FOREIGN KEY (`id_payc`) REFERENCES `payc` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_canbo_xuly_yeucau_payc_xu_ly` FOREIGN KEY (`id_xu_ly`) REFERENCES `payc_trang_thai_xu_ly` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_payc_canbo_xuly_yeucau_users` FOREIGN KEY (`id_user_xu_ly`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=336 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=343 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_xu_ly: ~23 rows (approximately)
+-- Dumping data for table vnptpayc.payc_xu_ly: ~30 rows (approximately)
 /*!40000 ALTER TABLE `payc_xu_ly` DISABLE KEYS */;
 INSERT INTO `payc_xu_ly` (`id`, `id_payc`, `id_user_xu_ly`, `id_xu_ly`, `noi_dung_xu_ly`, `file_xu_ly`, `ngay_xu_ly`, `state`) VALUES
 	(304, 74, 6, 19, '', '', '2021-05-19 09:18:22', 0),
@@ -996,7 +1007,14 @@ INSERT INTO `payc_xu_ly` (`id`, `id_payc`, `id_user_xu_ly`, `id_xu_ly`, `noi_dun
 	(332, 78, 7, 4, 'Không xử lý chuyện của thế giới', '5ffe2630f05805065c49_16218242000.jpg;', '2021-05-24 09:43:20', 0),
 	(333, 79, 7, 19, '', '', '2021-05-24 09:45:44', 0),
 	(334, 79, 7, 7, '', '', '2021-05-24 09:45:44', 0),
-	(335, 79, 7, 4, 'test', '9e5b6b70be184b461209_16218245790.jpg;', '2021-05-24 09:49:39', 0);
+	(335, 79, 7, 4, 'test', '9e5b6b70be184b461209_16218245790.jpg;', '2021-05-24 09:49:39', 0),
+	(336, 80, 2, 1, '', '', '2021-05-25 15:50:19', 0),
+	(337, 81, 2, 1, '', '', '2021-05-26 09:49:04', 0),
+	(338, 81, 8, 7, NULL, NULL, '2021-05-26 09:49:42', 0),
+	(339, 74, 7, 11, '4', '', '2021-05-26 09:52:22', 1),
+	(340, 81, 7, 21, NULL, NULL, '2021-05-26 10:31:16', 0),
+	(341, 82, 7, 19, '', '', '2021-05-26 14:11:36', 0),
+	(342, 82, 7, 7, '', '', '2021-05-26 14:11:36', 0);
 /*!40000 ALTER TABLE `payc_xu_ly` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.to_do
@@ -1014,15 +1032,12 @@ CREATE TABLE IF NOT EXISTS `to_do` (
   PRIMARY KEY (`id`),
   KEY `FK_to_do_users` (`id_user`),
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.to_do: ~3 rows (approximately)
+-- Dumping data for table vnptpayc.to_do: ~1 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
 INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
-	(28, 2, 'Thêm chức năng hoàn tất phối hợp xử lý.', NULL, '2021-05-17 13:38:27', '2021-05-17 13:38:27', '2021-05-17 13:38:00', '2021-05-19 10:08:13', 1, 1),
-	(29, 2, 'Kiểm tra và xử lý lại chức năng hoàn tất xử lý và chuyển lãnh đạo duyệt: cập nhật lại trạng thái = 2, kiểm tra những người phối hợp đã hoàn tất hết chưa', NULL, '2021-05-17 13:51:05', '2021-05-17 13:51:05', '2021-05-17 13:51:00', '2021-05-19 10:08:26', 2, 1),
-	(30, 2, 'Kiểm tra lại chức năng chờ duyệt: chuyển lãnh đạo khác, chuyển cấp trên', NULL, '2021-05-17 13:52:46', '2021-05-17 13:52:46', '2021-05-17 13:52:00', NULL, 4, 1),
-	(31, 2, 'Kiểm tra và xử lý lại chức năng: duyệt hoàn tất', NULL, '2021-05-17 13:53:14', '2021-05-17 13:53:14', '2021-05-17 13:53:00', '2021-05-19 10:25:07', 3, 1);
+	(34, 7, 'Thêm danh mục dịch vụ', NULL, '2021-05-26 14:17:43', '2021-05-26 14:17:43', NULL, NULL, 0, 1);
 /*!40000 ALTER TABLE `to_do` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users
@@ -1046,7 +1061,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_token`, `created_at`, `updated_at`, `di_dong`, `loai_tai_khoan`, `state`) VALUES
 	(1, 'Chế độ ẩn danh', 'guest', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', 'photo_2019-10-21_18-00-43_16177906110.jpg', '35xOWSUdceM6lRhePiHS9Y3xwvvLupgJWeYIzh2FMjMl22RuUJURMmX7oElG', NULL, '2021-04-08 15:52:25', '0941138484', 'KHACH_HANG', 1),
-	(2, 'Quản trị hệ thống', 'admin', '$2y$10$OcK0kyfMtKmByQ2ZmToC/uf.8ekeOk.Snc4LqXXDrnZrHO8oencTC', 'photo_2019-10-21_18-00-43_16177906110.jpg', 'tvkFOhJz7kCsUkwCCLUT61sqLlLEe8OYXf40oBKeaaxAJd1oNmVc2SAxiYAa', NULL, '2021-05-19 10:43:46', '0941138484', 'CAN_BO', 1),
+	(2, 'Quản trị hệ thống', 'admin', '$2y$10$OcK0kyfMtKmByQ2ZmToC/uf.8ekeOk.Snc4LqXXDrnZrHO8oencTC', 'photo_2019-10-21_18-00-43_16177906110.jpg', '7eKZ4MOa7Ufz2hqXheR0Fs5nWF3aQ391ZEuaSyeRGq51p6FJfsxaylrVI1Zl', NULL, '2021-05-26 14:11:15', '0941138484', 'CAN_BO', 1),
 	(3, 'Trần Thị Thanh Mỹ', 'tttmy.tvh@vnpt.vn', '$2y$10$T6oMLYkByOKm3nLHyAkeAenmtzHfvjjsNozFYWPtYUBxbbV7dJ1aC', 'photo_2019-10-21_18-00-43_16177906110.jpg', '2VL7V5IJ5oyynFEszYPlIcjBgSqtNL9x9glcRe4JRHHtkweEMeePq0gk6nrx', NULL, '2021-04-19 15:13:26', '0941138484', 'CAN_BO', 1),
 	(6, 'Phan Văn Thanh', 'thanhpv.tvh@vnpt.vn', '$2y$10$qpIX1fE7c9SqxwJMoX8dNOY1aeC49d2S2cO9E1VITB6CLtJp9Iknu', 'photo_2019-10-21_18-00-43_16179400910.jpg', NULL, '2021-03-15 10:52:12', '2021-04-19 15:12:36', '0911123234', 'CAN_BO', 1),
 	(7, 'Nguyễn Chí Thanh', 'thanhnc.tvh@vnpt.vn', '$2y$10$h/50VWDGfEnvn5zwWMldu.kfBaozVyn62E6KVGXgmm3K/DX5w7/FC', 'photo_2019-10-21_18-00-43_16177906110.jpg', NULL, '2021-03-15 10:52:12', '2021-04-19 15:12:57', '0911123234', 'CAN_BO', 1),
@@ -1076,10 +1091,10 @@ CREATE TABLE IF NOT EXISTS `users_dich_vu` (
 INSERT INTO `users_dich_vu` (`id`, `id_user`, `id_dich_vu`, `tu_ngay`, `den_ngay`, `state`) VALUES
 	(13, 3, 1, NULL, NULL, 1),
 	(17, 7, 1, NULL, NULL, 1),
-	(18, 8, 5, NULL, NULL, 1),
-	(20, 7, 5, NULL, NULL, 1),
-	(36, 2, 5, NULL, NULL, 1),
-	(37, 9, 5, NULL, NULL, 1);
+	(18, 8, 2, NULL, NULL, 1),
+	(20, 7, 2, NULL, NULL, 1),
+	(36, 2, 2, NULL, NULL, 1),
+	(37, 9, 2, NULL, NULL, 1);
 /*!40000 ALTER TABLE `users_dich_vu` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_don_vi
@@ -1130,7 +1145,7 @@ CREATE TABLE IF NOT EXISTS `users_role` (
   CONSTRAINT `FK_users_role_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.users_role: ~6 rows (approximately)
+-- Dumping data for table vnptpayc.users_role: ~7 rows (approximately)
 /*!40000 ALTER TABLE `users_role` DISABLE KEYS */;
 INSERT INTO `users_role` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, '2021-03-17 11:02:46', '2021-03-17 11:02:47'),

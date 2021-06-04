@@ -20182,6 +20182,10 @@ p {
   font-size: .88rem;
 }
 
+p.ten-phan-mem {
+  font-size: 18px;
+}
+
 .display-1 {
   font-size: 3.75rem;
 }
@@ -25230,11 +25234,12 @@ dl li {
 }
 
 .tab-content {
-  padding: 37px 18px 29px 24px;
+  /*padding: 37px 18px 29px 24px;*/
+  padding: 0px 0px 0px 0px;
   font-family: "roboto-regular", sans-serif;
   font-size: 0.875rem;
   line-height: 1.71;
-  border: 1px solid #f3f3f3;
+  /*border: 1px solid #f3f3f3;*/
   border-radius: 2px;
 }
 
@@ -25271,7 +25276,13 @@ dl li {
 }
 
 .tab-solid-primary .nav-link.active {
-  background: #03a9f3;
+  /*background: #03a9f3;
+  background: #1f7ed0;
+  background: #ffb463;
+  */
+  
+  background: #FF5733;
+  
 }
 
 .tab-solid-secondary .nav-link.active {
@@ -29773,8 +29784,22 @@ input.form-control, select.form-control{
   height: 33.5px;
 }
 
-.btn.btn-vnpt{
-  height: 33.5px;
+.btn-group .btn.btn-vnpt{
+  height: 28.5px;
+}
+td .btn.btn-vnpt{
+  height: 25.5px;
+}
+div.modal-footer .btn.btn-vnpt{
+  height: 33.91px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div>.btn.btn-vnpt{
+  height: 33.91px;
+  text-align: center;
+  vertical-align: middle;
 }
 .input-group-addon.input-group-text{
   height: 33.5px;
@@ -29809,7 +29834,7 @@ a.a-file{
 
 table tbody tr.tr-small td, table tbody tr.tr-small th{
   padding: 0px;
-  height: 34.6px;
+  height: 31px;
 }
 
 @media (max-width: 991.98px) {

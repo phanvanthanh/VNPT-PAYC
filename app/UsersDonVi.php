@@ -35,8 +35,16 @@ class UsersDonVi extends Authenticatable
         return $data;
     }
 
-    public static function getDanhSachCanBoTheoPhuongXaVaCap(){
-
+    public static function layDonViTheoTaiKhoan($userId){
+        $data=array();
+        if($userId){
+            $data=DB::select('select dv.ma_don_vi, ma_dinh_danh, dv.id from users_don_vi usdv
+                left join don_vi dv on usdv.id_don_vi=dv.id
+                where usdv.id_user='.$userId);
+        }
+            
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray();
+        return $data;
     }
 
 
