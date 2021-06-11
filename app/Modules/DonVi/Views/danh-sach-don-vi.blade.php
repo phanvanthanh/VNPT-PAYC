@@ -17,7 +17,7 @@
         ?>
         @foreach($donVis as $donVi)
             <?php $stt++; ?>
-            <tr class="tr-hover tr-small">
+            <tr class="tr-hover tr-small @if($donVi['level']>2) {{'d-none'}} @endif">
                 <!-- <td></td> -->
                 <td class="text-center">                    
                     {{$stt}}

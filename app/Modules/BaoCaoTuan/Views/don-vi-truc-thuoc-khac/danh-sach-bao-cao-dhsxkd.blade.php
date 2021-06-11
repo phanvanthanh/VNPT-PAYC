@@ -83,6 +83,7 @@
         var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
         var idTuan=jQuery('#id_tuan').val(); 
         postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-lay-so-lieu-bao-cao-dhsxkd') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
+        return false;
       });
 
 

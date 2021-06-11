@@ -29,6 +29,11 @@ Route::group(
                     'uses' => 'VienThongHuyenController@themBaoCaoTuanHienTai'
                 ]);
 
+                Route::post('cap-nhat-bao-cao-tuan-hien-tai', [
+                    'as' => 'cap-nhat-bao-cao-tuan-hien-tai',
+                    'uses' => 'VienThongHuyenController@capNhatBaoCaoTuanHienTai'
+                ]);
+
                 Route::post('xoa-bao-cao-tuan-hien-tai', [
                     'as' => 'xoa-bao-cao-tuan-hien-tai',
                     'uses' => 'VienThongHuyenController@xoaBaoCaoTuanHienTai'
@@ -36,6 +41,11 @@ Route::group(
                 Route::post('bc-is-group-tuan-hien-tai', [
                     'as' => 'bc-is-group-tuan-hien-tai',
                     'uses' => 'VienThongHuyenController@bcIsGroupTuanHienTai'
+                ]);
+
+                Route::post('lay-du-lieu-tu-ke-hoach-tuan', [
+                    'as' => 'lay-du-lieu-tu-ke-hoach-tuan',
+                    'uses' => 'VienThongHuyenController@layDuLieuTuKeHoachTuan'
                 ]);
 
 
@@ -48,6 +58,11 @@ Route::group(
                 Route::post('them-bao-cao-ke-hoach-tuan', [
                     'as' => 'them-bao-cao-ke-hoach-tuan',
                     'uses' => 'VienThongHuyenController@themBaoCaoKeHoachTuan'
+                ]);
+
+                Route::post('cap-nhat-bao-cao-ke-hoach-tuan', [
+                    'as' => 'cap-nhat-bao-cao-ke-hoach-tuan',
+                    'uses' => 'VienThongHuyenController@capNhatBaoCaoKeHoachTuan'
                 ]);
 
                 Route::post('xoa-bao-cao-ke-hoach-tuan', [
@@ -117,6 +132,11 @@ Route::group(
                     'uses' => 'DonViTrucThuocKhacController@themBaoCaoTuanHienTai'
                 ]);
 
+                Route::post('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai', [
+                    'as' => 'don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai',
+                    'uses' => 'DonViTrucThuocKhacController@capNhatBaoCaoTuanHienTai'
+                ]);
+
                 Route::post('don-vi-truc-thuoc-khac-xoa-bao-cao-tuan-hien-tai', [
                     'as' => 'don-vi-truc-thuoc-khac-xoa-bao-cao-tuan-hien-tai',
                     'uses' => 'DonViTrucThuocKhacController@xoaBaoCaoTuanHienTai'
@@ -124,6 +144,11 @@ Route::group(
                 Route::post('don-vi-truc-thuoc-khac-bc-is-group-tuan-hien-tai', [
                     'as' => 'don-vi-truc-thuoc-khac-bc-is-group-tuan-hien-tai',
                     'uses' => 'DonViTrucThuocKhacController@bcIsGroupTuanHienTai'
+                ]);
+
+                Route::post('don-vi-truc-thuoc-khac-lay-du-lieu-tu-ke-hoach-tuan', [
+                    'as' => 'don-vi-truc-thuoc-khac-lay-du-lieu-tu-ke-hoach-tuan',
+                    'uses' => 'DonViTrucThuocKhacController@layDuLieuTuKeHoachTuan'
                 ]);
 
 
@@ -136,6 +161,11 @@ Route::group(
                 Route::post('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan', [
                     'as' => 'don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan',
                     'uses' => 'DonViTrucThuocKhacController@themBaoCaoKeHoachTuan'
+                ]);
+
+                Route::post('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan', [
+                    'as' => 'don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan',
+                    'uses' => 'DonViTrucThuocKhacController@capNhatBaoCaoKeHoachTuan'
                 ]);
 
                 Route::post('don-vi-truc-thuoc-khac-xoa-bao-cao-ke-hoach-tuan', [
@@ -207,6 +237,11 @@ Route::group(
                     'uses' => 'TrungTamVienThongController@themBaoCaoTuanHienTai'
                 ]);
 
+                Route::post('trung-tam-vien-thong-cap-nhat-bao-cao-tuan-hien-tai', [
+                    'as' => 'trung-tam-vien-thong-cap-nhat-bao-cao-tuan-hien-tai',
+                    'uses' => 'TrungTamVienThongController@capNhatBaoCaoTuanHienTai'
+                ]);
+
                 Route::post('trung-tam-vien-thong-xoa-bao-cao-tuan-hien-tai', [
                     'as' => 'trung-tam-vien-thong-xoa-bao-cao-tuan-hien-tai',
                     'uses' => 'TrungTamVienThongController@xoaBaoCaoTuanHienTai'
@@ -226,6 +261,11 @@ Route::group(
                 Route::post('trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan', [
                     'as' => 'trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan',
                     'uses' => 'TrungTamVienThongController@themBaoCaoKeHoachTuan'
+                ]);
+
+                Route::post('trung-tam-vien-thong-cap-nhat-bao-cao-ke-hoach-tuan', [
+                    'as' => 'trung-tam-vien-thong-cap-nhat-bao-cao-ke-hoach-tuan',
+                    'uses' => 'TrungTamVienThongController@capNhatBaoCaoKeHoachTuan'
                 ]);
 
                 Route::post('trung-tam-vien-thong-xoa-bao-cao-ke-hoach-tuan', [
@@ -258,6 +298,12 @@ Route::group(
                     'as' => 'trung-tam-vien-thong-danh-sach-bao-cao-tong-hop',
                     'uses' => 'TrungTamVienThongController@danhSachBaoCaoTongHop'
                 ]);
+
+                Route::post('trung-tam-vien-thong-lay-du-lieu-tu-ke-hoach-tuan', [
+                    'as' => 'trung-tam-vien-thong-lay-du-lieu-tu-ke-hoach-tuan',
+                    'uses' => 'TrungTamVienThongController@layDuLieuTuKeHoachTuan'
+                ]);
+
             });
 
                 

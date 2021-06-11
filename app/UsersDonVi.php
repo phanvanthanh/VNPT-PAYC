@@ -47,6 +47,21 @@ class UsersDonVi extends Authenticatable
         return $data;
     }
 
+    public static function kiemTraTaiKhoanThuocNhomChucVu($userId, $maNhomChucVu){
+        $data=UsersDonVi::select('users_don_vi.id_chuc_vu')
+        ->leftJoin('chuc_vu','users_don_vi.id_chuc_vu','=','chuc_vu.id')
+        ->leftJoin('nhom_chuc_vu','chuc_vu.id_nhom_chuc_vu','=','nhom_chuc_vu.id')
+        ->where('nhom_chuc_vu.ma_nhom_chuc_vu','=',$maNhomChucVu)
+        ->where('users_don_vi.id_user','=',$userId)
+        ->get()->toArray();
+        $data = collect($data)->map(function($x){ return (array) $x; })->toArray();
+        $result=0; // Không thuộc nhóm chức vụ
+        if(count($data)>0){
+            $result=1;
+        }
+        return $result;
+    }
+
 
    
 

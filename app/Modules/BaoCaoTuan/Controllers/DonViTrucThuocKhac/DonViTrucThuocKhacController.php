@@ -113,6 +113,28 @@ class DonViTrucThuocKhacController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
+    public function capNhatBaoCaoTuanHienTai(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
+            if(!isset($dataForm['id'])){ // Kiểm tra nếu ko tồn tại id
+                return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
+            }
+            $id=$dataForm['id']; //ngược lại có id
+            $baoCaos=BcTuanHienTai::where("id","=",$id)->get()->toArray();
+            if(count($baoCaos)==1){
+                unset($dataForm["_token"]);
+                $baoCaos=BcTuanHienTai::where("id","=",$id);
+                $baoCaos->update($dataForm);
+                return array("error"=>'');
+            }else{
+                return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
+            }         
+            
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+
     public function xoaBaoCaoTuanHienTai(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
@@ -153,7 +175,10 @@ class DonViTrucThuocKhacController extends Controller{
             if(!isset($dataForm['id'])){ // Kiểm tra nếu ko tồn tại id hoặc ko được xóa mấy cái dữ liệu hệ thống
                 return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
             }
-            $id=$dataForm['id']; //ngược lại có id
+            //$id=$dataForm['id']; //ngược lại có id
+            $arrId=explode('_', $dataForm['id']);
+            $id=$arrId[0];
+            $numStyle=$arrId[1];
             $bcTuanHienTai=BcTuanHienTai::where("id","=",$id)->get();
             if(count($bcTuanHienTai)==1){
                 // Kiểm tra đã chốt số liệu chưa
@@ -173,12 +198,10 @@ class DonViTrucThuocKhacController extends Controller{
                 // End Kiểm tra đã chốt số liệu chưa
 
                 $bcTuanHienTai=BcTuanHienTai::find($id);
-                $isGroup=$bcTuanHienTai->is_group;
-                if($isGroup==1){
-                    $bcTuanHienTai->is_group=0;
-                }else{
-                    $bcTuanHienTai->is_group=1;
-                }                
+                if (!is_numeric($numStyle)) {
+                    $numStyle=0;
+                }
+                $bcTuanHienTai->is_group=$numStyle;                
                 $bcTuanHienTai->save();
                 return array("error"=>'');
             }else{
@@ -271,6 +294,28 @@ class DonViTrucThuocKhacController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
+    public function capNhatBaoCaoKeHoachTuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
+            $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
+            if(!isset($dataForm['id'])){ // Kiểm tra nếu ko tồn tại id
+                return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
+            }
+            $id=$dataForm['id']; //ngược lại có id
+            $baoCaos=BcKeHoachTuan::where("id","=",$id)->get()->toArray();
+            if(count($baoCaos)==1){
+                unset($dataForm["_token"]);
+                $baoCaos=BcKeHoachTuan::where("id","=",$id);
+                $baoCaos->update($dataForm);
+                return array("error"=>'');
+            }else{
+                return array("error"=>'Không tìm thấy dữ liệu cần sửa'); // Trả lỗi về AJAX
+            }         
+            
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+    
     public function xoaBaoCaoKeHoachTuan(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra phương thức gửi dữ liệu là AJAX
             $dataForm=RequestAjax::all(); // Lấy tất cả dữ liệu đã gửi
@@ -312,7 +357,10 @@ class DonViTrucThuocKhacController extends Controller{
             if(!isset($dataForm['id'])){ // Kiểm tra nếu ko tồn tại id hoặc ko được xóa mấy cái dữ liệu hệ thống
                 return array("error"=>'Không tìm thấy dữ liệu cần xóa'); // Trả lỗi về AJAX
             }
-            $id=$dataForm['id']; //ngược lại có id
+            $arrId=explode('_', $dataForm['id']);
+            $id=$arrId[0];
+            $numStyle=$arrId[1];
+            
             $bcKeHoachTuan=BcKeHoachTuan::where("id","=",$id)->get();
             if(count($bcKeHoachTuan)==1){
                 // Kiểm tra đã chốt số liệu chưa
@@ -332,12 +380,10 @@ class DonViTrucThuocKhacController extends Controller{
                 // End Kiểm tra đã chốt số liệu chưa
 
                 $bcKeHoachTuan=BcKeHoachTuan::find($id);
-                $isGroup=$bcKeHoachTuan->is_group;
-                if($isGroup==1){
-                    $bcKeHoachTuan->is_group=0;
-                }else{
-                    $bcKeHoachTuan->is_group=1;
+                if (!is_numeric($numStyle)) {
+                    $numStyle=0;
                 }
+                $bcKeHoachTuan->is_group=$numStyle; 
                 $bcKeHoachTuan->save();
                 return array("error"=>'');
             }else{
@@ -346,6 +392,89 @@ class DonViTrucThuocKhacController extends Controller{
             
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+    public function layDuLieuTuKeHoachTuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id'];
+
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi ".$donVi['message']); // Trả về lỗi phương thức truyền số liệu
+            }
+            $donVi=$donVi['data'];  
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            $ma='';
+            if($baoCaoTheoMaDinhDanh==1){
+                $ma=$donVi['ma_dinh_danh'];
+            }else{
+                $ma=$donVi['ma_don_vi'];
+            }
+            // Kiểm tra đã chốt số liệu chưa
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
+            if($daChoSoLieu==1){
+                return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
+            }
+
+            // Lấy ngày lấy số liệu của tuần trước
+            $this->ma=$ma;
+            $tuan=0; $nam=0;
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)>0){
+                $tuan=$dmTuan[0]['tuan'];
+                $nam=$dmTuan[0]['nam'];
+            }
+            $idTuanTruoc=0;
+            if($tuan==1) {
+                $namTruoc=$nam-1;
+                $thoiGianBaoCaoTheoDonViTuanTruoc=DB::SELECT('SELECT * FROM bc_dm_tuan dmt
+                    WHERE dmt.tuan=(SELECT MAX(tuan) FROM bc_dm_tuan WHERE nam='.$namTruoc.')');
+                $thoiGianBaoCaoTheoDonViTuanTruoc = collect($thoiGianBaoCaoTheoDonViTuanTruoc)->map(function($x){ return (array) $x; })->toArray(); 
+                $idTuanTruoc=$thoiGianBaoCaoTheoDonViTuanTruoc[0]['id'];
+            }else{
+                $tuanTruoc=$tuan-1;
+                $thoiGianBaoCaoTheoDonViTuanTruoc=DB::SELECT('SELECT * FROM bc_dm_tuan dmt
+                    WHERE dmt.tuan='.$tuanTruoc.' AND dmt.nam='.$nam);
+                $thoiGianBaoCaoTheoDonViTuanTruoc = collect($thoiGianBaoCaoTheoDonViTuanTruoc)->map(function($x){ return (array) $x; })->toArray(); 
+                $idTuanTruoc=$thoiGianBaoCaoTheoDonViTuanTruoc[0]['id'];
+            }
+            $dmThoiGianBaoCaoTuanTruoc=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuanTruoc)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+            $ngayLayDuLieuTuanTruoc='';
+            if(count($dmThoiGianBaoCaoTuanTruoc)>0){
+                $ngayLayDuLieuTuanTruoc=$dmThoiGianBaoCaoTuanTruoc[0]['thoi_gian_lay_so_lieu'];
+            }
+            // End lấy ngày lấy số liệu của tuần trước
+
+            // Lấy số liệu kế hoạch tuần trước làm báo cáo tuần hiện tại
+            $keHoachTuanTruocs=BcKeHoachTuan::where('id_tuan','=',$idTuanTruoc)->where(function($query) {
+                $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+            })->get()->toArray();
+            foreach ($keHoachTuanTruocs as $key => $keHoachTuanTruoc) {
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$idTuan;
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$keHoachTuanTruoc['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=$keHoachTuanTruoc['is_group'];
+                $dataBaoCaoTuan['sap_xep']=$keHoachTuanTruoc['sap_xep'];
+                BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+            }
+
+                
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
     // End báo cáo tuần kế tiếp
 
@@ -750,7 +879,7 @@ class DonViTrucThuocKhacController extends Controller{
                 // End DHSXKD
                 
             }
-            $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-tong-hop', compact('baoCaoPakns', 'baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi'))->render(); // Trả dữ liệu ra view 
+            $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-tong-hop', compact('baoCaoPakns', 'baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'userId'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu

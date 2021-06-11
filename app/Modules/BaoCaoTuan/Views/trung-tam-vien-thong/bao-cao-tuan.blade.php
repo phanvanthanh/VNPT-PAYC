@@ -15,9 +15,11 @@
                
 
                 @php
+                  
                   $week=\Helper::layTuanHienTai();
                   $year=date('Y');
                   $daVuotThoiGianBaoCao=0;
+
                 @endphp
                 
                 <div class="row user-profile">
@@ -45,10 +47,10 @@
                               <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">Kế hoạch tuần kế</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">Tổng hợp từ các Viễn Thông huyện/thành phố</a>
+                              <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Chốt & Gửi báo cáo tổng hợp</a>
+                              <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Duyệt & Gửi báo cáo</a>
                             </li>
                           </ul>
                         </div>
@@ -62,18 +64,19 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
                                 <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <div class="form-group">
                                       <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung">
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 text-right">
-                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i> Thêm</button>
+                                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
+                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i>Thêm</button>
+
+                                    <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-retweet"></i> Lấy kế hoạch tuần trước</button>
                                   </div>
-                                  <div class=".d-none .d-md-block col-md-4 col-lg-4">&nbsp;</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="table-responsive load-danh-sach-bao-cao-tuan-hien-tai">
                                          
                                     </div>
@@ -86,18 +89,17 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
                                 <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+                                  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
                                       <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 text-right">
+                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-right">
                                     <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-ke-hoach-tuan"><i class="fa fa-plus"></i> Thêm</button>
                                   </div>
-                                  <div class=".d-none .d-md-block col-md-4 col-lg-4">&nbsp;</div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="table-responsive load-danh-sach-bao-cao-ke-hoach-tuan">
                                            
                                     </div>
@@ -107,7 +109,7 @@
                             </div>
                             <div class="tab-pane fade" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
                               <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                   <div class="load-danh-sach-dhsxkd">                                     
                                   </div>
                                 </div>
@@ -180,13 +182,15 @@
       jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
         if (e.keyCode == 13) {
           var idTuan=jQuery('#id_tuan').val();
-          themMoiVaRefreshDuLieuTheoId2(_token, $("form#frm-bao-cao-tuan-hien-tai"), "{{ route('trung-tam-vien-thong-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+          var form=jQuery(this).parents('form');
+          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('trung-tam-vien-thong-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
         }
       });
 
       jQuery('.btn-bao-cao-tuan-hien-tai').on("click", function(e) {
         var idTuan=jQuery('#id_tuan').val();
-        themMoiVaRefreshDuLieuTheoId2(_token, $("form#frm-bao-cao-tuan-hien-tai"), "{{ route('trung-tam-vien-thong-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+        var form=jQuery(this).parents('form');
+        themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('trung-tam-vien-thong-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
       });
 
       jQuery('#bao-cao-tuan-hien-tai-tab').on('click',function(){
@@ -196,18 +200,25 @@
         loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
       });
 
+      jQuery('.btn-lay-ke-hoach-tuan-truoc').on('click', function() {
+        var idTuan=jQuery('#id_tuan').val();
+        postAndRefreshById(_token, idTuan, "{{ route('trung-tam-vien-thong-lay-du-lieu-tu-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+      });
+
 
       // MODULE BÁO CÁO KẾ HOẠCH TUẦN
       jQuery('.noi-dung-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
         if (e.keyCode == 13) {
           var idTuan=jQuery('#id_tuan').val();
-          themMoiVaRefreshDuLieuTheoId2(_token, $("form#frm-bao-cao-ke-hoach-tuan"), "{{ route('trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+          var form=jQuery(this).parents('form');
+          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
         }
       });
 
       jQuery('.btn-bao-cao-ke-hoach-tuan').on("click", function(e) {
         var idTuan=jQuery('#id_tuan').val();
-        themMoiVaRefreshDuLieuTheoId2(_token, $("form#frm-bao-cao-ke-hoach-tuan"), "{{ route('trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+        var form=jQuery(this).parents('form');
+        themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('trung-tam-vien-thong-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
       });
 
       jQuery('#bao-cao-ke-hoach-tuan-tab').on('click',function(){

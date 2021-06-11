@@ -24,10 +24,8 @@
           <td class='text-primary @if($baoCao['is_group']==1) {{" font-weight-bold"}} @endif'>{{$baoCao['noi_dung']}}</td>
           <td class="text-center">
             @if ($daChotSoLieu==0)
-                
-                <i class="fa fa-paragraph cusor is-group text-primary @if($baoCao['is_group']==1) {{" font-weight-bold"}} @else {{" text-muted"}} @endif" data-toggle="tooltip" data-placement="right" title="Nhóm báo cáo (in đậm)" data="{{$baoCao['id']}}"></i> &nbsp;&nbsp;&nbsp;
-                <i class="fa fa-times-rectangle-o text-danger cusor btn-xoa-bao-cao-ke-hoach-tuan" data="{{$baoCao['id']}}"></i>
-                
+                <i class="fa fa-times-rectangle-o text-danger cusor btn-xoa-bao-cao-ke-hoach-tuan" data="{{$baoCao['id']}}"></i> &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-paragraph cusor is-group text-primary @if($baoCao['is_group']==1) {{" font-weight-bold"}} @else {{" text-muted"}} @endif" data-toggle="tooltip" data-placement="right" title="Nhóm báo cáo (in đậm)" data="{{$baoCao['id']}}"></i>
             @else
                 <div class="text-success">Đã chốt số liệu</div>
             @endif

@@ -13,15 +13,17 @@
             }
             tTree(id, dataShow);
         });
+
+  
         tTree=function(id, dataShow){         
             jQuery('.t-tree').each(function(){
                 if(jQuery(this).attr('data-parent')==id){
                     if(dataShow==1){
-                        jQuery(this).parent('tr').hide();
+                        jQuery(this).parent('tr').addClass('d-none');
                         jQuery(this).find('.tree-icon').removeClass('fa-minus-square-o');
                         jQuery(this).find('.tree-icon').addClass('fa-plus-square-o');
                     }else{
-                        jQuery(this).parent('tr').show();
+                        jQuery(this).parent('tr').removeClass('d-none');
                         jQuery(this).find('.tree-icon').removeClass('fa-plus-square-o');
                         jQuery(this).find('.tree-icon').addClass('fa-minus-square-o');
                     }

@@ -29785,7 +29785,7 @@ input.form-control, select.form-control{
 }
 
 .btn-group .btn.btn-vnpt{
-  height: 28.5px;
+  height: 31.5px;
 }
 td .btn.btn-vnpt{
   height: 25.5px;
@@ -29868,4 +29868,87 @@ table tbody tr.tr-small td, table tbody tr.tr-small th{
     border-radius: 100%;
     background: #009b74;
     top: 5px;
+}
+
+i.white-circle:before {
+    content: ' \25CB';
+}
+
+i.plus-sign:before {
+    content: ' \002B';
+    font-style: normal;
+}
+
+.is-group-0{
+  margin-left:20px;
+}
+
+.is-group-0 .white-circle{
+  margin-right:10px;
+}
+
+.is-group-1{
+  margin-left:10px;
+}
+
+.is-group-1 .plus-sign{
+  margin-right: 10px;
+  font-weight: 700 !important;
+}
+
+.is-group-2{
+  margin-left:0px;
+  font-weight: 700 !important;
+}
+
+.is-group-2 .fa-minus{
+  margin-right: 10px;
+  
+}
+
+ul {
+    list-style: none; /* Remove HTML bullets */
+    padding: 0;
+    margin: 0;
+  }
+
+
+
+
+/*th-is-group:  is group trong view tổng hợp*/
+.th-is-group-0{
+  display: initial;  
+}
+
+.th-is-group-0 .white-circle{
+  margin-right:10px;
+}
+
+.th-is-group-1{
+  display: initial;
+}
+
+.th-is-group-1 .plus-sign{
+  margin-right: 10px;
+  font-weight: 700 !important;
+}
+
+.th-is-group-2{  
+  font-weight: 700 !important;
+  display: initial;
+}
+
+.th-is-group-2 .fa-minus{
+  margin-right: 10px;  
+}
+
+li.li-is-group-0{
+  margin-left:50px;
+}
+
+li.li-is-group-1{
+  margin-left:40px;
+}
+li.li-is-group-2{
+  margin-left:30px;
 }

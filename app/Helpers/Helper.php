@@ -8,9 +8,14 @@ use App\PaycXuLy;
 use App\DmThamSoHeThong;
 use App\BcDmThoiGianBaoCao;
 use App\BcDmChiSo;
+use App\UsersDonVi;
 
 class Helper
 {
+    public static function kiemTraTaiKhoanThuocNhomChucVu($userId, $maNhomChucVu){
+        $result=UsersDonVi::kiemTraTaiKhoanThuocNhomChucVu($userId, $maNhomChucVu);
+        return $result;
+    }
     public static function getParentDmChiSo($parentId){
         $dmChiSoDhsxkd=BcDmChiSo::where('id','=',$parentId)->get()->toArray();
         if(count($dmChiSoDhsxkd)>0){
@@ -297,6 +302,28 @@ class Helper
             }           
         }
         return Helper::$paycArrItem;
+    }
+
+    private static $levelDonVi=-1;
+    private static $arrDonVi=array();
+    public static function layDonViConTheoMaCap($data, $id, $maCap){
+        foreach ($data as $key => $item) {
+            if($item['parent_id']==$id){
+                Helper::$levelDonVi++;
+                $item['level']=Helper::$levelDonVi;
+                if(!isset(Helper::$arrDonVi[$item['id']]) && $item['ma_cap']==$maCap){
+                    $item['has_child']=0;
+                    Helper::$arrDonVi[$item['id']]=$item;
+                    if(isset(Helper::$arrDonVi[$item['parent_id']])){
+                        Helper::$arrDonVi[$item['parent_id']]['has_child']=Helper::$arrDonVi[$item['parent_id']]['has_child']+1; // Nếu có con thì tăng lên một đơn vị
+                    }
+                }                        
+                unset($data[$key]);          
+                Helper::layDonViConTheoMaCap($data, $item['id'], $maCap);
+                Helper::$levelDonVi--;
+            }           
+        }
+        return Helper::$arrDonVi;
     }
 
 
