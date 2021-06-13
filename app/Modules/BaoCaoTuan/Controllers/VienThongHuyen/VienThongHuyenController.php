@@ -51,17 +51,20 @@ class VienThongHuyenController extends Controller{
             $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
             $ma=''; // Mã đơn vị hay mã định danh
             $baoCaos=array();
-            if($baoCaoTheoMaDinhDanh==1){
-                $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where('ma_dinh_danh','=',$donVi['ma_dinh_danh'])
-                ->get()->toArray();
+            if($baoCaoTheoMaDinhDanh==1){                
                 $ma=$donVi['ma_dinh_danh'];
             }else{ // Ngược lại báo cáo theo mã đơn vị
-                $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where('ma_don_vi','=',$donVi['ma_don_vi'])
-                ->get()->toArray();
                 $ma=$donVi['ma_don_vi'];
             }
+
+            $this->ma=$ma;
+            $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+
+
             $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-tuan-hien-tai', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -107,7 +110,10 @@ class VienThongHuyenController extends Controller{
             $dataBaoCaoTuan['trang_thai']=0;
             $dataBaoCaoTuan['is_group']=0;
             $dataBaoCaoTuan['sap_xep']=0;
-            BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+            $sapXep=$userId.$baoCaoTuan->sap_xep;
+            $baoCaoTuan->sap_xep=$sapXep;
+            $baoCaoTuan->save();
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -319,16 +325,18 @@ class VienThongHuyenController extends Controller{
             $ma=''; // Mã đơn vị hay mã định danh
             $baoCaos=array();
             if($baoCaoTheoMaDinhDanh==1){
-                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                ->where('ma_dinh_danh','=',$donVi['ma_dinh_danh'])
-                ->get()->toArray();
                 $ma=$donVi['ma_dinh_danh'];
             }else{ // Ngược lại báo cáo theo mã đơn vị
-                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                ->where('ma_don_vi','=',$donVi['ma_don_vi'])
-                ->get()->toArray();
                 $ma=$donVi['ma_don_vi'];
             }
+            $this->ma=$ma;
+            
+            
+            $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
             $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-ke-hoach-tuan', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -373,7 +381,10 @@ class VienThongHuyenController extends Controller{
             $dataBaoCaoTuan['trang_thai']=0;
             $dataBaoCaoTuan['is_group']=0;
             $dataBaoCaoTuan['sap_xep']=0;
-            BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+            $sapXep=$userId.$baoCaoTuan->sap_xep;
+            $baoCaoTuan->sap_xep=$sapXep;
+            $baoCaoTuan->save();
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -503,32 +514,10 @@ class VienThongHuyenController extends Controller{
             $thoiGianLaySoLieu='';
 
             if($baoCaoTheoMaDinhDanh==1){
-                $ma=$donVi['ma_dinh_danh'];
-                $idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
-                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
-                    $dataDmThoiGianBaoCao=array();
-                    $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
-                    $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                    $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
-                    $dataDmThoiGianBaoCao['ghi_chu']=null;
-                    $dataDmThoiGianBaoCao['trang_thai']=0;
-                    $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
-                    $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-                    $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
-
-                }else{ //Ngược lại thì chốt
-                    $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
-                }
-                $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
-                $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+                $ma=$donVi['ma_dinh_danh'];                
             }else{ // Ngược lại báo cáo theo mã đơn vị
                 $ma=$donVi['ma_don_vi'];
-                $idThoiGianBaoCaoDhsxkd=0;
+                /*$idThoiGianBaoCaoDhsxkd=0;
                 $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
                 if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
                     $dataDmThoiGianBaoCao=array();
@@ -548,11 +537,39 @@ class VienThongHuyenController extends Controller{
                     $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
                 }
                 $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
-                $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+                $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');*/
             }
 
-            // Lấy ngày lấy số liệu của tuần trước
             $this->ma=$ma;
+
+            $idThoiGianBaoCaoDhsxkd=0;
+            $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+            if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
+                $dataDmThoiGianBaoCao=array();
+                $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
+                $dataDmThoiGianBaoCao['ghi_chu']=null;
+                $dataDmThoiGianBaoCao['trang_thai']=0;
+                $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
+                $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
+                $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
+
+            }else{ //Ngược lại thì chốt
+                $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
+                $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
+            }
+            $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
+            $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+
+            // Lấy ngày lấy số liệu của tuần trước
             $tuan=0; $nam=0;
             $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
             if(count($dmTuan)>0){
@@ -867,53 +884,32 @@ class VienThongHuyenController extends Controller{
             $thoiGianLaySoLieu='';
             if($baoCaoTheoMaDinhDanh==1){
                 $ma=$donVi['ma_dinh_danh'];
-
-                $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where('ma_dinh_danh','=',$donVi['ma_dinh_danh'])
-                ->get()->toArray();
-
-                $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                ->where('ma_dinh_danh','=',$donVi['ma_dinh_danh'])
-                ->get()->toArray();
-
-                // ĐHSXKD
-                $idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
-                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
-                    $dataDmThoiGianBaoCao=array();
-                    $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
-                    $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                    $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
-                    $dataDmThoiGianBaoCao['ghi_chu']=null;
-                    $dataDmThoiGianBaoCao['trang_thai']=0;
-                    $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
-                    $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-                    $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
-
-                }else{ //Ngược lại thì chốt
-                    $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
-                }
-                $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
-                $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
-
                 
             }else{ // Ngược lại báo cáo theo mã đơn vị
                 $ma=$donVi['ma_don_vi'];
-                $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where('ma_don_vi','=',$donVi['ma_don_vi'])
+            }
+
+            $this->ma=$ma;
+
+            
+
+            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
                 ->get()->toArray();
 
-                $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                ->where('ma_don_vi','=',$donVi['ma_don_vi'])
+            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
                 ->get()->toArray();
 
-                // ĐHSXKD
+            // ĐHSXKD
                 $idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
                 if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
                     $dataDmThoiGianBaoCao=array();
                     $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
@@ -926,15 +922,18 @@ class VienThongHuyenController extends Controller{
                     $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
                     $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
                     $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
+
                 }else{ //Ngược lại thì chốt
                     $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
                     $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
+                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                    })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
                 }
                 $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
                 $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
-                
-            }
+            // End DHSXKD
+
             $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-tong-hop', compact('baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'baoCaoPhatTrienMois','baoCaoXuLySuyHaos', 'thoiGianLaySoLieu', 'userId'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -962,6 +961,8 @@ class VienThongHuyenController extends Controller{
             }else{
                 $ma=$donVi['ma_don_vi'];
             }
+
+            $this->ma=$ma;
             // Kiểm tra đã chốt số liệu chưa
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
             if($daChoSoLieu==1){
@@ -973,61 +974,44 @@ class VienThongHuyenController extends Controller{
                 return array('error'=>"Chốt số liệu thất bại, do vượt quá thời gian báo cáo."); // Trả về lỗi phương thức truyền số liệu
             }*/
 
-            
-            if($baoCaoTheoMaDinhDanh==1){
-                // Chốt báo cáo tổng thể
-                $idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
-                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
-                    $dataDmThoiGianBaoCao=array();
-                    $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
-                    $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                    $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['ghi_chu']=null;
-                    $dataDmThoiGianBaoCao['trang_thai']=1;
-                    $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
-                    $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
+            // Chốt báo cáo tổng thể
+            $idThoiGianBaoCaoDhsxkd=0;
+            $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+            if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
+                $dataDmThoiGianBaoCao=array();
+                $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['ghi_chu']=null;
+                $dataDmThoiGianBaoCao['trang_thai']=1;
+                $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
+                $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
 
-                }else{ //Ngược lại thì chốt
-                    $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1, 'thoi_gian_chot_so_lieu'=>date('Y-m-d H:i:s')]);
-                }
-                // Chốt báo cáo tuần hiện tại
-                BcTuanHienTai::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1]);
-                // Chốt kế hoạch tuần
-                BcKeHoachTuan::where('ma_dinh_danh','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1]);
-                // Chốt số liệu ĐHSXKD
-                BcDhsxkd::where('ma_dinh_danh','=',$ma)->where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->update(['trang_thai'=>1]);
-                
-            }else{
-                // Chốt báo cáo tổng thể
-                $idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
-                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
-                    $dataDmThoiGianBaoCao=array();
-                    $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
-                    $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                    $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['ghi_chu']=null;
-                    $dataDmThoiGianBaoCao['trang_thai']=1;
-                    $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
-                    $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-
-                }else{ //Ngược lại thì chốt
-                    $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1, 'thoi_gian_chot_so_lieu'=>date('Y-m-d H:i:s')]);
-                }
-                // Chốt báo cáo tuần hiện tại
-                BcTuanHienTai::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1]);
-                // Chốt kế hoạch tuần
-                BcKeHoachTuan::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['trang_thai'=>1]);
-                // Chốt số liệu ĐHSXKD
-                BcDhsxkd::where('ma_don_vi','=',$ma)->where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->update(['trang_thai'=>1]);
+            }else{ //Ngược lại thì chốt
+                $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['trang_thai'=>1, 'thoi_gian_chot_so_lieu'=>date('Y-m-d H:i:s')]);
             }
+            // Chốt báo cáo tuần hiện tại
+            BcTuanHienTai::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['trang_thai'=>1]);
+            // Chốt kế hoạch tuần
+            BcKeHoachTuan::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['trang_thai'=>1]);
+            // Chốt số liệu ĐHSXKD
+            BcDhsxkd::where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['trang_thai'=>1]);
+
+            
+           
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu

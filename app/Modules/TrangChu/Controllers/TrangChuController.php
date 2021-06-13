@@ -4,7 +4,7 @@ namespace App\Modules\TrangChu\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Request as RequestAjax;
 
@@ -20,6 +20,30 @@ class TrangChuController extends Controller{
     }
 
     public function home(Request $request){
+        $client = new Client();
+        
+        // // Telegram
+        // $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
+        //         'form_params' =>[
+        //             'chat_id' => '-520112642',
+        //             'text' => 'Test my bot'
+        //         ]
+        //     ]);
+        // $responseStatus = $r->getStatusCode();
+        // print_r($responseStatus);
+        // die();
+        // Đăng nhập
+        $headers = ['Content-Type' => 'application/json'];
+        $r = $client->request('POST', 'http://vnpt-payc.abc:8080/api/auth/api-dang-nhap', $headers, [
+                'body' =>'{
+                    "email":"minhbn.tvh",
+                    "password":"123456",
+                    "remember_me":true
+                }'
+            ]);
+        $responseStatus = $r->getStatusCode();
+        print_r($responseStatus);
+        die();
         return redirect()->route('payc');
         return view('TrangChu::home');
     }

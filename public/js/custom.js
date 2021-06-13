@@ -122,7 +122,11 @@
     loading('.error-mode');
     jQuery('.btn-them-moi').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -382,7 +386,11 @@
     loading('.error-mode');
     jQuery('.btn-cap-nhat').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -421,7 +429,11 @@
     loading('.error-mode');
     jQuery('.btn-cap-nhat').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -700,7 +712,11 @@
     loading('.error-mode');
     jQuery('.btn-them-moi').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -737,7 +753,11 @@
     loading('.error-mode');
     jQuery('.btn-them-moi').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -775,7 +795,11 @@
     loading('.error-mode');
     jQuery('.btn-them-moi').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,
@@ -806,7 +830,11 @@
     loading('.error-mode');
     jQuery('.btn-tiep-nhan-va-chuyen-xu-ly-2').attr("disabled",true);
     var formData = new FormData(frmName[0]);
-    $.ajax({
+    var xhr1;  
+      if(xhr1 && xhr1.readyState != 4){
+          xhr1.abort(); //huy lenh ajax truoc do
+      }
+      xhr1 = $.ajax({
         type: "POST",
         url: url,
         data: formData,

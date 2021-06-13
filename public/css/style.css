@@ -29825,12 +29825,6 @@ a.a-file{
   color: #FF5733;
 }
 
-/*body{
-  font-family: "Roboto", sans-serif !important;
-    background: url(/public/images/bgr.png) repeat-y 100% top transparent;
-    background-size: cover;
-    font-size: 12px;
-}*/
 
 table tbody tr.tr-small td, table tbody tr.tr-small th{
   padding: 0px;
@@ -29872,37 +29866,45 @@ table tbody tr.tr-small td, table tbody tr.tr-small th{
 
 i.white-circle:before {
     content: ' \25CB';
+    font-size: 14px;
 }
 
 i.plus-sign:before {
     content: ' \002B';
     font-style: normal;
+    font-size: 14px;
 }
 
 .is-group-0{
   margin-left:20px;
+  font-size: 14px;
 }
 
 .is-group-0 .white-circle{
   margin-right:10px;
+  font-size: 14px;
 }
 
 .is-group-1{
+  font-size: 14px;
   margin-left:10px;
 }
 
 .is-group-1 .plus-sign{
   margin-right: 10px;
   font-weight: 700 !important;
+  font-size: 14px;
 }
 
 .is-group-2{
   margin-left:0px;
   font-weight: 700 !important;
+  font-size: 14px;
 }
 
 .is-group-2 .fa-minus{
   margin-right: 10px;
+  font-size: 14px;
   
 }
 
@@ -29918,37 +29920,50 @@ ul {
 /*th-is-group:  is group trong view tổng hợp*/
 .th-is-group-0{
   display: initial;  
+  font-size: 14px;
 }
 
 .th-is-group-0 .white-circle{
   margin-right:10px;
+  font-size: 14px;
 }
 
 .th-is-group-1{
   display: initial;
+  font-size: 14px;
 }
 
 .th-is-group-1 .plus-sign{
   margin-right: 10px;
   font-weight: 700 !important;
+  font-size: 14px;
 }
 
 .th-is-group-2{  
   font-weight: 700 !important;
   display: initial;
+  font-size: 14px;
 }
 
 .th-is-group-2 .fa-minus{
   margin-right: 10px;  
+  font-size: 14px;
 }
 
 li.li-is-group-0{
   margin-left:50px;
+  font-size: 14px;
 }
 
 li.li-is-group-1{
   margin-left:40px;
+  font-size: 14px;
 }
 li.li-is-group-2{
-  margin-left:30px;
+  margin-left:35px;
+  font-size: 14px;
+}
+
+h6.text-primary{
+  margin-top: 0.5rem;
 }

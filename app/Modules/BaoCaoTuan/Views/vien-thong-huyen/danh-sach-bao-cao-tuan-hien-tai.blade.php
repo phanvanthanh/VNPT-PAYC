@@ -7,7 +7,7 @@
           <th style="width: 10%;">STT #</th>
           <th style="width: 75%;">Nội dung báo cáo tuần này</th>
           <th style="width: 15%;">
-              @if ($daChotSoLieu==1)
+              @if ($daChotSoLieu>0)
                   Trạng thái
               @else
                 Xử lý
@@ -72,12 +72,14 @@
         });
 
       var daChotSoLieu={{$daChotSoLieu}};
-      if(daChotSoLieu==1){
+      if(daChotSoLieu>0){
         jQuery('.noi-dung-bao-cao-tuan-hien-tai').addClass('disabled').attr('disabled', true);
         jQuery('.btn-bao-cao-tuan-hien-tai').addClass('disabled').attr('disabled', true);
+        jQuery('.btn-lay-ke-hoach-tuan-truoc').addClass('disabled').attr('disabled', true);
       }else{
         jQuery('.noi-dung-bao-cao-tuan-hien-tai').removeClass('disabled').attr('disabled', false);
         jQuery('.btn-bao-cao-tuan-hien-tai').removeClass('disabled').attr('disabled', false);
+        jQuery('.btn-lay-ke-hoach-tuan-truoc').removeClass('disabled').attr('disabled', false);
       }
 
       jQuery('.is-group').on("click",function(){

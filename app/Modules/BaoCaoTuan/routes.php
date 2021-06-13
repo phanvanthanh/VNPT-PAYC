@@ -312,3 +312,31 @@ Route::group(
         
     }
 );
+
+
+$namespace4 = 'App\Modules\BaoCaoTuan\Controllers\VienThongTinh';
+Route::group(
+    ['module'=>'BaoCaoTuan', 'namespace' => $namespace4, 'middleware'=>['web', 'auth','check-role']],
+    function() {
+        Route::group(['prefix'=>'bao-cao-tuan'],function(){
+
+            Route::group(['prefix'=>'vien-thong-tinh'],function(){
+                Route::get('/', [
+                    'as' => 'vien-thong-tinh-bao-cao-tuan',
+                    'uses' => 'VienThongTinhController@baoCaoTuan'
+                ]);
+
+                // Báo cáo tổng hợp
+                Route::post('vien-thong-tinh-danh-sach-bao-cao-tong-hop', [
+                    'as' => 'vien-thong-tinh-danh-sach-bao-cao-tong-hop',
+                    'uses' => 'VienThongTinhController@danhSachBaoCaoTongHop'
+                ]);
+
+            });
+
+                
+        });
+            
+        
+    }
+);

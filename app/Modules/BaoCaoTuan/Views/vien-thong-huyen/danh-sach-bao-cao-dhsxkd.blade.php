@@ -36,7 +36,7 @@
           <td class="text-center">
             <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
               {{ csrf_field() }}
-              <input type="Text" class="form-control @if ($daChotSoLieu==1) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu==1) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
             </form>
           </td>
@@ -100,7 +100,7 @@
           <td class="text-center">
             <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
               {{ csrf_field() }}
-              <input type="Text" class="form-control @if ($daChotSoLieu==1) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu==1) disabled="disabled" @endif value="{{$xlsc['ghi_chu']}}" name="ghi_chu">
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$xlsc['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$xlsc['id']}}">
             </form>
             
@@ -113,7 +113,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-      <button type="button" class="btn btn-danger mr-2 btn-vien-thong-huyen-lay-so-lieu-bao-cao-dhsxkd @if ($daChotSoLieu==1) disabled @endif" @if ($daChotSoLieu==1) disabled="disabled" @endif><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
+      <button type="button" class="btn btn-danger mr-2 btn-vien-thong-huyen-lay-so-lieu-bao-cao-dhsxkd @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
     </div>
   </div>
 </div>

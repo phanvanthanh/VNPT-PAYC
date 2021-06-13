@@ -7,7 +7,7 @@
           <th style="width: 10%;">STT #</th>
           <th style="width: 75%;">Nội dung kế hoạch tuần sau</th>
           <th style="width: 15%;">
-              @if ($daChotSoLieu==1)
+              @if ($daChotSoLieu>0)
                   Trạng thái
               @else
                 Xử lý
@@ -21,11 +21,26 @@
         @php $stt++; @endphp
         <tr class="tr-hover tr-small">
           <td class="text-center">{{$stt}}</td>
-          <td class='text-primary @if($baoCao['is_group']==1) {{" font-weight-bold"}} @endif'>{{$baoCao['noi_dung']}}</td>
+          <td>
+            @php
+              if($baoCao['is_group']==2){
+                echo "<div class='is-group-2'><i class='fa fa-minus'></i>".$baoCao['noi_dung']."</div>";
+              }
+              elseif($baoCao['is_group']==1){
+                echo "<div class='is-group-1'><i class='plus-sign'></i>".$baoCao['noi_dung']."</div>";
+              }
+              else{
+                echo "<div class='is-group-0'><i class='white-circle'></i>".$baoCao['noi_dung']."</div>";
+              }
+            @endphp
+          </td>
           <td class="text-center">
             @if ($daChotSoLieu==0)
-                <i class="fa fa-times-rectangle-o text-danger cusor btn-xoa-bao-cao-ke-hoach-tuan" data="{{$baoCao['id']}}"></i> &nbsp;&nbsp;&nbsp;
-                <i class="fa fa-paragraph cusor is-group text-primary @if($baoCao['is_group']==1) {{" font-weight-bold"}} @else {{" text-muted"}} @endif" data-toggle="tooltip" data-placement="right" title="Nhóm báo cáo (in đậm)" data="{{$baoCao['id']}}"></i>
+                
+                <i class="is-group fa fa-th-list cusor i-hover @if($baoCao['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
+                <i class="is-group fa fa-list-ul cusor i-hover @if($baoCao['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
+                <i class="is-group fa fa fa-indent cusor i-hover @if($baoCao['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-times-rectangle-o text-danger cusor btn-xoa-bao-cao-ke-hoach-tuan" data="{{$baoCao['id']}}"></i>
             @else
                 <div class="text-success">Đã chốt số liệu</div>
             @endif
@@ -54,10 +69,11 @@
           var id=jQuery(this).attr("data"); // lấy id
           var idTuan=jQuery('#id_tuan').val(); 
           xoaVaRefreshDuLieuTheoId(_token, id, "{{ route('trung-tam-vien-thong-xoa-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan');
+          return false;
       });
 
       var daChotSoLieu={{$daChotSoLieu}};
-      if(daChotSoLieu==1){
+      if(daChotSoLieu>0){
         jQuery('.noi-dung-bao-cao-ke-hoach-tuan').addClass('disabled').attr('disabled', true);
         jQuery('.btn-bao-cao-ke-hoach-tuan').addClass('disabled').attr('disabled', true);
       }else{
@@ -70,6 +86,7 @@
         var id=jQuery(this).attr('data');
         var idTuan=jQuery('#id_tuan').val(); 
         postAndRefreshById(_token, id, "{{ route('trung-tam-vien-thong-bc-is-group-ke-hoach-tuan') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+        return false;
       });
       
 

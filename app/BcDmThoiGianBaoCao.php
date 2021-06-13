@@ -39,24 +39,25 @@ class BcDmThoiGianBaoCao extends Model
 		}
     }
 
+
+    protected static $donVi='';
     public static function kiemTraDaChotSoLieu($idTuan, $donVi){
     	// Kiểm tra đã chốt số liệu hay chưa
-    	$dmThoiGianBaoCao=array();
+    	// $dmThoiGianBaoCao=array();
 		// Kiểm tra lấy theo mã định danh hay lấy theo mã đơn vị
-    	$baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+    	/*$baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
     	if($baoCaoTheoMaDinhDanh==1){
     		$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where('ma_dinh_danh','=',$donVi)->get()->toArray();
     	}else{
     		$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where('ma_don_vi','=',$donVi)->get()->toArray();
-    	}
+    	}*/
+    	BcDmThoiGianBaoCao::$donVi=$donVi;
+    	$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+            $query->where('ma_dinh_danh','=',BcDmThoiGianBaoCao::$donVi)->orWhere('ma_don_vi','=',BcDmThoiGianBaoCao::$donVi);
+        })->get()->toArray();
     	// Nếu có thời gian chốt và trạng thái đã chốt thì đã chốt
     	if(isset($dmThoiGianBaoCao[0]['thoi_gian_chot_so_lieu']) && isset($dmThoiGianBaoCao[0]['trang_thai'])){
-    		if($dmThoiGianBaoCao[0]['thoi_gian_chot_so_lieu'] && $dmThoiGianBaoCao[0]['trang_thai']>0){
-    			return 1; // Đã chốt
-    		}else{
-    			return 0;
-    		}
-    		
+    		return $dmThoiGianBaoCao[0]['trang_thai'];    		
     	}else{
     		return 0;
     	}

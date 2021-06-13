@@ -183,7 +183,7 @@
         <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
         <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
         @if ($laTaiKhoanLanhDao==1)
-          <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu==1) disabled @endif" @if ($daChotSoLieu==1) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
+          <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
         @endif
       </div>
     </div>
@@ -205,7 +205,7 @@
       jQuery('.cap-nhat-bao-cao-tuan-hien-tai').on("keypress", function(e) {
         if (e.keyCode == 13) {
           var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu==1){
+          if(daChotSoLieu>0){
             errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
             return false;
           }
@@ -258,7 +258,7 @@
       jQuery('.cap-nhat-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
         if (e.keyCode == 13) {
           var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu==1){
+          if(daChotSoLieu>0){
             errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
             return false;
           }

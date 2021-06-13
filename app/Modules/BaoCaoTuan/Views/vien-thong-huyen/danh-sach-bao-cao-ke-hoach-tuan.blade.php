@@ -7,7 +7,7 @@
           <th style="width: 10%;">STT #</th>
           <th style="width: 75%;">Nội dung kế hoạch tuần sau</th>
           <th style="width: 15%;">
-              @if ($daChotSoLieu==1)
+              @if ($daChotSoLieu>0)
                   Trạng thái
               @else
                 Xử lý
@@ -73,7 +73,7 @@
       });
 
       var daChotSoLieu={{$daChotSoLieu}};
-      if(daChotSoLieu==1){
+      if(daChotSoLieu>0){
         jQuery('.noi-dung-bao-cao-ke-hoach-tuan').addClass('disabled').attr('disabled', true);
         jQuery('.btn-bao-cao-ke-hoach-tuan').addClass('disabled').attr('disabled', true);
       }else{
