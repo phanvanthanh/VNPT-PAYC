@@ -30,20 +30,7 @@ class TrangChuController extends Controller{
         //         ]
         //     ]);
         // $responseStatus = $r->getStatusCode();
-        // print_r($responseStatus);
-        // die();
-        // Đăng nhập
-        $headers = ['Content-Type' => 'application/json'];
-        $r = $client->request('POST', 'http://vnpt-payc.abc:8080/api/auth/api-dang-nhap', $headers, [
-                'body' =>'{
-                    "email":"minhbn.tvh",
-                    "password":"123456",
-                    "remember_me":true
-                }'
-            ]);
-        $responseStatus = $r->getStatusCode();
-        print_r($responseStatus);
-        die();
+        
         return redirect()->route('payc');
         return view('TrangChu::home');
     }
