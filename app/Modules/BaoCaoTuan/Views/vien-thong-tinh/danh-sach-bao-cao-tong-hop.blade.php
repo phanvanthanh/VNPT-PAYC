@@ -422,8 +422,19 @@
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;  font-size: 14px;">
         <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
         <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        <button type="button" class="btn btn-danger mr-2 btn-gui-nhac-nho-qua-telegram"><i class="fa fa-send"></i> Gửi thông báo nhắc nhở (Qua Telegram)</button>
       </div>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+    jQuery('.btn-gui-nhac-nho-qua-telegram').on('click',function(){
+      var idTuan=jQuery('#id_tuan').val();
+      postAndNotRefreshById(_token, idTuan, "{{ route('vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram') }}", true);
+      return false;
+    });
+  });
+</script>

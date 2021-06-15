@@ -9,9 +9,67 @@ use App\DmThamSoHeThong;
 use App\BcDmThoiGianBaoCao;
 use App\BcDmChiSo;
 use App\UsersDonVi;
+use App\UsersRole;
+use GuzzleHttp\Client;
+
 
 class Helper
 {
+
+    public static function sendTelegramMessage($message){
+        // Gọi api gửi tin nhắn qua Telegram
+        $client = new Client();        
+        $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
+                'form_params' =>[
+                    'chat_id' => '-443889305',
+                    'text' => $message
+                ]
+            ]);        
+        return 1;
+    }
+
+    public static function callApiLogin($message){
+        // Gọi api gửi tin nhắn qua Telegram
+        $client = new Client();
+        $r = $client->request('POST', 'http://10.90.199.89/VNPT-PAYC/api/auth/api-dang-nhap', [
+                'body' => '{
+                            "email":"api.tvh@vnpt.vn",
+                            "password":"123456",
+                            "remember_me":true
+                        }',
+                'headers'   =>[
+                    'Content-Type'      =>'application/json',
+                    'Accept'      =>'application/json'
+                ]
+            ]);
+        $decodeBody=array();
+        if ($r->getStatusCode()==200) {
+            $decodeBody=json_decode($r->getBody(), true);
+            if(!$decodeBody){ // Có trường hợp status thành công mà body thì bị rỗng. VD: bỏ headers
+                $decodeBody= array(
+                    'message'           => 'Đăng nhập thất bại',
+                    'errors'            => 100,
+                    'access_token'      => null,
+                    'token_type'        => null,
+                    'expires_at'        => date('Y-m-d H:i:s')
+                );
+            }
+        }else{
+            $decodeBody= array(
+                'message'           => 'Đăng nhập thất bại',
+                'errors'            => 101,
+                'access_token'      => null,
+                'token_type'        => null,
+                'expires_at'        => date('Y-m-d H:i:s')
+            );
+        }
+        return $decodeBody;
+    }
+
+    public static function checkUserRole($userId, $roleName){
+        $result=UsersRole::checkUserRole($userId, $roleName);
+        return $result;
+    }
     public static function kiemTraTaiKhoanThuocNhomChucVu($userId, $maNhomChucVu){
         $result=UsersDonVi::kiemTraTaiKhoanThuocNhomChucVu($userId, $maNhomChucVu);
         return $result;

@@ -15,6 +15,7 @@ use App\BcDmThoiGianBaoCao;
 use App\BcKeHoachTuan;
 use App\BcDhsxkd;
 use App\Helpers\Helper;
+use GuzzleHttp\Client;
 
 class VienThongTinhController extends Controller{
     /**
@@ -62,8 +63,6 @@ class VienThongTinhController extends Controller{
             $phongBanTrungTams=DonVi::where('parent_id','=',$vienThongTinh['id'])->where(function($query) {
                 $query->where('ma_cap','=','TTCNTT')->orWhere('ma_cap','=','TTDHTT')->orWhere('ma_cap','=','TTKD')->orWhere('ma_cap','=','PHONG');
             })->get()->toArray();
-            // print_r($vienThongTinh['id']);
-            // print_r($phongBanTrungTams);
             $dataPhongBanTrungTams=array();
             foreach ($phongBanTrungTams as $key => $phongBanTrungTam) {
                 $dataPhongBanTrungTams[]=VienThongTinhController::layDuLieuBaoCaoTrungTamTrucThuoc($idTuan, $phongBanTrungTam, $baoCaoTheoMaDinhDanh);
@@ -244,6 +243,101 @@ class VienThongTinhController extends Controller{
             'baoCaoKeHoachTuans'=>$baoCaoKeHoachTuans,
             'trangThaiChotBaoCao'=>$trangThaiChotBaoCao
         );
+    }
+
+
+    public function guiThongBaoNhacNhoQuaTelegram(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id'];
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)<=0){
+                return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+            }
+            $dmTuan=$dmTuan[0];
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'VTT');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $vienThongTinh=$donVi['data'];       
+            
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            // Lấy danh sách đơn vị phòng ban trực thuộc viễn thông tỉnh
+            $phongBanTrungTams=DonVi::where('parent_id','=',$vienThongTinh['id'])->where(function($query) {
+                $query->where('ma_cap','=','TTCNTT')->orWhere('ma_cap','=','TTDHTT')->orWhere('ma_cap','=','TTKD')->orWhere('ma_cap','=','PHONG');
+            })->get()->toArray();
+
+            $dsDonViChuaBaoCao='';
+            $sttChuaGuiBaoCao=0;
+            foreach ($phongBanTrungTams as $key => $phongBanTrungTam) {
+                
+                if($baoCaoTheoMaDinhDanh==1){
+                    $this->ma=$phongBanTrungTam['ma_dinh_danh'];
+                }else{
+                    $this->ma=$phongBanTrungTam['ma_don_vi'];
+                }
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+
+                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Chưa làm báo cáo
+                    $sttChuaGuiBaoCao++;
+                    $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$phongBanTrungTam['ten_don_vi'].'
+        ';
+                }else{
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                        $sttChuaGuiBaoCao++;
+                        $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$phongBanTrungTam['ten_don_vi'].'
+        ';
+                    }
+                }
+            }
+
+
+            // Lấy đơn vị TTVT
+            $ttvts=DonVi::where('ma_cap','=','TTVT')->where('parent_id','=',$vienThongTinh['id'])->get()->toArray();
+            $dataTtvts=array();
+            foreach ($ttvts as $key => $ttvt) {
+                
+                if($baoCaoTheoMaDinhDanh==1){
+                    $this->ma=$ttvt['ma_dinh_danh'];
+                }else{
+                    $this->ma=$ttvt['ma_don_vi'];
+                }
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+
+                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Chưa làm báo cáo
+                    $sttChuaGuiBaoCao++;
+                    $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$ttvt['ten_don_vi'].'
+        ';
+                }else{
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                        $sttChuaGuiBaoCao++;
+                        $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$ttvt['ten_don_vi'].'
+        ';
+                    }
+                }
+            }
+            $noiDungNhacNhoMacDinh=DmThamSoHeThong::getValueByName('BC_NOI_DUNG_NHAC_NHO_MAC_DINH');
+            $noiDungNhacNho=$vienThongTinh['ten_don_vi'].' xin thông báo:
+'.$noiDungNhacNhoMacDinh.'
+        '.$dsDonViChuaBaoCao;       
+            
+            $r = Helper::sendTelegramMessage($noiDungNhacNho);
+            if($r){
+                return array('error'=>""); // Thành công
+            }else{
+                return array('error'=>"Gửi thông báo thất bại"); // Thành công
+            }
+                
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
 
     

@@ -19,29 +19,8 @@ class TrangChuController extends Controller{
         # parent::__construct();
     }
 
-    public function home(Request $request){
-        $client = new Client();
-        
-        // // Telegram
-        // $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
-        //         'form_params' =>[
-        //             'chat_id' => '-520112642',
-        //             'text' => 'Test my bot'
-        //         ]
-        //     ]);
-        // $responseStatus = $r->getStatusCode();
-        
+    public function home(Request $request){       
         return redirect()->route('payc');
         return view('TrangChu::home');
-    }
-
-    public function convertFileToBase64(){
-        // Get the image and convert into string 
-        $file = file_get_contents('http://www.orimi.com/pdf-test.pdf');           
-        // Encode the image string data into base64 
-        $data = base64_encode($file);
-        // Display the output  or send $data
-        echo $data; 
-        return view('TrangChu::trang-chu');
     }
 }

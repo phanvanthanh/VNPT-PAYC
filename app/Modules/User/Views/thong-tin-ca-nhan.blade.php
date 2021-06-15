@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-8 xem-thong-tin-ca-nhan @if($checkError) {{'d-none'}} @endif">
                         <br><br>
-                        <table class="table">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                   <th scope="col">#</th>

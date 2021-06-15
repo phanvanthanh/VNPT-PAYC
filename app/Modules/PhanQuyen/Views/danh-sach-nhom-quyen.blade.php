@@ -1,4 +1,4 @@
-<table id="table-danh-sach-nhom-quyen" class="table table-hover table-danh-sach-nhom-quyen">
+<table id="table-danh-sach-nhom-quyen" class="table table-hover table-striped table-danh-sach-nhom-quyen">
     <thead>
         <tr class="background-vnpt text-center">
             <th>STT #</th>

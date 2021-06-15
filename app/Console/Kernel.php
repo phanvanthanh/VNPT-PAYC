@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\YeuCauGuiBaoCaoCommand::class,
     ];
 
     /**
@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('yeucauguibaocao')->everyMinute();
+        //$schedule->exec('"C:\xampp\php\php.exe" "artisan" yeucauguibaocao > "NUL" 2>&1"')->everyMinute();
     }
 
     /**

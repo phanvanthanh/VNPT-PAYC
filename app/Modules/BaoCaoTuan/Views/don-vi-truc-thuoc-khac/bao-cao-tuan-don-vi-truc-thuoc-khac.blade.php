@@ -182,6 +182,7 @@
           var idTuan=jQuery('#id_tuan').val();
           var form=jQuery(this).parents('form');
           themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+          jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
           return false;
         }
       });
@@ -190,6 +191,7 @@
         var idTuan=jQuery('#id_tuan').val();
         var form=jQuery(this).parents('form');
         themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+        jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
         return false;
       });
 
@@ -207,6 +209,7 @@
           var idTuan=jQuery('#id_tuan').val();
           var form=jQuery(this).parents('form');
           themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+          jQuery('.noi-dung-bao-cao-ke-hoach-tuan').val('');
           return false;
         }
       });
@@ -215,6 +218,7 @@
         var idTuan=jQuery('#id_tuan').val();
         var form=jQuery(this).parents('form');
         themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+        jQuery('.noi-dung-bao-cao-ke-hoach-tuan').val('');
         return false;
       });
 

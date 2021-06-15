@@ -1,4 +1,4 @@
-<table class="table table-hover tbl-danh-sach-dich-vu-theo-tai-khoan" data-ordering="false">
+<table class="table table-hover table-striped tbl-danh-sach-dich-vu-theo-tai-khoan" data-ordering="false">
     <thead>
         <tr class="background-vnpt text-center">
             <!-- <th></th> -->

@@ -1,4 +1,4 @@
-<table id="order-listing" class="table table-hover" data-ordering="false">
+<table id="order-listing" class="table table-hover table-striped" data-ordering="false">
     <thead>
         <tr class="background-vnpt text-center">
             <!-- <th></th> -->

@@ -365,6 +365,7 @@
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;  font-size: 14px;">
         <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
         <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        <button type="button" class="btn btn-danger mr-2 btn-gui-nhac-nho-qua-telegram"><i class="fa fa-send"></i> Gửi thông báo nhắc nhở (Qua Telegram)</button>
         @if ($laTaiKhoanLanhDao==1)
           <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
         @endif
@@ -479,6 +480,14 @@
           e.preventDefault();
           return false;
         }
+      });
+
+
+      jQuery('.btn-gui-nhac-nho-qua-telegram').on('click',function(){
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();   
+        var idTuan=jQuery('#id_tuan').val();
+        postAndNotRefreshById(_token, idTuan, "{{ route('trung-tam-vien-thong-gui-thong-bao-nhac-nho-qua-telegram') }}", true);
+        return false;
       });
 
 

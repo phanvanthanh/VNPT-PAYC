@@ -14,6 +14,7 @@ use App\BcDmTuan;
 use App\BcDmThoiGianBaoCao;
 use App\BcKeHoachTuan;
 use App\BcDhsxkd;
+use GuzzleHttp\Client;
 
 class TrungTamVienThongController extends Controller{
     /**
@@ -1025,6 +1026,73 @@ class TrungTamVienThongController extends Controller{
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+    public function guiThongBaoNhacNhoQuaTelegram(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id'];
+
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'TTVT');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $donVi=$donVi['data'];        
+            
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            // Tổng hợp số liệu của các tổ (huyện)
+            $danhSachDonVis=DonVi::all()->toArray();
+            $dsDonViCons=\Helper::layDonViConTheoMaCap($danhSachDonVis, $donVi['id'], 'HUYEN');
+
+            $dsDonViChuaBaoCao='';
+            $sttChuaGuiBaoCao=0;
+            foreach ($dsDonViCons as $key => $donViCon) {  
+                
+                if($baoCaoTheoMaDinhDanh==1){
+                    $this->ma=$donViCon['ma_dinh_danh'];
+                }else{
+                    $this->ma=$donViCon['ma_don_vi'];
+                }
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->get()->toArray();
+
+                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Chưa làm báo cáo
+                    $sttChuaGuiBaoCao++;
+                    $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$donViCon['ten_don_vi'].'
+        ';
+                }else{
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                        $sttChuaGuiBaoCao++;
+                        $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$donViCon['ten_don_vi'].'
+        ';
+                    }
+                }
+            }
+            
+            $noiDungNhacNhoMacDinh=DmThamSoHeThong::getValueByName('BC_NOI_DUNG_NHAC_NHO_MAC_DINH');
+            $noiDungNhacNho= $donVi['ten_don_vi'].' xin thông báo:
+'.$noiDungNhacNhoMacDinh.'
+        '.$dsDonViChuaBaoCao;
+
+            // Gọi api gửi tin nhắn qua Telegram
+            $client = new Client();        
+            
+            $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
+                    'form_params' =>[
+                        'chat_id' => '-443889305',
+                        'text' => $noiDungNhacNho
+                    ]
+                ]);
+            $responseStatus = $r->getStatusCode();
+            return array('error'=>""); // Thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
     
     

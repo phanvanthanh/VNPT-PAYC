@@ -1,4 +1,4 @@
-    <table id="order-listing" class="table table-hover">
+    <table id="order-listing" class="table table-hover table-striped">
         <thead>
             <tr class="background-vnpt text-center">
                 <th>STT #</th>

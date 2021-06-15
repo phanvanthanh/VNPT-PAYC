@@ -5,7 +5,7 @@ use App\ChucDanh;
 use App\ChucVu;
 $userDV = UsersDonVi::where('id_user','=',$idUser)->get()->toArray();
 @endphp
-<table id="tblUserDonVi" class="table table-hover">
+<table id="tblUserDonVi" class="table table-hover table-striped">
     <thead>
         <tr class="background-vnpt text-center">
             <th>STT</th>

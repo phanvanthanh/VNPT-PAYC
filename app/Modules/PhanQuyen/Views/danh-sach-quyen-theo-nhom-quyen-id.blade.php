@@ -1,4 +1,4 @@
-<table id="table-danh-sach-tai-nguyen" class="table table-hover table-danh-sach-tai-nguyen">
+<table id="table-danh-sach-tai-nguyen" class="table table-hover table-striped table-danh-sach-tai-nguyen">
     <thead>
         <tr class="background-vnpt text-center">
             <th>STT</th>

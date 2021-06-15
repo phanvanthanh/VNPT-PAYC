@@ -304,6 +304,12 @@ Route::group(
                     'uses' => 'TrungTamVienThongController@layDuLieuTuKeHoachTuan'
                 ]);
 
+                // Báo cáo tổng hợp
+                Route::post('trung-tam-vien-thong-gui-thong-bao-nhac-nho-qua-telegram', [
+                    'as' => 'trung-tam-vien-thong-gui-thong-bao-nhac-nho-qua-telegram',
+                    'uses' => 'TrungTamVienThongController@guiThongBaoNhacNhoQuaTelegram'
+                ]);
+
             });
 
                 
@@ -330,6 +336,12 @@ Route::group(
                 Route::post('vien-thong-tinh-danh-sach-bao-cao-tong-hop', [
                     'as' => 'vien-thong-tinh-danh-sach-bao-cao-tong-hop',
                     'uses' => 'VienThongTinhController@danhSachBaoCaoTongHop'
+                ]);
+
+                // Báo cáo tổng hợp
+                Route::post('vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram', [
+                    'as' => 'vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram',
+                    'uses' => 'VienThongTinhController@guiThongBaoNhacNhoQuaTelegram'
                 ]);
 
             });

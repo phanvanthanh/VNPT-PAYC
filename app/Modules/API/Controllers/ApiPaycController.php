@@ -18,6 +18,10 @@ use App\UsersDonVi;
 use App\DmThamSoHeThong;
 use App\DichVu;
 use App\PaycCanBoNhan;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
+
 class ApiPaycController extends Controller
 {
     
@@ -225,6 +229,35 @@ class ApiPaycController extends Controller
                 'data'      => $paycs
             ]
         );
+    }
+
+
+    public function getFile(Request $request){
+        $request->validate([
+            'file'               => 'required|string'
+        ]);
+        //$file = file_get_contents('http://www.orimi.com/pdf-test.pdf'); 
+        if (file_exists(storage_path('app/public/file/payc/'.$request->file))) {
+            $file=File::get(storage_path('app/public/file/payc/'.$request->file));
+            // Encode the image string data into base64 
+            $data = base64_encode($file);
+            // Display the output  or send $data
+            $result=array(
+                'error'=>0,
+                'message'   => 'Lấy dữ liệu thành công',
+                'file'  =>$request->file,
+                'data'  =>$data
+            );
+        }else{
+            $result=array(
+                'error'=>1,
+                'message'   => 'Lấy dữ liệu thất bại',
+                'file'  =>$request->file,
+                'data'  =>null
+            );
+        }
+            
+        return response()->json($result);
     }
 }
 ?>

@@ -3,7 +3,7 @@
     {{ csrf_field() }}
     <input type="hidden" name="user_id" value="{{$idUser}}">
 </form>
-<table class="table table-hover">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th></th>

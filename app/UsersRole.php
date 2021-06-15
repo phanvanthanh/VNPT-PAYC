@@ -30,4 +30,16 @@ class UsersRole extends Authenticatable
         }
         return $result;
     }
+
+    public static function checkUserRole($userId, $roleName){
+        $data=UsersRole::select('users_role.role_id','admin_role.role_name')
+        ->leftJoin('admin_role','users_role.role_id','=','admin_role.id')
+        ->where("users_role.user_id",'=',$userId)
+        ->where("admin_role.role_name",'=',$roleName)
+        ->get()->toArray();
+        if (count($data)>0) {
+            return 1;
+        }
+        return 0;
+    }
 }
