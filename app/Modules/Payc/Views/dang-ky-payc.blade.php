@@ -138,7 +138,7 @@
 	  	}
 	  	var moTa=jQuery('.note-editable').html();
 	  	jQuery('#noi_dung').val(moTa);
-	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('luu-dang-ky-payc') }}");
+	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('luu-dang-ky-payc') }}",true);
 	  });
 
 	  	

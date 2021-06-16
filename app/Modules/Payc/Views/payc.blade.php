@@ -163,7 +163,7 @@
 	  	}
 	  	var moTa=jQuery('.note-editable').html();
 	  	jQuery('#noi_dung').val(moTa);
-	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('them-payc') }}");
+	      themMoiKhongRefreshDuLieu(_token, $("form#frm-them-moi"), "{{ route('them-payc') }}",true);
 	  });
 
 	  	

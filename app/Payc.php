@@ -146,7 +146,7 @@ class Payc extends Authenticatable
     public static function getDanhSachPaycCuaToi($userId){
         $data=array();
         $data=DB::select('SELECT cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat,
-            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, cbxl.state, ttxl.ma_trang_thai, ttxl.ten_trang_thai_xu_ly, u.name
+            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, cbxl.state, ttxl.ma_trang_thai, ttxl.ten_trang_thai_xu_ly, u.name, p.ma_phuong_xa, p.vi_do, p.kinh_do
             from payc as p
             left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
             left join dich_vu as dv on p.id_dich_vu=dv.id
