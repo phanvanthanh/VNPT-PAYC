@@ -48,7 +48,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-      <button type="button" class="btn btn-danger mr-2 btn-don-vi-truc-thuoc-khac-lay-so-lieu-bao-cao-dhsxkd @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
+      <button type="button" class="btn btn-danger mr-2 btn-don-vi-truc-thuoc-khac-lay-so-lieu-bao-cao-dhsxkd disabled @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif disabled="disabled"><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
     </div>
   </div>
 </div>

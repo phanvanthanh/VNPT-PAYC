@@ -102,7 +102,7 @@ class Helper
         $date = date('Y-m-d', $tmp);
         }
         $week = date('W', strtotime($date));
-        return $week;
+        return $week+2;
     }
     public static function getValueThamSoTheoMa($maThamSo){
         $value=DmThamSoHeThong::getValueByName($maThamSo);

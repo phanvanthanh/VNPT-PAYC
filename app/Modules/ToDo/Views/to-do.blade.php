@@ -6,7 +6,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-6">
-          <h4 class="text-danger">DANH MỤC TO DO</h4>
+          <h4 class="text-danger">TO DO LIST</h4>
         </div>
         <div class="col-6">
           <div class="error-mode float-right"></div> 

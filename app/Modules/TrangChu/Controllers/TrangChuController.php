@@ -20,7 +20,7 @@ class TrangChuController extends Controller{
     }
 
     public function home(Request $request){       
-        return redirect()->route('payc');
+        return redirect()->route('to-do');
         return view('TrangChu::home');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.index')
 @section('title', 'Trang chủ')
 @section('content')
-	<div class="col-lg-12">
+	{{-- <div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">
 	          	<div class="row">
@@ -14,7 +14,7 @@
                 </div>
 	        </div>
 	    </div>
-    </div>
+    </div> --}}
 
 
     <script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
