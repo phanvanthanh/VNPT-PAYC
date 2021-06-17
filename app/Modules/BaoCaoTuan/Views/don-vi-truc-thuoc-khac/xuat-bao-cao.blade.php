@@ -99,7 +99,7 @@
       @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
           @php
             if($baoCaoKeHoachTuan['is_group']==2){
-              echo "<div style='margin-left:30px;margin-top:2; line-height: 2;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==1){
               echo "<div style='margin-left:40px;margin-top:2; line-height: 2;'>&plus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
