@@ -252,6 +252,11 @@ class VienThongTinhController extends Controller{
             if(Auth::id()){
                 $userId=Auth::id();
             }
+            $checkQuyenGuiTbQuaTelegram=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'GUI_THONG_BAO_QUA_TELEGRAM'); 
+            if(!$checkQuyenGuiTbQuaTelegram){
+                return array('error'=>"Lỗi bạn không có quyền gửi thông báo qua Telegram.");
+            }
+            
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id'];
             $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();

@@ -18,6 +18,11 @@
                   $week=\Helper::layTuanHienTai();
                   $year=date('Y');
                   $daVuotThoiGianBaoCao=0;
+
+                  $checkQuyenBaoCaoTuanHienTai=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_TUAN_HIEN_TAI');
+                  $checkQuyenBaoCaoKeHoachTuan=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_KE_HOACH_TUAN');
+                  $checkQuyenBaoCaoDhsxkd=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
+                  $checkQuyenXemBaoCaoTongHop=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TONG_HOP');
                 @endphp
                 
                 <div class="row user-profile">
@@ -37,26 +42,33 @@
                             </form>
                           </h4>
                           <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
-                            
+                            @if ($checkQuyenBaoCaoTuanHienTai==1)
+                              <li class="nav-item">
+                                <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">Báo cáo tuần này</a>
+                              </li>
+                            @endif
+                            @if ($checkQuyenBaoCaoKeHoachTuan==1)
+                              <li class="nav-item">
+                                <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">Kế hoạch tuần kế</a>
+                              </li>
+                            @endif
+                            @if ($checkQuyenBaoCaoDhsxkd==1)
                             <li class="nav-item">
-                              <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">Báo cáo tuần này</a>
+                              <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
                             </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">Kế hoạch tuần kế</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">Tổng hợp từ các phần mềm</a>
-                            </li>
+                            @endif
+                            @if ($checkQuyenXemBaoCaoTongHop==1)
                             <li class="nav-item">
                               <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Duyệt & Gửi báo cáo</a>
                             </li>
+                            @endif
                           </ul>
                         </div>
                         <div class="wrapper">
                           <hr>
                           <div class="tab-content" id="myTabContent"  style="min-height: 100%;">
-                            
-                              
+
+                            @if ($checkQuyenBaoCaoTuanHienTai==1)                              
                             <div class="tab-pane fade show active" id="bao-cao-tuan-hien-tai" role="tabpanel" aria-labelledby="bao-cao-tuan-hien-tai-tab">
                               <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
                                 {{ csrf_field() }}
@@ -82,6 +94,8 @@
                                 </div>
                               </form>
                             </div>
+                            @endif
+                            @if ($checkQuyenBaoCaoKeHoachTuan==1)
                             <div class="tab-pane fade" id="bao-cao-ke-hoach-tuan" role="tabpanel" aria-labelledby="bao-cao-ke-hoach-tuan-tab">
                               <form class="forms-sample frm-bao-cao-ke-hoach-tuan" id="frm-bao-cao-ke-hoach-tuan" name="frm-bao-cao-ke-hoach-tuan">
                                 {{ csrf_field() }}
@@ -105,6 +119,8 @@
                                 </div>
                               </form>
                             </div>
+                            @endif
+                            @if ($checkQuyenBaoCaoDhsxkd==1)
                             <div class="tab-pane fade" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
                               <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -113,6 +129,8 @@
                                 </div>
                               </div>                                  
                             </div>
+                            @endif
+                            @if ($checkQuyenXemBaoCaoTongHop==1)
                             <div class="tab-pane fade" id="chot-va-gui-bao-cao" role="tabpanel" aria-labelledby="chot-va-gui-bao-cao-tab">
                               <div class="row">
                                 <div class="col-12">
@@ -122,6 +140,7 @@
                                 </div>
                               </div>                              
                             </div>
+                            @endif
                           </div>
                         </div>
                       </div>

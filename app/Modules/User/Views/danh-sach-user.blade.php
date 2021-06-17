@@ -30,7 +30,7 @@
                 <td class="text-center">                    
                     {{$user['di_dong']}}
                 </td>
-                <td>
+                <td class="text-danger">
                     @php
                         $donVis=Helper::layDanhSachDonViTheoUserId($user['id']);
                         foreach($donVis as $donVi){
@@ -38,7 +38,7 @@
                         }
                     @endphp
                 </td>
-                <td>
+                <td class="font-weight-bold">
                     @php
                         foreach($donVis as $donVi){
                             echo $donVi['ten_don_vi'].' - '.$donVi['ten_don_vi_cha'].'<br>';
@@ -77,6 +77,10 @@
                                 </p>
                             </a>
                             <a class="dropdown-item preview-item">
+                                <p class="mb-0 font-weight-normal float-left text-primary btn-cau-hinh-quyen-bao-cao" data="{{$user['id']}}"><b><i class="fa fa-gear"></i> Cấu hình quyền báo cáo tuần</b>
+                                </p>
+                            </a>
+                            <a class="dropdown-item preview-item">
                                 <p class="mb-0 font-weight-normal float-left text-primary btn-phan-quyen-can-bo" data="{{$user['id']}}"><b><i class="fa fa-cogs"></i> Phân quyền</b>
                                 </p>
                             </a>
@@ -101,7 +105,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header background-vnpt">
-                  <h5 class="modal-title">SỬA NHÓM QUYỀN</h5>
+                  <h5 class="modal-title">CẬP NHẬT TÀI KHOẢN</h5>
                   
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -175,14 +179,39 @@
                 </button>
             </div>
             <div class="modal-body card">
-            <form class="forms-sample frm-cau-hinh-dich-vu" id="frm-cau-hinh-dich-vu" name="frm-cau-hinh-dich-vu">
-                {{ csrf_field() }}
-            </form>
+                <form class="forms-sample frm-cau-hinh-dich-vu" id="frm-cau-hinh-dich-vu" name="frm-cau-hinh-dich-vu">
+                    {{ csrf_field() }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
+
+<div class="modal fade" id="modal-cau-hinh-quyen-bao-cao" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-quyen-bao-cao" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header background-vnpt">
+                <h5 class="modal-title">CẤU HÌNH QUYỀN BÁO CÁO TUẦN</h5>
+              
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card">
+            <form class="forms-sample frm-cau-hinh-quyen-bao-cao" id="frm-cau-hinh-quyen-bao-cao" name="frm-cau-hinh-quyen-bao-cao">
+                {{ csrf_field() }}
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -252,6 +281,18 @@
         });
 
         $('#modal-cau-hinh-dich-vu').on('hide.bs.modal', function () {
+            location.reload();
+        });
+
+
+        // Cấu hình quyền báo cáo
+        jQuery('.btn-cau-hinh-quyen-bao-cao').on('click',function(){ 
+            var id=jQuery(this).attr("data");
+            getById(_token, id, "{{ route('user-permison-report-single') }}", ".frm-cau-hinh-quyen-bao-cao");
+            $('#modal-cau-hinh-quyen-bao-cao').modal('show');
+        });
+
+        $('#modal-cau-hinh-quyen-bao-cao').on('hide.bs.modal', function () {
             location.reload();
         });
     });

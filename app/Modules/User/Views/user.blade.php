@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH USER</h4>
+                    <h4 class="text-danger">DANH SÁCH TÀI KHOẢN</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -32,7 +32,7 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header background-vnpt">
-                  <h5 class="modal-title">TẠO MỚI USER</h5>
+                  <h5 class="modal-title">TẠO TÀI KHOẢN</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>

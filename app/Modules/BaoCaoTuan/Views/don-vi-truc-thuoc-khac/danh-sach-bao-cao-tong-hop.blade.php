@@ -6,7 +6,10 @@
   $tuNgay = date('d/m/Y',$tuNgay);
   $denNgay = strtotime($dmTuan['den_ngay']);
   $denNgay = date('d/m/Y',$denNgay);
-  $laTaiKhoanLanhDao=\Helper::kiemTraTaiKhoanThuocNhomChucVu($userId, 'LANH_DAO');
+  $checkQuyenDuyetVaGuiBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
+  $checkQuyenXuatWord=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO_SANG_WORD');
+  $checkQuyenInBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'IN_BAO_CAO');
+   
 @endphp
 <input type="hidden" name="da_chot_so_lieu" class="da-chot-so-lieu" value="{{$daChotSoLieu}}">
 <div class="noi-dung-bao-cao-tong-hop">
@@ -180,9 +183,13 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-        <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
-        @if ($laTaiKhoanLanhDao==1)
+        @if ($checkQuyenXuatWord==1)
+          <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
+        @endif
+        @if ($checkQuyenInBaoCao==1)
+          <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        @endif
+        @if ($checkQuyenDuyetVaGuiBaoCao==1)
           <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
         @endif
       </div>

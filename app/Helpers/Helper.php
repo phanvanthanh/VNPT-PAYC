@@ -11,10 +11,16 @@ use App\BcDmChiSo;
 use App\UsersDonVi;
 use App\UsersRole;
 use GuzzleHttp\Client;
+use App\BcPhanQuyenBaoCao;
 
 
 class Helper
 {
+
+    public static function kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, $maQuyenBaoCao){
+        $data=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, $maQuyenBaoCao);
+        return $data;
+    }
 
     public static function sendTelegramMessage($message){
         // Gọi api gửi tin nhắn qua Telegram

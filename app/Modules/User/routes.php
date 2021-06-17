@@ -93,5 +93,16 @@ Route::group(
             'as' => 'xoa-user-dich-vu',
             'uses' => 'UserController@xoaUserDichVu'
         ]);
+
+
+        Route::post('user-permison-report-single', [
+            'as' => 'user-permison-report-single',
+            'uses' => 'UserController@userPermisionReportSingle'
+        ]);
+
+        Route::post('update-permision-report-user', [
+            'as' => 'update-permision-report-user',
+            'uses' => 'UserController@updatePermisionReportUser'
+        ]);
     }
 );

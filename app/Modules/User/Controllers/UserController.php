@@ -17,6 +17,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\UsersRole;
 use App\DichVu;
 use App\UsersDichVu;
+use App\BcDmQuyenBaoCaoTuan;
+use App\BcPhanQuyenBaoCao;
 use Request as RequestAjax;
 
 
@@ -374,5 +376,43 @@ class UserController extends Controller{
             
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
+    }
+
+
+    public function userPermisionReportSingle(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            // Khai báo các dữ liệu bên form cần thiết
+            $error='';
+            $dataForm=RequestAjax::all(); $data=array();
+            $dmQuyenBaoCaos=BcDmQuyenBaoCaoTuan::where('trang_thai','=',1)->get()->toArray();
+
+
+            $userId=$dataForm['id'];
+            // Kiểm tra dữ liệu không hợp lệ
+            if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
+                $data = BcPhanQuyenBaoCao::layDanhSachQuyenTheoUserId($dataForm['id']); // kiểm tra dữ liệu trong DB
+            }            
+            $view=view('User::user-permision-report-single', compact('error', 'userId', 'dmQuyenBaoCaos', 'data'))->render(); // Trả dữ liệu ra view trước     
+            return response()->json(['html'=>$view, 'error'=>$error]); // return dữ liệu về AJAX sau
+        }
+        return array('error'=>"Không tìm thấy phương thức truyền dữ liệu"); // return dữ liệu về AJAX
+    }
+
+    public function updatePermisionReportUser(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $userId=$data['user_id'];
+            $idDmQuyenBaoCao=$data['id_dm_quyen_bao_cao'];
+            if($data['check']==1){
+                BcPhanQuyenBaoCao::where('user_id','=',$userId)->where('id_dm_quyen_bao_cao','=',$idDmQuyenBaoCao)->delete();
+                $quyen=BcPhanQuyenBaoCao::create($data);
+            }else{
+                BcPhanQuyenBaoCao::where('user_id','=',$userId)->where('id_dm_quyen_bao_cao','=',$idDmQuyenBaoCao)->delete();
+            }
+                
+            //print_r($data);
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 }

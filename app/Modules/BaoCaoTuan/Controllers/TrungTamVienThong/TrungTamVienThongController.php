@@ -1038,6 +1038,12 @@ class TrungTamVienThongController extends Controller{
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id'];
 
+            $checkQuyenGuiTbQuaTelegram=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'GUI_THONG_BAO_QUA_TELEGRAM'); 
+            if(!$checkQuyenGuiTbQuaTelegram){
+                return array('error'=>"Lỗi bạn không có quyền gửi thông báo qua Telegram.");
+            }
+
+
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'TTVT');
             if ($donVi['error']>0) {
                 return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
