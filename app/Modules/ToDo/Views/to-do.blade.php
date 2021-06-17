@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Danh mục to do')
+@section('title', 'To do list')
 @section('content')
 <div class="col-12">
   <div class="card">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <br>
-      <div class="table-responsive load-danh-sach">
+      <div class="load-danh-sach">
                 
       </div>
     </div>

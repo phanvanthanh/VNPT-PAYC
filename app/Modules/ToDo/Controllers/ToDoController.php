@@ -30,8 +30,11 @@ class ToDoController extends Controller{
     public function danhSachToDo(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-
-            $toDos=ToDo::orderBy('sap_xep', 'asc')->get()->toArray();
+            $userId=0;
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $toDos=ToDo::orderBy('sap_xep', 'asc')->where('id_user','=',$userId)->get()->toArray();
             $view=view('ToDo::danh-sach-to-do', compact('toDos','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }

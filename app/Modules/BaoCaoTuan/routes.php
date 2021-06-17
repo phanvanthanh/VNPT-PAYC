@@ -198,6 +198,12 @@ Route::group(
                     'as' => 'don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop',
                     'uses' => 'DonViTrucThuocKhacController@danhSachBaoCaoTongHop'
                 ]);
+
+
+                Route::get('xuat-bao-cao', [
+                    'as' => 'don-vi-truc-thuoc-khac-xuat-bao-cao',
+                    'uses' => 'DonViTrucThuocKhacController@xuatBaoCao'
+                ]);
             });
 
                 

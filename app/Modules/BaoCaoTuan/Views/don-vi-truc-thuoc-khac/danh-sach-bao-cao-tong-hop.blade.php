@@ -7,8 +7,7 @@
   $denNgay = strtotime($dmTuan['den_ngay']);
   $denNgay = date('d/m/Y',$denNgay);
   $checkQuyenDuyetVaGuiBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
-  $checkQuyenXuatWord=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO_SANG_WORD');
-  $checkQuyenInBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'IN_BAO_CAO');
+  $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
    
 @endphp
 <input type="hidden" name="da_chot_so_lieu" class="da-chot-so-lieu" value="{{$daChotSoLieu}}">
@@ -75,16 +74,17 @@
           </form>
         @endforeach
       </ul>
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">2. Báo cáo số liệu ĐHSXKD
-        @if ($daChotSoLieu==0)
-          <i class="list-menu-nhanh d-none">
-            <i class="fa fa-refresh text-primary cusor btn-lay-so-lieu-bao-cao-dhsxkd"></i>
-          </i>
-        @endif
-      </div>
-        <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div>
+          <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 35px;"><i class='fa fa-minus' style="margin-right:10px;"></i>Báo cáo số liệu PAKN
+            @if ($daChotSoLieu==0)
+              <i class="list-menu-nhanh d-none">
+                <i class="fa fa-refresh text-primary cusor btn-lay-so-lieu-bao-cao-dhsxkd"></i>
+              </i>
+            @endif
+          </div>
+        
           @if (count($baoCaoPakns)>0)
-            <div style="margin-left: 40px; margin-bottom: 30px;">
+            {{-- <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div> --}}
+            <div style="margin-left: 40px; margin-bottom: 35px;">
               <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
                 <thead>
                     <tr class="background-vnpt text-center">
@@ -124,7 +124,7 @@
 
 
 
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">3. Kế hoạch tuần tiếp theo
+      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">2. Kế hoạch tuần tiếp theo
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
             <i class="fa fa-plus-circle text-primary cusor click-view-form" data-click-view-form="#frm-bao-cao-ke-hoach-tuan-2"></i>
@@ -183,11 +183,8 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-        @if ($checkQuyenXuatWord==1)
-          <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        @endif
-        @if ($checkQuyenInBaoCao==1)
-          <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+         @if ($checkQuyenXuatBaoCao==1)
+          <button type="button" class="btn btn-vnpt mr-2 btn-xuat-bao-cao"><i class="fa fa-upload"></i> Xuất báo cáo</button>
         @endif
         @if ($checkQuyenDuyetVaGuiBaoCao==1)
           <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
@@ -200,6 +197,8 @@
 
 
 <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/js/export-word/FileSaver.js') }}"></script>
+<script type="text/javascript" src="{{ asset('public/js/export-word/jquery.wordexport.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery('.btn-chot-va-gui-bao-cao').on('click',function(){
@@ -304,6 +303,13 @@
           e.preventDefault();
           return false;
         }
+      });
+
+      $('.btn-xuat-bao-cao').on('click',function(){
+          //$(".noi-dung-bao-cao-tong-hop").wordExport('URD');  
+          var idTuan=jQuery('#id_tuan').val();
+          var url="{{ route('don-vi-truc-thuoc-khac-xuat-bao-cao') }}"+"?tuan="+idTuan;
+          location.href = url;
       });
 
 

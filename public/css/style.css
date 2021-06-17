@@ -26027,7 +26027,8 @@ dl li {
 }
 
 .list-wrapper ul li .form-check {
-  max-width: 90%;
+  max-width: 100%;
+  /*max-width: 90%;*/
 }
 
 .list-wrapper input[type="checkbox"] {

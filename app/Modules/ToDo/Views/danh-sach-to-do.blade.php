@@ -61,18 +61,6 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        $.fn.dataTable.ext.errMode = 'none';
-        $('.table').dataTable({
-            aLengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, "All"]
-            ],
-            iDisplayLength: -1,
-            lengthChange: true
-        });
-
-
-
         var _token=jQuery('#modal-cap-nhat').find("input[name='_token']").val();
 
         /*Sự kiện bấm vào dòng cần sửa*/

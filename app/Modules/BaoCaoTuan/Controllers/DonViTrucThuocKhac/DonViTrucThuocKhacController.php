@@ -75,7 +75,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
                     if(count($nhomDichVuBaoCao)>0){
                         $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        if($dichVu){
+                        if(trim($dichVu," ")!=''){
                             $dataBaoCaoTuan=array();
                             $dataBaoCaoTuan['id_tuan']=$idTuan;
                             $dataBaoCaoTuan['id_user_bao_cao']=$userId;
@@ -139,22 +139,24 @@ class DonViTrucThuocKhacController extends Controller{
             if($daChoSoLieu==1){
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
-
-            $dataBaoCaoTuan=array();
-            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-            $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
-            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-            $dataBaoCaoTuan['ghi_chu']=null;
-            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-            $dataBaoCaoTuan['trang_thai']=0;
-            $dataBaoCaoTuan['is_group']=0;
-            $dataBaoCaoTuan['sap_xep']=0;
-            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-            $sapXep=$userId.$baoCaoTuan->sap_xep;
-            $baoCaoTuan->sap_xep=$sapXep;
-            $baoCaoTuan->save();
+            $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=0;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+            }                
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -305,7 +307,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
                     if(count($nhomDichVuBaoCao)>0){
                         $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        if($dichVu){
+                        if(trim($dichVu," ")!=''){
                             $dataBaoCaoTuan=array();
                             $dataBaoCaoTuan['id_tuan']=$idTuan;
                             $dataBaoCaoTuan['id_user_bao_cao']=$userId;
@@ -367,21 +369,25 @@ class DonViTrucThuocKhacController extends Controller{
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
 
-            $dataBaoCaoTuan=array();
-            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-            $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
-            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-            $dataBaoCaoTuan['ghi_chu']=null;
-            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-            $dataBaoCaoTuan['trang_thai']=0;
-            $dataBaoCaoTuan['is_group']=0;
-            $dataBaoCaoTuan['sap_xep']=0;
-            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-            $sapXep=$userId.$baoCaoTuan->sap_xep;
-            $baoCaoTuan->sap_xep=$sapXep;
-            $baoCaoTuan->save();
+
+            $checkExits=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=0;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+            }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -709,6 +715,12 @@ class DonViTrucThuocKhacController extends Controller{
             if(Auth::id()){
                 $userId=Auth::id();
             }
+            $checkQuyenDuyetVaGuiBaoCao=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
+            if(!$checkQuyenDuyetVaGuiBaoCao){
+                return array('error'=>"Lỗi bạn không có quyền cập nhật số liệu báo cáo ĐHSXKD.");
+            }
+
+
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id'];
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
@@ -1041,6 +1053,101 @@ class DonViTrucThuocKhacController extends Controller{
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+
+    // Chốt và gửi báo cáo tổng hợp
+    public function xuatBaoCao(Request $request){
+        $userId=0; $error=''; // Khai báo biến
+        if(Auth::id()){
+            $userId=Auth::id();
+        }
+        $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+        $idTuan=$data['tuan'];
+        $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+        if(count($dmTuan)<=0){
+            return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+        }
+        $dmTuan=$dmTuan[0];
+        $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
+        if ($donVi['error']>0) {
+            return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+        }
+        $donVi=$donVi['data'];       
+        
+        $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+        $ma=''; // Mã đơn vị hay mã định danh
+        $baoCaoTuanHienTais=array();
+
+        $idThoiGianBaoCaoDhsxkd=0; $baoCaoPakns=array();
+        $thoiGianLaySoLieu='';
+        if($baoCaoTheoMaDinhDanh==1){
+            $ma=$donVi['ma_dinh_danh'];
+        }else{ // Ngược lại báo cáo theo mã đơn vị
+            $ma=$donVi['ma_don_vi'];
+        }
+        $this->ma=$ma;
+        // ĐHSXKD
+            $idThoiGianBaoCaoDhsxkd=0;
+            $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+            })->get()->toArray();
+            if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
+                $dataDmThoiGianBaoCao=array();
+                $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
+                $dataDmThoiGianBaoCao['ghi_chu']=null;
+                $dataDmThoiGianBaoCao['trang_thai']=0;
+                $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
+                $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
+                $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
+            }else{ //Ngược lại thì chốt
+                $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
+                $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
+            }
+        // End DHSXKD
+        
+        $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
+        if($checkQuyenXemBaoCaoToanDonVi===1){                
+            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+
+            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+        }else{
+            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+
+            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+        }
+        $checkQuyenBaoCaoDhsxkd=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
+        if($checkQuyenBaoCaoDhsxkd==1){
+            $baoCaoPakns=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PAKN');
+        }else{
+            $baoCaoPakns=array();
+        }
+        
+        return view('BaoCaoTuan::don-vi-truc-thuoc-khac.xuat-bao-cao', compact('baoCaoPakns', 'baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'userId')); // Trả dữ liệu ra view 
     }
     
     

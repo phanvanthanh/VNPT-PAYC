@@ -99,21 +99,25 @@ class VienThongHuyenController extends Controller{
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
 
-            $dataBaoCaoTuan=array();
-            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-            $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
-            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-            $dataBaoCaoTuan['ghi_chu']=null;
-            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-            $dataBaoCaoTuan['trang_thai']=0;
-            $dataBaoCaoTuan['is_group']=0;
-            $dataBaoCaoTuan['sap_xep']=0;
-            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-            $sapXep=$userId.$baoCaoTuan->sap_xep;
-            $baoCaoTuan->sap_xep=$sapXep;
-            $baoCaoTuan->save();
+
+            $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=0;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+            }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -370,21 +374,25 @@ class VienThongHuyenController extends Controller{
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
 
-            $dataBaoCaoTuan=array();
-            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-            $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
-            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-            $dataBaoCaoTuan['ghi_chu']=null;
-            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-            $dataBaoCaoTuan['trang_thai']=0;
-            $dataBaoCaoTuan['is_group']=0;
-            $dataBaoCaoTuan['sap_xep']=0;
-            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-            $sapXep=$userId.$baoCaoTuan->sap_xep;
-            $baoCaoTuan->sap_xep=$sapXep;
-            $baoCaoTuan->save();
+
+            $checkExits=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=0;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+            }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu

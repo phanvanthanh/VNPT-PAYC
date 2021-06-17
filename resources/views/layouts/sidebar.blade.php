@@ -52,7 +52,7 @@
                            </div>
                            <div class="profile-name">
                               <p class="name ten-phan-mem">
-                                 <b>PAKN VÀ YÊU CẦU HỖ TRỢ</b>
+                                 {{-- <b>PAKN VÀ YÊU CẦU HỖ TRỢ</b> --}}
                               </p>
                               <p class="designation">
                                  @if($user)

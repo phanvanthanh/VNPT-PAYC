@@ -70,10 +70,9 @@
 
       <script src="{{ asset('public/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
       <script src="{{ asset('public/js/toastDemo.js') }}"></script>
-      <!-- <script src="{{ asset('public/js/desktop-notification.js') }}"></script> -->
 
-     <!--  <script type="text/javascript" src="{{ asset('public/js/dragula.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/dragula/dragula.min.js') }}"></script> -->
+      <script src="{{ asset('public/js/export-word/FileSaver.js') }}"></script>
+      <script src="{{ asset('public/js/export-word/jquery.wordexport.js') }}"></script>
 
       <script type="text/javascript">
          jQuery(document).ready(function(){     
