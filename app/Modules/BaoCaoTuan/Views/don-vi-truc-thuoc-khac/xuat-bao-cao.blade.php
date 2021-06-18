@@ -51,16 +51,16 @@
           
             if($baoCaoTuanHienTai['is_group']==3){
               $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             elseif($baoCaoTuanHienTai['is_group']==2){
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'></i>&minus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             elseif($baoCaoTuanHienTai['is_group']==1){
-              echo "<div style='margin-left:40px; margin-top:2; line-height: 2;'>&plus; &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:65px; margin-top:2; line-height: 2;'>&plus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             else{
-              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'>○ &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:85px; margin-top:2; line-height: 2;'>○ ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
           @endphp
       @endforeach
@@ -122,16 +122,16 @@
             
             if($baoCaoKeHoachTuan['is_group']==3){
               $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==2){
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'></i>&minus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==1){
-              echo "<div style='margin-left:40px;margin-top:2; line-height: 2;'>&plus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:65px;margin-top:2; line-height: 2;'>&plus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             else{
-              echo "<div style='margin-left:50px;margin-top:2; line-height: 2;'>○ &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:85px;margin-top:2; line-height: 2;'>○ ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
           @endphp
 
