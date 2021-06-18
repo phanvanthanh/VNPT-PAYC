@@ -29791,6 +29791,9 @@ input.form-control, select.form-control{
 td .btn.btn-vnpt{
   height: 25.5px;
 }
+td .btn.btn-vnpt.btn-orther{
+  height: 33.5px;
+}
 div.modal-footer .btn.btn-vnpt{
   height: 33.91px;
   text-align: center;
@@ -29798,7 +29801,7 @@ div.modal-footer .btn.btn-vnpt{
 }
 
 div>.btn.btn-vnpt{
-  height: 33.91px;
+  height: 33.5px;
   text-align: center;
   vertical-align: middle;
 }

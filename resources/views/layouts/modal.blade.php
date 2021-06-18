@@ -431,7 +431,7 @@
    <div class="modal-dialog" role="document">
       <div class="modal-content modal-danh-gia">
          <div class="modal-header background-vnpt">
-            <h5 class="modal-title">ĐÁNH GIÁ XỬ LÝ tttt</h5>
+            <h5 class="modal-title">ĐÁNH GIÁ XỬ LÝ</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

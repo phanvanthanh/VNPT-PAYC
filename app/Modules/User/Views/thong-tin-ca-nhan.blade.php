@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-8 xem-thong-tin-ca-nhan @if($checkError) {{'d-none'}} @endif">
                         <br><br>
-                        <table class="table table-striped">
+                        <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                   <th scope="col">#</th>
@@ -119,7 +119,7 @@
                                 </tr>
                                 <tr class="text-center">
                                   <td scope="row" colspan="3" class="text-center">
-                                      <button type="button" class="btn btn-vnpt mr-2 btn-chinh-sua-thong-tin-ca-nhan"> <i class="icon-check"></i> Chỉnh sửa thông tin cá nhân</button>
+                                      <button type="button" class="btn btn-vnpt btn-orther mr-2 btn-chinh-sua-thong-tin-ca-nhan"> <i class="icon-check"></i> Chỉnh sửa thông tin cá nhân</button>
                                   </td>
                                 </tr>
                                 
