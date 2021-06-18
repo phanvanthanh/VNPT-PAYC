@@ -173,6 +173,9 @@
         {
             "_token":_token,
             dsId:dsId
+        },
+        function(data){
+          loadTable(_token, "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
         });
 
         // Post danh sách id chỗ này xài hàm này, 2 trường cuối để rổng ''

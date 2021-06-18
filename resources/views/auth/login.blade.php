@@ -56,6 +56,21 @@
 				jQuery('#frm-dang-nhap').submit();
 
 			});
+
+			jQuery('#mat-khau').on("keypress", function(e) {
+				console.log(1111);
+	            if (e.keyCode == 13) {
+					var tenDangNhap=jQuery('#ten-dang-nhap').val();
+					if (tenDangNhap.indexOf("@vnpt.vn") >= 0){}else{
+						tenDangNhap=tenDangNhap+"@vnpt.vn";
+					}
+					jQuery('#ten-dang-nhap').val(tenDangNhap);
+					jQuery('#frm-dang-nhap').submit();
+					e.preventDefault();
+          			return false;
+				}
+
+			});
 		});
 	</script>
 @endsection

@@ -63,60 +63,60 @@ class DonViTrucThuocKhacController extends Controller{
                 $ma=$donVi['ma_don_vi'];
             }
             $this->ma=$ma;
+
+            // Check báo cáo exits
+            $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')->get()->toArray();                
+            if(count($checkBaoCaoExits)<=0){
+                // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
+                $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
+                if(count($nhomDichVuBaoCao)>0){
+                    $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
+                    // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                    $weekFix=\Helper::layTuanHienTai();
+                    $yearFix=date('Y');
+                    $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
+                    $laTuanHienTai=0;
+                    if(count($dmTuanFix)<=0){
+                        $laTuanHienTai=0;
+                    }else{
+                        if ($dmTuanFix[0]['id']==$idTuan) {
+                            $laTuanHienTai=1;
+                        }
+                    }
+                    if(trim($dichVu," ")!='' && $laTuanHienTai==1){
+                        $dataBaoCaoTuan=array();
+                        $dataBaoCaoTuan['id_tuan']=$idTuan;
+                        $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                        $dataBaoCaoTuan['noi_dung']=$dichVu;
+                        $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                        $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                        $dataBaoCaoTuan['ghi_chu']=null;
+                        $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                        $dataBaoCaoTuan['trang_thai']=0;
+                        $dataBaoCaoTuan['is_group']=3;
+                        $dataBaoCaoTuan['sap_xep']=0;
+                        $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                        $sapXep=$userId.$baoCaoTuan->id;
+                        $baoCaoTuan->sap_xep=$sapXep;
+                        $baoCaoTuan->save();
+                    }                  
+                }
+                    
+            }
+
+
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
             if($checkQuyenXemBaoCaoToanDonVi===1){
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                     })->orderBy('sap_xep','asc')->get()->toArray();
             }else{
+                // Lấy lại số liệu báo cáo
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')->get()->toArray();
-                if(count($baoCaos)<=0){
-                    // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
-                    $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
-                    if(count($nhomDichVuBaoCao)>0){
-                        $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
-                        $weekFix=\Helper::layTuanHienTai();
-                        $yearFix=date('Y');
-                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
-                        $laTuanHienTai=0;
-                        if(count($dmTuanFix)<=0){
-                            $laTuanHienTai=0;
-                        }else{
-                            if ($dmTuanFix[0]['id']==$idTuan) {
-                                $laTuanHienTai=1;
-                            }
-                        }
-                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
-                            $dataBaoCaoTuan=array();
-                            $dataBaoCaoTuan['id_tuan']=$idTuan;
-                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                            $dataBaoCaoTuan['noi_dung']=$dichVu;
-                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                            $dataBaoCaoTuan['ghi_chu']=null;
-                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                            $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=3;
-                            $dataBaoCaoTuan['sap_xep']=0;
-                            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$userId.$baoCaoTuan->id;
-                            $baoCaoTuan->sap_xep=$sapXep;
-                            $baoCaoTuan->save();
-                        }
-                            
-
-
-                        // Lấy lại số liệu báo cáo
-                        $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                            $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                        })->orderBy('sap_xep','asc')->get()->toArray();
-                        
-                    }
-                        
-                }
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')->get()->toArray();
             }
                 
 
@@ -302,6 +302,53 @@ class DonViTrucThuocKhacController extends Controller{
                 $ma=$donVi['ma_don_vi'];
             }
             $this->ma=$ma;
+            // Check báo cáo tuần hiện tại
+            $checkBaoCaoExits=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+                ->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')
+                ->get()->toArray();
+
+            if(count($checkBaoCaoExits)<=0){
+                // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
+                $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
+                if(count($nhomDichVuBaoCao)>0){
+                    $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
+                    // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                    $weekFix=\Helper::layTuanHienTai();
+                    $yearFix=date('Y');
+                    $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
+                    $laTuanHienTai=0;
+                    if(count($dmTuanFix)<=0){
+                        $laTuanHienTai=0;
+                    }else{
+                        if ($dmTuanFix[0]['id']==$idTuan) {
+                            $laTuanHienTai=1;
+                        }
+                    }
+                    if(trim($dichVu," ")!='' && $laTuanHienTai==1){
+                        $dataBaoCaoTuan=array();
+                        $dataBaoCaoTuan['id_tuan']=$idTuan;
+                        $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                        $dataBaoCaoTuan['noi_dung']=$dichVu;
+                        $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                        $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                        $dataBaoCaoTuan['ghi_chu']=null;
+                        $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                        $dataBaoCaoTuan['trang_thai']=0;
+                        $dataBaoCaoTuan['is_group']=3;
+                        $dataBaoCaoTuan['sap_xep']=0;
+                        $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                        $sapXep=$userId.$baoCaoTuan->id;
+                        $baoCaoTuan->sap_xep=$sapXep;
+                        $baoCaoTuan->save();
+                    }
+                    
+                }
+                    
+            }
+
+
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
             if($checkQuyenXemBaoCaoToanDonVi===1){
                 $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
@@ -310,56 +357,10 @@ class DonViTrucThuocKhacController extends Controller{
                     })->orderBy('sap_xep','asc')
                     ->get()->toArray();
             }else{
-                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
-                    ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
-                    ->get()->toArray();
-
-                if(count($baoCaos)<=0){
-                    // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
-                    $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
-                    if(count($nhomDichVuBaoCao)>0){
-                        $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
-                        $weekFix=\Helper::layTuanHienTai();
-                        $yearFix=date('Y');
-                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
-                        $laTuanHienTai=0;
-                        if(count($dmTuanFix)<=0){
-                            $laTuanHienTai=0;
-                        }else{
-                            if ($dmTuanFix[0]['id']==$idTuan) {
-                                $laTuanHienTai=1;
-                            }
-                        }
-                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
-                            $dataBaoCaoTuan=array();
-                            $dataBaoCaoTuan['id_tuan']=$idTuan;
-                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                            $dataBaoCaoTuan['noi_dung']=$dichVu;
-                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                            $dataBaoCaoTuan['ghi_chu']=null;
-                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                            $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=3;
-                            $dataBaoCaoTuan['sap_xep']=0;
-                            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$userId.$baoCaoTuan->id;
-                            $baoCaoTuan->sap_xep=$sapXep;
-                            $baoCaoTuan->save();
-                        }
-
-
-                        // Lấy lại số liệu báo cáo
-                        $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                            $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                        })->orderBy('sap_xep','asc')->get()->toArray();
-                        
-                    }
-                        
-                }
+                // Lấy lại số liệu báo cáo
+                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
+                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                })->orderBy('sap_xep','asc')->get()->toArray();
             }
                 
             $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-ke-hoach-tuan', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
