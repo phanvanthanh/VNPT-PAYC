@@ -48,7 +48,6 @@
                         <div class="nav-link">
                            <div class="profile-image">
                               <a href="{{route('home')}}"><img src="{{ asset('public/images/logo.png') }}" alt="image"></a>
-                              <!-- <span class="online-status online"></span> --> <!--change class online to offline or busy as needed-->
                            </div>
                            <div class="profile-name">
                               <p class="name ten-phan-mem">

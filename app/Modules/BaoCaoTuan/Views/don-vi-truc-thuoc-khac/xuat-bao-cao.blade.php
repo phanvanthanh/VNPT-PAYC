@@ -41,12 +41,20 @@
         (Từ ngày {{$tuNgay}} đến {{$denNgay}})
       </div>
       <div style="font-size:17px; color: red; font-weight: bold; margin-top:2; line-height: 2;">* {{$donVi['ten_don_vi']}}</div>
-      <div style="margin-left: 20px; font-weight: bold; margin-top:2; line-height: 2;">1. Báo cáo tuần        
+      <div style="margin-left: 20px; font-weight: bold; margin-top:2; line-height: 2;">I. Báo cáo kết quả công tác tuần qua:        
       </div>
+      @php
+        $soThuTuPhanMem=0;
+      @endphp
       @foreach ($baoCaoTuanHienTais as $baoCaoTuanHienTai)
           @php
-            if($baoCaoTuanHienTai['is_group']==2){
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+          
+            if($baoCaoTuanHienTai['is_group']==3){
+              $soThuTuPhanMem++;
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
+            }
+            elseif($baoCaoTuanHienTai['is_group']==2){
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             elseif($baoCaoTuanHienTai['is_group']==1){
               echo "<div style='margin-left:40px; margin-top:2; line-height: 2;'>&plus; &nbsp;&nbsp;&nbsp;".$baoCaoTuanHienTai['noi_dung']."</div>";
@@ -104,12 +112,20 @@
         </div> --}}
       @endif
 
-      <div style="margin-left: 20px; font-weight: bold; margin-top:2; line-height: 2;">2. Kế hoạch tuần tiếp theo        
+      <div style="margin-left: 20px; font-weight: bold; margin-top:2; line-height: 2;">II. Đăng ký công tác tuần tiếp theo:        
       </div>
+      @php
+        $soThuTuPhanMem=0;
+      @endphp
       @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
           @php
-            if($baoCaoKeHoachTuan['is_group']==2){
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+            
+            if($baoCaoKeHoachTuan['is_group']==3){
+              $soThuTuPhanMem++;
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
+            }
+            elseif($baoCaoKeHoachTuan['is_group']==2){
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2;'></i>&minus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==1){
               echo "<div style='margin-left:40px;margin-top:2; line-height: 2;'>&plus; &nbsp;&nbsp;&nbsp;".$baoCaoKeHoachTuan['noi_dung']."</div>";

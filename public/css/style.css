@@ -29902,13 +29902,24 @@ i.plus-sign:before {
 
 .is-group-2{
   margin-left:0px;
-  font-weight: 700 !important;
   font-size: 14px;
 }
 
 .is-group-2 .fa-minus{
   margin-right: 10px;
+  font-size: 10px;
+  
+}
+
+.is-group-3{
+  margin-left:0px;
+  font-weight: 700 !important;
   font-size: 14px;
+}
+
+.is-group-3 .fa-minus{
+  margin-right: 10px;
+  font-size: 10px;
   
 }
 
@@ -29944,14 +29955,24 @@ ul {
 }
 
 .th-is-group-2{  
-  font-weight: 700 !important;
   display: initial;
   font-size: 14px;
 }
 
 .th-is-group-2 .fa-minus{
   margin-right: 10px;  
+  font-size: 10px;
+}
+
+.th-is-group-3{  
+  font-weight: 700 !important;
+  display: initial;
   font-size: 14px;
+}
+
+.th-is-group-3 .fa-minus{
+  margin-right: 10px;  
+  font-size: 10px;
 }
 
 li.li-is-group-0{
@@ -29964,6 +29985,11 @@ li.li-is-group-1{
   font-size: 14px;
 }
 li.li-is-group-2{
+  margin-left:35px;
+  font-size: 14px;
+}
+
+li.li-is-group-3{
   margin-left:35px;
   font-size: 14px;
 }

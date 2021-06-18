@@ -16,14 +16,18 @@
       </tr>
   </thead>
   <tbody>    
-      @php $stt=0; @endphp
+      @php $stt=0; $sttPhanMem=0; @endphp
       @foreach ($baoCaos as $baoCao)
         @php $stt++; @endphp
         <tr class="tr-hover tr-small">
           <td class="text-center">{{$stt}}</td>
           <td>
             @php
-              if($baoCao['is_group']==2){
+              if($baoCao['is_group']==3){
+                $sttPhanMem++;
+                echo "<div class='is-group-3'>".$sttPhanMem.". ".$baoCao['noi_dung']."</div>";
+              }
+              elseif($baoCao['is_group']==2){
                 echo "<div class='is-group-2'><i class='fa fa-minus'></i>".$baoCao['noi_dung']."</div>";
               }
               elseif($baoCao['is_group']==1){

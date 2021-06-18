@@ -26,7 +26,7 @@
         (Từ ngày {{$tuNgay}} đến {{$denNgay}})
       </h6>
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">1. Báo cáo tuần
+      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
             <i class="fa fa-plus-circle text-primary cusor click-view-form" data-click-view-form="#frm-bao-cao-tuan-hien-tai-2"></i>
@@ -44,14 +44,21 @@
           </div>
         </div>
       </form>
+      @php
+        $sttPhanMem=0;
+      @endphp
       <ul class="">
         @foreach ($baoCaoTuanHienTais as $baoCaoTuanHienTai)
           <li  class='hover-view-form dbclick-view-form cusor 
-            @if ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+            @if ($baoCaoTuanHienTai['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
             ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
 
             @php
-              if($baoCaoTuanHienTai['is_group']==2){
+              if($baoCaoTuanHienTai['is_group']==3){
+                $sttPhanMem++;
+                echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
+              }
+              elseif($baoCaoTuanHienTai['is_group']==2){
                 echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
               }
               elseif($baoCaoTuanHienTai['is_group']==1){
@@ -80,13 +87,14 @@
           </form>
         @endforeach
       </ul>
-          <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 35px;"><i class='fa fa-minus' style="margin-right:10px;"></i>Báo cáo số liệu PAKN
+          {{-- Sau này a sa quang cung cấp số liệu thì mở lại nha --}}
+          {{-- <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 35px;"><i class='fa fa-minus' style="margin-right:10px;"></i>Báo cáo số liệu PAKN
             @if ($daChotSoLieu==0)
               <i class="list-menu-nhanh d-none">
                 <i class="fa fa-refresh text-primary cusor btn-lay-so-lieu-bao-cao-dhsxkd"></i>
               </i>
             @endif
-          </div>
+          </div> --}}
         
           @if (count($baoCaoPakns)>0)
             {{-- <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div> --}}
@@ -130,7 +138,7 @@
 
 
 
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">2. Kế hoạch tuần tiếp theo
+      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">II. Đăng ký công tác tuần tiếp theo:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
             <i class="fa fa-plus-circle text-primary cusor click-view-form" data-click-view-form="#frm-bao-cao-ke-hoach-tuan-2"></i>
@@ -148,13 +156,20 @@
           </div>
         </div>
       </form>
+      @php
+        $sttPhanMem=0;
+      @endphp
       <ul class="">
         @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
             <li  class='hover-view-form dbclick-view-form cusor
-              @if ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+              @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
               ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
             @php
-              if($baoCaoKeHoachTuan['is_group']==2){
+              if($baoCaoKeHoachTuan['is_group']==3){
+                $sttPhanMem++;
+                echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+              }
+              elseif($baoCaoKeHoachTuan['is_group']==2){
                 echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
               }
               elseif($baoCaoKeHoachTuan['is_group']==1){

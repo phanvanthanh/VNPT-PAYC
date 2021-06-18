@@ -99,10 +99,10 @@ class DonViTrucThuocKhacController extends Controller{
                             $dataBaoCaoTuan['ghi_chu']=null;
                             $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                             $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=2;
+                            $dataBaoCaoTuan['is_group']=3;
                             $dataBaoCaoTuan['sap_xep']=0;
                             $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$userId.$baoCaoTuan->sap_xep;
+                            $sapXep=$userId.$baoCaoTuan->id;
                             $baoCaoTuan->sap_xep=$sapXep;
                             $baoCaoTuan->save();
                         }
@@ -167,7 +167,7 @@ class DonViTrucThuocKhacController extends Controller{
                 $dataBaoCaoTuan['is_group']=0;
                 $dataBaoCaoTuan['sap_xep']=0;
                 $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $sapXep=$userId.$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
             }                
@@ -343,10 +343,10 @@ class DonViTrucThuocKhacController extends Controller{
                             $dataBaoCaoTuan['ghi_chu']=null;
                             $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                             $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=2;
+                            $dataBaoCaoTuan['is_group']=3;
                             $dataBaoCaoTuan['sap_xep']=0;
                             $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$userId.$baoCaoTuan->sap_xep;
+                            $sapXep=$userId.$baoCaoTuan->id;
                             $baoCaoTuan->sap_xep=$sapXep;
                             $baoCaoTuan->save();
                         }
@@ -410,7 +410,7 @@ class DonViTrucThuocKhacController extends Controller{
                 $dataBaoCaoTuan['is_group']=0;
                 $dataBaoCaoTuan['sap_xep']=0;
                 $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $sapXep=$userId.$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
             }
