@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.4.17-MariaDB - mariadb.org binary distribution
+-- Host:                         10.90.199.89
+-- Server version:               8.0.23 - MySQL Community Server - GPL
 -- Server OS:                    Win64
 -- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
@@ -13,26 +13,26 @@
 
 
 -- Dumping database structure for vnptpayc
-CREATE DATABASE IF NOT EXISTS `vnptpayc` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `vnptpayc` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `vnptpayc`;
 
 -- Dumping structure for table vnptpayc.admin_resource
 CREATE TABLE IF NOT EXISTS `admin_resource` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ten_hien_thi` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `resource` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `method` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `action` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parameter` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parameter_value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `parent_id` int(10) unsigned DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `uri` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT 1,
-  `show_menu` int(11) DEFAULT NULL,
-  `order` int(11) DEFAULT NULL,
-  `icon` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ten_hien_thi` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resource` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `method` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `action` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parameter` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parameter_value` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_id` int unsigned DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `uri` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int DEFAULT '1',
+  `show_menu` int DEFAULT NULL,
+  `order` int DEFAULT NULL,
+  `icon` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `admin_resource_parent_foreign` (`parent_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -282,12 +282,12 @@ INSERT INTO `admin_resource` (`id`, `ten_hien_thi`, `resource`, `method`, `actio
 
 -- Dumping structure for table vnptpayc.admin_role
 CREATE TABLE IF NOT EXISTS `admin_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_don_vi` int(10) unsigned NOT NULL COMMENT 'id đơn vị cha có level = 0',
-  `state` int(10) unsigned NOT NULL DEFAULT 1 COMMENT '0: ngừng hoạt động; 1: hoạt động',
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_don_vi` int unsigned NOT NULL COMMENT 'id đơn vị cha có level = 0',
+  `state` int unsigned NOT NULL DEFAULT '1' COMMENT '0: ngừng hoạt động; 1: hoạt động',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_admin_role_don_vi` (`id_don_vi`),
   CONSTRAINT `FK_admin_role_don_vi` FOREIGN KEY (`id_don_vi`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -309,11 +309,11 @@ INSERT INTO `admin_role` (`id`, `role_name`, `id_don_vi`, `state`, `created_at`,
 
 -- Dumping structure for table vnptpayc.admin_rule
 CREATE TABLE IF NOT EXISTS `admin_rule` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` int(10) unsigned NOT NULL,
-  `resource_id` int(10) unsigned NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` int unsigned NOT NULL,
+  `resource_id` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `admin_rule_role_id_foreign` (`role_id`),
   KEY `admin_rule_resource_id_foreign` (`resource_id`),
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `admin_rule` (
   CONSTRAINT `admin_rule_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1343 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.admin_rule: ~270 rows (approximately)
+-- Dumping data for table vnptpayc.admin_rule: ~264 rows (approximately)
 /*!40000 ALTER TABLE `admin_rule` DISABLE KEYS */;
 INSERT INTO `admin_rule` (`id`, `role_id`, `resource_id`, `created_at`, `updated_at`) VALUES
 	(939, 2, 964, '2021-06-17 08:48:40', '2021-06-17 08:48:40'),
@@ -592,38 +592,38 @@ INSERT INTO `admin_rule` (`id`, `role_id`, `resource_id`, `created_at`, `updated
 
 -- Dumping structure for table vnptpayc.bc_dhsxkd
 CREATE TABLE IF NOT EXISTS `bc_dhsxkd` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_don_vi` varchar(50) DEFAULT NULL,
   `ma_dinh_danh` varchar(50) DEFAULT NULL,
-  `id_thoigian_baocao` int(11) DEFAULT NULL,
-  `id_user_bao_cao` int(10) unsigned NOT NULL,
+  `id_thoigian_baocao` int DEFAULT NULL,
+  `id_user_bao_cao` int unsigned NOT NULL,
   `chi_so` varchar(250) DEFAULT NULL,
   `gia_tri` varchar(50) DEFAULT NULL,
-  `is_group` int(11) NOT NULL COMMENT '0 là không phải group; 1 là group',
+  `is_group` int NOT NULL COMMENT '0 là không phải group; 1 là group',
   `ghi_chu` varchar(50) DEFAULT NULL,
   `loai_chi_so` varchar(250) DEFAULT 'PHAT_TRIEN_MOI' COMMENT 'PHAT_TRIEN_MOI, XU_LY_SUY_HAO, PAKN,...',
   `suy_hao` varchar(50) DEFAULT NULL,
   `suy_hao_con_lai` varchar(50) DEFAULT NULL,
-  `trang_thai` int(11) NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
-  `sap_xep` int(11) NOT NULL COMMENT 'Sắp xếp theo tuần',
+  `trang_thai` int NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
+  `sap_xep` int NOT NULL COMMENT 'Sắp xếp theo tuần',
   PRIMARY KEY (`id`),
   KEY `FK_bc_dhsxkd_users` (`id_user_bao_cao`),
   KEY `FK_bc_dhsxkd_bc_dm_thoi_gian_bao_cao` (`id_thoigian_baocao`),
   CONSTRAINT `FK_bc_dhsxkd_bc_dm_thoi_gian_bao_cao` FOREIGN KEY (`id_thoigian_baocao`) REFERENCES `bc_dm_thoi_gian_bao_cao` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_dhsxkd_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=337 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_dhsxkd: ~0 rows (approximately)
+-- Dumping data for table vnptpayc.bc_dhsxkd: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_dhsxkd` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bc_dhsxkd` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_chi_so
 CREATE TABLE IF NOT EXISTS `bc_dm_chi_so` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `chi_so` varchar(250) NOT NULL,
   `mo_ta` varchar(250) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `ngay_cap_nhat` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `parent_id` int DEFAULT NULL,
+  `ngay_cap_nhat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `chi_so` (`chi_so`),
   KEY `FK_bc_dm_chi_so_bc_dm_chi_so` (`parent_id`),
@@ -636,10 +636,10 @@ CREATE TABLE IF NOT EXISTS `bc_dm_chi_so` (
 
 -- Dumping structure for table vnptpayc.bc_dm_quyen_bao_cao_tuan
 CREATE TABLE IF NOT EXISTS `bc_dm_quyen_bao_cao_tuan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_nhom_quyen` varchar(50) NOT NULL,
   `ten_nhom_quyen` varchar(250) NOT NULL,
-  `trang_thai` int(11) NOT NULL DEFAULT 0,
+  `trang_thai` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ma_nhom_quyen` (`ma_nhom_quyen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
@@ -655,37 +655,54 @@ INSERT INTO `bc_dm_quyen_bao_cao_tuan` (`id`, `ma_nhom_quyen`, `ten_nhom_quyen`,
 	(6, 'IN_BAO_CAO', 'In báo cáo', 1),
 	(7, 'GUI_THONG_BAO_QUA_TELEGRAM', 'Gửi thông báo qua Telegram', 1),
 	(8, 'XUAT_BAO_CAO_SANG_WORD', 'Xuất báo cáo sang word', 1),
-	(9, 'DUYET_VA_GUI_BAO_CAO', 'Duyệt và gửi báo cáo', 1);
+	(9, 'DUYET_VA_GUI_BAO_CAO', 'Duyệt và gửi báo cáo', 1),
+	(10, 'XUAT_BAO_CAO', 'Xuất báo cáo', 1);
 /*!40000 ALTER TABLE `bc_dm_quyen_bao_cao_tuan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_thoi_gian_bao_cao
 CREATE TABLE IF NOT EXISTS `bc_dm_thoi_gian_bao_cao` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_don_vi` varchar(50) DEFAULT NULL,
   `ma_dinh_danh` varchar(50) DEFAULT NULL,
-  `id_tuan` int(11) DEFAULT NULL,
+  `id_tuan` int DEFAULT NULL,
   `thoi_gian_lay_so_lieu` datetime DEFAULT NULL,
   `thoi_gian_chot_so_lieu` datetime DEFAULT NULL,
   `ghi_chu` varchar(250) DEFAULT NULL,
-  `trang_thai` int(11) NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
+  `trang_thai` int NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
   PRIMARY KEY (`id`),
   KEY `FK_bc_thoigian_bc_donvi_bc_dm_tuan` (`id_tuan`),
   CONSTRAINT `FK_bc_thoigian_bc_donvi_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_dm_thoi_gian_bao_cao: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.bc_dm_thoi_gian_bao_cao: ~12 rows (approximately)
 /*!40000 ALTER TABLE `bc_dm_thoi_gian_bao_cao` DISABLE KEYS */;
+INSERT INTO `bc_dm_thoi_gian_bao_cao` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `thoi_gian_lay_so_lieu`, `thoi_gian_chot_so_lieu`, `ghi_chu`, `trang_thai`) VALUES
+	(64, 'TTCNTT', '000.01.01.H59', 576, '2021-06-18 12:12:32', NULL, NULL, 0),
+	(65, 'TTKD', '000.01.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(66, 'TTDHTT', '000.01.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(67, 'NSTH', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(68, 'KTDT', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(69, 'KHKT', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(70, 'KCTD', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(71, 'CD', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(72, 'DTN', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(73, 'TTVT1', '000.02.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(74, 'TTVT2', '000.03.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(75, 'TTVT3', '000.04.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
+	(76, 'TTCNTT', '000.01.01.H59', 575, '2021-06-18 08:09:49', NULL, NULL, 0),
+	(77, 'TTCNTT', '000.01.01.H59', 574, '2021-06-18 08:09:52', NULL, NULL, 0),
+	(78, 'TTCNTT', '000.01.01.H59', 577, '2021-06-18 08:10:07', NULL, NULL, 0);
 /*!40000 ALTER TABLE `bc_dm_thoi_gian_bao_cao` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_tuan
 CREATE TABLE IF NOT EXISTS `bc_dm_tuan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nam` int(11) DEFAULT NULL,
-  `thang` int(11) DEFAULT NULL,
-  `tuan` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nam` int DEFAULT NULL,
+  `thang` int DEFAULT NULL,
+  `tuan` int DEFAULT NULL,
   `tu_ngay` date DEFAULT NULL,
   `den_ngay` date DEFAULT NULL,
-  `trang_thai` int(11) NOT NULL DEFAULT 0 COMMENT '0 không hoạt động; 1 hoạt động',
+  `trang_thai` int NOT NULL DEFAULT '0' COMMENT '0 không hoạt động; 1 hoạt động',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1072 DEFAULT CHARSET=utf8;
 
@@ -1217,48 +1234,76 @@ INSERT INTO `bc_dm_tuan` (`id`, `nam`, `thang`, `tuan`, `tu_ngay`, `den_ngay`, `
 
 -- Dumping structure for table vnptpayc.bc_ke_hoach_tuan
 CREATE TABLE IF NOT EXISTS `bc_ke_hoach_tuan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_don_vi` varchar(50) DEFAULT NULL,
   `ma_dinh_danh` varchar(50) DEFAULT NULL,
-  `id_tuan` int(11) DEFAULT NULL,
-  `id_user_bao_cao` int(10) unsigned NOT NULL,
-  `noi_dung` longtext DEFAULT NULL,
+  `id_tuan` int DEFAULT NULL,
+  `id_user_bao_cao` int unsigned NOT NULL,
+  `noi_dung` longtext,
   `ghi_chu` varchar(250) DEFAULT NULL,
-  `thoi_gian_bao_cao` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_group` int(11) NOT NULL COMMENT '0 không phải là group; 1 là group',
-  `trang_thai` int(11) NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
-  `sap_xep` int(11) NOT NULL COMMENT 'Sắp xếp theo tuần',
+  `thoi_gian_bao_cao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_group` int NOT NULL COMMENT '0 không phải là group; 1 là group',
+  `trang_thai` int NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
+  `sap_xep` int NOT NULL COMMENT 'Sắp xếp theo tuần',
   PRIMARY KEY (`id`),
   KEY `FK_bc_ke_hoach_tuan_users` (`id_user_bao_cao`),
   KEY `FK_bc_ke_hoach_tuan_bc_dm_tuan` (`id_tuan`),
   CONSTRAINT `FK_bc_ke_hoach_tuan_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_ke_hoach_tuan_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=391 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_ke_hoach_tuan: ~3 rows (approximately)
+-- Dumping data for table vnptpayc.bc_ke_hoach_tuan: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_ke_hoach_tuan` DISABLE KEYS */;
+INSERT INTO `bc_ke_hoach_tuan` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `id_user_bao_cao`, `noi_dung`, `ghi_chu`, `thoi_gian_bao_cao`, `is_group`, `trang_thai`, `sap_xep`) VALUES
+	(396, 'TTCNTT', '000.01.01.H59', 576, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:01:01', 3, 0, 510),
+	(397, 'TTCNTT', '000.01.01.H59', 576, 51, 'Tiếp tục hỗ trợ các đơn vị, theo dõi tình hình hoạt động iOffice của UBND;', NULL, '2021-06-18 08:01:24', 1, 0, 510),
+	(398, 'TTCNTT', '000.01.01.H59', 576, 51, 'Phối hợp với IT5, Egov xử lý các lỗi tồn đọng và phát sinh', NULL, '2021-06-18 08:01:37', 1, 0, 510),
+	(399, 'TTCNTT', '000.01.01.H59', 576, 51, 'Outsource: Tiếp tục thực hiện outsource các yêu cầu, fix lỗi nếu có.', NULL, '2021-06-18 08:01:51', 1, 0, 510),
+	(400, 'TTCNTT', '000.01.01.H59', 575, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:49', 2, 0, 510),
+	(401, 'TTCNTT', '000.01.01.H59', 574, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:52', 2, 0, 510),
+	(402, 'TTCNTT', '000.01.01.H59', 577, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:10:07', 2, 0, 510),
+	(403, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 08:17:03', 3, 0, 540),
+	(404, 'TTCNTT', '000.01.01.H59', 576, 54, 'Tiếp tục hỗ trợ các trường sử dụng phần mềm.', NULL, '2021-06-18 09:17:02', 2, 0, 54404),
+	(405, 'TTCNTT', '000.01.01.H59', 576, 54, 'Công việc thường xuyên.', NULL, '2021-06-18 09:17:10', 2, 0, 54405),
+	(406, 'TTCNTT', '000.01.01.H59', 576, 50, 'Phần mềm VNPT-HIS', NULL, '2021-06-18 09:23:50', 3, 0, 50406),
+	(407, 'TTCNTT', '000.01.01.H59', 576, 50, 'Phối hợp với TT Ehealth liên thông HSSK ver 2.0 sau khi TTKD xác nhận manday thực hiện;', NULL, '2021-06-18 09:23:59', 2, 0, 50407),
+	(408, 'TTCNTT', '000.01.01.H59', 576, 50, 'Thực hiện outsource các y.c;', NULL, '2021-06-18 09:24:10', 2, 0, 50408),
+	(409, 'TTCNTT', '000.01.01.H59', 576, 50, 'Kiểm tra lại các dịch vụ VNPT - HIS/LIS/PACS/HMIS sau khi VNPT - IT cập nhật;', NULL, '2021-06-18 09:24:17', 2, 0, 50409),
+	(410, 'TTCNTT', '000.01.01.H59', 576, 50, 'Tiếp nhận các y/c bổ sung, chỉnh sửa từ các đơn vị sử dụng;', NULL, '2021-06-18 09:24:24', 2, 0, 50410),
+	(411, 'TTCNTT', '000.01.01.H59', 576, 52, 'Triển khai phần mềm Hóa đơn điện tử', NULL, '2021-06-18 09:39:41', 3, 0, 52411),
+	(412, 'TTCNTT', '000.01.01.H59', 576, 53, 'vnPortal', NULL, '2021-06-18 09:51:23', 3, 0, 53412),
+	(413, 'TTCNTT', '000.01.01.H59', 576, 53, 'Hỗ trợ đơn vị sử dụng', NULL, '2021-06-18 09:51:46', 2, 0, 53413),
+	(416, 'TTCNTT', '000.01.01.H59', 576, 37, 'CSDLQG-DC', NULL, '2021-06-18 10:54:54', 3, 0, 37416),
+	(417, 'TTCNTT', '000.01.01.H59', 576, 37, 'Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-18 10:55:03', 2, 0, 37417),
+	(418, 'TTCNTT', '000.01.01.H59', 576, 57, 'LGSP', NULL, '2021-06-18 11:00:19', 3, 0, 57418),
+	(419, 'TTCNTT', '000.01.01.H59', 576, 57, '- Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-18 11:02:34', 2, 0, 57419),
+	(420, 'TTCNTT', '000.01.01.H59', 576, 49, 'Triển khai phần mềm ĐHSXKD tập trung', NULL, '2021-06-18 11:11:04', 3, 0, 49420),
+	(421, 'TTCNTT', '000.01.01.H59', 576, 49, 'Mobile App VNPT-TVH-CO:', NULL, '2021-06-18 11:11:28', 2, 0, 49421),
+	(422, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản IOS: Hoàn thiện chức năng nhận thông báo và xây dựng module lương trực tuyến;', NULL, '2021-06-18 11:11:39', 1, 0, 49422),
+	(423, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản Android: Sửa lỗi nếu có;', NULL, '2021-06-18 11:11:51', 1, 0, 49423),
+	(424, 'TTCNTT', '000.01.01.H59', 576, 49, 'Nâng cấp chương trình quản lý tài sản: tối ưu các xử lý để tăng tốc độ;', NULL, '2021-06-18 11:12:02', 2, 0, 49424),
+	(425, 'TTCNTT', '000.01.01.H59', 576, 49, 'Xây dựng công cụ theo dõi thời gian xử lý phiếu KHDN (phiếu thi công và báo hỏng);', NULL, '2021-06-18 11:12:12', 2, 0, 49425),
+	(426, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chỉnh sửa Dashboard theo yêu cầu;', NULL, '2021-06-18 11:12:25', 2, 0, 49426);
 /*!40000 ALTER TABLE `bc_ke_hoach_tuan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_quyen_bao_cao
 CREATE TABLE IF NOT EXISTS `bc_quyen_bao_cao` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned NOT NULL,
-  `id_dm_quyen_bao_cao` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `id_dm_quyen_bao_cao` int NOT NULL,
   `dich_vu` varchar(250) DEFAULT NULL,
-  `tu_ngay` datetime NOT NULL DEFAULT current_timestamp(),
+  `tu_ngay` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `den_ngay` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_bc_quyen_bao_cao_users` (`user_id`),
   KEY `FK_bc_quyen_bao_cao_bc_dm_quyen_bao_cao_tuan` (`id_dm_quyen_bao_cao`),
   CONSTRAINT `FK_bc_quyen_bao_cao_bc_dm_quyen_bao_cao_tuan` FOREIGN KEY (`id_dm_quyen_bao_cao`) REFERENCES `bc_dm_quyen_bao_cao_tuan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_quyen_bao_cao_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table vnptpayc.bc_quyen_bao_cao: ~52 rows (approximately)
 /*!40000 ALTER TABLE `bc_quyen_bao_cao` DISABLE KEYS */;
 INSERT INTO `bc_quyen_bao_cao` (`id`, `user_id`, `id_dm_quyen_bao_cao`, `dich_vu`, `tu_ngay`, `den_ngay`) VALUES
-	(57, 38, 1, NULL, '2021-06-17 15:35:31', NULL),
-	(58, 38, 2, NULL, '2021-06-17 15:35:33', NULL),
 	(59, 38, 3, NULL, '2021-06-17 15:35:33', NULL),
 	(60, 38, 4, NULL, '2021-06-17 15:35:34', NULL),
 	(61, 38, 5, NULL, '2021-06-17 15:35:37', NULL),
@@ -1266,8 +1311,6 @@ INSERT INTO `bc_quyen_bao_cao` (`id`, `user_id`, `id_dm_quyen_bao_cao`, `dich_vu
 	(63, 38, 7, NULL, '2021-06-17 15:35:39', NULL),
 	(64, 38, 8, NULL, '2021-06-17 15:35:39', NULL),
 	(65, 38, 9, NULL, '2021-06-17 15:35:44', NULL),
-	(66, 39, 1, NULL, '2021-06-17 15:36:02', NULL),
-	(67, 39, 2, NULL, '2021-06-17 15:36:03', NULL),
 	(68, 39, 3, NULL, '2021-06-17 15:36:04', NULL),
 	(69, 39, 4, NULL, '2021-06-17 15:36:05', NULL),
 	(70, 39, 5, NULL, '2021-06-17 15:36:06', NULL),
@@ -1301,45 +1344,150 @@ INSERT INTO `bc_quyen_bao_cao` (`id`, `user_id`, `id_dm_quyen_bao_cao`, `dich_vu
 	(133, 51, 2, 'VNPT iOffice/eOffice', '2021-06-17 16:14:20', NULL),
 	(134, 3, 1, 'VNPT-iGate', '2021-06-17 16:14:37', NULL),
 	(135, 3, 2, 'VNPT-iGate', '2021-06-17 16:14:43', NULL),
-	(136, 37, 1, 'VNPT-iGate', '2021-06-17 16:14:54', NULL),
-	(137, 37, 2, 'VNPT-iGate', '2021-06-17 16:15:02', NULL),
 	(138, 54, 1, 'vnEdu', '2021-06-17 16:15:17', NULL),
 	(141, 54, 2, 'vnEdu', '2021-06-17 16:15:59', NULL),
 	(142, 53, 1, 'vnPortal', '2021-06-17 16:16:20', NULL),
 	(143, 53, 2, 'vnPortal', '2021-06-17 16:16:23', NULL),
 	(144, 52, 1, 'Triển khai phần mềm Hóa đơn điện tử', '2021-06-17 16:16:48', NULL),
-	(145, 52, 2, 'Triển khai phần mềm Hóa đơn điện tử', '2021-06-17 16:17:08', NULL);
+	(145, 52, 2, 'Triển khai phần mềm Hóa đơn điện tử', '2021-06-17 16:17:08', NULL),
+	(147, 3, 10, NULL, '2021-06-17 22:38:08', NULL),
+	(148, 37, 10, NULL, '2021-06-17 22:38:19', NULL),
+	(149, 38, 10, NULL, '2021-06-17 22:38:31', NULL),
+	(150, 39, 10, NULL, '2021-06-17 22:39:00', NULL),
+	(151, 2, 1, NULL, '2021-06-18 07:26:29', NULL),
+	(152, 2, 2, NULL, '2021-06-18 07:26:30', NULL),
+	(153, 2, 3, NULL, '2021-06-18 07:26:31', NULL),
+	(154, 2, 4, NULL, '2021-06-18 07:26:32', NULL),
+	(155, 2, 5, NULL, '2021-06-18 07:26:33', NULL),
+	(156, 2, 6, NULL, '2021-06-18 07:26:33', NULL),
+	(157, 2, 7, NULL, '2021-06-18 07:26:35', NULL),
+	(158, 2, 8, NULL, '2021-06-18 07:26:35', NULL),
+	(159, 2, 9, NULL, '2021-06-18 07:26:37', NULL),
+	(160, 2, 10, NULL, '2021-06-18 07:26:38', NULL),
+	(161, 37, 1, 'CSDLQG-DC', '2021-06-18 09:25:19', NULL),
+	(162, 37, 2, 'CSDLQG-DC', '2021-06-18 09:26:19', NULL),
+	(163, 39, 1, 'Các công việc thường xuyên khác', '2021-06-18 09:27:05', NULL),
+	(164, 39, 2, 'Các công việc thường xuyên khác', '2021-06-18 09:27:09', NULL),
+	(165, 38, 1, 'Các công việc thường xuyên khác', '2021-06-18 09:27:30', NULL),
+	(166, 38, 2, 'Các công việc thường xuyên khác', '2021-06-18 09:27:33', NULL),
+	(169, 57, 1, 'LGSP', '2021-06-18 10:59:37', NULL),
+	(170, 57, 2, 'LGSP', '2021-06-18 10:59:41', NULL),
+	(171, 58, 5, NULL, '2021-06-18 11:03:27', NULL),
+	(172, 58, 6, NULL, '2021-06-18 11:03:32', NULL),
+	(173, 58, 8, NULL, '2021-06-18 11:03:34', NULL),
+	(174, 58, 10, NULL, '2021-06-18 11:03:37', NULL),
+	(175, 58, 4, NULL, '2021-06-18 11:05:42', NULL),
+	(176, 58, 1, NULL, '2021-06-18 11:06:00', NULL),
+	(177, 58, 2, NULL, '2021-06-18 11:06:01', NULL);
 /*!40000 ALTER TABLE `bc_quyen_bao_cao` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_tuan_hien_tai
 CREATE TABLE IF NOT EXISTS `bc_tuan_hien_tai` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_don_vi` varchar(50) DEFAULT NULL,
   `ma_dinh_danh` varchar(50) DEFAULT NULL,
-  `id_tuan` int(11) DEFAULT NULL,
-  `id_user_bao_cao` int(10) unsigned NOT NULL,
-  `noi_dung` longtext DEFAULT NULL,
+  `id_tuan` int DEFAULT NULL,
+  `id_user_bao_cao` int unsigned NOT NULL,
+  `noi_dung` longtext,
   `ghi_chu` varchar(250) DEFAULT NULL,
-  `thoi_gian_bao_cao` datetime NOT NULL DEFAULT current_timestamp(),
-  `is_group` int(11) NOT NULL COMMENT '0 là không phải group; 1 là group',
-  `trang_thai` int(11) NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
-  `sap_xep` int(11) NOT NULL COMMENT 'Sắp xếp theo tuần',
+  `thoi_gian_bao_cao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_group` int NOT NULL COMMENT '0 là không phải group; 1 là group',
+  `trang_thai` int NOT NULL COMMENT '0 chưa chốt; 1 đã chốt',
+  `sap_xep` int NOT NULL COMMENT 'Sắp xếp theo tuần',
   PRIMARY KEY (`id`),
   KEY `FK_bc_tuan_hien_tai_bc_dm_tuan` (`id_tuan`),
   KEY `FK_bc_tuan_hien_tai_users` (`id_user_bao_cao`),
   CONSTRAINT `FK_bc_tuan_hien_tai_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_tuan_hien_tai_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=582 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_tuan_hien_tai: ~3 rows (approximately)
+-- Dumping data for table vnptpayc.bc_tuan_hien_tai: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` DISABLE KEYS */;
+INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `id_user_bao_cao`, `noi_dung`, `ghi_chu`, `thoi_gian_bao_cao`, `is_group`, `trang_thai`, `sap_xep`) VALUES
+	(605, 'TTCNTT', '000.01.01.H59', 576, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 07:55:19', 2, 0, 510),
+	(608, 'TTCNTT', '000.01.01.H59', 576, 51, 'Tình trạng hoạt động của các hệ thống:', NULL, '2021-06-18 07:57:02', 2, 0, 510),
+	(609, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 tỉnh ủy: 8h130 - 8h25(12/06/2021), 13h19 - 13h24(16/06/2021): lặp lại lỗi 502 làm gián đoạn dịch vụ, tiếp tục phối hợp với IT5 và eGov kiểm tra lại hệ thống.', NULL, '2021-06-18 07:57:22', 1, 0, 510),
+	(610, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 UBND: hoạt động ổn định.', NULL, '2021-06-18 07:57:37', 2, 0, 510),
+	(611, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 cụm Tân Thuận: hoạt động ổn định.', NULL, '2021-06-18 07:57:49', 1, 0, 510),
+	(612, 'TTCNTT', '000.01.01.H59', 576, 51, 'eOffice Bưu điện: Ký số hoạt động không ổn định, thường xuất hiện lỗi ERROR_HASH_SIGNER, egov đã tiếp nhận phản ánh và đang tìm nguyên nhân khắc phục.', NULL, '2021-06-18 07:58:08', 1, 0, 510),
+	(613, 'TTCNTT', '000.01.01.H59', 576, 51, 'eOffice VNPT: hoạt động ổn định.', NULL, '2021-06-18 07:58:20', 1, 0, 510),
+	(614, 'TTCNTT', '000.01.01.H59', 576, 51, 'Tình hình hỗ trợ các đơn vị: Tổng lượt hỗ trợ các đơn vị 51, trong đó:', NULL, '2021-06-18 07:58:36', 2, 0, 510),
+	(615, 'TTCNTT', '000.01.01.H59', 576, 51, 'UBND các cấp và các phòng/trung tâm trực thuộc: 9 lượt.', NULL, '2021-06-18 07:58:52', 1, 0, 510),
+	(616, 'TTCNTT', '000.01.01.H59', 576, 51, 'Sở/Ban/Ngành và các phòng/trung tâm trực thuộc: 32 lượt.', NULL, '2021-06-18 07:59:06', 1, 0, 510),
+	(617, 'TTCNTT', '000.01.01.H59', 576, 51, 'Ngành Giáo dục: 1 lượt.', NULL, '2021-06-18 07:59:21', 1, 0, 510),
+	(618, 'TTCNTT', '000.01.01.H59', 576, 51, 'Nội bộ VNPT: 7 lượt.', NULL, '2021-06-18 07:59:34', 1, 0, 510),
+	(619, 'TTCNTT', '000.01.01.H59', 576, 51, 'Đơn vị khác: 2 lượt.', NULL, '2021-06-18 07:59:47', 1, 0, 510),
+	(620, 'TTCNTT', '000.01.01.H59', 576, 51, 'Outsource/Fix lỗi', NULL, '2021-06-18 08:00:07', 2, 0, 510),
+	(621, 'TTCNTT', '000.01.01.H59', 576, 51, 'Kiểm tra và fix lỗi treo không load được danh sách văn bản sau khi phát hành văn bản đi ở đơn vị UBND TP Trà Vinh.', NULL, '2021-06-18 08:00:25', 1, 0, 510),
+	(622, 'TTCNTT', '000.01.01.H59', 576, 51, 'Xây dựng chức năng chọn đơn vị nhận và hạn xử lý khi chuyên viên dự thảo văn bản phúc đáp: Thực hiện BA.', NULL, '2021-06-18 08:00:40', 2, 0, 510),
+	(623, 'TTCNTT', '000.01.01.H59', 575, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:49', 2, 0, 510),
+	(624, 'TTCNTT', '000.01.01.H59', 574, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:52', 2, 0, 510),
+	(625, 'TTCNTT', '000.01.01.H59', 577, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:10:07', 2, 0, 510),
+	(630, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 08:17:33', 3, 0, 540),
+	(645, 'TTCNTT', '000.01.01.H59', 576, 53, 'vnPortal', NULL, '2021-06-18 09:18:01', 3, 0, 53645),
+	(647, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV, TTYT, PKĐK:', NULL, '2021-06-18 09:19:15', 2, 0, 50647),
+	(648, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV trường ĐHTV: Phân quyền dược; Tiếp nhận yêu cầu khi gõ thuốc khám bệnh nội trú cột dạng thuốc lấy đơn vị tính; Kiểm tra báo cáo mẫu 21 tháng 04/2021; Cấu hình tài khoản mở khoá chức năng chỉnh sửa thông tin bệnh nhân; Hướng dẫn cập nhật tỉ lệ thanh toán TTPT; Tiếp nhận yêu cầu chỉnh sửa phiếu hoàn trả khoa phòng; Tiếp nhận yêu cầu chỉnh sửa giao diện cảnh báo tương tác hoạt chất;', NULL, '2021-06-18 09:19:29', 1, 0, 50648),
+	(649, 'TTCNTT', '000.01.01.H59', 576, 50, 'TTYT huyện DHI: Thêm mới kho dược và phân quyền nhân viên; Kiểm tra số lượng hồ sơ xuất XML 4210 và cổng không khớp;', NULL, '2021-06-18 09:19:41', 1, 0, 50649),
+	(650, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV QDY: Thêm mới kho dược và phân quyền dược nhân viên quản lý;', NULL, '2021-06-18 09:19:52', 1, 0, 50650),
+	(651, 'TTCNTT', '000.01.01.H59', 576, 50, 'TTYT huyện Càng Long: Kiểm tra cấp giường bệnh nhân không được;', NULL, '2021-06-18 09:20:00', 1, 0, 50651),
+	(652, 'TTCNTT', '000.01.01.H59', 576, 50, 'TTYT TX DHI: Thêm nơi đăng ký KCB ban đầu;', NULL, '2021-06-18 09:20:08', 1, 0, 50652),
+	(653, 'TTCNTT', '000.01.01.H59', 576, 50, 'PKĐK An Phúc: Hướng dẫn cập nhật cận lâm sàng Nội sôi thuộc nhóm 8;', NULL, '2021-06-18 09:20:18', 1, 0, 50653),
+	(654, 'TTCNTT', '000.01.01.H59', 576, 50, 'PKĐK Sài Gòn Thành Vinh: Hướng dẫn xem báo cáo KBH; Kiểm tra lỗi không thanh toán viện phí cho bệnh nhân; Thêm mới thuốc dịch vụ;', NULL, '2021-06-18 09:20:28', 1, 0, 50654),
+	(655, 'TTCNTT', '000.01.01.H59', 576, 50, 'TTYT huyện Châu Thành: Kiểm tra kết nối Lis Microservice;', NULL, '2021-06-18 09:20:41', 1, 0, 50655),
+	(656, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV Quân Dân Y: Map chỉ số xét nghiệm, cấu hình giá trị bình thường chỉ số xét nghiệm;', NULL, '2021-06-18 09:20:48', 1, 0, 50656),
+	(657, 'TTCNTT', '000.01.01.H59', 576, 50, 'Các TYT:', NULL, '2021-06-18 09:21:14', 2, 0, 50657),
+	(658, 'TTCNTT', '000.01.01.H59', 576, 50, 'TYT Thuận Hoà: Thêm thuốc vào DMDC;', NULL, '2021-06-18 09:22:13', 1, 0, 50658),
+	(659, 'TTCNTT', '000.01.01.H59', 576, 50, 'TYT Long Hữu: Khoá tài khoản người dùng không sử dụng;', NULL, '2021-06-18 09:22:19', 1, 0, 50659),
+	(660, 'TTCNTT', '000.01.01.H59', 576, 50, 'TYT Phước Hưng: Cài đặt công cụ kiểm tra thẻ BHYT;', NULL, '2021-06-18 09:22:25', 1, 0, 50660),
+	(661, 'TTCNTT', '000.01.01.H59', 576, 50, 'TYT Hùng Hoà: Kiểm tra lỗi cảnh báo khi thêm nhân khẩu;', NULL, '2021-06-18 09:22:32', 1, 0, 50661),
+	(662, 'TTCNTT', '000.01.01.H59', 576, 50, 'Các công tác khác:', NULL, '2021-06-18 09:23:00', 2, 0, 50662),
+	(663, 'TTCNTT', '000.01.01.H59', 576, 50, 'Tạo mới, bổ sung thông tin, viết urd, chuyển trạng thái các y/c: IT360-197515; IT360-197515; IT360-197560; IT360-196263; IT360-197345; IT360-195365;...', NULL, '2021-06-18 09:23:08', 1, 0, 50663),
+	(664, 'TTCNTT', '000.01.01.H59', 576, 50, 'Kiểm tra lại dịch vụ VNPT - HIS sau khi VNPT - IT cập nhật (tối ngày 15/06);', NULL, '2021-06-18 09:23:14', 1, 0, 50664),
+	(665, 'TTCNTT', '000.01.01.H59', 576, 50, 'Trao đổi với TTKD và BV trường ĐHTV về phương án đầu tư hạ tầng máy chủ PACS;', NULL, '2021-06-18 09:23:21', 1, 0, 50665),
+	(666, 'TTCNTT', '000.01.01.H59', 576, 50, 'Theo dõi tài nguyên máy chủ PACS và gửi công văn thông báo đến đơn vị sử dụng;', NULL, '2021-06-18 09:23:28', 1, 0, 50666),
+	(678, 'TTCNTT', '000.01.01.H59', 576, 52, 'Triển khai phần mềm Hóa đơn điện tử', NULL, '2021-06-18 09:42:15', 3, 0, 52678),
+	(680, 'TTCNTT', '000.01.01.H59', 576, 53, 'Hỗ trợ đơn vị sử dụng: Sở TT&TT, Sở GD&ĐT, UB Mặt  Trận Tổ Quốc tỉnh Trà vinh', NULL, '2021-06-18 09:50:28', 2, 0, 53680),
+	(681, 'TTCNTT', '000.01.01.H59', 576, 53, 'Phối hợp Sở TT&TT fix lổi không bakup database', NULL, '2021-06-18 09:50:44', 2, 0, 53681),
+	(682, 'TTCNTT', '000.01.01.H59', 576, 53, 'Cung cấp lại thông tin tài khoản quản trị cho trường tiểu học Phương Thạnh A - Càng Long.', NULL, '2021-06-18 09:50:52', 2, 0, 53682),
+	(686, 'TTCNTT', '000.01.01.H59', 576, 50, ' Phần mềm VNPT-HIS', NULL, '2021-06-18 09:19:15', 3, 0, 50646),
+	(687, 'TTCNTT', '000.01.01.H59', 576, 37, 'CSDLQG-DC', NULL, '2021-06-18 10:42:30', 3, 0, 37687),
+	(689, 'TTCNTT', '000.01.01.H59', 576, 3, 'VNPT-iGate', NULL, '2021-06-18 10:44:40', 3, 0, 3689),
+	(690, 'TTCNTT', '000.01.01.H59', 576, 39, 'Các công việc thường xuyên khác', NULL, '2021-06-18 10:49:10', 3, 0, 39690),
+	(692, 'TTCNTT', '000.01.01.H59', 576, 54, 'Hỗ trợ các trường, giáo viên sử dụng phần mềm.', NULL, '2021-06-18 10:51:34', 0, 0, 54692),
+	(694, 'TTCNTT', '000.01.01.H59', 576, 54, 'Làm việc với trung tâm eEdu cập nhật lại form sổ học bạ, sổ điểm tổng hợp.', NULL, '2021-06-18 10:51:47', 0, 0, 54694),
+	(696, 'TTCNTT', '000.01.01.H59', 576, 54, 'Khai báo năm học 2021-2022 cho tỉnh trên hệ thống', NULL, '2021-06-18 10:51:55', 0, 0, 54696),
+	(697, 'TTCNTT', '000.01.01.H59', 576, 37, 'Tiếp nhận thông tin các sự cố truy cập hệ thống phần mềm từ các đơn vị, phối hợp kiểm tra hệ thống và gửi y/c xử lý về BDA;', NULL, '2021-06-18 10:53:52', 2, 0, 37697),
+	(701, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phần mềm ĐHSXKD tập trung', NULL, '2021-06-18 11:02:05', 3, 0, 49701),
+	(705, 'TTCNTT', '000.01.01.H59', 576, 57, 'LGSP', NULL, '2021-06-18 11:04:29', 3, 0, 57705),
+	(706, 'TTCNTT', '000.01.01.H59', 576, 57, 'Tích hợp API dịch vụ công cung cấp cho VBDLis vào LGSP;', NULL, '2021-06-18 11:04:36', 2, 0, 57706),
+	(707, 'TTCNTT', '000.01.01.H59', 576, 49, 'Mobile App VNPT-TVH-CO:', NULL, '2021-06-18 11:05:12', 2, 0, 49707),
+	(708, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản Android: Hoàn thành chức năng nhận thông báo; bổ sung kênh bản tin cấp 2; bổ sung chi tiết lương khuyến khích; bổ sung chức năng công khai phản ánh kiến nghị gửi thông báo đến tất cả người dùng;', NULL, '2021-06-18 11:05:37', 1, 0, 49708),
+	(709, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản IOS: Xây dựng chức năng nhận thông báo đã xong nhưng còn lỗi khi đóng ứng dụng không nhận nữa (đang tìm giải pháp khắc phục);', NULL, '2021-06-18 11:06:07', 1, 0, 49709),
+	(710, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chương trình Dashboard:', NULL, '2021-06-18 11:06:23', 2, 0, 49710),
+	(711, 'TTCNTT', '000.01.01.H59', 576, 49, 'Sửa báo cáo Tiền điện – dầu tiêu thụ: Thêm đường line thể hiện giá trị cùng kỳ của năm n-1;', NULL, '2021-06-18 11:06:38', 1, 0, 49711),
+	(712, 'TTCNTT', '000.01.01.H59', 576, 49, 'Cập nhật danh sách trạm chạy theo đơn vị được chọn khi xem báo cáo theo đơn vị;', NULL, '2021-06-18 11:06:54', 1, 0, 49712),
+	(713, 'TTCNTT', '000.01.01.H59', 576, 49, 'Thay đổi mức suy hao top địa bàn có số thuê bao lớn hơn 10;', NULL, '2021-06-18 11:07:07', 1, 0, 49713),
+	(715, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chương trình lương:', NULL, '2021-06-18 11:07:39', 2, 0, 49715),
+	(716, 'TTCNTT', '000.01.01.H59', 576, 49, 'Sửa công thức tính tiền phạt hủy Fiber;', NULL, '2021-06-18 11:07:57', 1, 0, 49716),
+	(717, 'TTCNTT', '000.01.01.H59', 576, 49, 'Kiểm tra giảm trừ sản lượng, doanh thu tính lương đơn giá cho TVH;', NULL, '2021-06-18 11:08:10', 1, 0, 49717),
+	(718, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ kiểm tra và đối soát lương khuyến khích cho các đơn vị;', NULL, '2021-06-18 11:08:26', 1, 0, 49718),
+	(719, 'TTCNTT', '000.01.01.H59', 576, 49, 'Quản lý tài sản:', NULL, '2021-06-18 11:08:46', 2, 0, 49719),
+	(720, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ đối chiếu và cập nhật thông tin các trạm trong quản lý tiền điện và danh sách CSHT hiện có;', NULL, '2021-06-18 11:08:58', 1, 0, 49720),
+	(721, 'TTCNTT', '000.01.01.H59', 576, 49, 'Bổ sung chức năng nhập lịch sử tác động vào CSHT;', NULL, '2021-06-18 11:09:07', 1, 0, 49721),
+	(722, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chương trình BSC: Thực hiện chuyển các xử lý logic dữ liệu vào trong store của Database để thuận tiện điều chỉnh khi có thay đổi;', NULL, '2021-06-18 11:09:28', 2, 0, 49722),
+	(723, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chương trình Phản ánh kiến nghị: Bổ sung tính năng thông báo cho người dùng khi có phản ánh kiến nghị mới được công khai;', NULL, '2021-06-18 11:09:40', 2, 0, 49723),
+	(724, 'TTCNTT', '000.01.01.H59', 576, 49, 'Xây dựng bộ API kết xuất dữ liệu từ hệ thống ĐHSXKD hỗ trợ chương trình báo cáo tuần;', NULL, '2021-06-18 11:09:50', 2, 0, 49724),
+	(725, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ kết xuất dữ liệu hiện trạng cáp đồng (mytv riêng lẻ, mega riêng lẻ, mytv cùng đường truyền mega) số lượng, doanh thu, tuổi cho phòng KTĐT;', NULL, '2021-06-18 11:10:05', 2, 0, 49725),
+	(726, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ kết xuất dữ liệu tình hình thu hồi TBĐC cho phòng KHKT;', NULL, '2021-06-18 11:10:18', 2, 0, 49726),
+	(727, 'TTCNTT', '000.01.01.H59', 576, 49, 'Xây dựng phương án cập nhật tọa độ thuê bao kết xuất từ phiếu B2A cho tập khách hàng chưa có thông tin tọa độ trên hệ thống ĐHSXKD.', NULL, '2021-06-18 11:10:30', 2, 0, 49727),
+	(728, 'TTCNTT', '000.01.01.H59', 576, 58, NULL, NULL, '2021-06-18 11:13:45', 0, 0, 58728);
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.chuc_danh
 CREATE TABLE IF NOT EXISTS `chuc_danh` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ten_chuc_danh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT 1,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ten_chuc_danh` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1353,10 +1501,10 @@ INSERT INTO `chuc_danh` (`id`, `ten_chuc_danh`, `state`) VALUES
 
 -- Dumping structure for table vnptpayc.chuc_vu
 CREATE TABLE IF NOT EXISTS `chuc_vu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_nhom_chuc_vu` int(10) unsigned NOT NULL DEFAULT 1,
-  `ten_chuc_vu` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `state` int(11) DEFAULT 1 COMMENT '0 nghỉ sử dụng; 1 còn sử dụng',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_nhom_chuc_vu` int unsigned NOT NULL DEFAULT '1',
+  `ten_chuc_vu` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state` int DEFAULT '1' COMMENT '0 nghỉ sử dụng; 1 còn sử dụng',
   PRIMARY KEY (`id`),
   KEY `FK_chuc_vu_nhom_chuc_vu` (`id_nhom_chuc_vu`),
   CONSTRAINT `FK_chuc_vu_nhom_chuc_vu` FOREIGN KEY (`id_nhom_chuc_vu`) REFERENCES `nhom_chuc_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1373,10 +1521,10 @@ INSERT INTO `chuc_vu` (`id`, `id_nhom_chuc_vu`, `ten_chuc_vu`, `state`) VALUES
 
 -- Dumping structure for table vnptpayc.dich_vu
 CREATE TABLE IF NOT EXISTS `dich_vu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_nhom_dich_vu` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_nhom_dich_vu` int DEFAULT NULL,
   `ten_dich_vu` varchar(50) DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT 1,
+  `state` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_dich_vu_nhom_dich_vu` (`id_nhom_dich_vu`),
   CONSTRAINT `FK_dich_vu_nhom_dich_vu` FOREIGN KEY (`id_nhom_dich_vu`) REFERENCES `nhom_dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1391,7 +1539,7 @@ INSERT INTO `dich_vu` (`id`, `id_nhom_dich_vu`, `ten_dich_vu`, `state`) VALUES
 
 -- Dumping structure for table vnptpayc.dm_cap_don_vi
 CREATE TABLE IF NOT EXISTS `dm_cap_don_vi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_cap` varchar(50) DEFAULT NULL,
   `ten_cap` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1413,12 +1561,12 @@ INSERT INTO `dm_cap_don_vi` (`id`, `ma_cap`, `ten_cap`) VALUES
 
 -- Dumping structure for table vnptpayc.dm_phuong_xa
 CREATE TABLE IF NOT EXISTS `dm_phuong_xa` (
-  `ma_phuong_xa` int(10) unsigned NOT NULL,
-  `ten_phuong_xa` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `loai` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ma_quan_huyen` int(10) unsigned NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ma_phuong_xa` int unsigned NOT NULL,
+  `ten_phuong_xa` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `loai` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ma_quan_huyen` int unsigned NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ma_phuong_xa`),
   KEY `FK_dm_xaphuong_DM_quanhuyen` (`ma_quan_huyen`),
   CONSTRAINT `FK_dm_xaphuong_DM_quanhuyen` FOREIGN KEY (`ma_quan_huyen`) REFERENCES `dm_quan_huyen` (`ma_quan_huyen`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1537,12 +1685,12 @@ INSERT INTO `dm_phuong_xa` (`ma_phuong_xa`, `ten_phuong_xa`, `loai`, `ma_quan_hu
 
 -- Dumping structure for table vnptpayc.dm_quan_huyen
 CREATE TABLE IF NOT EXISTS `dm_quan_huyen` (
-  `ma_quan_huyen` int(10) unsigned NOT NULL,
-  `ten_quan_huyen` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ma_tinh` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `loai` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `ma_quan_huyen` int unsigned NOT NULL,
+  `ten_quan_huyen` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ma_tinh` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `loai` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ma_quan_huyen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1562,7 +1710,7 @@ INSERT INTO `dm_quan_huyen` (`ma_quan_huyen`, `ten_quan_huyen`, `ma_tinh`, `loai
 
 -- Dumping structure for table vnptpayc.dm_tham_so_he_thong
 CREATE TABLE IF NOT EXISTS `dm_tham_so_he_thong` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_tham_so` varchar(250) DEFAULT NULL,
   `ten_tham_so` varchar(250) DEFAULT NULL,
   `loai_tham_so` varchar(250) DEFAULT NULL,
@@ -1591,20 +1739,20 @@ INSERT INTO `dm_tham_so_he_thong` (`id`, `ma_tham_so`, `ten_tham_so`, `loai_tham
 
 -- Dumping structure for table vnptpayc.don_vi
 CREATE TABLE IF NOT EXISTS `don_vi` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ma_don_vi` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ten_don_vi` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `ma_phuong_xa` int(10) unsigned NOT NULL,
-  `ma_cap` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ma_dinh_danh` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `co_dinh` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `di_dong` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fax` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `parent_id` int(10) unsigned DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
-  `la_don_vi_xu_ly` int(11) NOT NULL DEFAULT 0,
-  `state` int(11) NOT NULL DEFAULT 1 COMMENT '0: không hoạt động; 1: hoạt động',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ma_don_vi` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ten_don_vi` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `ma_phuong_xa` int unsigned NOT NULL,
+  `ma_cap` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ma_dinh_danh` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `co_dinh` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `di_dong` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fax` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parent_id` int unsigned DEFAULT NULL,
+  `order` int NOT NULL DEFAULT '1',
+  `la_don_vi_xu_ly` int NOT NULL DEFAULT '0',
+  `state` int NOT NULL DEFAULT '1' COMMENT '0: không hoạt động; 1: hoạt động',
   PRIMARY KEY (`id`),
   KEY `FK_don_vi_don_vi` (`parent_id`),
   KEY `order` (`order`),
@@ -1648,9 +1796,9 @@ INSERT INTO `don_vi` (`id`, `ma_don_vi`, `ten_don_vi`, `ma_phuong_xa`, `ma_cap`,
 
 -- Dumping structure for table vnptpayc.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1666,10 +1814,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 -- Dumping structure for table vnptpayc.nhom_chuc_vu
 CREATE TABLE IF NOT EXISTS `nhom_chuc_vu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ten_nhom_chuc_vu` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ma_nhom_chuc_vu` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `state` int(11) NOT NULL DEFAULT 1,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ten_nhom_chuc_vu` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ma_nhom_chuc_vu` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `loai_nhom_chuc_vu` (`ma_nhom_chuc_vu`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1685,10 +1833,10 @@ INSERT INTO `nhom_chuc_vu` (`id`, `ten_nhom_chuc_vu`, `ma_nhom_chuc_vu`, `state`
 
 -- Dumping structure for table vnptpayc.nhom_dich_vu
 CREATE TABLE IF NOT EXISTS `nhom_dich_vu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_nhom_dich_vu` varchar(200) DEFAULT NULL,
   `ten_nhom_dich_vu` varchar(200) DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT 1,
+  `state` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
@@ -1706,11 +1854,11 @@ INSERT INTO `nhom_dich_vu` (`id`, `ma_nhom_dich_vu`, `ten_nhom_dich_vu`, `state`
 
 -- Dumping structure for table vnptpayc.oauth_access_tokens
 CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) unsigned DEFAULT NULL,
-  `client_id` bigint(20) unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `client_id` bigint unsigned NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1751,10 +1899,10 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 
 -- Dumping structure for table vnptpayc.oauth_auth_codes
 CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `client_id` bigint(20) unsigned NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  `client_id` bigint unsigned NOT NULL,
+  `scopes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1767,12 +1915,12 @@ CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
 
 -- Dumping structure for table vnptpayc.oauth_clients
 CREATE TABLE IF NOT EXISTS `oauth_clients` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `personal_access_client` tinyint(1) NOT NULL,
   `password_client` tinyint(1) NOT NULL,
   `revoked` tinyint(1) NOT NULL,
@@ -1791,14 +1939,14 @@ INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `red
 
 -- Dumping structure for table vnptpayc.oauth_personal_access_clients
 CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `client_id` bigint(20) unsigned NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `client_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.oauth_personal_access_clients: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.oauth_personal_access_clients: ~0 rows (approximately)
 /*!40000 ALTER TABLE `oauth_personal_access_clients` DISABLE KEYS */;
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, '2021-03-18 09:02:45', '2021-03-18 09:02:45');
@@ -1806,8 +1954,8 @@ INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `u
 
 -- Dumping structure for table vnptpayc.oauth_refresh_tokens
 CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1820,8 +1968,8 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
 
 -- Dumping structure for table vnptpayc.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1835,21 +1983,21 @@ INSERT INTO `password_resets` (`email`, `token`, `created_at`) VALUES
 
 -- Dumping structure for table vnptpayc.payc
 CREATE TABLE IF NOT EXISTS `payc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user_tao` int(10) unsigned NOT NULL,
-  `id_dich_vu` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_user_tao` int unsigned NOT NULL,
+  `id_dich_vu` int DEFAULT NULL,
   `so_phieu` varchar(200) DEFAULT NULL,
   `tieu_de` varchar(200) NOT NULL,
-  `noi_dung` longtext DEFAULT NULL,
-  `file_payc` text DEFAULT NULL,
-  `ma_phuong_xa` int(10) unsigned DEFAULT NULL,
+  `noi_dung` longtext,
+  `file_payc` text,
+  `ma_phuong_xa` int unsigned DEFAULT NULL,
   `vi_do` varchar(250) DEFAULT NULL,
   `kinh_do` varchar(250) DEFAULT NULL,
-  `ngay_tao` datetime DEFAULT current_timestamp(),
+  `ngay_tao` datetime DEFAULT CURRENT_TIMESTAMP,
   `han_xu_ly_mong_muon` datetime DEFAULT NULL,
   `han_xu_ly_duoc_giao` datetime DEFAULT NULL,
   `ngay_hoan_tat` datetime DEFAULT NULL,
-  `trang_thai` int(11) NOT NULL DEFAULT 1,
+  `trang_thai` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_payc_users` (`id_user_tao`),
   KEY `FK_payc_dich_vu` (`id_dich_vu`),
@@ -1870,18 +2018,18 @@ INSERT INTO `payc` (`id`, `id_user_tao`, `id_dich_vu`, `so_phieu`, `tieu_de`, `n
 
 -- Dumping structure for table vnptpayc.payc_binh_luan
 CREATE TABLE IF NOT EXISTS `payc_binh_luan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_payc` int(11) NOT NULL DEFAULT 1,
-  `id_user` int(10) unsigned DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_payc` int NOT NULL DEFAULT '1',
+  `id_user` int unsigned DEFAULT NULL,
+  `parent_id` int DEFAULT NULL,
   `file` varchar(250) DEFAULT NULL,
   `ma_loai` varchar(50) NOT NULL DEFAULT 'BINH_LUAN' COMMENT 'BINH_LUAN; TRA_LOI',
   `ho_ten` varchar(250) DEFAULT NULL,
-  `noi_dung` longtext DEFAULT NULL,
-  `hai_long` int(11) NOT NULL DEFAULT 0,
-  `khong_hai_long` int(11) NOT NULL DEFAULT 0,
-  `trang_thai` int(11) NOT NULL DEFAULT 0,
-  `ngay_binh_luan` datetime NOT NULL DEFAULT current_timestamp(),
+  `noi_dung` longtext,
+  `hai_long` int NOT NULL DEFAULT '0',
+  `khong_hai_long` int NOT NULL DEFAULT '0',
+  `trang_thai` int NOT NULL DEFAULT '0',
+  `ngay_binh_luan` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_payc_binh_luan_payc` (`id_payc`),
   KEY `FK_payc_binh_luan_users` (`id_user`),
@@ -1891,20 +2039,20 @@ CREATE TABLE IF NOT EXISTS `payc_binh_luan` (
   CONSTRAINT `FK_payc_binh_luan_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_binh_luan: ~1 rows (approximately)
+-- Dumping data for table vnptpayc.payc_binh_luan: ~0 rows (approximately)
 /*!40000 ALTER TABLE `payc_binh_luan` DISABLE KEYS */;
 /*!40000 ALTER TABLE `payc_binh_luan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.payc_can_bo_nhan
 CREATE TABLE IF NOT EXISTS `payc_can_bo_nhan` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_xu_ly_yeu_cau` int(11) NOT NULL,
-  `id_user_nhan` int(10) unsigned NOT NULL,
-  `ngay_nhan` datetime NOT NULL DEFAULT current_timestamp(),
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_xu_ly_yeu_cau` int NOT NULL,
+  `id_user_nhan` int unsigned NOT NULL,
+  `ngay_nhan` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `han_xu_ly` datetime DEFAULT NULL,
   `ngay_hoan_tat` datetime DEFAULT NULL,
-  `vai_tro` int(11) NOT NULL DEFAULT 0,
-  `trang_thai` int(11) NOT NULL DEFAULT 0,
+  `vai_tro` int NOT NULL DEFAULT '0',
+  `trang_thai` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_payc_can_bo_nhan_payc_canbo_xuly_yeucau` (`id_xu_ly_yeu_cau`),
   KEY `FK_payc_can_bo_nhan_users` (`id_user_nhan`),
@@ -1923,12 +2071,12 @@ INSERT INTO `payc_can_bo_nhan` (`id`, `id_xu_ly_yeu_cau`, `id_user_nhan`, `ngay_
 
 -- Dumping structure for table vnptpayc.payc_trang_thai_xu_ly
 CREATE TABLE IF NOT EXISTS `payc_trang_thai_xu_ly` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `ma_trang_thai` varchar(200) DEFAULT NULL,
   `ten_trang_thai_xu_ly` varchar(200) DEFAULT NULL,
   `mo_ta` varchar(250) DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT 1,
-  `trang_thai` int(11) NOT NULL DEFAULT 1,
+  `order` int NOT NULL DEFAULT '1',
+  `trang_thai` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ten_xu_ly` (`ten_trang_thai_xu_ly`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
@@ -1958,14 +2106,14 @@ INSERT INTO `payc_trang_thai_xu_ly` (`id`, `ma_trang_thai`, `ten_trang_thai_xu_l
 
 -- Dumping structure for table vnptpayc.payc_xu_ly
 CREATE TABLE IF NOT EXISTS `payc_xu_ly` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_payc` int(11) NOT NULL,
-  `id_user_xu_ly` int(10) unsigned NOT NULL,
-  `id_xu_ly` int(11) NOT NULL,
-  `noi_dung_xu_ly` longtext DEFAULT NULL,
-  `file_xu_ly` text DEFAULT NULL,
-  `ngay_xu_ly` datetime DEFAULT current_timestamp(),
-  `state` int(11) NOT NULL DEFAULT 0,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_payc` int NOT NULL,
+  `id_user_xu_ly` int unsigned NOT NULL,
+  `id_xu_ly` int NOT NULL,
+  `noi_dung_xu_ly` longtext,
+  `file_xu_ly` text,
+  `ngay_xu_ly` datetime DEFAULT CURRENT_TIMESTAMP,
+  `state` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_payc_canbo_xuly_yeucau_payc` (`id_payc`),
   KEY `FK_payc_canbo_xuly_yeucau_users` (`id_user_xu_ly`),
@@ -1975,7 +2123,7 @@ CREATE TABLE IF NOT EXISTS `payc_xu_ly` (
   CONSTRAINT `FK_payc_canbo_xuly_yeucau_users` FOREIGN KEY (`id_user_xu_ly`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=365 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.payc_xu_ly: ~6 rows (approximately)
+-- Dumping data for table vnptpayc.payc_xu_ly: ~7 rows (approximately)
 /*!40000 ALTER TABLE `payc_xu_ly` DISABLE KEYS */;
 INSERT INTO `payc_xu_ly` (`id`, `id_payc`, `id_user_xu_ly`, `id_xu_ly`, `noi_dung_xu_ly`, `file_xu_ly`, `ngay_xu_ly`, `state`) VALUES
 	(352, 84, 2, 1, '', '', '2021-06-14 08:43:00', 0),
@@ -1989,81 +2137,87 @@ INSERT INTO `payc_xu_ly` (`id`, `id_payc`, `id_user_xu_ly`, `id_xu_ly`, `noi_dun
 
 -- Dumping structure for table vnptpayc.to_do
 CREATE TABLE IF NOT EXISTS `to_do` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) unsigned NOT NULL,
-  `noi_dung` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
-  `file` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ngay_tao` datetime DEFAULT current_timestamp(),
-  `ngay_giao` datetime DEFAULT current_timestamp(),
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` int unsigned NOT NULL,
+  `noi_dung` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `file` longtext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `ngay_tao` datetime DEFAULT CURRENT_TIMESTAMP,
+  `ngay_giao` datetime DEFAULT CURRENT_TIMESTAMP,
   `han_xu_ly` datetime DEFAULT NULL,
   `ngay_hoan_thanh` datetime DEFAULT NULL,
-  `sap_xep` int(11) NOT NULL DEFAULT 0,
-  `trang_thai` int(11) NOT NULL DEFAULT 0,
+  `sap_xep` int NOT NULL DEFAULT '0',
+  `trang_thai` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_to_do_users` (`id_user`),
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.to_do: ~2 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
+INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
+	(40, 37, 'Mai họp', NULL, '2021-06-17 16:53:51', '2021-06-17 16:53:51', '2021-06-19 20:20:00', '2021-06-17 17:17:27', 1, 1),
+	(42, 2, 'Test 2', NULL, '2021-06-18 07:56:04', '2021-06-18 07:56:04', '2021-06-19 07:55:00', NULL, 2, 1);
 /*!40000 ALTER TABLE `to_do` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hinh_anh` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '/user.png',
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `di_dong` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `loai_tai_khoan` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT 'KHACH_HANG' COMMENT 'KHACH_HANG; CAN_BO',
-  `state` int(11) DEFAULT 1,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hinh_anh` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'logo.png',
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `di_dong` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `loai_tai_khoan` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'KHACH_HANG' COMMENT 'KHACH_HANG; CAN_BO',
+  `state` int DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table vnptpayc.users: ~19 rows (approximately)
+-- Dumping data for table vnptpayc.users: ~21 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_token`, `created_at`, `updated_at`, `di_dong`, `loai_tai_khoan`, `state`) VALUES
 	(1, 'Chế độ ẩn danh', 'guest@vnpt.vn', '$2y$10$VZI0siYq7lRPvqt8e.QbXOWDBelj91YwJoLsEKx4GxbWH5XQb87xO', 'photo_2019-10-21_18-00-43_16177906110.jpg', '35xOWSUdceM6lRhePiHS9Y3xwvvLupgJWeYIzh2FMjMl22RuUJURMmX7oElG', NULL, '2021-06-10 10:09:36', '0941138484', 'KHACH_HANG', 1),
-	(2, 'Quản trị hệ thống', 'admin@vnpt.vn', '$2y$10$OcK0kyfMtKmByQ2ZmToC/uf.8ekeOk.Snc4LqXXDrnZrHO8oencTC', 'photo_2019-10-21_18-00-43_16177906110.jpg', '6DvBHgif9z3GPXAwjogtsfxe6PaWwk2k31EnHJiABzrTzgXG3jhNNxsWp4hY', NULL, '2021-06-17 16:27:16', '0941138484', 'CAN_BO', 1),
+	(2, 'Quản trị hệ thống', 'admin@vnpt.vn', '$2y$10$OcK0kyfMtKmByQ2ZmToC/uf.8ekeOk.Snc4LqXXDrnZrHO8oencTC', 'photo_2019-10-21_18-00-43_16177906110.jpg', 'huDOU8dTqaXyR33F6kPJSQsSLDReUBEMEuYayZohLFhNA4UR5i0epIceXAlY', NULL, '2021-06-18 10:10:01', '0941138484', 'CAN_BO', 1),
 	(3, 'Phan Văn Thanh', 'thanhpv.tvh@vnpt.vn', '$2y$10$qtkXLgyhBiGhZE4a.4DPjuirvK03vKh9llBKgkA.gbBD0n8b1l84C', '/user.png', NULL, '2021-06-14 08:36:04', '2021-06-17 15:33:13', '0941138484', 'CAN_BO', 1),
 	(35, 'API', 'api.tvh@vnpt.vn', '$2y$10$7XXsD688amtqziOa0CJb6er2R6hvpBj0jWMeNFSOGuhxow2Z13ZMy', '/user.png', NULL, '2021-05-27 10:15:36', '2021-05-27 10:15:36', NULL, 'API', 1),
-	(37, 'Nguyễn Chí Thanh', 'thanhnc.tvh@vnpt.vn', '$2y$10$fHF7exTXOKmfCqXsNMyK/uEb7tIdBLvUk1anLRz0PIaaQSlThXtxy', '/user.png', NULL, '2021-06-10 10:11:50', '2021-06-10 10:11:50', '0913658639', 'CAN_BO', 1),
-	(38, 'Nguyễn Hữu Quang', 'quangnh.tvh@vnpt.vn', '$2y$10$9Cfj4KpHnLfa87vjlqcIjen6vE0D2ARCEFOx5gOcNQ1SHjn8goYze', '/user.png', NULL, '2021-06-10 10:12:28', '2021-06-10 10:12:28', '0913981014', 'CAN_BO', 1),
-	(39, 'Nguyễn Văn Nam', 'namnv.tvh@vnpt.vn', '$2y$10$kg3FV0O.KAGTSVLv/Wo5qeoXDT7O5hbR08uiqnASSP3kZ2bgJNR92', '/user.png', NULL, '2021-06-10 10:13:08', '2021-06-10 10:13:08', '0919363999', 'CAN_BO', 1),
+	(37, 'Nguyễn Chí Thanh', 'thanhnc.tvh@vnpt.vn', '$2y$10$s6e4H9NTKjvpV8lwgz3ga.yTtDREGwLuGwdhDn36bP2g/m42Gr7la', 'anh_16239233080.jpg', 'mNe9ICwwmkY03HEWKWmh0PMQFpnHMH1xEqRjLX646QncIahyEAzODzTHLZ7f', '2021-06-10 10:11:50', '2021-06-18 10:43:30', '0913658639', 'CAN_BO', 1),
+	(38, 'Nguyễn Hữu Quang', 'quangnh.tvh@vnpt.vn', '$2y$10$7QFUeePm1u3YNRUIJj.5sOwsFSGLIf7rTUsVucW6CoQZv1BRtGDyy', '/user.png', NULL, '2021-06-10 10:12:28', '2021-06-18 09:33:31', '0913891014', 'CAN_BO', 1),
+	(39, 'Nguyễn Văn Nam', 'namnv.tvh@vnpt.vn', '$2y$10$2EM8xaShb53j2uxd6MMrke6r/hg/bLMOYkaVatlF2ueNfpUlrnZI6', '/user.png', NULL, '2021-06-10 10:13:08', '2021-06-18 10:48:57', '0919363999', 'CAN_BO', 1),
 	(40, 'Hồ Thanh Cao', 'caoht.tvh@vnpt.vn', '$2y$10$Wfkw.2H.KHQp8sw1e70tVu5F.EuPb8srhogB1uJ6RE3BNqp.HZVjG', '/user.png', NULL, '2021-06-10 10:17:04', '2021-06-10 10:17:04', '0913890084', 'CAN_BO', 1),
 	(41, 'Đặng Văn Nghĩa', 'nghiadv.tvh@vnpt.vn', '$2y$10$JvUZrBgsWVeqp1kTzp9YH.vBXmDVeAbu85xgqoZA.r5.wbp/dPnXG', '/user.png', NULL, '2021-06-10 10:21:04', '2021-06-10 10:21:04', '0919329629', 'CAN_BO', 1),
 	(42, 'Nguyễn Văn Ngon', 'ngonnv.tvh@vnpt.vn', '$2y$10$sX/p/FdLQAR2gqdroit9uO7i0//HyGCX6cnQzsFIhkT2OymqU.Tua', '/user.png', NULL, '2021-06-10 10:22:13', '2021-06-10 10:22:13', '0918136456', 'CAN_BO', 1),
 	(43, 'Bạch Tuấn Kiệt', 'kietbt.tvh@vnpt.vn', '$2y$10$HzEoUTDOFc792WW7/PyRJ.90VDx8lyb141oV7cmg16V6y3azBoZL6', '/user.png', NULL, '2021-06-11 13:41:01', '2021-06-11 13:41:01', '0913633215', 'CAN_BO', 1),
 	(45, 'Nguyễn Duy Sơn', 'sonnd.tvh@vnpt.vn', '$2y$10$DyeI6HHVOpruUYkBhV0/gO5qMPACp5YbF3YwwXS9whBqvV2XXXrny', '/user.png', NULL, '2021-06-14 08:32:54', '2021-06-14 08:32:54', '0919329666', 'CAN_BO', 1),
 	(46, 'Nguyễn Thị Kim Chi', 'chintk.tvh@vnpt.vn', '$2y$10$0ffdrnejzltTXS1n193Vb.tAaTwuR3ocBJ/BqUd9WOcuFoQFVtT2W', '/user.png', NULL, '2021-06-14 08:34:08', '2021-06-14 08:34:08', '0919896606', 'CAN_BO', 1),
-	(49, 'Huỳnh Sa Quang', 'quanghs.tvh@vnpt.vn', '$2y$10$NkEArFNoNGsJw05ZUPiwEuf1.Q2teuJI.9f0CDK.u7enaGTCjIV3G', '/user.png', NULL, '2021-06-17 08:23:13', '2021-06-17 08:23:13', '0911759134', 'CAN_BO', 1),
-	(50, 'Từ Minh Khoa', 'khoatm.tvh@vnpt.vn', '$2y$10$eqWaDva1yD7E8pw5ILepa.CpAVP5yYF8brnfHYQ8Zr9LM7ODwvXbi', '/user.png', NULL, '2021-06-17 08:23:52', '2021-06-17 08:23:52', '0941230111', 'CAN_BO', 1),
-	(51, 'Huỳnh Minh Luân', 'luanhm.tvh@vnpt.vn', '$2y$10$IQocHlJYq2Adfpcwc44DIuQwmb1tAFEeENveuaoYDbjC2jKgbWmdK', '/user.png', NULL, '2021-06-17 08:24:30', '2021-06-17 08:24:30', '0944322567', 'CAN_BO', 1),
-	(52, 'Võ Duy Hưng', 'hungvd@vnpt.vn', '$2y$10$OaAiCA6fxVRy46ZCumxpIex5YnfrWcg9mIUoRp.gFa.Hlh63aCTNq', '/user.png', NULL, '2021-06-17 08:24:59', '2021-06-17 08:24:59', '0911699736', 'CAN_BO', 1),
+	(49, 'Huỳnh Sa Quang', 'quanghs.tvh@vnpt.vn', '$2y$10$NkEArFNoNGsJw05ZUPiwEuf1.Q2teuJI.9f0CDK.u7enaGTCjIV3G', '/user.png', 'JKxt5schnFS7Wqo7ZOsvaHJBgPFmZcuPNlBPOUZEUbAxUmClcEFgEQ4MmHLy', '2021-06-17 08:23:13', '2021-06-18 11:01:56', '0911759134', 'CAN_BO', 1),
+	(50, 'Từ Minh Khoa', 'khoatm.tvh@vnpt.vn', '$2y$10$eqWaDva1yD7E8pw5ILepa.CpAVP5yYF8brnfHYQ8Zr9LM7ODwvXbi', '/user.png', 'o07dfOzSafCwBxoTt6PGLVkTBlvv6bsbkJHMUOxaHqRhjyGtbrXt3qR9YKVl', '2021-06-17 08:23:52', '2021-06-17 16:37:26', '0941230111', 'CAN_BO', 1),
+	(51, 'Huỳnh Minh Luân', 'luanhm.tvh@vnpt.vn', '$2y$10$w7kEDPmNfiQjFGVlDPwivOP8yiTBR4tQc0q4Oatzaqrqz9adnQnLq', '1_16239783520.jpg', 'mJfcwZO8KaM1Yt5DTGIjVzqeupCIqw4ZiEr4cNUyqDxmuWw2XZzdLGGWZTlS', '2021-06-17 08:24:30', '2021-06-18 08:05:52', '0944322567', 'CAN_BO', 1),
+	(52, 'Võ Duy Hưng', 'hungvd.tvh@vnpt.vn', '$2y$10$CNyg7.eyvKXG/Iby3pWNy.Ed8KIjOBvcxcindSY4N5VfPbymm75s.', '/user.png', NULL, '2021-06-17 08:24:59', '2021-06-18 09:38:30', '0911699736', 'CAN_BO', 1),
 	(53, 'Hồ Minh Hải', 'haihm.tvh@vnpt.vn', '$2y$10$5nR5.6IdV.g0UnAUy8zJkO1WunApacBV9tZK5OlohCqhMOwhM2BBq', '/user.png', NULL, '2021-06-17 08:25:30', '2021-06-17 08:25:30', '0916961718', 'CAN_BO', 1),
-	(54, 'Trần Anh Tuấn', 'tuanta.tvh@vnpt.vn', '$2y$10$vD6/usbPo7QeIJSm.kENaO7XA.UA1HOsWYwkPZ5Jm4/5w4.5GU7y6', '/user.png', NULL, '2021-06-17 08:26:06', '2021-06-17 08:26:06', '0911771873', 'CAN_BO', 1),
-	(55, 'Trần Thị Thanh Mỹ', 'myttt.tvh@vnpt.vn', '$2y$10$MGPd9Q4E60IPKNRoJB.B4uJ34kVkPKAfKh1anwP2VNNc/X6YXTBu.', '/user.png', NULL, '2021-06-17 08:31:07', '2021-06-17 08:31:07', '0919345358', 'CAN_BO', 1);
+	(54, 'Trần Anh Tuấn', 'tuanta.tvh@vnpt.vn', '$2y$10$vD6/usbPo7QeIJSm.kENaO7XA.UA1HOsWYwkPZ5Jm4/5w4.5GU7y6', '/user.png', 'vBothiIEvvrrsoYEa0Cj6SHBsSSZmspl9HSKrefO4d0KTg6DiPL28KROs3Ch', '2021-06-17 08:26:06', '2021-06-18 10:46:49', '0911771873', 'CAN_BO', 1),
+	(55, 'Trần Thị Thanh Mỹ', 'myttt.tvh@vnpt.vn', '$2y$10$MGPd9Q4E60IPKNRoJB.B4uJ34kVkPKAfKh1anwP2VNNc/X6YXTBu.', '/user.png', NULL, '2021-06-17 08:31:07', '2021-06-17 08:31:07', '0919345358', 'CAN_BO', 1),
+	(56, 'Trần Quốc Việt', 'viettq.tvh@vnpt.vn', '$2y$10$yYSpnVfpNG2wftNU3EiGvOj0ebRKoNFwTbrntkvA1vNzC9f1lV0SG', 'AnhankemTrangTien_16239242010.jpg', 'uNHU4rQYyb8VfEYh0y4M56c1hHo1guLoYrAsVtjdNtRSDM2QU7vBMRvauOnR', '2021-06-17 17:03:21', '2021-06-17 17:03:35', '0947874156', 'CAN_BO', 1),
+	(57, 'Phạm Kim TÍn', 'tinpk.tvh@vnpt.vn', '$2y$10$SittrT.4rEPdLRFEsUse6e7AjwsDFhpLAkyAtD/J8XkviRxGy3gcq', 'logo.png', NULL, '2021-06-18 10:58:03', '2021-06-18 10:58:03', '0944564033', 'CAN_BO', 1),
+	(58, 'Nguyễn Thị Kim Xa', 'xantk.tvh@vnpt.vn', '$2y$10$xQJrK4Ai1HsXNRvxKm0MZOmpNB3ffujGHRMrr/58YExjLPN3F8ZUm', 'logo.png', NULL, '2021-06-18 11:02:39', '2021-06-18 11:02:39', '0917380098', 'CAN_BO', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_dich_vu
 CREATE TABLE IF NOT EXISTS `users_dich_vu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(10) unsigned NOT NULL,
-  `id_dich_vu` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_user` int unsigned NOT NULL,
+  `id_dich_vu` int DEFAULT NULL,
   `tu_ngay` date DEFAULT NULL,
   `den_ngay` date DEFAULT NULL,
-  `state` int(11) NOT NULL DEFAULT 1,
+  `state` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_users_dich_vu_users` (`id_user`),
   KEY `FK_users_dich_vu_dich_vu` (`id_dich_vu`),
   CONSTRAINT `FK_users_dich_vu_dich_vu` FOREIGN KEY (`id_dich_vu`) REFERENCES `dich_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_dich_vu_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table vnptpayc.users_dich_vu: ~19 rows (approximately)
 /*!40000 ALTER TABLE `users_dich_vu` DISABLE KEYS */;
@@ -2086,19 +2240,21 @@ INSERT INTO `users_dich_vu` (`id`, `id_user`, `id_dich_vu`, `tu_ngay`, `den_ngay
 	(56, 40, 1, NULL, NULL, 1),
 	(57, 40, 2, NULL, NULL, 1),
 	(58, 38, 2, NULL, NULL, 1),
-	(59, 39, 2, NULL, NULL, 1);
+	(59, 39, 2, NULL, NULL, 1),
+	(60, 57, 2, '2021-06-18', '2025-12-18', 1),
+	(61, 58, 2, '2021-06-18', NULL, 1);
 /*!40000 ALTER TABLE `users_dich_vu` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_don_vi
 CREATE TABLE IF NOT EXISTS `users_don_vi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_don_vi` int(10) unsigned NOT NULL,
-  `id_user` int(10) unsigned NOT NULL,
-  `id_chuc_danh` int(10) unsigned NOT NULL DEFAULT 1,
-  `id_chuc_vu` int(10) unsigned NOT NULL DEFAULT 1,
-  `ngay_bat_dau_cong_tac` datetime DEFAULT current_timestamp(),
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_don_vi` int unsigned NOT NULL,
+  `id_user` int unsigned NOT NULL,
+  `id_chuc_danh` int unsigned NOT NULL DEFAULT '1',
+  `id_chuc_vu` int unsigned NOT NULL DEFAULT '1',
+  `ngay_bat_dau_cong_tac` datetime DEFAULT CURRENT_TIMESTAMP,
   `ngay_ket_thuc_cong_tac` datetime DEFAULT NULL,
-  `state` int(10) unsigned NOT NULL DEFAULT 1,
+  `state` int unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `FK_users_don_vi_users` (`id_user`),
   KEY `FK_users_don_vi_don_vi` (`id_don_vi`),
@@ -2108,7 +2264,7 @@ CREATE TABLE IF NOT EXISTS `users_don_vi` (
   CONSTRAINT `FK_users_don_vi_chuc_vu` FOREIGN KEY (`id_chuc_vu`) REFERENCES `chuc_vu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_don_vi_don_vi` FOREIGN KEY (`id_don_vi`) REFERENCES `don_vi` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_don_vi_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.users_don_vi: ~18 rows (approximately)
 /*!40000 ALTER TABLE `users_don_vi` DISABLE KEYS */;
@@ -2130,30 +2286,31 @@ INSERT INTO `users_don_vi` (`id`, `id_don_vi`, `id_user`, `id_chuc_danh`, `id_ch
 	(89, 18, 52, 1, 4, NULL, NULL, 1),
 	(90, 18, 53, 1, 4, NULL, NULL, 1),
 	(91, 18, 54, 1, 4, NULL, NULL, 1),
-	(92, 18, 55, 2, 3, NULL, NULL, 1);
+	(92, 18, 55, 2, 3, NULL, NULL, 1),
+	(93, 18, 57, 1, 4, '2021-06-18 00:00:00', '2025-12-18 00:00:00', 1),
+	(94, 19, 58, 1, 4, '2021-06-18 00:00:00', NULL, 1);
 /*!40000 ALTER TABLE `users_don_vi` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users_role
 CREATE TABLE IF NOT EXISTS `users_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned NOT NULL,
-  `role_id` int(10) unsigned NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp(),
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `role_id` int unsigned NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_role_id` (`user_id`,`role_id`),
   KEY `FK_users_role_admin_role` (`role_id`),
   CONSTRAINT `FK_users_role_admin_role` FOREIGN KEY (`role_id`) REFERENCES `admin_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_users_role_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.users_role: ~13 rows (approximately)
+-- Dumping data for table vnptpayc.users_role: ~14 rows (approximately)
 /*!40000 ALTER TABLE `users_role` DISABLE KEYS */;
 INSERT INTO `users_role` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, '2021-03-17 11:02:46', '2021-03-17 11:02:47'),
 	(32, 2, 2, '2021-04-09 16:10:46', '2021-04-09 16:10:46'),
 	(38, 37, 2, '2021-06-10 10:34:14', '2021-06-10 10:34:14'),
-	(49, 3, 2, '2021-06-14 08:37:01', '2021-06-14 08:37:01'),
 	(51, 49, 7, '2021-06-17 08:43:00', '2021-06-17 08:43:00'),
 	(52, 50, 7, '2021-06-17 08:45:06', '2021-06-17 08:45:06'),
 	(53, 38, 7, '2021-06-17 15:34:40', '2021-06-17 15:34:40'),
@@ -2162,7 +2319,11 @@ INSERT INTO `users_role` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`
 	(56, 52, 7, '2021-06-17 15:35:06', '2021-06-17 15:35:06'),
 	(57, 53, 7, '2021-06-17 15:35:11', '2021-06-17 15:35:11'),
 	(58, 54, 7, '2021-06-17 15:35:17', '2021-06-17 15:35:17'),
-	(59, 55, 7, '2021-06-17 15:35:22', '2021-06-17 15:35:22');
+	(59, 55, 7, '2021-06-17 15:35:22', '2021-06-17 15:35:22'),
+	(60, 56, 1, '2021-06-17 17:03:21', '2021-06-17 17:03:21'),
+	(61, 3, 7, '2021-06-18 10:13:56', '2021-06-18 10:13:56'),
+	(62, 57, 7, '2021-06-18 10:59:54', '2021-06-18 10:59:54'),
+	(63, 58, 7, '2021-06-18 11:03:46', '2021-06-18 11:03:46');
 /*!40000 ALTER TABLE `users_role` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
