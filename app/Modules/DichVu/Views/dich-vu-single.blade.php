@@ -26,6 +26,13 @@
      </div>
 
      <div class="form-group row">
+        <label for="sap_xep" class="col-sm-4 col-form-label ">Sắp xếp</label>
+        <div class="col-sm-8">
+           <input type="Text" class="form-control sap_xep" name="sap_xep" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['sap_xep']}}" @endif>
+        </div>
+     </div>
+
+     <div class="form-group row">
         <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
         <div class="col-sm-8">
            <select class="form-control state" name="state">

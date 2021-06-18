@@ -9,7 +9,7 @@ use App\NhomDichVu;
 class DichVu extends Model
 {
     protected $table='dich_vu';
-    protected $fillable=['id','id_nhom_dich_vu','ten_dich_vu', 'state'];
+    protected $fillable=['id','id_nhom_dich_vu','ten_dich_vu', 'sap_xep', 'state'];
     //protected $hidden=[''] // danh sách các trường muốn ẩn
     public $timestamps=false;
 

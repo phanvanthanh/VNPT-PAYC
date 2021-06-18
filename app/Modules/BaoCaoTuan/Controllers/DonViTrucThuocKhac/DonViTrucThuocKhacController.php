@@ -111,7 +111,7 @@ class DonViTrucThuocKhacController extends Controller{
             if($checkQuyenXemBaoCaoToanDonVi===1){
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')->orderBy('id_nhom','DESC')->get()->toArray();
+                    })->orderBy('id_nhom','asc')->orderBy('sap_xep','asc')->get()->toArray();
             }else{
                 // Lấy lại số liệu báo cáo
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {

@@ -28,7 +28,7 @@ class DichVuController extends Controller{
     public function danhSachDichVu(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $dichVus=DichVu::select('dich_vu.id','dich_vu.ten_dich_vu', 'dich_vu.state', 'nhom_dich_vu.ten_nhom_dich_vu')
+            $dichVus=DichVu::select('dich_vu.id','dich_vu.ten_dich_vu', 'dich_vu.state', 'nhom_dich_vu.ten_nhom_dich_vu', 'dich_vu.sap_xep')->orderBy('dich_vu.sap_xep','asc')
             ->leftJoin('nhom_dich_vu','dich_vu.id_nhom_dich_vu','=','nhom_dich_vu.id')
             ->get()->toArray();
             $view=view('DichVu::danh-sach-dich-vu', compact('dichVus','error'))->render(); // Trả dữ liệu ra view 
