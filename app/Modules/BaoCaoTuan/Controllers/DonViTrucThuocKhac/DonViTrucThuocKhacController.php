@@ -16,6 +16,7 @@ use App\BcKeHoachTuan;
 use App\BcDhsxkd;
 use App\BcPhanQuyenBaoCao;
 
+
 class DonViTrucThuocKhacController extends Controller{
     /**
      * Create a new authentication controller instance.
@@ -46,6 +47,7 @@ class DonViTrucThuocKhacController extends Controller{
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id'];
+
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
                 return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
@@ -75,7 +77,19 @@ class DonViTrucThuocKhacController extends Controller{
                     $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
                     if(count($nhomDichVuBaoCao)>0){
                         $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        if(trim($dichVu," ")!=''){
+                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                        $weekFix=\Helper::layTuanHienTai();
+                        $yearFix=date('Y');
+                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
+                        $laTuanHienTai=0;
+                        if(count($dmTuanFix)<=0){
+                            $laTuanHienTai=0;
+                        }else{
+                            if ($dmTuanFix[0]['id']==$idTuan) {
+                                $laTuanHienTai=1;
+                            }
+                        }
+                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
                             $dataBaoCaoTuan=array();
                             $dataBaoCaoTuan['id_tuan']=$idTuan;
                             $dataBaoCaoTuan['id_user_bao_cao']=$userId;
@@ -307,7 +321,19 @@ class DonViTrucThuocKhacController extends Controller{
                     $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
                     if(count($nhomDichVuBaoCao)>0){
                         $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                        if(trim($dichVu," ")!=''){
+                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                        $weekFix=\Helper::layTuanHienTai();
+                        $yearFix=date('Y');
+                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
+                        $laTuanHienTai=0;
+                        if(count($dmTuanFix)<=0){
+                            $laTuanHienTai=0;
+                        }else{
+                            if ($dmTuanFix[0]['id']==$idTuan) {
+                                $laTuanHienTai=1;
+                            }
+                        }
+                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
                             $dataBaoCaoTuan=array();
                             $dataBaoCaoTuan['id_tuan']=$idTuan;
                             $dataBaoCaoTuan['id_user_bao_cao']=$userId;

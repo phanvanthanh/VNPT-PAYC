@@ -169,18 +169,22 @@
       jQuery('.id_tuan').on('change',function(){
         var idTuan=jQuery(this).val();
         jQuery('.input-id-tuan').val(idTuan);
-        // Load báo cáo tuần
-        loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
-
-        // Load kế hoạch tuần
-        loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
-
-        // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
-        // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
-        loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
-
-        // Load báo cáo tổng hợp
-        loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        @if ($checkQuyenBaoCaoTuanHienTai==1)
+          // Load báo cáo tuần
+          loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+        @endif
+        @if ($checkQuyenBaoCaoKeHoachTuan==1)
+          // Load kế hoạch tuần
+          loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+        @endif
+        @if ($checkQuyenBaoCaoDhsxkd==1)
+          // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
+          loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
+        @endif
+        @if ($checkQuyenXemBaoCaoTongHop==1)
+          // Load báo cáo tổng hợp
+          loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        @endif
       });
 
 
