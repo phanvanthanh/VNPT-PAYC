@@ -80,7 +80,7 @@
                                     </div>
                                   </div>
                                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
-                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i> Thêm</button>
+                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i></button>
 
                                     <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-retweet"></i> Lấy kế hoạch tuần trước</button>
                                   </div>
