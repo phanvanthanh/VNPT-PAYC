@@ -30,7 +30,7 @@
                     {{$quyenBaoCao['ten_nhom_quyen']}}
                 </td>
                 <td>
-                    <input class="form-control dich-vu" id="dich-vu-{{$quyenBaoCao['id']}}" type="Text" data="{{$quyenBaoCao['id']}}" placeholder="Nhập dịch vụ báo cáo" value="@if(isset($data[$quyenBaoCao['id']])) {{$data[$quyenBaoCao['id']]['dich_vu']}} @endif">
+                    <input class="form-control dich-vu" id="dich-vu-{{$quyenBaoCao['id']}}" type="Text" data="{{$quyenBaoCao['id']}}" placeholder="Nhập dịch vụ báo cáo" value="@if(isset($data[$quyenBaoCao['id']])){{$data[$quyenBaoCao['id']]['dich_vu']}}@endif">
                 </td>   
             </tr>
         

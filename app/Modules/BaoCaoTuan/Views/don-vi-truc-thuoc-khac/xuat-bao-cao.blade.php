@@ -51,10 +51,10 @@
           
             if($baoCaoTuanHienTai['is_group']==3){
               $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". ".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             elseif($baoCaoTuanHienTai['is_group']==2){
-              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'></i>&minus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
+              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'>&minus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
             elseif($baoCaoTuanHienTai['is_group']==1){
               echo "<div style='margin-left:65px; margin-top:2; line-height: 2;'>&plus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
@@ -122,10 +122,10 @@
             
             if($baoCaoKeHoachTuan['is_group']==3){
               $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'></i>".$soThuTuPhanMem.". ".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==2){
-              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'></i>&minus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'>&minus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
             }
             elseif($baoCaoKeHoachTuan['is_group']==1){
               echo "<div style='margin-left:65px;margin-top:2; line-height: 2;'>&plus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
