@@ -4,7 +4,7 @@
 <table id="table-bao-cao-tuan-hien-tai" class="table table-hover table-bao-cao-tuan-hien-tai">
   <thead>
       <tr class="background-vnpt text-center">
-          <th style="width: 10%;">STT #</th>
+          {{-- <th style="width: 10%;">STT #</th> --}}
           <th style="width: 75%;">Nội dung báo cáo tuần này</th>
           <th style="width: 15%;">
               @if ($daChotSoLieu>0)
@@ -20,7 +20,7 @@
       @foreach ($baoCaos as $baoCao)
         @php $stt++; @endphp
         <tr class="tr-hover tr-small">
-          <td class="text-center">{{$stt}}</td>
+          {{-- <td class="text-center">{{$stt}}</td> --}}
           <td>
             @php
               if($baoCao['is_group']==3){
