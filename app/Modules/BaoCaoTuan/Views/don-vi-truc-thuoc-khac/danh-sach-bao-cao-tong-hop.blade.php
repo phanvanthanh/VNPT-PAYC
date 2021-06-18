@@ -6,6 +6,12 @@
   $tuNgay = date('d/m/Y',$tuNgay);
   $denNgay = strtotime($dmTuan['den_ngay']);
   $denNgay = date('d/m/Y',$denNgay);
+
+  $weekFix=$dmTuan['tuan']-1;
+  $yearFix=date('Y');
+  $dmTuanFix=Helper::getStartAndEndDateOfWeek($yearFix, $weekFix);
+  $tuNgay=DateTime::createFromFormat('Y-m-d', $dmTuanFix[0])->format('d/m/Y');
+  $denNgay=DateTime::createFromFormat('Y-m-d', $dmTuanFix[1])->format('d/m/Y');
   $checkQuyenDuyetVaGuiBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
   $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
    

@@ -12,10 +12,19 @@ use App\UsersDonVi;
 use App\UsersRole;
 use GuzzleHttp\Client;
 use App\BcPhanQuyenBaoCao;
+use DateTime;
 
 
 class Helper
 {
+    public static function getStartAndEndDateOfWeek($year, $week)
+    {
+       return [
+          (new DateTime())->setISODate($year, $week)->format('Y-m-d'), //start date
+          (new DateTime())->setISODate($year, $week, 5)->format('Y-m-d'), //mid date
+          (new DateTime())->setISODate($year, $week, 7)->format('Y-m-d') //end date
+       ];
+    }
 
     public static function kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, $maQuyenBaoCao){
         $data=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, $maQuyenBaoCao);
