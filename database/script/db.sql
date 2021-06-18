@@ -677,7 +677,7 @@ CREATE TABLE IF NOT EXISTS `bc_dm_thoi_gian_bao_cao` (
 -- Dumping data for table vnptpayc.bc_dm_thoi_gian_bao_cao: ~12 rows (approximately)
 /*!40000 ALTER TABLE `bc_dm_thoi_gian_bao_cao` DISABLE KEYS */;
 INSERT INTO `bc_dm_thoi_gian_bao_cao` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `thoi_gian_lay_so_lieu`, `thoi_gian_chot_so_lieu`, `ghi_chu`, `trang_thai`) VALUES
-	(64, 'TTCNTT', '000.01.01.H59', 576, '2021-06-18 12:12:32', NULL, NULL, 0),
+	(64, 'TTCNTT', '000.01.01.H59', 576, '2021-06-18 16:07:23', NULL, NULL, 0),
 	(65, 'TTKD', '000.01.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
 	(66, 'TTDHTT', '000.01.01.H59', 576, '2021-06-18 09:42:16', NULL, NULL, 0),
 	(67, 'NSTH', NULL, 576, '2021-06-18 09:42:16', NULL, NULL, 0),
@@ -1250,7 +1250,7 @@ CREATE TABLE IF NOT EXISTS `bc_ke_hoach_tuan` (
   KEY `FK_bc_ke_hoach_tuan_bc_dm_tuan` (`id_tuan`),
   CONSTRAINT `FK_bc_ke_hoach_tuan_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_ke_hoach_tuan_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=442 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table vnptpayc.bc_ke_hoach_tuan: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_ke_hoach_tuan` DISABLE KEYS */;
@@ -1262,9 +1262,6 @@ INSERT INTO `bc_ke_hoach_tuan` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(400, 'TTCNTT', '000.01.01.H59', 575, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:49', 2, 0, 510),
 	(401, 'TTCNTT', '000.01.01.H59', 574, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:52', 2, 0, 510),
 	(402, 'TTCNTT', '000.01.01.H59', 577, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:10:07', 2, 0, 510),
-	(403, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 08:17:03', 3, 0, 540),
-	(404, 'TTCNTT', '000.01.01.H59', 576, 54, 'Tiếp tục hỗ trợ các trường sử dụng phần mềm.', NULL, '2021-06-18 09:17:02', 2, 0, 54404),
-	(405, 'TTCNTT', '000.01.01.H59', 576, 54, 'Công việc thường xuyên.', NULL, '2021-06-18 09:17:10', 2, 0, 54405),
 	(406, 'TTCNTT', '000.01.01.H59', 576, 50, 'Phần mềm VNPT-HIS', NULL, '2021-06-18 09:23:50', 3, 0, 50406),
 	(407, 'TTCNTT', '000.01.01.H59', 576, 50, 'Phối hợp với TT Ehealth liên thông HSSK ver 2.0 sau khi TTKD xác nhận manday thực hiện;', NULL, '2021-06-18 09:23:59', 2, 0, 50407),
 	(408, 'TTCNTT', '000.01.01.H59', 576, 50, 'Thực hiện outsource các y.c;', NULL, '2021-06-18 09:24:10', 2, 0, 50408),
@@ -1276,14 +1273,29 @@ INSERT INTO `bc_ke_hoach_tuan` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(416, 'TTCNTT', '000.01.01.H59', 576, 37, 'CSDLQG-DC', NULL, '2021-06-18 10:54:54', 3, 0, 37416),
 	(417, 'TTCNTT', '000.01.01.H59', 576, 37, 'Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-18 10:55:03', 2, 0, 37417),
 	(418, 'TTCNTT', '000.01.01.H59', 576, 57, 'LGSP', NULL, '2021-06-18 11:00:19', 3, 0, 57418),
-	(419, 'TTCNTT', '000.01.01.H59', 576, 57, '- Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-18 11:02:34', 2, 0, 57419),
+	(419, 'TTCNTT', '000.01.01.H59', 576, 57, 'Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-18 11:02:34', 2, 0, 57419),
 	(420, 'TTCNTT', '000.01.01.H59', 576, 49, 'Triển khai phần mềm ĐHSXKD tập trung', NULL, '2021-06-18 11:11:04', 3, 0, 49420),
 	(421, 'TTCNTT', '000.01.01.H59', 576, 49, 'Mobile App VNPT-TVH-CO:', NULL, '2021-06-18 11:11:28', 2, 0, 49421),
 	(422, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản IOS: Hoàn thiện chức năng nhận thông báo và xây dựng module lương trực tuyến;', NULL, '2021-06-18 11:11:39', 1, 0, 49422),
 	(423, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phiên bản Android: Sửa lỗi nếu có;', NULL, '2021-06-18 11:11:51', 1, 0, 49423),
 	(424, 'TTCNTT', '000.01.01.H59', 576, 49, 'Nâng cấp chương trình quản lý tài sản: tối ưu các xử lý để tăng tốc độ;', NULL, '2021-06-18 11:12:02', 2, 0, 49424),
 	(425, 'TTCNTT', '000.01.01.H59', 576, 49, 'Xây dựng công cụ theo dõi thời gian xử lý phiếu KHDN (phiếu thi công và báo hỏng);', NULL, '2021-06-18 11:12:12', 2, 0, 49425),
-	(426, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chỉnh sửa Dashboard theo yêu cầu;', NULL, '2021-06-18 11:12:25', 2, 0, 49426);
+	(426, 'TTCNTT', '000.01.01.H59', 576, 49, 'Chỉnh sửa Dashboard theo yêu cầu;', NULL, '2021-06-18 11:12:25', 2, 0, 49426),
+	(427, 'TTCNTT', '000.01.01.H59', 576, 3, 'VNPT-iGate', NULL, '2021-06-18 13:28:45', 3, 0, 3427),
+	(428, 'TTCNTT', '000.01.01.H59', 576, 3, 'Thực hiện upcode và kiểm tra lại hệ thống sau khi hoàn tất quá trình upcode', NULL, '2021-06-18 13:28:50', 2, 0, 3428),
+	(429, 'TTCNTT', '000.01.01.H59', 576, 3, 'Phối hợp ITKV 5 xử lý lỗi tồn động, phát sinh trong quá trình triển khai, outsource các yêu cầu người dùng', NULL, '2021-06-18 13:29:00', 2, 0, 3429),
+	(430, 'TTCNTT', '000.01.01.H59', 576, 3, 'Tiếp tục cập nhật thông tin bộ thủ tục hành chính theo yêu cầu của UBND huyện Tiểu Cần', NULL, '2021-06-18 13:29:10', 2, 0, 3430),
+	(431, 'TTCNTT', '000.01.01.H59', 576, 3, 'Hỗ trợ xử lý lỗi đồng bộ hồ sơ đất đai của Sở Tài nguyên và Môi trường', NULL, '2021-06-18 13:29:19', 2, 0, 3431),
+	(432, 'TTCNTT', '000.01.01.H59', 576, 3, 'Cập nhật thời gian xử lý của quy trình đối với thủ tục liên thông phần mềm quản lý đất đai VILIS theo yêu cầu của Sở Tài nguyên Môi trường', NULL, '2021-06-18 13:29:31', 2, 0, 3432),
+	(433, 'TTCNTT', '000.01.01.H59', 576, 3, 'Outsource:', NULL, '2021-06-18 13:29:43', 2, 0, 3433),
+	(434, 'TTCNTT', '000.01.01.H59', 576, 3, 'Tiếp tục cập nhật API isodaihoccantho thêm cột dữ liệu trạng thái thủ tục', NULL, '2021-06-18 13:29:54', 1, 0, 3434),
+	(435, 'TTCNTT', '000.01.01.H59', 576, 3, 'Tiếp tục cập nhật API tra cứu hồ sơ theo mã thủ tục cho phép tra cứu hồ sơ của những thủ tục có trạng thái đã đóng', NULL, '2021-06-18 13:30:02', 1, 0, 3435),
+	(436, 'TTCNTT', '000.01.01.H59', 576, 3, 'Rà soát, tổng hợp, sao lưu lại source code của các yêu cầu đã thực hiện hotfix trước đó, tạo yêu cầu outsource và merge code đã hotfix, chuẩn bị nâng cấp phiên bản mới nhất', NULL, '2021-06-18 13:30:13', 1, 0, 3436),
+	(437, 'TTCNTT', '000.01.01.H59', 576, 3, 'Hỗ trợ điều chỉnh hệ thống đồng bộ hồ sơ đất đai cho phép cập nhật lại hạn xử lý, ngày trả kết quả của hồ sơ', NULL, '2021-06-18 13:30:22', 1, 0, 3437),
+	(438, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 14:19:56', 3, 0, 54438),
+	(439, 'TTCNTT', '000.01.01.H59', 576, 54, 'Tiếp tục hỗ trợ các trường sử dụng phần mềm.', NULL, '2021-06-18 14:20:00', 2, 0, 54439),
+	(440, 'TTCNTT', '000.01.01.H59', 576, 54, 'Công việc thường xuyên.', NULL, '2021-06-18 14:20:09', 2, 0, 54440),
+	(441, 'TTCNTT', '000.01.01.H59', 576, 38, 'Các công việc thường xuyên khác', NULL, '2021-06-18 15:44:49', 3, 0, 38441);
 /*!40000 ALTER TABLE `bc_ke_hoach_tuan` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_quyen_bao_cao
@@ -1399,15 +1411,15 @@ CREATE TABLE IF NOT EXISTS `bc_tuan_hien_tai` (
   KEY `FK_bc_tuan_hien_tai_users` (`id_user_bao_cao`),
   CONSTRAINT `FK_bc_tuan_hien_tai_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_tuan_hien_tai_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=729 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=767 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table vnptpayc.bc_tuan_hien_tai: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` DISABLE KEYS */;
 INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `id_user_bao_cao`, `noi_dung`, `ghi_chu`, `thoi_gian_bao_cao`, `is_group`, `trang_thai`, `sap_xep`) VALUES
-	(605, 'TTCNTT', '000.01.01.H59', 576, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 07:55:19', 2, 0, 510),
+	(605, 'TTCNTT', '000.01.01.H59', 576, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 07:55:19', 3, 0, 510),
 	(608, 'TTCNTT', '000.01.01.H59', 576, 51, 'Tình trạng hoạt động của các hệ thống:', NULL, '2021-06-18 07:57:02', 2, 0, 510),
 	(609, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 tỉnh ủy: 8h130 - 8h25(12/06/2021), 13h19 - 13h24(16/06/2021): lặp lại lỗi 502 làm gián đoạn dịch vụ, tiếp tục phối hợp với IT5 và eGov kiểm tra lại hệ thống.', NULL, '2021-06-18 07:57:22', 1, 0, 510),
-	(610, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 UBND: hoạt động ổn định.', NULL, '2021-06-18 07:57:37', 2, 0, 510),
+	(610, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 UBND: hoạt động ổn định.', NULL, '2021-06-18 07:57:37', 1, 0, 510),
 	(611, 'TTCNTT', '000.01.01.H59', 576, 51, 'iOffice v4 cụm Tân Thuận: hoạt động ổn định.', NULL, '2021-06-18 07:57:49', 1, 0, 510),
 	(612, 'TTCNTT', '000.01.01.H59', 576, 51, 'eOffice Bưu điện: Ký số hoạt động không ổn định, thường xuất hiện lỗi ERROR_HASH_SIGNER, egov đã tiếp nhận phản ánh và đang tìm nguyên nhân khắc phục.', NULL, '2021-06-18 07:58:08', 1, 0, 510),
 	(613, 'TTCNTT', '000.01.01.H59', 576, 51, 'eOffice VNPT: hoạt động ổn định.', NULL, '2021-06-18 07:58:20', 1, 0, 510),
@@ -1423,7 +1435,6 @@ INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(623, 'TTCNTT', '000.01.01.H59', 575, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:49', 2, 0, 510),
 	(624, 'TTCNTT', '000.01.01.H59', 574, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:09:52', 2, 0, 510),
 	(625, 'TTCNTT', '000.01.01.H59', 577, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 08:10:07', 2, 0, 510),
-	(630, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 08:17:33', 3, 0, 540),
 	(645, 'TTCNTT', '000.01.01.H59', 576, 53, 'vnPortal', NULL, '2021-06-18 09:18:01', 3, 0, 53645),
 	(647, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV, TTYT, PKĐK:', NULL, '2021-06-18 09:19:15', 2, 0, 50647),
 	(648, 'TTCNTT', '000.01.01.H59', 576, 50, 'BV trường ĐHTV: Phân quyền dược; Tiếp nhận yêu cầu khi gõ thuốc khám bệnh nội trú cột dạng thuốc lấy đơn vị tính; Kiểm tra báo cáo mẫu 21 tháng 04/2021; Cấu hình tài khoản mở khoá chức năng chỉnh sửa thông tin bệnh nhân; Hướng dẫn cập nhật tỉ lệ thanh toán TTPT; Tiếp nhận yêu cầu chỉnh sửa phiếu hoàn trả khoa phòng; Tiếp nhận yêu cầu chỉnh sửa giao diện cảnh báo tương tác hoạt chất;', NULL, '2021-06-18 09:19:29', 1, 0, 50648),
@@ -1453,9 +1464,6 @@ INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(687, 'TTCNTT', '000.01.01.H59', 576, 37, 'CSDLQG-DC', NULL, '2021-06-18 10:42:30', 3, 0, 37687),
 	(689, 'TTCNTT', '000.01.01.H59', 576, 3, 'VNPT-iGate', NULL, '2021-06-18 10:44:40', 3, 0, 3689),
 	(690, 'TTCNTT', '000.01.01.H59', 576, 39, 'Các công việc thường xuyên khác', NULL, '2021-06-18 10:49:10', 3, 0, 39690),
-	(692, 'TTCNTT', '000.01.01.H59', 576, 54, 'Hỗ trợ các trường, giáo viên sử dụng phần mềm.', NULL, '2021-06-18 10:51:34', 0, 0, 54692),
-	(694, 'TTCNTT', '000.01.01.H59', 576, 54, 'Làm việc với trung tâm eEdu cập nhật lại form sổ học bạ, sổ điểm tổng hợp.', NULL, '2021-06-18 10:51:47', 0, 0, 54694),
-	(696, 'TTCNTT', '000.01.01.H59', 576, 54, 'Khai báo năm học 2021-2022 cho tỉnh trên hệ thống', NULL, '2021-06-18 10:51:55', 0, 0, 54696),
 	(697, 'TTCNTT', '000.01.01.H59', 576, 37, 'Tiếp nhận thông tin các sự cố truy cập hệ thống phần mềm từ các đơn vị, phối hợp kiểm tra hệ thống và gửi y/c xử lý về BDA;', NULL, '2021-06-18 10:53:52', 2, 0, 37697),
 	(701, 'TTCNTT', '000.01.01.H59', 576, 49, 'Phần mềm ĐHSXKD tập trung', NULL, '2021-06-18 11:02:05', 3, 0, 49701),
 	(705, 'TTCNTT', '000.01.01.H59', 576, 57, 'LGSP', NULL, '2021-06-18 11:04:29', 3, 0, 57705),
@@ -1480,7 +1488,43 @@ INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(725, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ kết xuất dữ liệu hiện trạng cáp đồng (mytv riêng lẻ, mega riêng lẻ, mytv cùng đường truyền mega) số lượng, doanh thu, tuổi cho phòng KTĐT;', NULL, '2021-06-18 11:10:05', 2, 0, 49725),
 	(726, 'TTCNTT', '000.01.01.H59', 576, 49, 'Hỗ trợ kết xuất dữ liệu tình hình thu hồi TBĐC cho phòng KHKT;', NULL, '2021-06-18 11:10:18', 2, 0, 49726),
 	(727, 'TTCNTT', '000.01.01.H59', 576, 49, 'Xây dựng phương án cập nhật tọa độ thuê bao kết xuất từ phiếu B2A cho tập khách hàng chưa có thông tin tọa độ trên hệ thống ĐHSXKD.', NULL, '2021-06-18 11:10:30', 2, 0, 49727),
-	(728, 'TTCNTT', '000.01.01.H59', 576, 58, NULL, NULL, '2021-06-18 11:13:45', 0, 0, 58728);
+	(729, 'TTCNTT', '000.01.01.H59', 576, 3, 'Cập nhật thông tin bộ thủ tục hành chính theo yêu cầu của Sở Giao thông Vận Tải', NULL, '2021-06-18 13:24:00', 2, 0, 3729),
+	(730, 'TTCNTT', '000.01.01.H59', 576, 3, 'Hỗ trợ xử lý lỗi trong thanh toán nghĩa vụ tài chính lĩnh vực đất đai của Sở Tài nguyên và Môi trường', NULL, '2021-06-18 13:24:13', 2, 0, 3730),
+	(732, 'TTCNTT', '000.01.01.H59', 576, 3, 'Outsource:', NULL, '2021-06-18 13:26:52', 2, 0, 3732),
+	(733, 'TTCNTT', '000.01.01.H59', 576, 3, 'Thêm api cho phép cập nhật ngày hẹn trả theo mã biên nhận đối với liên thông phần mềm đất đai VILIS của Sở Tài nguyên và Môi trường', NULL, '2021-06-18 13:27:12', 1, 0, 3733),
+	(734, 'TTCNTT', '000.01.01.H59', 576, 3, 'Thêm api cho phép cập nhật hạn xử lý theo mã biên nhận đối với liên thông phần mềm đất đai VILIS của Sở Tài nguyên và Môi trường', NULL, '2021-06-18 13:27:23', 1, 0, 3734),
+	(735, 'TTCNTT', '000.01.01.H59', 576, 3, 'Hỗ trợ điều chỉnh hệ thống đồng bộ hồ sơ đất đai sửa lỗi hồ sơ trường hợp chuyển bước kế tiếp', NULL, '2021-06-18 13:27:32', 1, 0, 3735),
+	(736, 'TTCNTT', '000.01.01.H59', 576, 3, 'Công tác khác', NULL, '2021-06-18 13:27:54', 2, 0, 3736),
+	(737, 'TTCNTT', '000.01.01.H59', 576, 3, 'Hỗ trợ xử lý lỗi đồng bộ hồ sơ đất đai của Sở Tài nguyên và Môi trường', NULL, '2021-06-18 13:28:13', 1, 0, 3737),
+	(738, 'TTCNTT', '000.01.01.H59', 576, 3, 'Cập nhật hình thức thanh toán cho các thủ tục mức độ 3, mức độ 4.', NULL, '2021-06-18 13:28:22', 1, 0, 3738),
+	(739, 'TTCNTT', '000.01.01.H59', 576, 3, 'Xuất báo cáo và xử lý số liệu báo cáo tháng theo yêu cầu của Sở Thông tin và Truyền thông', NULL, '2021-06-18 13:28:31', 1, 0, 3739),
+	(740, 'TTCNTT', '000.01.01.H59', 576, 54, 'vnEdu', NULL, '2021-06-18 14:19:00', 3, 0, 54740),
+	(741, 'TTCNTT', '000.01.01.H59', 576, 54, 'Hỗ trợ các trường, giáo viên sử dụng phần mềm.', NULL, '2021-06-18 14:19:10', 2, 0, 54741),
+	(742, 'TTCNTT', '000.01.01.H59', 576, 54, 'Làm việc với trung tâm eEdu cập nhật lại form sổ học bạ, sổ điểm tổng hợp.', NULL, '2021-06-18 14:19:23', 2, 0, 54742),
+	(743, 'TTCNTT', '000.01.01.H59', 576, 54, 'Khai báo năm học 2021-2022 cho tỉnh trên hệ thống', NULL, '2021-06-18 14:19:34', 2, 0, 54743),
+	(744, 'TTCNTT', '000.01.01.H59', 576, 52, 'Hệ thống chính thức:\r', NULL, '2021-06-18 15:38:44', 2, 0, 52744),
+	(745, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thực hiện bổ sung thêm danh mục hình thức thanh toán  cho CÔNG TY TRÁCH NHIỆM HỮU HẠN DỊCH VỤ VÀ THƯƠNG MẠI KHẢI HỒNG THUẬN;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52745),
+	(746, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thực hiện chuyển đổi mẫu hoá đơn GTGT sang mẫu hoá đơn bán hàng cho DOANH NGHIỆP TN THƯƠNG MẠI VÀNG KIM HỒNG;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52746),
+	(747, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thực hiện mở số lượng số lẻ ở cột đơn giá cho CÔNG TY TNHH MỘT THÀNH VIÊN NGỌC HIẾU;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52747),
+	(748, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thực hiện thay đổi mẫu hoá đơn cho CÔNG TY TNHH NTN NGỌC THƯƠNG;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52748),
+	(749, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thực hiện cấu hình cho phép chọn ngày hoá đơn và điều chỉnh mẫu hoá đơn cho phép hiển thị ngày ký theo ngày hoá đơn cho các KH:\r', NULL, '2021-06-18 15:38:44', 1, 0, 52749),
+	(750, 'TTCNTT', '000.01.01.H59', 576, 52, 'DOANH NGHIỆP TN THƯƠNG MẠI VÀNG KIM HỒNG;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52750),
+	(751, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH CÀ PHÊ NGUYÊN TV;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52751),
+	(752, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TRÁCH NHIỆM HỮU HẠN MỘT THÀNH VIÊN TƯỜNG QUYỀN;\r', NULL, '2021-06-18 15:38:44', 1, 0, 52752),
+	(753, 'TTCNTT', '000.01.01.H59', 576, 52, 'Chuyển hệ thống chính thức cho các KH:\r', NULL, '2021-06-18 15:38:44', 1, 0, 52753),
+	(754, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH TƯ VẤN X Y DỰNG THƯƠNG MẠI VÀ DỊCH VỤ Y&N;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52754),
+	(755, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH MAY GIÀY DA HỒNG PHÁT;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52755),
+	(756, 'TTCNTT', '000.01.01.H59', 576, 52, 'DOANH NGHIỆP TN THƯƠNG MẠI VÀNG KIM HỒNG;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52756),
+	(757, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH THÉP NGỌC TIẾN PHÁT;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52757),
+	(758, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH NTN NGỌC THƯƠNG;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52758),
+	(759, 'TTCNTT', '000.01.01.H59', 576, 52, 'HTX NÔNG NGHIỆP THƯƠNG MẠI VÀ SXDV XU N THÀNH;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52759),
+	(760, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH CÀ PHÊ NGUYÊN TV;\r', NULL, '2021-06-18 15:38:44', 0, 0, 52760),
+	(761, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TRÁCH NHIỆM HỮU HẠN MỘT THÀNH VIÊN TƯỜNG QUYỀN;\r', NULL, '2021-06-18 15:38:45', 0, 0, 52761),
+	(762, 'TTCNTT', '000.01.01.H59', 576, 52, 'Hệ thống demo:\r', NULL, '2021-06-18 15:38:45', 2, 0, 52762),
+	(763, 'TTCNTT', '000.01.01.H59', 576, 52, 'Thiết kế mẫu và khởi tạo hệ thống demo cho các KH:\r', NULL, '2021-06-18 15:38:45', 1, 0, 52763),
+	(764, 'TTCNTT', '000.01.01.H59', 576, 52, 'CÔNG TY TNHH TƯ VẤN THIẾT KẾ TM DV THÙY TR N;\r', NULL, '2021-06-18 15:38:45', 0, 0, 52764),
+	(765, 'TTCNTT', '000.01.01.H59', 576, 52, 'HTX NÔNG NGHIỆP THƯƠNG MẠI VÀ SXDV XU N THÀNH;', NULL, '2021-06-18 15:38:45', 0, 0, 52765),
+	(766, 'TTCNTT', '000.01.01.H59', 576, 38, 'Các công việc thường xuyên khác', NULL, '2021-06-18 15:44:41', 3, 0, 38766);
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.chuc_danh
@@ -1883,6 +1927,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('5686828bc20556864bd052738a401e2d0e895e00e16ab87c3f0705219f58b6ca00b5b08fbdc9d942', 9, 1, 'Personal Access Token', '[]', 0, '2021-03-18 10:33:58', '2021-03-18 10:33:58', '2022-03-18 10:33:58'),
 	('5b86734b7c13af207eb1db1119d4a44d17056607197ddffe361912495b904263548dc3a2b0208b59', 36, 1, 'Personal Access Token', '[]', 0, '2021-05-27 10:15:52', '2021-05-27 10:15:52', '2021-06-03 10:15:52'),
 	('77ce018aaa53c802abf194d4d6704745be07c3406ffbbc00e95a9b9e1360f95a3c9e58d53f21c88d', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-19 10:40:12', '2021-03-19 10:40:12', '2021-03-26 10:40:12'),
+	('85a015496e911293796ccb5dd1fed51c45a8d8a9073248b978b0f6f0e14d459bee9c1d4e1212cb21', 2, 1, 'Personal Access Token', '[]', 0, '2021-06-18 15:59:14', '2021-06-18 15:59:14', '2021-06-25 15:59:14'),
 	('877cd02f5c4acd58baf85ac200d38c0535df43c5a7625cef75e25809176b7fb79cc3dbe33f44b8a3', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-19 08:12:07', '2021-03-19 08:12:07', '2021-03-26 08:12:07'),
 	('9598bce90b7426af3afbe4699626b9e4bafe70121cb0ee526fe1e232a48a2f522e54c17885f9c289', 2, 1, 'Personal Access Token', '[]', 0, '2021-06-16 09:23:40', '2021-06-16 09:23:40', '2021-06-23 09:23:40'),
 	('990c04b07a5843586c46fff54f46e7f2b6392cd42406a3b8840a7ce7bdfd3ca82cfe0a237df0b890', 11, 1, 'Personal Access Token', '[]', 0, '2021-03-23 16:10:19', '2021-03-23 16:10:19', '2021-03-30 16:10:19'),
@@ -2150,12 +2195,11 @@ CREATE TABLE IF NOT EXISTS `to_do` (
   PRIMARY KEY (`id`),
   KEY `FK_to_do_users` (`id_user`),
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Dumping data for table vnptpayc.to_do: ~2 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
 INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
-	(40, 37, 'Mai họp', NULL, '2021-06-17 16:53:51', '2021-06-17 16:53:51', '2021-06-19 20:20:00', '2021-06-17 17:17:27', 1, 1),
 	(42, 2, 'Test 2', NULL, '2021-06-18 07:56:04', '2021-06-18 07:56:04', '2021-06-19 07:55:00', NULL, 2, 1);
 /*!40000 ALTER TABLE `to_do` ENABLE KEYS */;
 
@@ -2183,7 +2227,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_to
 	(2, 'Quản trị hệ thống', 'admin@vnpt.vn', '$2y$10$OcK0kyfMtKmByQ2ZmToC/uf.8ekeOk.Snc4LqXXDrnZrHO8oencTC', 'photo_2019-10-21_18-00-43_16177906110.jpg', 'huDOU8dTqaXyR33F6kPJSQsSLDReUBEMEuYayZohLFhNA4UR5i0epIceXAlY', NULL, '2021-06-18 10:10:01', '0941138484', 'CAN_BO', 1),
 	(3, 'Phan Văn Thanh', 'thanhpv.tvh@vnpt.vn', '$2y$10$qtkXLgyhBiGhZE4a.4DPjuirvK03vKh9llBKgkA.gbBD0n8b1l84C', '/user.png', NULL, '2021-06-14 08:36:04', '2021-06-17 15:33:13', '0941138484', 'CAN_BO', 1),
 	(35, 'API', 'api.tvh@vnpt.vn', '$2y$10$7XXsD688amtqziOa0CJb6er2R6hvpBj0jWMeNFSOGuhxow2Z13ZMy', '/user.png', NULL, '2021-05-27 10:15:36', '2021-05-27 10:15:36', NULL, 'API', 1),
-	(37, 'Nguyễn Chí Thanh', 'thanhnc.tvh@vnpt.vn', '$2y$10$s6e4H9NTKjvpV8lwgz3ga.yTtDREGwLuGwdhDn36bP2g/m42Gr7la', 'anh_16239233080.jpg', 'mNe9ICwwmkY03HEWKWmh0PMQFpnHMH1xEqRjLX646QncIahyEAzODzTHLZ7f', '2021-06-10 10:11:50', '2021-06-18 10:43:30', '0913658639', 'CAN_BO', 1),
+	(37, 'Nguyễn Chí Thanh', 'thanhnc.tvh@vnpt.vn', '$2y$10$s6e4H9NTKjvpV8lwgz3ga.yTtDREGwLuGwdhDn36bP2g/m42Gr7la', 'anh_16239233080.jpg', 'CZ3tAvoEeud6UDzOQ11OnGVmEZUFWBcFQyG5wBtqDAuXogvIs9mLAO6ou1tA', '2021-06-10 10:11:50', '2021-06-18 15:36:46', '0913658639', 'CAN_BO', 1),
 	(38, 'Nguyễn Hữu Quang', 'quangnh.tvh@vnpt.vn', '$2y$10$7QFUeePm1u3YNRUIJj.5sOwsFSGLIf7rTUsVucW6CoQZv1BRtGDyy', '/user.png', NULL, '2021-06-10 10:12:28', '2021-06-18 09:33:31', '0913891014', 'CAN_BO', 1),
 	(39, 'Nguyễn Văn Nam', 'namnv.tvh@vnpt.vn', '$2y$10$2EM8xaShb53j2uxd6MMrke6r/hg/bLMOYkaVatlF2ueNfpUlrnZI6', '/user.png', NULL, '2021-06-10 10:13:08', '2021-06-18 10:48:57', '0919363999', 'CAN_BO', 1),
 	(40, 'Hồ Thanh Cao', 'caoht.tvh@vnpt.vn', '$2y$10$Wfkw.2H.KHQp8sw1e70tVu5F.EuPb8srhogB1uJ6RE3BNqp.HZVjG', '/user.png', NULL, '2021-06-10 10:17:04', '2021-06-10 10:17:04', '0913890084', 'CAN_BO', 1),
@@ -2197,7 +2241,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `hinh_anh`, `remember_to
 	(51, 'Huỳnh Minh Luân', 'luanhm.tvh@vnpt.vn', '$2y$10$w7kEDPmNfiQjFGVlDPwivOP8yiTBR4tQc0q4Oatzaqrqz9adnQnLq', '1_16239783520.jpg', 'mJfcwZO8KaM1Yt5DTGIjVzqeupCIqw4ZiEr4cNUyqDxmuWw2XZzdLGGWZTlS', '2021-06-17 08:24:30', '2021-06-18 08:05:52', '0944322567', 'CAN_BO', 1),
 	(52, 'Võ Duy Hưng', 'hungvd.tvh@vnpt.vn', '$2y$10$CNyg7.eyvKXG/Iby3pWNy.Ed8KIjOBvcxcindSY4N5VfPbymm75s.', '/user.png', NULL, '2021-06-17 08:24:59', '2021-06-18 09:38:30', '0911699736', 'CAN_BO', 1),
 	(53, 'Hồ Minh Hải', 'haihm.tvh@vnpt.vn', '$2y$10$5nR5.6IdV.g0UnAUy8zJkO1WunApacBV9tZK5OlohCqhMOwhM2BBq', '/user.png', NULL, '2021-06-17 08:25:30', '2021-06-17 08:25:30', '0916961718', 'CAN_BO', 1),
-	(54, 'Trần Anh Tuấn', 'tuanta.tvh@vnpt.vn', '$2y$10$vD6/usbPo7QeIJSm.kENaO7XA.UA1HOsWYwkPZ5Jm4/5w4.5GU7y6', '/user.png', 'vBothiIEvvrrsoYEa0Cj6SHBsSSZmspl9HSKrefO4d0KTg6DiPL28KROs3Ch', '2021-06-17 08:26:06', '2021-06-18 10:46:49', '0911771873', 'CAN_BO', 1),
+	(54, 'Trần Anh Tuấn', 'tuanta.tvh@vnpt.vn', '$2y$10$vD6/usbPo7QeIJSm.kENaO7XA.UA1HOsWYwkPZ5Jm4/5w4.5GU7y6', '/user.png', 'OnhylnnRavrZBeV2Gnqvm8TzFhY7esgTQ6sM01bX2uaWYvtsHUznVwFJvBSi', '2021-06-17 08:26:06', '2021-06-18 14:35:13', '0911771873', 'CAN_BO', 1),
 	(55, 'Trần Thị Thanh Mỹ', 'myttt.tvh@vnpt.vn', '$2y$10$MGPd9Q4E60IPKNRoJB.B4uJ34kVkPKAfKh1anwP2VNNc/X6YXTBu.', '/user.png', NULL, '2021-06-17 08:31:07', '2021-06-17 08:31:07', '0919345358', 'CAN_BO', 1),
 	(56, 'Trần Quốc Việt', 'viettq.tvh@vnpt.vn', '$2y$10$yYSpnVfpNG2wftNU3EiGvOj0ebRKoNFwTbrntkvA1vNzC9f1lV0SG', 'AnhankemTrangTien_16239242010.jpg', 'uNHU4rQYyb8VfEYh0y4M56c1hHo1guLoYrAsVtjdNtRSDM2QU7vBMRvauOnR', '2021-06-17 17:03:21', '2021-06-17 17:03:35', '0947874156', 'CAN_BO', 1),
 	(57, 'Phạm Kim TÍn', 'tinpk.tvh@vnpt.vn', '$2y$10$SittrT.4rEPdLRFEsUse6e7AjwsDFhpLAkyAtD/J8XkviRxGy3gcq', 'logo.png', NULL, '2021-06-18 10:58:03', '2021-06-18 10:58:03', '0944564033', 'CAN_BO', 1),
