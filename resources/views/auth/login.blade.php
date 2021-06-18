@@ -48,7 +48,10 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function(){ 
 			jQuery('.btn-dang-nhap').on('click', function() {
-				var tenDangNhap=jQuery('#ten-dang-nhap').val()+"@vnpt.vn";
+				var tenDangNhap=jQuery('#ten-dang-nhap').val();
+				if (tenDangNhap.indexOf("@vnpt.vn") >= 0){}else{
+					tenDangNhap=tenDangNhap+"@vnpt.vn";
+				}
 				jQuery('#ten-dang-nhap').val(tenDangNhap);
 				jQuery('#frm-dang-nhap').submit();
 
