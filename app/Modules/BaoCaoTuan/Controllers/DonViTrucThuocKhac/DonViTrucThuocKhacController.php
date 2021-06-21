@@ -15,6 +15,8 @@ use App\BcDmThoiGianBaoCao;
 use App\BcKeHoachTuan;
 use App\BcDhsxkd;
 use App\BcPhanQuyenBaoCao;
+use App\DichVu;
+use App\UsersDichVu;
 
 
 class DonViTrucThuocKhacController extends Controller{
@@ -34,7 +36,9 @@ class DonViTrucThuocKhacController extends Controller{
         $year=date('Y');
         $bcDmTuan=BcDmTuan::where('nam','=',$year)
         ->get()->toArray();
-        return view('BaoCaoTuan::don-vi-truc-thuoc-khac.bao-cao-tuan-don-vi-truc-thuoc-khac',compact('bcDmTuan', 'userId'));
+
+        $dichVus=UsersDichVu::danhSachDichVuTheoTaiKhoan($userId);
+        return view('BaoCaoTuan::don-vi-truc-thuoc-khac.bao-cao-tuan-don-vi-truc-thuoc-khac',compact('bcDmTuan', 'userId', 'dichVus'));
     }
 
 
@@ -46,8 +50,8 @@ class DonViTrucThuocKhacController extends Controller{
                 $userId=Auth::id();
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
-            $idTuan=$data['id'];
-
+            $idTuan=$data['id_tuan'];
+            $idDichVu=$data['id_dich_vu'];
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
                 return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
@@ -65,58 +69,63 @@ class DonViTrucThuocKhacController extends Controller{
             $this->ma=$ma;
 
             // Check báo cáo exits
-            $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')->get()->toArray();                
-            if(count($checkBaoCaoExits)<=0){
-                // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
-                $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
-                if(count($nhomDichVuBaoCao)>0){
-                    $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                    // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
-                    $weekFix=\Helper::layTuanHienTai();
-                    $yearFix=date('Y');
-                    $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
-                    $laTuanHienTai=0;
-                    if(count($dmTuanFix)<=0){
+            if($idDichVu){
+                $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->where('id_user_bao_cao','=',$userId)->where(function($query) {
+                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                    })->orderBy('sap_xep','asc')->get()->toArray();                
+                if(count($checkBaoCaoExits)<=0){
+                    // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
+                    //$nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_TUAN_HIEN_TAI');
+                    $nhomDichVuBaoCao=DichVu::where('id','=',$idDichVu)->get()->toArray();
+                    if(count($nhomDichVuBaoCao)>0){
+                        $dichVu=$nhomDichVuBaoCao[0]['ten_dich_vu'];
+                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                        $weekFix=\Helper::layTuanHienTai();
+                        $yearFix=date('Y');
+                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
                         $laTuanHienTai=0;
-                    }else{
-                        if ($dmTuanFix[0]['id']==$idTuan) {
-                            $laTuanHienTai=1;
+                        if(count($dmTuanFix)<=0){
+                            $laTuanHienTai=0;
+                        }else{
+                            if ($dmTuanFix[0]['id']==$idTuan) {
+                                $laTuanHienTai=1;
+                            }
                         }
+                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
+                            $dataBaoCaoTuan=array();
+                            $dataBaoCaoTuan['id_tuan']=$idTuan;
+                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                            $dataBaoCaoTuan['noi_dung']=$dichVu;
+                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataBaoCaoTuan['ghi_chu']=null;
+                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                            $dataBaoCaoTuan['trang_thai']=0;
+                            $dataBaoCaoTuan['is_group']=3;
+                            $dataBaoCaoTuan['sap_xep']=0;
+                            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                            $sapXep=$userId.$baoCaoTuan->id;
+                            $baoCaoTuan->sap_xep=$sapXep;
+                            $baoCaoTuan->save();
+                        }                  
                     }
-                    if(trim($dichVu," ")!='' && $laTuanHienTai==1){
-                        $dataBaoCaoTuan=array();
-                        $dataBaoCaoTuan['id_tuan']=$idTuan;
-                        $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                        $dataBaoCaoTuan['noi_dung']=$dichVu;
-                        $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                        $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                        $dataBaoCaoTuan['ghi_chu']=null;
-                        $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                        $dataBaoCaoTuan['trang_thai']=0;
-                        $dataBaoCaoTuan['is_group']=3;
-                        $dataBaoCaoTuan['sap_xep']=0;
-                        $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                        $sapXep=$userId.$baoCaoTuan->id;
-                        $baoCaoTuan->sap_xep=$sapXep;
-                        $baoCaoTuan->save();
-                    }                  
+                        
                 }
-                    
             }
+                
 
 
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
             if($checkQuyenXemBaoCaoToanDonVi===1){
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('id_nhom','asc')->orderBy('sap_xep','asc')->get()->toArray();
+                    })->orderBy('id_dich_vu','asc')->orderBy('sap_xep','asc')->get()->toArray();
             }else{
                 // Lấy lại số liệu báo cáo
                 $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
                     $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')->get()->toArray();
+                })->orderBy('id_dich_vu','asc')->orderBy('sap_xep','asc')->get()->toArray();
             }
             $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-tuan-hien-tai', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
@@ -133,6 +142,7 @@ class DonViTrucThuocKhacController extends Controller{
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id_tuan'];
+            $idDichVu=$data['id_dich_vu'];
 
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
@@ -164,6 +174,7 @@ class DonViTrucThuocKhacController extends Controller{
                             $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                             $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
                             $dataBaoCaoTuan['ghi_chu']=null;
+                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                             $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                             $dataBaoCaoTuan['trang_thai']=0;
                             $dataBaoCaoTuan['is_group']=0;
@@ -182,6 +193,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                     $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
                     $dataBaoCaoTuan['ghi_chu']=null;
+                    $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
                     $dataBaoCaoTuan['is_group']=0;
@@ -573,7 +585,7 @@ class DonViTrucThuocKhacController extends Controller{
                 $userId=Auth::id();
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
-            $idTuan=$data['id'];
+            $idTuan=$data['id_tuan'];
 
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
@@ -625,7 +637,7 @@ class DonViTrucThuocKhacController extends Controller{
             // End lấy ngày lấy số liệu của tuần trước
 
             // Lấy số liệu kế hoạch tuần trước làm báo cáo tuần hiện tại
-            $keHoachTuanTruocs=BcKeHoachTuan::where('id_tuan','=',$idTuanTruoc)->where(function($query) {
+            $keHoachTuanTruocs=BcKeHoachTuan::where('id_tuan','=',$idTuanTruoc)->where('id_user_bao_cao','=',$userId)->where(function($query) {
                 $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
             })->get()->toArray();
             foreach ($keHoachTuanTruocs as $key => $keHoachTuanTruoc) {
@@ -633,6 +645,7 @@ class DonViTrucThuocKhacController extends Controller{
                 $dataBaoCaoTuan['id_tuan']=$idTuan;
                 $dataBaoCaoTuan['id_user_bao_cao']=$userId;
                 $dataBaoCaoTuan['noi_dung']=$keHoachTuanTruoc['noi_dung'];
+                $dataBaoCaoTuan['id_dich_vu']=$keHoachTuanTruoc['id_dich_vu'];
                 $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                 $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
                 $dataBaoCaoTuan['ghi_chu']=null;

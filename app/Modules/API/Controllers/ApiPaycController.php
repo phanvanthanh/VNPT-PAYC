@@ -35,6 +35,7 @@ class ApiPaycController extends Controller
             //'file_payc'             => // Không validate
             'ma_phuong_xa'          => 'numeric',
             'vi_do'                 => 'nullable|string',
+            'file_payc'             => 'nullable|string',
             'kinh_do'               => 'nullable|string',
             'han_xu_ly_mong_muon'   => 'nullable|date',
             'is_an_danh'            => 'numeric'
@@ -66,6 +67,7 @@ class ApiPaycController extends Controller
         $data['ma_phuong_xa']=$request->ma_phuong_xa;
         $data['vi_do']=$request->vi_do;
         $data['kinh_do']=$request->kinh_do;
+        $data['file_payc']=$request->file_payc;
         $data['ngay_tao']=date('Y-m-d H:i:s');
         $data['han_xu_ly_mong_muon']=$request->han_xu_ly_mong_muon;
         $data['han_xu_ly_duoc_giao']=null;

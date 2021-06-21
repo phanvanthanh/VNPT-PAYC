@@ -31,13 +31,20 @@
                     <div class="card">
                       <div class="card-body" style="min-height: 500px;">
                         <div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
-                          <h4 class="card-title mb-0">
+                          <h4 class="card-title mb-2">
                             <form class="forms-sample frm-bao-cao-tuan" id="frm-bao-cao-tuan" name="frm-bao-cao-tuan">
                               {{ csrf_field() }}
                               <select class="form-control id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
                                 @foreach($bcDmTuan as $dmTuan)
                                   <option value="{{$dmTuan['id']}}" @if ($week==$dmTuan['tuan']) {{"selected='selected'"}} @endif>Báo cáo tuần @if ($dmTuan['tuan']<10) {{"0"}}@endif{{$dmTuan['tuan']}} - Năm {{$dmTuan['nam']}}</option>
                                 @endforeach
+                              </select>
+
+                              <select id="id-dich-vu" class="form-control @if(count($dichVus)<=1) d-none @endif" name="id_dich_vu">
+                                @foreach ($dichVus as $dichVu)
+                                  <option value="{{$dichVu['id_dich_vu']}}">{{$dichVu['ten_dich_vu']}}</option> 
+                                @endforeach
+                                         
                               </select>
                             </form>
                           </h4>
@@ -73,9 +80,10 @@
                               <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
+                                <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                                    <div class="form-group">
+                                    <div class="form-group">                                      
                                       <Textarea class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
                                     </div>
                                   </div>
@@ -156,22 +164,129 @@
   <script type="text/javascript">
     jQuery(document).ready(function() {
       $.fn.dataTable.ext.errMode = 'none';
+
+      loadBaoCaoTuanHienTai=function(){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        var form=jQuery('form[name="frm-bao-cao-tuan"]');
+        var formData = new FormData(form[0]);
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              jQuery('.load-danh-sach-bao-cao-tuan-hien-tai').html(data.html);
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      themBaoCaoTuanHienTai=function(){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        
+        var form=jQuery('form[name="frm-bao-cao-tuan-hien-tai"]');
+        var formData = new FormData(form[0]);
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadBaoCaoTuanHienTai();
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      layDuLieuTuKeHoachTuan=function(){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        
+        var form=jQuery('form[name="frm-bao-cao-tuan"]');
+        var formData = new FormData(form[0]);
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-lay-du-lieu-tu-ke-hoach-tuan') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadBaoCaoTuanHienTai();
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
   
       // THÔNG TIN CHUNG
       // onload
       var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
       var idTuan=jQuery('.id_tuan').val();
       jQuery('.input-id-tuan').val(idTuan);
-      loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+      var idDichVu=jQuery('#id-dich-vu').val();
+      jQuery('.input-id-dich-vu').val(idDichVu);
+      var form=jQuery('form[name="frm-bao-cao-tuan"]');
+      var formData = new FormData(form[0]);
+
+      loadBaoCaoTuanHienTai();
+      
 
 
       // Onchange selectbox tuần
       jQuery('.id_tuan').on('change',function(){
         var idTuan=jQuery(this).val();
         jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
         @if ($checkQuyenBaoCaoTuanHienTai==1)
-          // Load báo cáo tuần
-          loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+          // Load báo cáo tuần          
+          loadBaoCaoTuanHienTai();
         @endif
         @if ($checkQuyenBaoCaoKeHoachTuan==1)
           // Load kế hoạch tuần
@@ -184,6 +299,13 @@
         @if ($checkQuyenXemBaoCaoTongHop==1)
           // Load báo cáo tổng hợp
           loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        @endif
+      });
+
+      jQuery('#id-dich-vu').on('change', function() {
+        @if ($checkQuyenBaoCaoTuanHienTai==1)
+          // Load báo cáo tuần          
+          loadBaoCaoTuanHienTai();
         @endif
       });
 
@@ -204,7 +326,8 @@
         if (e.keyCode == 13) {
           var idTuan=jQuery('#id_tuan').val();
           var form=jQuery(this).parents('form');
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+          themBaoCaoTuanHienTai();        
+
           jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
           return false;
         }
@@ -213,7 +336,7 @@
       jQuery('.btn-bao-cao-tuan-hien-tai').on("click", function(e) {
         var idTuan=jQuery('#id_tuan').val();
         var form=jQuery(this).parents('form');
-        themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+        themBaoCaoTuanHienTai();
         jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
         return false;
       });
@@ -222,7 +345,14 @@
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
         // Load báo cáo tuần
-        loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+        loadBaoCaoTuanHienTai();        
+      });
+
+      jQuery('.btn-lay-ke-hoach-tuan-truoc').on('click', function() {
+        var idTuan=jQuery('#id_tuan').val();
+        //postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-lay-du-lieu-tu-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+        layDuLieuTuKeHoachTuan();
+        return false;
       });
 
 
@@ -268,15 +398,16 @@
         loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
-      jQuery('.btn-lay-ke-hoach-tuan-truoc').on('click', function() {
-        var idTuan=jQuery('#id_tuan').val();
-        postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-lay-du-lieu-tu-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
-        return false;
+      
+
+
+
+      jQuery('#id-dich-vu').on('change', function() {
+        jQuery('.input-id-dich-vu').val(jQuery(this).val());
       });
 
-
      
-      
+
 
       
     });
