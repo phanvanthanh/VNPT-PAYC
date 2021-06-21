@@ -49,7 +49,12 @@
                     @php
                         $dichVus=Helper::layDanhSachDichVuTheoUserId($user['id']);
                         foreach($dichVus as $dichVu){
-                            echo $dichVu['ten_dich_vu'].'; ';
+                            if($dichVu['ten_dich_vu']!=''){
+                                echo $dichVu['ten_dich_vu'].'; ';
+                            }else{
+                                echo 'Xem báo cáo; ';
+                            }
+                                
                         }
                     @endphp
                 </td>
