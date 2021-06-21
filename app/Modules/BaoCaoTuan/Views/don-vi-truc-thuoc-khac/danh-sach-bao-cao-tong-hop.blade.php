@@ -183,7 +183,7 @@
             @endphp
 
 
-            @if ($daChotSoLieu==0 && $baoCaoTuanHienTai['is_group']<3)
+            @if ($daChotSoLieu==0 && $baoCaoKeHoachTuan['is_group']<3)
                 <i class="list-menu-nhanh d-none">
                   <i class="is-group-ke-hoach-tuan fa fa-th-list cusor i-hover @if($baoCaoKeHoachTuan['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group-ke-hoach-tuan fa fa-list-ul cusor i-hover @if($baoCaoKeHoachTuan['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
