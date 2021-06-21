@@ -19,7 +19,12 @@
             <tr class="tr-hover tr-small">
                 <td class="text-center">{{$stt}}</td>
                 <td class='text-primary btn-sua' data="{{$dichVu['id']}}">
-                    {{$dichVu['ten_dich_vu']}}
+                    
+                    @if ($dichVu['ten_dich_vu']!='')
+                        {{$dichVu['ten_dich_vu']}}
+                    @else
+                        {{'Xem báo cáo'}}
+                    @endif
                 </td>
                 <td>                    
                     {{$dichVu['ten_nhom_dich_vu']}}

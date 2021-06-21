@@ -10,7 +10,11 @@
                      <select class="form-control id_dich_vu" name="id_dich_vu">
                       @foreach($dichVus as $dichVu)
                           <option value="{{$dichVu['id']}}">
-                            {{$dichVu['ten_dich_vu']}}
+                            @if ($dichVu['ten_dich_vu']!='')
+                                {{$dichVu['ten_dich_vu']}}
+                            @else
+                                {{'Xem báo cáo'}}
+                            @endif
                           </option>
                       @endforeach
                     </select>

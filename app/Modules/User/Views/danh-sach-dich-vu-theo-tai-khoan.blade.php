@@ -18,7 +18,11 @@
                     {{$stt}}
                 </td>
                 <td class="text-primary">
-                    {{$dichVu['ten_dich_vu']}}
+                    @if ($dichVu['ten_dich_vu']!='')
+                        {{$dichVu['ten_dich_vu']}}
+                    @else
+                        {{'Xem báo cáo'}}
+                    @endif
                 </td>
                 <td>
                     {{$dichVu['tu_ngay']}}
