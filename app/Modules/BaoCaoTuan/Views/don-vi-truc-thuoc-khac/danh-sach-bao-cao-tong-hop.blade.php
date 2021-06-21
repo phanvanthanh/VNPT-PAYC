@@ -39,6 +39,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
+              <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
               <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 20px;">
             </div>
           </div>
@@ -148,6 +149,7 @@
       <form class="forms-sample frm-bao-cao-ke-hoach-tuan-2 d-none" id="frm-bao-cao-ke-hoach-tuan-2" name="frm-bao-cao-ke-hoach-tuan-2">
         {{ csrf_field() }}
         <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
+        <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
@@ -266,6 +268,9 @@
           var idTuan=jQuery('#id_tuan').val();
           var form=jQuery(this).parents('form');
           form.find('.input-id-tuan').val(idTuan);
+
+          var idDichVu=jQuery('#id-dich-vu').val();
+          jQuery('.input-id-dich-vu').val(idDichVu);
           themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
           jQuery('#frm-bao-cao-tuan-hien-tai-2').addClass('d-none');
           e.preventDefault();
@@ -292,6 +297,7 @@
           var form=jQuery(this).parents('form');
           var _token=form.find("input[name='_token']").val();
           var idTuan=jQuery('#id_tuan').val();
+
           capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
           return false;
           
@@ -320,6 +326,9 @@
           var idTuan=jQuery('#id_tuan').val();
           var form=jQuery(this).parents('form');
           form.find('.input-id-tuan').val(idTuan);
+          var idDichVu=jQuery('#id-dich-vu').val();
+          jQuery('.input-id-dich-vu').val(idDichVu);
+          
           themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
           e.preventDefault();
           return false;

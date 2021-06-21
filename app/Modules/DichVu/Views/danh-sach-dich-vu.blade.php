@@ -28,7 +28,7 @@
                     {{$dichVu['sap_xep']}}
                 </td>
                 <td>
-                    <label class=" @if($dichVu['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($dichVu['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>
+                    <label class=" @if($dichVu['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($dichVu['state']==1) {{'Cho phép gửi PAKN'}} @elseif($dichVu['state']==0) {{'Ngừng hoạt động'}} @else {{'Chỉ sử dụng trong module báo cáo tuần (Không hiển thị trên PAKN)'}} @endif</label>
                 </td>
                 <td class="text-center">
                     <button class="btn btn-vnpt" href="#" data-toggle="dropdown">

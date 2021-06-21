@@ -43,7 +43,7 @@ class PaycController extends Controller{
         $dmQuanHuyens=DmQuanHuyen::all()->toArray();
         $dmPhuongXas=DmPhuongXa::all()->toArray();
         $donViMacDinh=UsersDonVi::getDonViMacDinh($idUser);
-        $dichVus=DichVu::all()->toArray();
+        $dichVus=DichVu::where('state','=',1)->orderBy('sap_xep')->get()->toArray();
         return view('Payc::payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
     }
     
@@ -1821,7 +1821,7 @@ class PaycController extends Controller{
         $dmQuanHuyens=DmQuanHuyen::all()->toArray();
         $dmPhuongXas=DmPhuongXa::all()->toArray();
         $donViMacDinh=UsersDonVi::getDonViMacDinh($idUser);
-        $dichVus=DichVu::all()->toArray();
+        $dichVus=DichVu::where('state','=',1)->orderBy('sap_xep')->get()->toArray();
         return view('Payc::dang-ky-payc', compact('dichVus', 'dmQuanHuyens','dmPhuongXas','donViMacDinh'));
     }
 

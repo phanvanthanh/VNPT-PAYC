@@ -4,6 +4,7 @@
             <th>STT #</th>
             <th>Tên nhóm dịch vụ</th>
             <th>Mã nhóm dịch vụ</th>
+            <th>Sắp xếp</th>
             <th>Trạng thái</th>
             <th>Xử lý</th>
         </tr>
@@ -22,6 +23,9 @@
                 </td>
                 <td>                    
                     {{$dichVu['ma_nhom_dich_vu']}}
+                </td>
+                <td>
+                    {{$dichVu['sap_xep']}}
                 </td>
                 <td>
                     <label class=" @if($dichVu['state']==1) {{'text-primary'}} @else {{'text-danger'}} @endif">@if($dichVu['state']==1) {{'Đang hoạt động'}} @else {{'Ngừng hoạt động'}} @endif</label>

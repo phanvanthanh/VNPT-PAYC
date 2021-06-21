@@ -20,7 +20,7 @@ class BcDhsxkd extends Model
         ->where('id_thoigian_baocao','=',$idThoiGianBaoCao)->where('loai_chi_so','=', $loaiChiSo)
         ->where(function($query) {
             $query->where('ma_dinh_danh','=',BcDhsxkd::$donVi)->orWhere('ma_don_vi','=',BcDhsxkd::$donVi);
-        })->orderBy('bc_dhsxkd.sap_xep','asc')->get()->toArray();
+        })->orderBy('bc_dm_chi_so.sap_xep','asc')->orderBy('bc_dhsxkd.sap_xep','asc')->get()->toArray();
         return $result;
     }
 }

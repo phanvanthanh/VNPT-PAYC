@@ -27,7 +27,7 @@ class NhomDichVuController extends Controller{
     public function danhSachNhomDichVu(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $nhomDichVus=NhomDichVu::all()->toArray();
+            $nhomDichVus=NhomDichVu::orderBy('sap_xep','asc')->get()->toArray();
             $view=view('NhomDichVu::danh-sach-nhom-dich-vu', compact('nhomDichVus','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }

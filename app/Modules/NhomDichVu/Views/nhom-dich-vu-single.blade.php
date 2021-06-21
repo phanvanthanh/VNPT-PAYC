@@ -18,6 +18,13 @@
            <input type="Text" class="form-control ma_nhom_dich_vu" name="ma_nhom_dich_vu" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['ma_nhom_dich_vu']}}" @endif>
         </div>
      </div>
+
+     <div class="form-group row">
+        <label for="sap_xep" class="col-sm-4 col-form-label ">Sắp xếp</label>
+        <div class="col-sm-8">
+           <input type="Number" class="form-control sap_xep" name="sap_xep" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['sap_xep']}}" @endif>
+        </div>
+     </div>
      
 
      <div class="form-group row">

@@ -70,7 +70,7 @@ class DonViTrucThuocKhacController extends Controller{
 
             // Check báo cáo exits
             if($idDichVu){
-                $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->where('id_user_bao_cao','=',$userId)->where(function($query) {
+                $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                     })->orderBy('sap_xep','asc')->get()->toArray();                
                 if(count($checkBaoCaoExits)<=0){
@@ -118,14 +118,22 @@ class DonViTrucThuocKhacController extends Controller{
 
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
             if($checkQuyenXemBaoCaoToanDonVi===1){
-                $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('id_dich_vu','asc')->orderBy('sap_xep','asc')->get()->toArray();
+                $baoCaos=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();
             }else{
                 // Lấy lại số liệu báo cáo
-                $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('id_dich_vu','asc')->orderBy('sap_xep','asc')->get()->toArray();
+                $baoCaos=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)->where('bc_tuan_hien_tai.id_user_bao_cao','=',$userId)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();
             }
             $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-tuan-hien-tai', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
@@ -320,7 +328,8 @@ class DonViTrucThuocKhacController extends Controller{
                 $userId=Auth::id();
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
-            $idTuan=$data['id'];
+            $idTuan=$data['id_tuan'];
+            $idDichVu=$data['id_dich_vu'];
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
                 return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
@@ -337,64 +346,75 @@ class DonViTrucThuocKhacController extends Controller{
             }
             $this->ma=$ma;
             // Check báo cáo tuần hiện tại
-            $checkBaoCaoExits=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
-                ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
-                ->get()->toArray();
+            if($idDichVu){
+                $checkBaoCaoExits=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)
+                    ->where(function($query) {
+                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                    })->orderBy('sap_xep','asc')
+                    ->get()->toArray();
 
-            if(count($checkBaoCaoExits)<=0){
-                // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
-                $nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
-                if(count($nhomDichVuBaoCao)>0){
-                    $dichVu=$nhomDichVuBaoCao[0]['dich_vu'];
-                    // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
-                    $weekFix=\Helper::layTuanHienTai();
-                    $yearFix=date('Y');
-                    $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
-                    $laTuanHienTai=0;
-                    if(count($dmTuanFix)<=0){
+                if(count($checkBaoCaoExits)<=0){
+                    // Kiểm tra nếu có tiêu đề thì thêm tiêu đề vô
+                    //$nhomDichVuBaoCao=BcPhanQuyenBaoCao::layDichVuBaoCaoCaoMacDinh($userId, 'BAO_CAO_KE_HOACH_TUAN');
+                    $nhomDichVuBaoCao=DichVu::where('id','=',$idDichVu)->get()->toArray();
+                    if(count($nhomDichVuBaoCao)>0){
+                        $dichVu=$nhomDichVuBaoCao[0]['ten_dich_vu'];
+                        // Kiểm tra đang xem dữ liệu tuần hiện tại hay tuần trước
+                        $weekFix=\Helper::layTuanHienTai();
+                        $yearFix=date('Y');
+                        $dmTuanFix=BcDmTuan::where('nam','=',$yearFix)->where('tuan','=',$weekFix)->get()->toArray();
                         $laTuanHienTai=0;
-                    }else{
-                        if ($dmTuanFix[0]['id']==$idTuan) {
-                            $laTuanHienTai=1;
+                        if(count($dmTuanFix)<=0){
+                            $laTuanHienTai=0;
+                        }else{
+                            if ($dmTuanFix[0]['id']==$idTuan) {
+                                $laTuanHienTai=1;
+                            }
                         }
+                        if(trim($dichVu," ")!='' && $laTuanHienTai==1){
+                            $dataBaoCaoTuan=array();
+                            $dataBaoCaoTuan['id_tuan']=$idTuan;
+                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                            $dataBaoCaoTuan['noi_dung']=$dichVu;
+                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataBaoCaoTuan['ghi_chu']=null;
+                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                            $dataBaoCaoTuan['trang_thai']=0;
+                            $dataBaoCaoTuan['is_group']=3;
+                            $dataBaoCaoTuan['sap_xep']=0;
+                            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                            $sapXep=$userId.$baoCaoTuan->id;
+                            $baoCaoTuan->sap_xep=$sapXep;
+                            $baoCaoTuan->save();
+                        }
+                        
                     }
-                    if(trim($dichVu," ")!='' && $laTuanHienTai==1){
-                        $dataBaoCaoTuan=array();
-                        $dataBaoCaoTuan['id_tuan']=$idTuan;
-                        $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                        $dataBaoCaoTuan['noi_dung']=$dichVu;
-                        $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                        $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                        $dataBaoCaoTuan['ghi_chu']=null;
-                        $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                        $dataBaoCaoTuan['trang_thai']=0;
-                        $dataBaoCaoTuan['is_group']=3;
-                        $dataBaoCaoTuan['sap_xep']=0;
-                        $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                        $sapXep=$userId.$baoCaoTuan->id;
-                        $baoCaoTuan->sap_xep=$sapXep;
-                        $baoCaoTuan->save();
-                    }
-                    
+                        
                 }
-                    
             }
 
 
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
             if($checkQuyenXemBaoCaoToanDonVi===1){
-                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                    ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
-                    ->get()->toArray();
+
+                $baoCaos=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
+                ->get()->toArray();
             }else{
                 // Lấy lại số liệu báo cáo
-                $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')->get()->toArray();
+                $baoCaos=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                    ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)->where('bc_ke_hoach_tuan.id_user_bao_cao','=',$userId)
+                    ->where(function($query) {
+                        $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
+                    ->get()->toArray();
             }
                 
             $view=view('BaoCaoTuan::don-vi-truc-thuoc-khac.danh-sach-bao-cao-ke-hoach-tuan', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
@@ -411,6 +431,7 @@ class DonViTrucThuocKhacController extends Controller{
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id_tuan'];
+            $idDichVu=$data['id_dich_vu'];
 
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
@@ -441,6 +462,7 @@ class DonViTrucThuocKhacController extends Controller{
                             $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
                             $dataBaoCaoTuan['id_user_bao_cao']=$userId;
                             $dataBaoCaoTuan['noi_dung']=$string;
+                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                             $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                             $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
                             $dataBaoCaoTuan['ghi_chu']=null;
@@ -462,6 +484,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
                     $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                     $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                    $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                     $dataBaoCaoTuan['ghi_chu']=null;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
@@ -1020,29 +1043,39 @@ class DonViTrucThuocKhacController extends Controller{
             // End DHSXKD
             
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
-            if($checkQuyenXemBaoCaoToanDonVi===1){                
-                $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
+            if($checkQuyenXemBaoCaoToanDonVi===1){           
+               
+
+                $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
                     ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
                     ->get()->toArray();
 
-                $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+                $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                    ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
                     ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
+                        $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                     ->get()->toArray();
             }else{
-                $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+                $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)->where('bc_tuan_hien_tai.id_user_bao_cao','=',$userId)
                     ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
                     ->get()->toArray();
 
-                $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+                $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                    ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)->where('bc_ke_hoach_tuan.id_user_bao_cao','=',$userId)
                     ->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->orderBy('sap_xep','asc')
+                        $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                     ->get()->toArray();
             }
             $checkQuyenBaoCaoDhsxkd=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
@@ -1202,28 +1235,36 @@ class DonViTrucThuocKhacController extends Controller{
         
         $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
         if($checkQuyenXemBaoCaoToanDonVi===1){                
-            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
-                ->get()->toArray();
+            $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();
 
-            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+            $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
                 ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
+                    $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                 ->get()->toArray();
         }else{
-            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
-                ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
-                ->get()->toArray();
+            $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)->where('bc_tuan_hien_tai.id_user_bao_cao','=',$userId)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();
 
-            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_user_bao_cao','=',$userId)
+            $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)->where('bc_ke_hoach_tuan.id_user_bao_cao','=',$userId)
                 ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
+                    $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                 ->get()->toArray();
         }
         $checkQuyenBaoCaoDhsxkd=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');

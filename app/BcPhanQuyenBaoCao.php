@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BcPhanQuyenBaoCao extends Model
 {
     protected $table='bc_quyen_bao_cao';
-    protected $fillable=['id', 'user_id', 'id_dm_quyen_bao_cao', 'dich_vu','tu_ngay', 'den_ngay'];
+    protected $fillable=['id', 'user_id', 'id_dm_quyen_bao_cao','tu_ngay', 'den_ngay'];
     public $timestamps=false;
                            
     public static function layDanhSachQuyenTheoUserId($userId)
@@ -35,7 +35,7 @@ class BcPhanQuyenBaoCao extends Model
 
     public static function layDichVuBaoCaoCaoMacDinh($userId, $maQuyenBaoCao)
     {
-        $data=BcPhanQuyenBaoCao::select('bc_quyen_bao_cao.dich_vu')
+        $data=BcPhanQuyenBaoCao::select('bc_quyen_bao_cao.id')
         ->leftJoin('bc_dm_quyen_bao_cao_tuan','bc_quyen_bao_cao.id_dm_quyen_bao_cao','=','bc_dm_quyen_bao_cao_tuan.id')
         ->where('bc_quyen_bao_cao.user_id','=',$userId)
         ->where('bc_dm_quyen_bao_cao_tuan.ma_nhom_quyen','=',$maQuyenBaoCao)

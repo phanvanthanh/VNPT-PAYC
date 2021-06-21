@@ -28,7 +28,7 @@
      <div class="form-group row">
         <label for="sap_xep" class="col-sm-4 col-form-label ">Sắp xếp</label>
         <div class="col-sm-8">
-           <input type="Text" class="form-control sap_xep" name="sap_xep" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['sap_xep']}}" @endif>
+           <input type="Number" class="form-control sap_xep" name="sap_xep" placeholder="Vui lòng nhập tên nhóm quyền cần sửa" @if($checkData==1)  value="{{$data['sap_xep']}}" @endif>
         </div>
      </div>
 
@@ -36,7 +36,8 @@
         <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
         <div class="col-sm-8">
            <select class="form-control state" name="state">
-            <option value="1" @if($checkData==1)  @if($data['state']==1){{'selected="selected"'}}@endif @endif>Hoạt động</option>
+            <option value="1" @if($checkData==1)  @if($data['state']==1){{'selected="selected"'}}@endif @endif>Cho phép gửi APKN</option>
+            <option value="2" @if($checkData==1)  @if($data['state']==2){{'selected="selected"'}}@endif @endif>Chỉ sử dụng trong module báo cáo tuần (Không hiển thị trong PAKN)</option>
             <option value="0" @if($checkData==1)  @if($data['state']==0){{'selected="selected"'}}@endif @endif>Ngừng hoạt động</option>
           </select>
         </div>

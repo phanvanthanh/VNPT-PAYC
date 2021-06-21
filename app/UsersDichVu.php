@@ -201,7 +201,9 @@ class UsersDichVu extends Authenticatable
         $data=array();
         $data=DB::select('SELECT usdv.id, dv.ten_dich_vu, usdv.id_dich_vu, usdv.tu_ngay, usdv.den_ngay FROM users_dich_vu usdv
             LEFT JOIN dich_vu dv ON usdv.id_dich_vu=dv.id
-            WHERE usdv.id_user='.$userId);
+            LEFT JOIN nhom_dich_vu ndv ON dv.id_nhom_dich_vu=ndv.id
+            WHERE usdv.id_user='.$userId.'
+            ORDER BY ndv.sap_xep asc, dv.sap_xep asc');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
         return $data;
     }

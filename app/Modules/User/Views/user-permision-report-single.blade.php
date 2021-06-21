@@ -11,7 +11,6 @@
             <th></th>
             <th class="text-center">STT #</th>
             <th>Tên quyền</th>
-            <th>Dịch vụ</th>
         </tr>
     </thead>
     <tbody>                       
@@ -28,10 +27,7 @@
                 <td class="text-center">{{$stt}}</td>
                 <td class='text-primary'>
                     {{$quyenBaoCao['ten_nhom_quyen']}}
-                </td>
-                <td>
-                    <input class="form-control dich-vu" id="dich-vu-{{$quyenBaoCao['id']}}" type="Text" data="{{$quyenBaoCao['id']}}" placeholder="Nhập dịch vụ báo cáo" value="@if(isset($data[$quyenBaoCao['id']])){{$data[$quyenBaoCao['id']]['dich_vu']}}@endif">
-                </td>   
+                </td>                  
             </tr>
         
         @endforeach    
@@ -56,27 +52,6 @@
             jQuery('#id-dm-quyen-bao-cao').val(idDmQuyenBaoCao);
             capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('update-permision-report-user') }}", userId, "{{ route('user-permison-report-single') }}", '.frm-cau-hinh-quyen-bao-cao',false);
             return false;
-        });
-
-        jQuery('.dich-vu').on("keypress", function(e) {
-            if (e.keyCode == 13) {
-
-                var dichVu=jQuery(this).val();
-                var idDmQuyenBaoCao=jQuery(this).attr('data');
-                var idCheckBox='#id-dm-quyen-bao-cao-'+idDmQuyenBaoCao;
-                if(jQuery(idCheckBox).is(":checked")){
-                    jQuery('#check').val(1);
-                }else{
-                    jQuery('#check').val(0);
-                }
-                var _token=jQuery('#frm-phan-quyen-bao-cao-tuan').find("input[name='_token']").val();
-                var form=jQuery('#frm-phan-quyen-bao-cao-tuan');
-                var userId=jQuery('#user_id').val();
-                jQuery('#dich-vu').val(dichVu);
-                jQuery('#id-dm-quyen-bao-cao').val(idDmQuyenBaoCao);
-                capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('update-permision-report-user') }}", userId, "{{ route('user-permison-report-single') }}", '.frm-cau-hinh-quyen-bao-cao',false);
-                return false;
-            }
         });
     });
 </script>

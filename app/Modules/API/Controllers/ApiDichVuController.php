@@ -12,7 +12,7 @@ class ApiDichVuController extends Controller
     
     public function layDanhMucDichVu(Request $request)
     {
-        $dichVus=DichVu::all()->toArray();
+        $dichVus=DichVu::where('state','=',1)->orderBy('sap_xep')->get()->toArray();
         $result['message']='Lấy danh mục dịch vụ thành công';
         $result['error']=0;
         $result['result']=$dichVus;
