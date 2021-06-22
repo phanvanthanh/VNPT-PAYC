@@ -1,12 +1,12 @@
 @extends('layouts.index')
-@section('title', 'PA/YC đã hoàn tất xử lý')
+@section('title', 'PAKN đã hoàn tất xử lý')
 @section('content')
 	<div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC ĐÃ HOÀN TẤT</h4>
+                    <h4 class="text-danger">DANH SÁCH PAKN ĐÃ HOÀN TẤT</h4>
                     <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted"><!-- Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa được tiếp nhận, xử lý --></small>
                   </div>
                     <div class="col-6">

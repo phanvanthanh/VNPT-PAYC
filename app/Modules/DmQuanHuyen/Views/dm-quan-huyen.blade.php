@@ -4,7 +4,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-               <h4 class="text-danger">CHỨC NĂNG ĐỌC FILE EXCEL</h4>
+               <h4 class="text-danger">DANH MỤC QUẬN/HUYỆN</h4>
 
                 <div class="text-right table-responsive">
                     <form class="forms-sample text-right" method="POST" action="{{ route('dm-quan-huyen/import') }}" enctype="multipart/form-data">

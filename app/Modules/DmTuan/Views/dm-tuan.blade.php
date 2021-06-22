@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Quản trị nhóm quyền')
+@section('title', 'Danh mục tuần')
 @section('content')
 @php
   $userId=Auth::id();

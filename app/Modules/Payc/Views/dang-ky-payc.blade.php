@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Đề nghị nhận xử lý PAKN')
+@section('title', 'Đăng ký PAKN')
 @section('content')
 @php
 	use Illuminate\Support\Facades\Auth;

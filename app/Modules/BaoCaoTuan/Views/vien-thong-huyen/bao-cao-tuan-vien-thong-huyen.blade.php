@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">BÁO CÁO TUẦN - VIỄN THÔNG CẤP HUYỆN</h4>
+                    <h4 class="text-danger">BÁO CÁO TUẦN - TỔ KỸ THUẬT CẤP HUYỆN</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 

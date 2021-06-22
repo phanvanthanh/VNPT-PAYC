@@ -4,14 +4,14 @@
   @php $layout='layouts.index'; @endphp
 @endif
 @extends($layout)
-@section('title', 'Phản ánh / yêu cầu của tôi')
+@section('title', 'PAKN của tôi')
 @section('content')
 	<div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC CỦA TÔI</h4>
+                    <h4 class="text-danger">DANH SÁCH PAKN CỦA TÔI</h4>
                     <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted">Chức năng sẽ hiển thị danh sách những PAYC của bạn đã gửi</small>
                   </div>
                     <div class="col-6">
