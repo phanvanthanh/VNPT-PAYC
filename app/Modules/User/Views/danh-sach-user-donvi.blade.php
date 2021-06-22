@@ -45,7 +45,7 @@ $userDV = UsersDonVi::where('id_user','=',$idUser)->get()->toArray();
             <td class="text-center">{{$ngayBatDau}}</td>
             <td class="text-center">{{$ngayKetThuc}}</td>
             <td class="text-center">{{$trangThai}}</td>
-            <td class="text-center"><p class="mb-0 font-weight-normal text-danger btn-xoa" data-id="{{$userdv['id']}}"><b><i class="icon-trash"></i></b></p></td>                   
+            <td class="text-center"><p class="mb-0 cusor font-weight-normal text-danger btn-xoa" data-id="{{$userdv['id']}}"><b><i class="icon-trash"></i></b></p></td>                   
         </tr>
         @endforeach    
     </tbody>

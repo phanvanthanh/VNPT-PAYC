@@ -31,7 +31,7 @@
                     {{$dichVu['den_ngay']}}
                 </td>
                 <td class="text-center">
-                    <p class="mb-0 font-weight-normal text-danger btn-xoa" data="{{$dichVu['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
+                    <p class="cusor mb-0 font-weight-normal text-danger btn-xoa" data="{{$dichVu['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
                 </td>
             </tr>
         @endforeach
