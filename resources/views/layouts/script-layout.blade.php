@@ -1,3 +1,3 @@
-@INCLUDE('layouts.head')
-@INCLUDE('layouts.js')
+@INCLUDE('layouts.script-head')
+@INCLUDE('layouts.script-js')
 @yield('content')

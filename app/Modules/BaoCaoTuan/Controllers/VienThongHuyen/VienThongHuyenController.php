@@ -1019,6 +1019,9 @@ class VienThongHuyenController extends Controller{
                 })->update(['trang_thai'=>1]);
 
             
+
+            $message=$donVi['ten_don_vi'].': đã duyệt và gửi báo cáo';
+            $sendTelegram=\Helper::sendTelegramMessage($message);
            
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }

@@ -56,7 +56,7 @@ class DonViTrucThuocKhacController extends Controller{
             if ($donVi['error']>0) {
                 return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
             }
-            $donVi=$donVi['data'];       
+            $donVi=$donVi['data'];  
             
             $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
             $ma=''; // Mã đơn vị hay mã định danh
@@ -1183,6 +1183,9 @@ class DonViTrucThuocKhacController extends Controller{
             BcDhsxkd::where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->where(function($query) {
                     $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                 })->update(['trang_thai'=>2]);
+
+            $message=$donVi['ten_don_vi'].': đã duyệt và gửi báo cáo';
+            $sendTelegram=\Helper::sendTelegramMessage($message);
 
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
