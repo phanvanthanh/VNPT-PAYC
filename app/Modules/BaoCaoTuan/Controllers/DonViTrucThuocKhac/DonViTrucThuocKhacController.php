@@ -105,7 +105,7 @@ class DonViTrucThuocKhacController extends Controller{
                             $dataBaoCaoTuan['is_group']=3;
                             $dataBaoCaoTuan['sap_xep']=0;
                             $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$userId.$baoCaoTuan->id;
+                            $sapXep=$baoCaoTuan->id;
                             $baoCaoTuan->sap_xep=$sapXep;
                             $baoCaoTuan->save();
                         }                  
