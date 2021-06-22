@@ -691,8 +691,11 @@ class DonViTrucThuocKhacController extends Controller{
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
                     $dataBaoCaoTuan['is_group']=$keHoachTuanTruoc['is_group'];
-                    $dataBaoCaoTuan['sap_xep']=$keHoachTuanTruoc['sap_xep'];
-                    BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                    $dataBaoCaoTuan['sap_xep']=0;
+                    $baoCaoTuanHienTai=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                    $sapXep=$baoCaoTuanHienTai->id;
+                    $baoCaoTuanHienTai->sap_xep=$sapXep;
+                    $baoCaoTuanHienTai->save();
                 }
             }
 
