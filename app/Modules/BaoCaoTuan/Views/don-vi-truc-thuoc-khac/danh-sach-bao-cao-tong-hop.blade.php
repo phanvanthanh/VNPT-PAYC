@@ -336,10 +336,16 @@
       });
 
       $('.btn-xuat-bao-cao').on('click',function(){
-          //$(".noi-dung-bao-cao-tong-hop").wordExport('URD');  
           var idTuan=jQuery('#id_tuan').val();
           var url="{{ route('don-vi-truc-thuoc-khac-xuat-bao-cao') }}"+"?tuan="+idTuan;
-          location.href = url;
+          var popup = window.open(url, 'Xuất báo cáo', '_blank ');
+          if (popup == null)
+             alert('Vui lòng cài đặt đồng ý cho tôi mở Popup.');
+          else  {
+            popup.moveTo(0, 0);
+            popup.resizeTo(screen.width, screen.height);
+          }
+          return false;
       });
 
 
