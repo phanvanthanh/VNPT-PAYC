@@ -77,10 +77,8 @@
         });
 
        jQuery('.btn-xoa-bao-cao-ke-hoach-tuan').on('click',function(){  
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();    
           var id=jQuery(this).attr("data"); // lấy id
-          var idTuan=jQuery('#id_tuan').val(); 
-          xoaVaRefreshDuLieuTheoId(_token, id, "{{ route('don-vi-truc-thuoc-khac-xoa-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan');
+          xoaKeHoachTuan(id);
           return false;
       });
 
@@ -93,45 +91,11 @@
         jQuery('.btn-bao-cao-ke-hoach-tuan').removeClass('disabled').attr('disabled', false);
       }
 
-      jQuery('.is-group').on("click",function(){
-        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();   
+      jQuery('.is-group').on("click",function(){  
         var id=jQuery(this).attr('data');
-        var idTuan=jQuery('#id_tuan').val(); 
-        postAndRefreshById(_token, id, "{{ route('don-vi-truc-thuoc-khac-bc-is-group-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+        isGroup(id);        
         return false;
       });
-
-      capNhatBaoCaoTuanHienTai=function(form){
-        loading('.error-mode');
-        var idTuan=jQuery('#id_tuan').val();
-        jQuery('.input-id-tuan').val(idTuan);
-        var idDichVu=jQuery('#id-dich-vu').val();
-        jQuery('.input-id-dich-vu').val(idDichVu);
-
-        
-        var formData = new FormData(form[0]);
-        jQuery.ajax({
-          url: "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}",
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          complete: function(xhr, textStatus) {
-            //called when complete
-          },
-          success: function(data, textStatus, xhr) {
-            $(".error-mode").empty();
-            if(data.error==""){
-              loadKeHoachTuan();              
-            }else{
-              errorLoader(".error-mode",data.error);
-            }
-          },
-          error: function(xhr, textStatus, errorThrown) {
-            //called when there is an error
-          }
-        });
-      }
 
       loadKeHoachTuan=function(){
         loading('.error-mode');
@@ -165,6 +129,108 @@
         });
       }
 
+      capNhatKeHoachTuan=function(form){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        
+        var formData = new FormData(form[0]);
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadKeHoachTuan();              
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      
+
+      isGroup=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        console.log(_token);
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-bc-is-group-ke-hoach-tuan') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadKeHoachTuan();              
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      xoaKeHoachTuan=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        console.log(_token);
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-xoa-bao-cao-ke-hoach-tuan') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadKeHoachTuan();              
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
       jQuery('.noi-dung').on("keypress", function(e) {
         if (e.keyCode == 13) {
           var daChotSoLieu={{$daChotSoLieu}};
@@ -175,7 +241,7 @@
           var form=jQuery(this).parents('form');
           var _token=form.find("input[name='_token']").val();
           var idTuan=jQuery('#id_tuan').val();
-          capNhatBaoCaoTuanHienTai(form);
+          capNhatKeHoachTuan(form);
           return false;
           
         }
