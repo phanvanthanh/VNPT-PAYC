@@ -6,8 +6,8 @@
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">DANH SÁCH PAYC CHỜ DUYỆT</h4>
-                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted"><!-- Chức năng sẽ hiển thị danh sách những PAYC của khách hàng tạo và chưa được tiếp nhận, xử lý --></small>
+                    <h4 class="text-danger">DANH SÁCH PAKN CHỜ DUYỆT</h4>
+                    <small id="danh-muc-nhom-quyen-helper" class="form-text text-muted"><!-- Chức năng sẽ hiển thị danh sách những PAKN của khách hàng tạo và chưa được tiếp nhận, xử lý --></small>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 

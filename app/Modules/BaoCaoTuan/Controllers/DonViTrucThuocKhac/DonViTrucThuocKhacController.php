@@ -675,19 +675,25 @@ class DonViTrucThuocKhacController extends Controller{
                 $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
             })->get()->toArray();
             foreach ($keHoachTuanTruocs as $key => $keHoachTuanTruoc) {
-                $dataBaoCaoTuan=array();
-                $dataBaoCaoTuan['id_tuan']=$idTuan;
-                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                $dataBaoCaoTuan['noi_dung']=$keHoachTuanTruoc['noi_dung'];
-                $dataBaoCaoTuan['id_dich_vu']=$keHoachTuanTruoc['id_dich_vu'];
-                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataBaoCaoTuan['ghi_chu']=null;
-                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                $dataBaoCaoTuan['trang_thai']=0;
-                $dataBaoCaoTuan['is_group']=$keHoachTuanTruoc['is_group'];
-                $dataBaoCaoTuan['sap_xep']=$keHoachTuanTruoc['sap_xep'];
-                BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+
+                $checkBaoCaoExits=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$keHoachTuanTruoc['id_dich_vu'])->where('noi_dung','=',$keHoachTuanTruoc['noi_dung'])->where(function($query) {
+                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+                    })->orderBy('sap_xep','asc')->get()->toArray();                
+                if(count($checkBaoCaoExits)<=0){
+                    $dataBaoCaoTuan=array();
+                    $dataBaoCaoTuan['id_tuan']=$idTuan;
+                    $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                    $dataBaoCaoTuan['noi_dung']=$keHoachTuanTruoc['noi_dung'];
+                    $dataBaoCaoTuan['id_dich_vu']=$keHoachTuanTruoc['id_dich_vu'];
+                    $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                    $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                    $dataBaoCaoTuan['ghi_chu']=null;
+                    $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                    $dataBaoCaoTuan['trang_thai']=0;
+                    $dataBaoCaoTuan['is_group']=$keHoachTuanTruoc['is_group'];
+                    $dataBaoCaoTuan['sap_xep']=$keHoachTuanTruoc['sap_xep'];
+                    BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                }
             }
 
                 
