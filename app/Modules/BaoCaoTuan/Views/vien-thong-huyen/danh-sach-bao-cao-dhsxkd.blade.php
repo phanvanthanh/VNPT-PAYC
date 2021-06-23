@@ -14,7 +14,7 @@
     
       
 </div>
-<h6 class="text-danger">1. Phát triển mới</h6>
+<h6 class="text-danger">Số liệu từ hệ thống ĐHSXKD</h6>
 <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-dhsxkd-phat-trien-moi">
   <thead>
       <tr class="background-vnpt text-center">
@@ -27,6 +27,9 @@
       </tr>
   </thead>
   <tbody>    
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Phát triển mới</td>
+      </tr>
       @php $stt=0; @endphp
       @foreach ($baoCaoPhatTrienMois as $ptm)
         @php $stt++; @endphp
@@ -51,21 +54,171 @@
           </td>
         </tr>
       @endforeach
+
+
+
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Gói home</td>
+      </tr>
+      @php $stt=0; @endphp
+      @foreach ($baoCaoGoiHomes as $ptm)
+        @php $stt++; @endphp
+        <tr class="tr-hover tr-small">
+          <td class="text-center">{{$stt}}</td>
+          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+            @if ($ptm['mo_ta'])
+              {{$ptm['mo_ta']}}
+            @else
+              {{$ptm['chi_so']}}
+            @endif
+          </td>
+          <td class="text-center">
+            {{$ptm['gia_tri']}}
+          </td>
+          <td class="text-center">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+              {{ csrf_field() }}
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="hidden" name="id" value="{{$ptm['id']}}">
+            </form>
+          </td>
+        </tr>
+      @endforeach
+
+
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Lắp đặt sửa chữa Xử lý đúng hạn</td>
+      </tr>
+      @php $stt=0; @endphp
+      @foreach ($baoCaoXuLyDungHans as $ptm)
+        @php $stt++; @endphp
+        <tr class="tr-hover tr-small">
+          <td class="text-center">{{$stt}}</td>
+          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+            @if ($ptm['mo_ta'])
+              {{$ptm['mo_ta']}}
+            @else
+              {{$ptm['chi_so']}}
+            @endif
+          </td>
+          <td class="text-center">
+            {{$ptm['gia_tri']}}
+          </td>
+          <td class="text-center">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+              {{ csrf_field() }}
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="hidden" name="id" value="{{$ptm['id']}}">
+            </form>
+          </td>
+        </tr>
+      @endforeach
+
+
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Mất liên lạc</td>
+      </tr>
+      @php $stt=0; @endphp
+      @foreach ($baoCaoMLLs as $ptm)
+        @php $stt++; @endphp
+        <tr class="tr-hover tr-small">
+          <td class="text-center">{{$stt}}</td>
+          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+            @if ($ptm['mo_ta'])
+              {{$ptm['mo_ta']}}
+            @else
+              {{$ptm['chi_so']}}
+            @endif
+          </td>
+          <td class="text-center">
+            {{$ptm['gia_tri']}}
+          </td>
+          <td class="text-center">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+              {{ csrf_field() }}
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="hidden" name="id" value="{{$ptm['id']}}">
+            </form>
+          </td>
+        </tr>
+      @endforeach
+
+
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Số liệu B2A</td>
+      </tr>
+      @php $stt=0; @endphp
+      @foreach ($baoCaoB2As as $ptm)
+        @php $stt++; @endphp
+        <tr class="tr-hover tr-small">
+          <td class="text-center">{{$stt}}</td>
+          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+            @if ($ptm['mo_ta'])
+              {{$ptm['mo_ta']}}
+            @else
+              {{$ptm['chi_so']}}
+            @endif
+          </td>
+          <td class="text-center">
+            {{$ptm['gia_tri']}}
+          </td>
+          <td class="text-center">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+              {{ csrf_field() }}
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="hidden" name="id" value="{{$ptm['id']}}">
+            </form>
+          </td>
+        </tr>
+      @endforeach
+
+
+      <tr class="active font-weight-bold tr-small">
+        <td colspan="4">&nbsp;Đánh giá độ hài lòng</td>
+      </tr>
+      @php $stt=0; @endphp
+      @foreach ($baoCaoDoHaiLongs as $ptm)
+        @php $stt++; @endphp
+        <tr class="tr-hover tr-small">
+          <td class="text-center">{{$stt}}</td>
+          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+            @if ($ptm['mo_ta'])
+              {{$ptm['mo_ta']}}
+            @else
+              {{$ptm['chi_so']}}
+            @endif
+          </td>
+          <td class="text-center">
+            {{$ptm['gia_tri']}}
+          </td>
+          <td class="text-center">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+              {{ csrf_field() }}
+              <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
+              <input type="hidden" name="id" value="{{$ptm['id']}}">
+            </form>
+          </td>
+        </tr>
+      @endforeach
+
   </tbody>
-</table>   
+</table>    
+
+
+
 <div class="wrapper mb-3 mt-4">
-  <h6 class="text-danger">2. Xử lý sự cố</h6>
+  <h6 class="text-danger">Xử lý sự cố</h6>
 </div>
 <table id="table-dhsxkd-xu-ly-su-co" class="table table-hover table-dhsxkd-xu-ly-su-co">
   <thead>
       <tr class="background-vnpt text-center">
         <th style="width: 10%;">STT #</th>
-        <th style="width: 30;">Cán bộ xử lý</th>
+        <th style="width: 10;">Cán bộ xử lý</th>
         <th style="width: 10%;">Suy hao</th>
         <th style="width: 10%;">Xử lý</th>
-        <th style="width: 15%;">Còn lại</th>
+        <th style="width: 10%;">Còn lại</th>
         <th style="width: 10%;">(+)/(-)</th>
-        <th style="width: 15%;">
+        <th style="width: 40%;">
           Nguyên nhân
         </th>
       </tr>
@@ -83,16 +236,16 @@
               {{$xlsc['chi_so']}}
             @endif
           </td>
-          <td>
+          <td class="text-center">
             {{$xlsc['suy_hao']}}
           </td>
-          <td>
+          <td class="text-center">
             {{$xlsc['gia_tri']}}
           </td>
-          <td>
+          <td class="text-center">
             {{$xlsc['suy_hao_con_lai']}}
           </td>
-          <td>
+          <td class="text-center">
             @php
               $sh=0;
               if($xlsc['gia_tri']==0 || $xlsc['gia_tri']=='' || $xlsc['gia_tri']==null){
@@ -133,13 +286,7 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-       $('#table-dhsxkd-phat-trien-moi').dataTable({
-            aLengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, "All"]
-            ],
-            iDisplayLength: -1
-        });
+       
 
        $('#table-dhsxkd-xu-ly-su-co').dataTable({
             aLengthMenu: [
@@ -151,7 +298,7 @@
 
         
       jQuery('.ghi_chu').on("keypress", function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13) {          
           var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
           var form=jQuery(this).parents('form');
           var idTuan=jQuery('#id_tuan').val(); 

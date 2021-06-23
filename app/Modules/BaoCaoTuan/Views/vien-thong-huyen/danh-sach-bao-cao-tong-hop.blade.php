@@ -90,7 +90,7 @@
         <div style="margin-left: 40px; margin-bottom: 30px;">
           <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
             <thead>
-              <tr class="background-vnpt">
+              <tr class="background-vnpt tr-small">
                 @foreach ($baoCaoPhatTrienMois as $ptm)
                   <th class="text-center"  scope="col">
                     @if ($ptm['mo_ta'])
@@ -103,12 +103,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="tr-small">
                 @foreach ($baoCaoPhatTrienMois as $ptm)
-                  <th class="text-center">
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
                     {{$ptm['gia_tri']}}
                     @if ($ptm['ghi_chu'])
-                      &nbsp;({{$ptm['ghi_chu']}})
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
                     @endif
                   </th>
                 @endforeach
@@ -117,6 +117,166 @@
           </table>
         </div>
 
+
+        <div class="font-weight-bold" style="margin-left: 30px;">* Gói home</div>
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+            <thead>
+              <tr class="background-vnpt tr-small">
+                @foreach ($baoCaoGoiHomes as $ptm)
+                  <th class="text-center"  scope="col">
+                    @if ($ptm['mo_ta'])
+                      {{$ptm['mo_ta']}}
+                    @else
+                      {{$ptm['chi_so']}}
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr-small">
+                @foreach ($baoCaoGoiHomes as $ptm)
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                    {{$ptm['gia_tri']}}
+                    @if ($ptm['ghi_chu'])
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="font-weight-bold" style="margin-left: 30px;">* Lắp đặt sửa chữa xử lý đúng hạn</div>
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+            <thead>
+              <tr class="background-vnpt tr-small">
+                @foreach ($baoCaoXuLyDungHans as $ptm)
+                  <th class="text-center"  scope="col">
+                    @if ($ptm['mo_ta'])
+                      {{$ptm['mo_ta']}}
+                    @else
+                      {{$ptm['chi_so']}}
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr-small">
+                @foreach ($baoCaoXuLyDungHans as $ptm)
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                    {{$ptm['gia_tri']}}
+                    @if ($ptm['ghi_chu'])
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="font-weight-bold" style="margin-left: 30px;">* Mất liên lạc</div>
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+            <thead>
+              <tr class="background-vnpt tr-small">
+                @foreach ($baoCaoMLLs as $ptm)
+                  <th class="text-center"  scope="col">
+                    @if ($ptm['mo_ta'])
+                      {{$ptm['mo_ta']}}
+                    @else
+                      {{$ptm['chi_so']}}
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr-small">
+                @foreach ($baoCaoMLLs as $ptm)
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                    {{$ptm['gia_tri']}}
+                    @if ($ptm['ghi_chu'])
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="font-weight-bold" style="margin-left: 30px;">* Số liệu B2A</div>
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+            <thead>
+              <tr class="background-vnpt tr-small">
+                @foreach ($baoCaoB2As as $ptm)
+                  <th class="text-center"  scope="col">
+                    @if ($ptm['mo_ta'])
+                      {{$ptm['mo_ta']}}
+                    @else
+                      {{$ptm['chi_so']}}
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr-small">
+                @foreach ($baoCaoB2As as $ptm)
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                    {{$ptm['gia_tri']}}
+                    @if ($ptm['ghi_chu'])
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="font-weight-bold" style="margin-left: 30px;">* Đánh giá độ hài lòng</div>
+        @if($baoCaoDoHaiLongs)
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+            <thead>
+              <tr class="background-vnpt tr-small">
+                @foreach ($baoCaoDoHaiLongs as $ptm)
+                  <th class="text-center"  scope="col">
+                    @if ($ptm['mo_ta'])
+                      {{$ptm['mo_ta']}}
+                    @else
+                      {{$ptm['chi_so']}}
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr-small">
+                @foreach ($baoCaoDoHaiLongs as $ptm)
+                  <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                    {{$ptm['gia_tri']}}
+                    @if ($ptm['ghi_chu'])
+                      &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                    @endif
+                  </th>
+                @endforeach
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        @endif
+
         <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý sự cố</div>
           @if (count($baoCaoXuLySuyHaos)>0)
             <div style="margin-left: 40px; margin-bottom: 30px;">
@@ -124,12 +284,12 @@
                 <thead>
                     <tr class="background-vnpt text-center">
                       <th style="width: 10%;">STT #</th>
-                      <th style="width: 30;">Cán bộ xử lý</th>
+                      <th style="width: 10;">Cán bộ xử lý</th>
                       <th style="width: 10%;">Suy hao</th>
                       <th style="width: 10%;">Xử lý</th>
-                      <th style="width: 15%;">Còn lại</th>
+                      <th style="width: 10%;">Còn lại</th>
                       <th style="width: 10%;">(+)/(-)</th>
-                      <th style="width: 15%;">
+                      <th style="width: 40%;">
                         Nguyên nhân
                       </th>
                     </tr>
@@ -147,16 +307,16 @@
                             {{$xlsc['chi_so']}}
                           @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                           {{$xlsc['suy_hao']}}
                         </td>
-                        <td>
+                        <td class="text-center">
                           {{$xlsc['gia_tri']}}
                         </td>
-                        <td>
+                        <td class="text-center">
                           {{$xlsc['suy_hao_con_lai']}}
                         </td>
-                        <td>
+                        <td class="text-center">
                           @php
                             $sh=0;
                             if($xlsc['gia_tri']==0 || $xlsc['gia_tri']=='' || $xlsc['gia_tri']==null){
@@ -250,6 +410,25 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="modal-xem-ghi-chu" tabindex="-1" role="dialog" aria-labelledby="modal-xem-ghi-chu" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-xem-ghi-chu">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">GHI CHÚ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <div class="show-ghi-chu"></div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-close-modal" data-dismiss="modal">Đóng</button>
+         </div>
+      </div>
+   </div>
+</div>
 
 
 <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
@@ -361,7 +540,10 @@
       });
 
 
-
+      jQuery('.xem-ghi-chu').on('click', function() {
+        var title=jQuery(this).attr('title');
+        jQuery('.show-ghi-chu').text(title);
+      });
 
 
     });

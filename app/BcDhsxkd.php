@@ -319,7 +319,6 @@ class BcDhsxkd extends Model
                     'data'              => null
                 );
             }else{
-                $result=$result[0];
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,

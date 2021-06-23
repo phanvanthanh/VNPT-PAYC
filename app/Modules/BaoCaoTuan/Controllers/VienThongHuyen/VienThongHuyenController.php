@@ -525,28 +525,7 @@ class VienThongHuyenController extends Controller{
             if($baoCaoTheoMaDinhDanh==1){
                 $ma=$donVi['ma_dinh_danh'];                
             }else{ // Ngược lại báo cáo theo mã đơn vị
-                $ma=$donVi['ma_don_vi'];
-                /*$idThoiGianBaoCaoDhsxkd=0;
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->get()->toArray();
-                if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
-                    $dataDmThoiGianBaoCao=array();
-                    $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
-                    $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                    $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
-                    $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
-                    $dataDmThoiGianBaoCao['ghi_chu']=null;
-                    $dataDmThoiGianBaoCao['trang_thai']=0;
-                    $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
-                    $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-                    $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
-                }else{ //Ngược lại thì chốt
-                    $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('ma_don_vi','=',$ma)->where('id_tuan','=',$idTuan)->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
-                }
-                $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
-                $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');*/
+                $ma=$donVi['ma_don_vi'];                
             }
 
             $this->ma=$ma;
@@ -577,6 +556,11 @@ class VienThongHuyenController extends Controller{
             }
             $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
             $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+            $baoCaoGoiHomes=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'GOI_HOME');
+            $baoCaoXuLyDungHans=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LU_DUNG_HAN');
+            $baoCaoMLLs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'MLL');
+            $baoCaoB2As=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'B2A');
+            $baoCaoDoHaiLongs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'HAI_LONG');
 
             // Lấy ngày lấy số liệu của tuần trước
             $tuan=0; $nam=0;
@@ -609,7 +593,7 @@ class VienThongHuyenController extends Controller{
             }
             // End lấy ngày lấy số liệu của tuần trước
 
-            $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-dhsxkd', compact('baoCaoPhatTrienMois','baoCaoXuLySuyHaos','error','idTuan', 'ma', 'thoiGianLaySoLieu', 'ngayLayDuLieuTuanTruoc'))->render(); // Trả dữ liệu ra view 
+            $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-dhsxkd', compact('baoCaoPhatTrienMois','baoCaoXuLySuyHaos','error','idTuan', 'ma', 'thoiGianLaySoLieu', 'ngayLayDuLieuTuanTruoc', 'baoCaoGoiHomes', 'baoCaoXuLyDungHans', 'baoCaoMLLs', 'baoCaoB2As', 'baoCaoDoHaiLongs'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
@@ -799,6 +783,36 @@ class VienThongHuyenController extends Controller{
                 }
 
 
+                // Xử lý suy hao
+                $dsXuLySuyHaos=BcDhsxkd::getSoLieuXuLySuyHaoDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
+
+                if($dsXuLySuyHaos['errors']==0){
+                    foreach ($dsXuLySuyHaos['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$value['ten_nv'];
+                            $dataDhsxkd['suy_hao']=$value['tong_phieu'];
+                            $dataDhsxkd['gia_tri']=$value['da_xuly'];
+                            $dataDhsxkd['suy_hao_con_lai']=$value['suyhao_conlai'];
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
+
+
                 // Lấy số liệu gói home
                 $soLieuGoiHome=BcDhsxkd::getSoLieuGoiHomeDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
 
@@ -841,117 +855,181 @@ class VienThongHuyenController extends Controller{
                             
                     }
                 }
-                    
-                /*$dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['chi_so']='MyTV';
-                $dataDhsxkd['gia_tri']=10;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['loai_chi_so']='PHAT_TRIEN_MOI';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
 
 
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='G0';
-                $dataDhsxkd['gia_tri']=11;
-                $dataDhsxkd['loai_chi_so']='PHAT_TRIEN_MOI';
-                $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                // Lấy số liệu xử lý đúng hạn
+                $soLieuXuLyDungHan=BcDhsxkd::getSoLieuXuLyDungHanDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
 
-                
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='G1';
-                $dataDhsxkd['gia_tri']=14;
-                $dataDhsxkd['loai_chi_so']='PHAT_TRIEN_MOI';
-                $bcDhsxkd2=BcDhsxkd::create($dataDhsxkd);
+                if($soLieuXuLyDungHan['errors']==0){
+                    foreach ($soLieuXuLyDungHan['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
 
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='G2';
-                $dataDhsxkd['gia_tri']=13;
-                $dataDhsxkd['loai_chi_so']='PHAT_TRIEN_MOI';
-                $bcDhsxkd6=BcDhsxkd::create($dataDhsxkd);
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='XU_LU_DUNG_HAN';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
 
-                
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='Phan Văn Thanh';
-                $dataDhsxkd['gia_tri']=0;
-                $dataDhsxkd['suy_hao']=10;
-                $dataDhsxkd['suy_hao_con_lai']=12;
-                $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
-                $bcDhsxkd3=BcDhsxkd::create($dataDhsxkd);
+                // Lấy số liệu Mất liên lạc
+                $soLieuMatLienLacs=BcDhsxkd::getSoLieuMatLienLacDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
 
-                
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='Nguyễn Minh Vương';
-                $dataDhsxkd['gia_tri']=14;
-                $dataDhsxkd['suy_hao']=10;
-                $dataDhsxkd['suy_hao_con_lai']=12;
-                $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
-                $bcDhsxkd4=BcDhsxkd::create($dataDhsxkd);
+                if($soLieuMatLienLacs['errors']==0){
+                    foreach ($soLieuMatLienLacs['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
 
-                
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='Nguyễn Thanh Tùng';
-                $dataDhsxkd['gia_tri']=13;
-                $dataDhsxkd['suy_hao']=10;
-                $dataDhsxkd['suy_hao_con_lai']=12;
-                $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
-                $bcDhsxkd5=BcDhsxkd::create($dataDhsxkd);*/
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='MLL';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
 
-                
+
+                // Lấy số liệu B2A
+                $soLieuB2A=BcDhsxkd::getSoLieuB2ADhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
+
+                if($soLieuB2A['errors']==0){
+                    foreach ($soLieuB2A['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
+
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='B2A';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
+
+
+                // Lấy số liệu đánh giá độ hài lòng
+                $soLieuDoHaiLong=BcDhsxkd::getSoLieuDoHaiLongDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
+
+                if($soLieuDoHaiLong['errors']==0){
+                    foreach ($soLieuDoHaiLong['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
+
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='HAI_LONG';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
             }else{ 
 
             }
@@ -1040,9 +1118,14 @@ class VienThongHuyenController extends Controller{
                 }
                 $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
                 $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+                $baoCaoGoiHomes=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'GOI_HOME');
+                $baoCaoXuLyDungHans=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LU_DUNG_HAN');
+                $baoCaoMLLs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'MLL');
+                $baoCaoB2As=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'B2A');
+                $baoCaoDoHaiLongs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'HAI_LONG');
             // End DHSXKD
 
-            $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-tong-hop', compact('baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'baoCaoPhatTrienMois','baoCaoXuLySuyHaos', 'thoiGianLaySoLieu', 'userId'))->render(); // Trả dữ liệu ra view 
+            $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-tong-hop', compact('baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'baoCaoPhatTrienMois','baoCaoXuLySuyHaos', 'thoiGianLaySoLieu', 'userId', 'baoCaoGoiHomes', 'baoCaoXuLyDungHans', 'baoCaoMLLs', 'baoCaoB2As', 'baoCaoDoHaiLongs'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
