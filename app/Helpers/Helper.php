@@ -14,9 +14,25 @@ use GuzzleHttp\Client;
 use App\BcPhanQuyenBaoCao;
 use DateTime;
 
+use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+    public static $stringJson='{ <br>';
+    public static function decodeJson($arrJson){
+        foreach ($arrJson as $key => $value) {
+            $isArray=is_array($value);
+            if(!$isArray){
+                Helper::$stringJson.=$key.' : '.$value.',<br>';
+            }else{
+                Helper::decodeJson($value);
+            }
+        }
+        return Helper::$stringJson.'}';
+    }
+
+
+
     public static function getStartAndEndDateOfWeek($year, $week)
     {
        return [

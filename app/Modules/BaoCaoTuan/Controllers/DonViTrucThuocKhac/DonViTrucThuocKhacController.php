@@ -28,7 +28,7 @@ class DonViTrucThuocKhacController extends Controller{
     public function __construct(){
     }
 
-    public function baoCaoTuan(Request $request){
+    public function baoCaoTuan(Request $request){        
         $userId=0; $error=''; // Khai báo biến
         if(Auth::id()){
             $userId=Auth::id();

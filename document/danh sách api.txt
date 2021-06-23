@@ -1,0 +1,16 @@
+-- get danh sách đơn vị
+https://api.vnpttravinh.vn/bao-cao-tuan/don-vi
+-- get phát triển mới
+https://api.vnpttravinh.vn/bao-cao-tuan/phat-trien-moi?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get gói home
+https://api.vnpttravinh.vn/bao-cao-tuan/goi-home?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get suy hao
+https://api.vnpttravinh.vn/bao-cao-tuan/xu-ly-suy-hao?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get lắp đặt, sửa chữa đúng hạn
+https://api.vnpttravinh.vn/bao-cao-tuan/xu-ly-dung-han?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get mất liên lạc
+https://api.vnpttravinh.vn/bao-cao-tuan/mat-lien-lac?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get phiếu khảo sát B2A
+https://api.vnpttravinh.vn/bao-cao-tuan/khao-sat-b2a?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021
+-- get độ hài lòng
+https://api.vnpttravinh.vn/bao-cao-tuan/do-hai-long?donvi_id=0&tu_ngay=01/06/2021&den_ngay=14/06/2021

@@ -2,17 +2,26 @@
   $daChotSoLieu=Helper::kiemTraDaChotSoLieu($idTuan, $ma);
 @endphp
 <div class="wrapper mb-3 mt-4">
-  <span class="badge badge-warning text-white">Lưu ý: </span>
-  <p class="d-inline ml-3 text-dark">Số liệu báo cáo ĐHSXKD được tổng hợp từ <b class="text-danger">{{$ngayLayDuLieuTuanTruoc}}</b> - <b class="text-primary">{{$thoiGianLaySoLieu}}</b>.</p>
+  <div class="row">
+    <div class="col-md-8">
+      <span class="badge badge-warning text-white">Lưu ý: </span>
+      <p class="d-inline ml-3 text-dark">Số liệu báo cáo ĐHSXKD được tổng hợp từ <b class="text-danger">{{$ngayLayDuLieuTuanTruoc}}</b> - <b class="text-primary">{{$thoiGianLaySoLieu}}</b>.</p>
+    </div>
+    <div class="col-md-4 text-right">
+      <button type="button" class="btn btn-danger mr-2 btn-vien-thong-huyen-lay-so-lieu-bao-cao-dhsxkd @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
+    </div>
+  </div>
+    
+      
 </div>
 <h6 class="text-danger">1. Phát triển mới</h6>
 <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-dhsxkd-phat-trien-moi">
   <thead>
       <tr class="background-vnpt text-center">
-          <th style="width: 10%;">STT</th>
-          <th style="width: 40;">Tên dịch vụ</th>
-          <th style="width: 35%;">Số lượng</th>
-          <th style="width: 15%;">
+          <th style="width: 5%;">STT</th>
+          <th style="width: 20;">Tên dịch vụ</th>
+          <th style="width: 10%;">Số lượng</th>
+          <th style="width: 65%;">
             Ghi chú
           </th>
       </tr>
@@ -30,7 +39,7 @@
               {{$ptm['chi_so']}}
             @endif
           </td>
-          <td>
+          <td class="text-center">
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">

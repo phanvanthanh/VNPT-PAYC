@@ -14,6 +14,8 @@ use App\BcDmTuan;
 use App\BcDmThoiGianBaoCao;
 use App\BcKeHoachTuan;
 use App\BcDhsxkd;
+use App\BcMapDonViDhsxkd;
+use App\BcDmChiSo;
 
 class VienThongHuyenController extends Controller{
     /**
@@ -25,7 +27,6 @@ class VienThongHuyenController extends Controller{
     }
 
     public function baoCaoTuanVienThongHuyen(Request $request){
-        
         $year=date('Y');
         $bcDmTuan=BcDmTuan::where('nam','=',$year)
         ->get()->toArray();
@@ -737,12 +738,111 @@ class VienThongHuyenController extends Controller{
                     $ngayLayDuLieuTuanTruoc=$dmThoiGianBaoCaoTuanTruoc[0]['thoi_gian_lay_so_lieu'];
                 }
                 // End lấy ngày lấy số liệu của tuần trước
+                $tuNgay = strtotime($ngayLayDuLieuTuanTruoc);
+                $tuNgay = date('d/m/Y',$tuNgay);
+                $denNgay = strtotime($thoiGianLaySoLieu);
+                $denNgay = date('d/m/Y',$denNgay);
+                $idDonVi=$donVi['id'];
+                $donViLienThongDhsxkd=BcMapDonViDhsxkd::where('id_don_vi','=',$idDonVi)->where('state','=',1)->get()->toArray();
+                if(count($donViLienThongDhsxkd)<=0){
+                    return array('error'=>"Lỗi chưa map đơn vị liên thông");
+                }
+                $idDonViDhsxkd=$donViLienThongDhsxkd[0]['id_don_vi_dhsxkd'];
 
-                // Lấy lại số liệu
+                // Giá trị tham số tự động thêm dm chỉ số đhsxkd đối với trường hợp chưa tồn tại chỉ số đó trong csdl; Bật tắt để cải thiện tốc độ truy vấn nhanh hơn
+                $coTuDongThemDmChiSoDhsxkd=DmThamSoHeThong::getValueByName('BC_TU_DONG_THEM_DM_CHI_SO_DHSXKD');
+                // Xóa số liệu cũ
                 BcDhsxkd::where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                     })->delete();
-                $dataDhsxkd=array();
+                // Lấy số liệu phát triển mới
+                $dsPhatTrienMois=BcDhsxkd::getPhatTrienMoiDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
+
+                if($dsPhatTrienMois['errors']==0){
+                    foreach ($dsPhatTrienMois['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
+
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='PHAT_TRIEN_MOI';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
+
+
+                // Lấy số liệu gói home
+                $soLieuGoiHome=BcDhsxkd::getSoLieuGoiHomeDhsxkd($idDonViDhsxkd, $tuNgay, $denNgay);
+
+                if($soLieuGoiHome['errors']==0){
+                    foreach ($soLieuGoiHome['data'] as $key => $value) {
+                        if($key!='donvi_id'){
+                            if($coTuDongThemDmChiSoDhsxkd){
+                                $checkDmChiSoDhsxkd=BcDmChiSo::where('chi_so','=',$key)->get()->toArray();
+                                if(count($checkDmChiSoDhsxkd)<=0){
+                                    // insert
+                                    $dataDmChiSo=array();
+                                    $dataDmChiSo['chi_so']=$key;
+                                    $dataDmChiSo['mo_ta']=$key;
+                                    $dataDmChiSo['parent_id']=null;
+
+                                    $dmChiSoDhsxkd=BcDmChiSo::create($dataDmChiSo);
+                                    $sapXep=$dmChiSoDhsxkd->id;
+                                    $dmChiSoDhsxkd->sap_xep=$sapXep;
+                                    $dmChiSoDhsxkd->save();
+                                }
+                            }
+                                
+                            $dataDhsxkd=array();
+                            $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
+                            $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                            $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
+                            $dataDhsxkd['id_user_bao_cao']=$userId;
+                            $dataDhsxkd['chi_so']=$key;
+                            $dataDhsxkd['gia_tri']=$value;
+                            $dataDhsxkd['is_group']=0;
+                            $dataDhsxkd['ghi_chu']='';
+                            $dataDhsxkd['loai_chi_so']='GOI_HOME';
+                            $dataDhsxkd['trang_thai']=0;
+                            $dataDhsxkd['sap_xep']=0;
+                            $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
+                            $sapXep=$bcDhsxkd->id;
+                            $bcDhsxkd->sap_xep=$sapXep;
+                            $bcDhsxkd->save();
+                        }
+                            
+                    }
+                }
+                    
+                /*$dataDhsxkd=array();
                 $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
                 $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                 $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
@@ -849,7 +949,7 @@ class VienThongHuyenController extends Controller{
                 $dataDhsxkd['suy_hao']=10;
                 $dataDhsxkd['suy_hao_con_lai']=12;
                 $dataDhsxkd['loai_chi_so']='XU_LY_SUY_HAO';
-                $bcDhsxkd5=BcDhsxkd::create($dataDhsxkd);
+                $bcDhsxkd5=BcDhsxkd::create($dataDhsxkd);*/
 
                 
             }else{ 

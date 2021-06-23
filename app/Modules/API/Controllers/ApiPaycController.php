@@ -261,5 +261,28 @@ class ApiPaycController extends Controller
             
         return response()->json($result);
     }
+
+
+
+    public function luuFile(Request $request){
+        $request->validate([
+            'file_name'               => 'required|string',
+            'file_data'               => 'required|string'
+            
+        ]);
+
+        $file = base64_decode($request->file_data);
+        $fileName='api_'.time().'_'.$request->file_name;        
+        $fileName=str_replace(' ','',$fileName);
+        $path = storage_path()."/app/public/file/payc/".$fileName;
+        file_put_contents($path, $file);
+        $result=array(
+            'error'=>0,
+            'message'   => 'Lấy dữ liệu thành công',
+            'file_name'  => $fileName
+        );
+            
+        return response()->json($result);
+    }
 }
 ?>

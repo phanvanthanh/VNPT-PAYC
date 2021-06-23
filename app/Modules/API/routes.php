@@ -27,5 +27,6 @@ Route::group(
         Route::get('api/api-lay-danh-muc-phuong-xa-theo-ma-quan-huyen', 'ApiDmPhuongXaController@layDanhMucPhuongXaTheoMaQuanHuyen');
         Route::post('api/api-payc-cua-toi', 'ApiPaycController@layPaycCuaToi');
         Route::post('api/get-file', 'ApiPaycController@getFile');
+        Route::post('api/luu-file', 'ApiPaycController@luuFile');
     }
 );
