@@ -32,10 +32,9 @@ class ApiPaycController extends Controller
             'id_dich_vu'            => 'required|numeric',
             'tieu_de'               => 'required|string',
             'noi_dung'              => 'nullable|string',
-            //'file_payc'             => // Không validate
             'ma_phuong_xa'          => 'numeric',
             'vi_do'                 => 'nullable|string',
-            'file_payc'             => 'nullable|string',
+            'file_payc'             => 'nullable|array',
             'kinh_do'               => 'nullable|string',
             'han_xu_ly_mong_muon'   => 'nullable|date',
             'is_an_danh'            => 'numeric'
@@ -54,6 +53,17 @@ class ApiPaycController extends Controller
                 );
             }
         }
+        $fullFileName='';
+        foreach ($request->file_payc as $key => $fullFileData) {
+            $file = base64_decode($fullFileData['file_data']);
+            $fileName='api_'.time().'_'.$key.$fullFileData['file_name'];        
+            $fileName=str_replace(' ','',$fileName);
+            $path = storage_path()."/app/public/file/payc/".$fileName;
+            $success=file_put_contents($path, $file);
+            if($success){
+                $fullFileName.=$fileName.';';
+            }
+        }
         // hoặc nếu bật chế độ ẩn danh cũng tiếp nhận ẩn danh luôn
         if($request->is_an_danh==1){ // nếu là ẩn danh thì user id =1
             $userId=1;
@@ -63,11 +73,10 @@ class ApiPaycController extends Controller
         $data['so_phieu']=Payc::taoSoPhieu();
         $data['tieu_de']=$request->tieu_de;
         $data['noi_dung']=$request->noi_dung;
-        $data['file_payc']='';
         $data['ma_phuong_xa']=$request->ma_phuong_xa;
         $data['vi_do']=$request->vi_do;
         $data['kinh_do']=$request->kinh_do;
-        $data['file_payc']=$request->file_payc;
+        $data['file_payc']=$fullFileName;
         $data['ngay_tao']=date('Y-m-d H:i:s');
         $data['han_xu_ly_mong_muon']=$request->han_xu_ly_mong_muon;
         $data['han_xu_ly_duoc_giao']=null;
