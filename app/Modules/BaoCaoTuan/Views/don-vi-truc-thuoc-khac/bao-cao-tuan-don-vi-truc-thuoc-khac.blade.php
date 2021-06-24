@@ -168,6 +168,7 @@
       $.fn.dataTable.ext.errMode = 'none';
 
       loadBaoCaoTuanHienTai=function(){
+
         loading('.error-mode');
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
@@ -176,6 +177,8 @@
 
         var form=jQuery('form[name="frm-bao-cao-tuan"]');
         var formData = new FormData(form[0]);
+        console.log("vooo");
+        var xhr1;  
         if(xhr1 && xhr1.readyState != 4){
             xhr1.abort(); //huy lenh ajax truoc do
         }
@@ -250,6 +253,7 @@
         
         var form=jQuery('form[name="frm-bao-cao-tuan"]');
         var formData = new FormData(form[0]);
+        var xhr1;  
         if(xhr1 && xhr1.readyState != 4){
             xhr1.abort(); //huy lenh ajax truoc do
         }
@@ -287,6 +291,7 @@
 
         var form=jQuery('form[name="frm-bao-cao-tuan"]');
         var formData = new FormData(form[0]);
+        var xhr1;  
         if(xhr1 && xhr1.readyState != 4){
             xhr1.abort(); //huy lenh ajax truoc do
         }
@@ -323,6 +328,7 @@
         
         var form=jQuery('form[name="frm-bao-cao-ke-hoach-tuan"]');
         var formData = new FormData(form[0]);
+        var xhr1;  
         if(xhr1 && xhr1.readyState != 4){
             xhr1.abort(); //huy lenh ajax truoc do
         }

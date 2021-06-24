@@ -106,7 +106,11 @@
 
         var form=jQuery('form[name="frm-bao-cao-tuan"]');
         var formData = new FormData(form[0]);
-        jQuery.ajax({
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 =  jQuery.ajax({
           url: "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-ke-hoach-tuan') }}",
           type: 'POST',
           data: formData,
@@ -138,7 +142,11 @@
 
         
         var formData = new FormData(form[0]);
-        jQuery.ajax({
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
           url: "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}",
           type: 'POST',
           data: formData,
@@ -171,7 +179,11 @@
         var idDichVu=jQuery('#id-dich-vu').val();
         jQuery('.input-id-dich-vu').val(idDichVu);
 
-        jQuery.ajax({
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
           url: "{{ route('don-vi-truc-thuoc-khac-bc-is-group-ke-hoach-tuan') }}",
           type:'POST',
           dataType:'json',
@@ -205,7 +217,11 @@
         var idDichVu=jQuery('#id-dich-vu').val();
         jQuery('.input-id-dich-vu').val(idDichVu);
 
-        jQuery.ajax({
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
           url: "{{ route('don-vi-truc-thuoc-khac-xoa-bao-cao-ke-hoach-tuan') }}",
           type:'POST',
           dataType:'json',
