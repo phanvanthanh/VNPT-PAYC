@@ -205,7 +205,8 @@ class ApiPaycController extends Controller
         return response()->json(
             [
                 'message'   => 'Gửi PAKN thành công',
-                'error'     => 0
+                'error'     => 0,
+                'pakn_id'   => $idPayc
             ]
         );
     }
@@ -275,22 +276,22 @@ class ApiPaycController extends Controller
 
     public function luuFile(Request $request){
         $request->validate([
+            'pakn_id'               => 'required|numeric',
             'file_name'               => 'required|string',
-            'file_data'               => 'required|string'
+            'file_data'               => 'required'
             
         ]);
 
-        $file = base64_decode($request->file_data);
+        $file=$request->file('file_data');
         $fileName='api_'.time().'_'.$request->file_name;        
         $fileName=str_replace(' ','',$fileName);
-        $path = storage_path()."/app/public/file/payc/".$fileName;
-        file_put_contents($path, $file);
+        $test = $file->storeAs('public/file/payc', $fileName);
         $result=array(
             'error'=>0,
             'message'   => 'Lấy dữ liệu thành công',
             'file_name'  => $fileName
         );
-            
+
         return response()->json($result);
     }
 }

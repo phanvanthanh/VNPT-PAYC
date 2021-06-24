@@ -774,39 +774,42 @@ CREATE TABLE IF NOT EXISTS `bc_dhsxkd` (
   CONSTRAINT `FK_bc_dhsxkd_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=457 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_dhsxkd: ~30 rows (approximately)
+-- Dumping data for table vnptpayc.bc_dhsxkd: ~0 rows (approximately)
 /*!40000 ALTER TABLE `bc_dhsxkd` DISABLE KEYS */;
 INSERT INTO `bc_dhsxkd` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_thoigian_baocao`, `id_user_bao_cao`, `chi_so`, `gia_tri`, `is_group`, `ghi_chu`, `loai_chi_so`, `suy_hao`, `suy_hao_con_lai`, `trang_thai`, `sap_xep`) VALUES
-	(427, 'VT_TPO', '001.02.01.H59', NULL, 41, 'lapmoi_fiber', '463', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 427),
-	(428, 'VT_TPO', '001.02.01.H59', NULL, 41, 'mega_sang_fiber', '62', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 428),
-	(429, 'VT_TPO', '001.02.01.H59', NULL, 41, 'lapmoi_mytv', '1093', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 429),
-	(430, 'VT_TPO', '001.02.01.H59', NULL, 41, 'lapmoi_ddtrasau', '21', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 430),
-	(431, 'VT_TPO', '001.02.01.H59', NULL, 41, 'lapmoi_ddtratruoc', '393', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 431),
-	(432, 'VT_TPO', '001.02.01.H59', NULL, 41, 'lapmoi_mnp', '17', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 432),
-	(433, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Nguyễn Duy Sơn', '15', 0, '', 'XU_LY_SUY_HAO', '15', '0', 0, 433),
-	(434, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Lê Quốc', '27', 0, '', 'XU_LY_SUY_HAO', '27', '0', 0, 434),
-	(435, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Bí Minh Lý', '37', 0, '', 'XU_LY_SUY_HAO', '37', '0', 0, 435),
-	(436, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Nguyễn Văn Tình', '13', 0, '', 'XU_LY_SUY_HAO', '13', '0', 0, 436),
-	(437, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Trần Nhật Tài', '29', 0, '', 'XU_LY_SUY_HAO', '36', '0', 0, 437),
-	(438, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Đào Bá Linh', '46', 0, '', 'XU_LY_SUY_HAO', '51', '0', 0, 438),
-	(439, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Dương Nguyên Anh Tú', '24', 0, '', 'XU_LY_SUY_HAO', '24', '0', 0, 439),
-	(440, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Nguyễn Việt Cường', '46', 0, '', 'XU_LY_SUY_HAO', '48', '0', 0, 440),
-	(441, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Đoàn Văn Út', '47', 0, '', 'XU_LY_SUY_HAO', '49', '0', 0, 441),
-	(442, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Huỳnh Minh Thiện', '36', 0, '', 'XU_LY_SUY_HAO', '46', '0', 0, 442),
-	(443, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Nguyễn Xuân Minh', '36', 0, '', 'XU_LY_SUY_HAO', '38', '0', 0, 443),
-	(444, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Võ Hoàng Phúc', '44', 0, '', 'XU_LY_SUY_HAO', '48', '0', 0, 444),
-	(445, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Đoàn Lê Nhân Ái', '37', 0, '', 'XU_LY_SUY_HAO', '58', '0', 0, 445),
-	(446, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Trần Văn Lượm', '43', 0, '', 'XU_LY_SUY_HAO', '43', '0', 0, 446),
-	(447, 'VT_TPO', '001.02.01.H59', NULL, 41, 'Trần Nguyễn Trung Tín', '45', 0, '', 'XU_LY_SUY_HAO', '53', '0', 0, 447),
-	(448, 'VT_TPO', '001.02.01.H59', NULL, 41, 'home_internet', '65', 0, '', 'GOI_HOME', NULL, NULL, 0, 448),
-	(449, 'VT_TPO', '001.02.01.H59', NULL, 41, 'home_mobile', '1', 0, '', 'GOI_HOME', NULL, NULL, 0, 449),
-	(450, 'VT_TPO', '001.02.01.H59', NULL, 41, 'home_tv', '273', 0, '', 'GOI_HOME', NULL, NULL, 0, 450),
-	(451, 'VT_TPO', '001.02.01.H59', NULL, 41, 'home_combo', '4', 0, '', 'GOI_HOME', NULL, NULL, 0, 451),
-	(452, 'VT_TPO', '001.02.01.H59', NULL, 41, 'tongphieu_tc', '1874', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 452),
-	(453, 'VT_TPO', '001.02.01.H59', NULL, 41, 'dunghan_tc', '1859', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 453),
-	(454, 'VT_TPO', '001.02.01.H59', NULL, 41, 'tongphieu_bh', '3724', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 454),
-	(455, 'VT_TPO', '001.02.01.H59', NULL, 41, 'dunghan_bh', '3572', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 455),
-	(456, 'VT_TPO', '001.02.01.H59', NULL, 41, 'so_tram_mll', '22', 0, '', 'MLL', NULL, NULL, 0, 456);
+	(457, 'VT_TPO', '001.09.01.H59', 105, 41, 'lapmoi_fiber', '27', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 457),
+	(458, 'VT_TPO', '001.09.01.H59', 105, 41, 'mega_sang_fiber', '0', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 458),
+	(459, 'VT_TPO', '001.09.01.H59', 105, 41, 'lapmoi_mytv', '31', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 459),
+	(460, 'VT_TPO', '001.09.01.H59', 105, 41, 'lapmoi_ddtrasau', '4', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 460),
+	(461, 'VT_TPO', '001.09.01.H59', 105, 41, 'lapmoi_ddtratruoc', '280', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 461),
+	(462, 'VT_TPO', '001.09.01.H59', 105, 41, 'lapmoi_mnp', '10', 0, '', 'PHAT_TRIEN_MOI', NULL, NULL, 0, 462),
+	(463, 'VT_TPO', '001.09.01.H59', 105, 41, 'Nguyễn Duy Sơn', '1', 0, '', 'XU_LY_SUY_HAO', '1', '0', 0, 463),
+	(464, 'VT_TPO', '001.09.01.H59', 105, 41, 'Lê Quốc', '2', 0, '', 'XU_LY_SUY_HAO', '2', '0', 0, 464),
+	(465, 'VT_TPO', '001.09.01.H59', 105, 41, 'Bí Minh Lý', '6', 0, '', 'XU_LY_SUY_HAO', '6', '0', 0, 465),
+	(466, 'VT_TPO', '001.09.01.H59', 105, 41, 'Nguyễn Văn Tình', '2', 0, '', 'XU_LY_SUY_HAO', '2', '0', 0, 466),
+	(467, 'VT_TPO', '001.09.01.H59', 105, 41, 'Trần Nhật Tài', '1', 0, '', 'XU_LY_SUY_HAO', '5', '0', 0, 467),
+	(468, 'VT_TPO', '001.09.01.H59', 105, 41, 'Đào Bá Linh', '3', 0, '', 'XU_LY_SUY_HAO', '5', '0', 0, 468),
+	(469, 'VT_TPO', '001.09.01.H59', 105, 41, 'Dương Nguyên Anh Tú', '1', 0, '', 'XU_LY_SUY_HAO', '1', '0', 0, 469),
+	(470, 'VT_TPO', '001.09.01.H59', 105, 41, 'Nguyễn Việt Cường', '1', 0, '', 'XU_LY_SUY_HAO', '1', '0', 0, 470),
+	(471, 'VT_TPO', '001.09.01.H59', 105, 41, 'Đoàn Văn Út', '2', 0, '', 'XU_LY_SUY_HAO', '4', '0', 0, 471),
+	(472, 'VT_TPO', '001.09.01.H59', 105, 41, 'Huỳnh Minh Thiện', '1', 0, '', 'XU_LY_SUY_HAO', '4', '0', 0, 472),
+	(473, 'VT_TPO', '001.09.01.H59', 105, 41, 'Nguyễn Xuân Minh', '1', 0, '', 'XU_LY_SUY_HAO', '3', '0', 0, 473),
+	(474, 'VT_TPO', '001.09.01.H59', 105, 41, 'Võ Hoàng Phúc', '2', 0, '', 'XU_LY_SUY_HAO', '5', '0', 0, 474),
+	(475, 'VT_TPO', '001.09.01.H59', 105, 41, 'Đoàn Lê Nhân Ái', '2', 0, '', 'XU_LY_SUY_HAO', '7', '0', 0, 475),
+	(476, 'VT_TPO', '001.09.01.H59', 105, 41, 'Trần Văn Lượm', '5', 0, '', 'XU_LY_SUY_HAO', '5', '0', 0, 476),
+	(477, 'VT_TPO', '001.09.01.H59', 105, 41, 'Trần Nguyễn Trung Tín', '2', 0, '', 'XU_LY_SUY_HAO', '7', '0', 0, 477),
+	(478, 'VT_TPO', '001.09.01.H59', 105, 41, 'home_internet', '14', 0, '', 'GOI_HOME', NULL, NULL, 0, 478),
+	(479, 'VT_TPO', '001.09.01.H59', 105, 41, 'home_mobile', '0', 0, '', 'GOI_HOME', NULL, NULL, 0, 479),
+	(480, 'VT_TPO', '001.09.01.H59', 105, 41, 'home_tv', '24', 0, '', 'GOI_HOME', NULL, NULL, 0, 480),
+	(481, 'VT_TPO', '001.09.01.H59', 105, 41, 'home_combo', '0', 0, '', 'GOI_HOME', NULL, NULL, 0, 481),
+	(482, 'VT_TPO', '001.09.01.H59', 105, 41, 'tongphieu_tc', '63', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 482),
+	(483, 'VT_TPO', '001.09.01.H59', 105, 41, 'dunghan_tc', '61', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 483),
+	(484, 'VT_TPO', '001.09.01.H59', 105, 41, 'tongphieu_bh', '152', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 484),
+	(485, 'VT_TPO', '001.09.01.H59', 105, 41, 'dunghan_bh', '151', 0, '', 'XU_LU_DUNG_HAN', NULL, NULL, 0, 485),
+	(486, 'VT_TPO', '001.09.01.H59', 105, 41, 'so_tram_mll', '0', 0, '', 'MLL', NULL, NULL, 0, 486),
+	(487, 'VT_TPO', '001.09.01.H59', 105, 41, 're1', '0', 0, '', 'B2A', NULL, NULL, 0, 487),
+	(488, 'VT_TPO', '001.09.01.H59', 105, 41, 're3', '0', 0, '', 'B2A', NULL, NULL, 0, 488),
+	(489, 'VT_TPO', '001.09.01.H59', 105, 41, 're4', '1', 0, '', 'B2A', NULL, NULL, 0, 489);
 /*!40000 ALTER TABLE `bc_dhsxkd` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_chi_so
@@ -840,7 +843,10 @@ INSERT INTO `bc_dm_chi_so` (`id`, `chi_so`, `mo_ta`, `parent_id`, `sap_xep`, `ng
 	(17, 'dunghan_tc', 'dunghan_tc', NULL, 17, '2021-06-23 16:55:12'),
 	(18, 'tongphieu_bh', 'tongphieu_bh', NULL, 18, '2021-06-23 16:55:12'),
 	(19, 'dunghan_bh', 'dunghan_bh', NULL, 19, '2021-06-23 16:55:12'),
-	(20, 'so_tram_mll', 'Số trạm mất liên lạc', NULL, 20, '2021-06-23 20:11:40');
+	(20, 'so_tram_mll', 'Số trạm mất liên lạc', NULL, 20, '2021-06-23 20:11:40'),
+	(21, 're1', 're1', NULL, 21, '2021-06-24 10:39:59'),
+	(22, 're3', 're3', NULL, 22, '2021-06-24 10:39:59'),
+	(23, 're4', 're4', NULL, 23, '2021-06-24 10:39:59');
 /*!40000 ALTER TABLE `bc_dm_chi_so` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_quyen_bao_cao_tuan
@@ -881,35 +887,34 @@ CREATE TABLE IF NOT EXISTS `bc_dm_thoi_gian_bao_cao` (
   PRIMARY KEY (`id`),
   KEY `FK_bc_thoigian_bc_donvi_bc_dm_tuan` (`id_tuan`),
   CONSTRAINT `FK_bc_thoigian_bc_donvi_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_dm_thoi_gian_bao_cao: ~23 rows (approximately)
+-- Dumping data for table vnptpayc.bc_dm_thoi_gian_bao_cao: ~22 rows (approximately)
 /*!40000 ALTER TABLE `bc_dm_thoi_gian_bao_cao` DISABLE KEYS */;
 INSERT INTO `bc_dm_thoi_gian_bao_cao` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `thoi_gian_lay_so_lieu`, `thoi_gian_chot_so_lieu`, `ghi_chu`, `trang_thai`) VALUES
-	(1, 'VT_TPO', '001.09.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(80, 'VT_CTH', '002.09.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(81, 'VT_CLG', '001.10.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(82, 'VT_TCN', '002.10.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(83, 'VT_CKE', '003.10.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(84, 'VT_CNG', '001.11.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(85, 'VT_TCU', '002.11.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(86, 'VT_DHI', '003.11.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(87, 'VT_TXDHI', '004.11.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(88, 'NSTH', '000.01.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(89, 'KTDT', '000.02.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(90, 'KHKT', '000.03.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(91, 'KCTD', '000.04.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(92, 'CD', '000.05.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(93, 'DTN', '000.06.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(94, 'TTCNTT', '000.07.01.H59', 576, '2021-06-24 08:24:51', NULL, NULL, 2),
-	(95, 'TTDHTT', '000.08.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(96, 'TTVT1', '000.09.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(97, 'TTVT2', '000.10.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(98, 'TTVT3', '000.11.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(99, 'TTKD', '000.12.01.H59', 576, '2021-06-18 16:30:00', NULL, NULL, 2),
-	(100, 'VT_TPO', '001.09.01.H59', 577, '2021-06-24 07:45:25', NULL, NULL, 0),
-	(101, 'TTCNTT', '000.07.01.H59', 577, '2021-06-24 08:05:03', NULL, NULL, 0),
-	(102, 'TTCNTT', '000.07.01.H59', 575, '2021-06-24 08:26:52', NULL, NULL, 0);
+	(1, 'VT_TPO', '001.09.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(80, 'VT_CTH', '002.09.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(81, 'VT_CLG', '001.10.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(82, 'VT_TCN', '002.10.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(83, 'VT_CKE', '003.10.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(84, 'VT_CNG', '001.11.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(85, 'VT_TCU', '002.11.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(86, 'VT_DHI', '003.11.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(87, 'VT_TXDHI', '004.11.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(88, 'NSTH', '000.01.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(89, 'KTDT', '000.02.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(90, 'KHKT', '000.03.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(91, 'KCTD', '000.04.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(92, 'CD', '000.05.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(93, 'DTN', '000.06.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(94, 'TTCNTT', '000.07.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(95, 'TTDHTT', '000.08.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(96, 'TTVT1', '000.09.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(97, 'TTVT2', '000.10.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(98, 'TTVT3', '000.11.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(99, 'TTKD', '000.12.01.H59', 576, '2021-06-18 16:30:00', '2021-06-18 16:30:00', NULL, 2),
+	(104, 'TTCNTT', '000.07.01.H59', 577, '2021-06-24 10:32:20', NULL, NULL, 0),
+	(105, 'VT_TPO', '001.09.01.H59', 577, '2021-06-24 10:39:48', NULL, NULL, 0);
 /*!40000 ALTER TABLE `bc_dm_thoi_gian_bao_cao` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_dm_tuan
@@ -922,9 +927,9 @@ CREATE TABLE IF NOT EXISTS `bc_dm_tuan` (
   `den_ngay` date DEFAULT NULL,
   `trang_thai` int NOT NULL DEFAULT '0' COMMENT '0 không hoạt động; 1 hoạt động',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1072 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1073 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_dm_tuan: ~521 rows (approximately)
+-- Dumping data for table vnptpayc.bc_dm_tuan: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bc_dm_tuan` DISABLE KEYS */;
 INSERT INTO `bc_dm_tuan` (`id`, `nam`, `thang`, `tuan`, `tu_ngay`, `den_ngay`, `trang_thai`) VALUES
 	(575, 2021, NULL, 25, '2021-06-07', '2021-06-11', 1),
@@ -952,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `bc_ke_hoach_tuan` (
   KEY `FK_bc_ke_hoach_tuan_bc_dm_tuan` (`id_tuan`),
   CONSTRAINT `FK_bc_ke_hoach_tuan_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_ke_hoach_tuan_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=453 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=456 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table vnptpayc.bc_ke_hoach_tuan: ~38 rows (approximately)
 /*!40000 ALTER TABLE `bc_ke_hoach_tuan` DISABLE KEYS */;
@@ -1032,7 +1037,14 @@ INSERT INTO `bc_log_dhsxkd` (`id`, `user_id`, `send_body`, `respone_body`, `crea
 	(42, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-23 20:23:47","data":[{"donvi_id":10,"ten_nv":"Nguyễn Duy Sơn","tong_phieu":15,"dang_xuly":0,"da_xuly":15,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Lê Quốc","tong_phieu":27,"dang_xuly":0,"da_xuly":27,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Bí Minh Lý","tong_phieu":37,"dang_xuly":0,"da_xuly":37,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Văn Tình","tong_phieu":13,"dang_xuly":0,"da_xuly":13,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Nhật Tài","tong_phieu":36,"dang_xuly":7,"da_xuly":29,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đào Bá Linh","tong_phieu":51,"dang_xuly":5,"da_xuly":46,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Dương Nguyên Anh Tú","tong_phieu":24,"dang_xuly":0,"da_xuly":24,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Việt Cường","tong_phieu":48,"dang_xuly":2,"da_xuly":46,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đoàn Văn Út","tong_phieu":49,"dang_xuly":2,"da_xuly":47,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Huỳnh Minh Thiện","tong_phieu":46,"dang_xuly":10,"da_xuly":36,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Xuân Minh","tong_phieu":38,"dang_xuly":2,"da_xuly":36,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Võ Hoàng Phúc","tong_phieu":48,"dang_xuly":4,"da_xuly":44,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đoàn Lê Nhân Ái","tong_phieu":58,"dang_xuly":21,"da_xuly":37,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Văn Lượm","tong_phieu":43,"dang_xuly":0,"da_xuly":43,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Nguyễn Trung Tín","tong_phieu":53,"dang_xuly":8,"da_xuly":45,"suyhao_conlai":0}]}', '2021-06-23 20:23:47'),
 	(43, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-23 20:23:47","data":{"donvi_id":10,"home_internet":65,"home_mobile":1,"home_tv":273,"home_combo":4}}', '2021-06-23 20:23:47'),
 	(44, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-23 20:23:47","data":{"donvi_id":10,"tongphieu_tc":1874,"dunghan_tc":1859,"tongphieu_bh":3724,"dunghan_bh":3572}}', '2021-06-23 20:23:47'),
-	(45, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-23 20:23:52","data":{"donvi_id":10,"so_tram_mll":22}}', '2021-06-23 20:23:52');
+	(45, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-23 20:23:52","data":{"donvi_id":10,"so_tram_mll":22}}', '2021-06-23 20:23:52'),
+	(46, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:49","data":{"donvi_id":10,"lapmoi_fiber":27,"mega_sang_fiber":0,"lapmoi_mytv":31,"lapmoi_ddtrasau":4,"lapmoi_ddtratruoc":280,"lapmoi_mnp":10}}', '2021-06-24 10:39:49'),
+	(47, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:54","data":[{"donvi_id":10,"ten_nv":"Nguyễn Duy Sơn","tong_phieu":1,"dang_xuly":0,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Lê Quốc","tong_phieu":2,"dang_xuly":0,"da_xuly":2,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Bí Minh Lý","tong_phieu":6,"dang_xuly":0,"da_xuly":6,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Văn Tình","tong_phieu":2,"dang_xuly":0,"da_xuly":2,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Nhật Tài","tong_phieu":5,"dang_xuly":4,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đào Bá Linh","tong_phieu":5,"dang_xuly":2,"da_xuly":3,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Dương Nguyên Anh Tú","tong_phieu":1,"dang_xuly":0,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Việt Cường","tong_phieu":1,"dang_xuly":0,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đoàn Văn Út","tong_phieu":4,"dang_xuly":2,"da_xuly":2,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Huỳnh Minh Thiện","tong_phieu":4,"dang_xuly":3,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Nguyễn Xuân Minh","tong_phieu":3,"dang_xuly":2,"da_xuly":1,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Võ Hoàng Phúc","tong_phieu":5,"dang_xuly":3,"da_xuly":2,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Đoàn Lê Nhân Ái","tong_phieu":7,"dang_xuly":5,"da_xuly":2,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Văn Lượm","tong_phieu":5,"dang_xuly":0,"da_xuly":5,"suyhao_conlai":0},{"donvi_id":10,"ten_nv":"Trần Nguyễn Trung Tín","tong_phieu":7,"dang_xuly":5,"da_xuly":2,"suyhao_conlai":0}]}', '2021-06-24 10:39:54'),
+	(48, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:54","data":{"donvi_id":10,"home_internet":14,"home_mobile":0,"home_tv":24,"home_combo":0}}', '2021-06-24 10:39:54'),
+	(49, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:55","data":{"donvi_id":10,"tongphieu_tc":63,"dunghan_tc":61,"tongphieu_bh":152,"dunghan_bh":151}}', '2021-06-24 10:39:55'),
+	(50, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:58","data":{"donvi_id":10,"so_tram_mll":0}}', '2021-06-24 10:39:58'),
+	(51, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Lấy dữ liệu thành công","errors":0,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:39:59","data":{"donvi_id":10,"re1":0,"re3":0,"re4":1}}', '2021-06-24 10:39:59'),
+	(52, 41, '{"method":"GET","url":"https:\\/\\/api.vnpttravinh.vn\\/bao-cao-tuan\\/don-vi","headers":{"Content-Type":"application\\/json","Accept":"application\\/json","x-access-token":"ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBaQ0k2SWtobWRIRmFWeUlzSW1saGRDSTZNVFl5TXpZMk1qQXlOQ3dpWlhod0lqb3pNVGN4TmpneE1EUTBNalI5LmJacnBTVmtKQzJJRlN5X056V1BwUm1XQWZLdEFXdDhFbzlMUElFeHNLV00"}}', '{"message":"Dữ liệu rổng","errors":100,"access_token":null,"token_type":null,"expires_at":"2021-06-24 10:40:00","data":null}', '2021-06-24 10:40:00');
 /*!40000 ALTER TABLE `bc_log_dhsxkd` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_map_don_vi_dhsxkd
@@ -1053,13 +1065,13 @@ INSERT INTO `bc_map_don_vi_dhsxkd` (`id`, `id_don_vi`, `id_don_vi_dhsxkd`, `ten_
 	(13, 2, '0', '-- Toàn tỉnh --', 1),
 	(14, 17, '9', 'TTVT1 - Khu vực Châu Thành', 1),
 	(15, 16, '10', 'TTVT1 - Khu vực Tp. Trà Vinh', 1),
-	(16, NULL, '11', 'TTVT2 - Khu vực Càng Long', 1),
-	(17, NULL, '12', 'TTVT2 - Khu vực Tiểu Cần', 1),
-	(18, NULL, '13', 'TTVT2 - Khu vực Cầu Kè', 1),
-	(19, NULL, '14', 'TTVT3 - Khu vực Cầu Ngang', 1),
-	(20, NULL, '15', 'TTVT3 - Khu vực Trà Cú', 1),
-	(21, NULL, '16', 'TTVT3 - Khu vực Duyên Hải', 1),
-	(22, NULL, '26', 'TTVT3 - Khu vực TX Duyên Hải', 1);
+	(16, 21, '11', 'TTVT2 - Khu vực Càng Long', 1),
+	(17, 46, '12', 'TTVT2 - Khu vực Tiểu Cần', 1),
+	(18, 20, '13', 'TTVT2 - Khu vực Cầu Kè', 1),
+	(19, 24, '14', 'TTVT3 - Khu vực Cầu Ngang', 1),
+	(20, 22, '15', 'TTVT3 - Khu vực Trà Cú', 1),
+	(21, 25, '16', 'TTVT3 - Khu vực Duyên Hải', 1),
+	(22, 26, '26', 'TTVT3 - Khu vực TX Duyên Hải', 1);
 /*!40000 ALTER TABLE `bc_map_don_vi_dhsxkd` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.bc_quyen_bao_cao
@@ -1175,9 +1187,9 @@ CREATE TABLE IF NOT EXISTS `bc_tuan_hien_tai` (
   KEY `FK_bc_tuan_hien_tai_users` (`id_user_bao_cao`),
   CONSTRAINT `FK_bc_tuan_hien_tai_bc_dm_tuan` FOREIGN KEY (`id_tuan`) REFERENCES `bc_dm_tuan` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_bc_tuan_hien_tai_users` FOREIGN KEY (`id_user_bao_cao`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=865 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=869 DEFAULT CHARSET=utf8;
 
--- Dumping data for table vnptpayc.bc_tuan_hien_tai: ~103 rows (approximately)
+-- Dumping data for table vnptpayc.bc_tuan_hien_tai: ~102 rows (approximately)
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` DISABLE KEYS */;
 INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `id_user_bao_cao`, `noi_dung`, `ghi_chu`, `thoi_gian_bao_cao`, `is_group`, `id_dich_vu`, `trang_thai`, `sap_xep`) VALUES
 	(605, 'TTCNTT', '000.07.01.H59', 576, 51, 'VNPT iOffice/eOffice', NULL, '2021-06-18 07:55:19', 3, 10, 0, 510),
@@ -1281,9 +1293,7 @@ INSERT INTO `bc_tuan_hien_tai` (`id`, `ma_don_vi`, `ma_dinh_danh`, `id_tuan`, `i
 	(762, 'TTCNTT', '000.07.01.H59', 576, 52, 'Hệ thống demo:\r', NULL, '2021-06-18 15:38:45', 2, 14, 0, 52762),
 	(763, 'TTCNTT', '000.07.01.H59', 576, 52, 'Thiết kế mẫu và khởi tạo hệ thống demo cho các KH:\r', NULL, '2021-06-18 15:38:45', 1, 14, 0, 52763),
 	(764, 'TTCNTT', '000.07.01.H59', 576, 52, 'CÔNG TY TNHH TƯ VẤN THIẾT KẾ TM DV THÙY TR N;\r', NULL, '2021-06-18 15:38:45', 0, 14, 0, 52764),
-	(765, 'TTCNTT', '000.07.01.H59', 576, 52, 'HTX NÔNG NGHIỆP THƯƠNG MẠI VÀ SXDV XU N THÀNH;', NULL, '2021-06-18 15:38:45', 0, 14, 0, 52765),
-	(766, 'TTCNTT', '000.07.01.H59', 576, 38, 'Các công việc thường xuyên khác', NULL, '2021-06-18 15:44:41', 3, 17, 0, 38766),
-	(865, 'TTCNTT', '000.07.01.H59', 577, 38, 'Các công việc thường xuyên khác', NULL, '2021-06-24 08:20:27', 3, 17, 0, 865);
+	(765, 'TTCNTT', '000.07.01.H59', 576, 52, 'HTX NÔNG NGHIỆP THƯƠNG MẠI VÀ SXDV XU N THÀNH;', NULL, '2021-06-18 15:38:45', 0, 14, 0, 52765);
 /*!40000 ALTER TABLE `bc_tuan_hien_tai` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.chuc_danh
@@ -1348,7 +1358,7 @@ INSERT INTO `dich_vu` (`id`, `id_nhom_dich_vu`, `ten_dich_vu`, `sap_xep`, `state
 	(15, 7, 'LGSP', 8, 1),
 	(16, 7, 'CSDLQG-DC', 9, 1),
 	(17, 7, 'Các công việc thường xuyên khác', 10, 1),
-	(18, 7, '', 11, 1);
+	(18, 7, '', 11, 2);
 /*!40000 ALTER TABLE `dich_vu` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.dm_cap_don_vi
@@ -1973,13 +1983,16 @@ CREATE TABLE IF NOT EXISTS `to_do` (
   PRIMARY KEY (`id`),
   KEY `FK_to_do_users` (`id_user`),
   CONSTRAINT `FK_to_do_users` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table vnptpayc.to_do: ~2 rows (approximately)
+-- Dumping data for table vnptpayc.to_do: ~4 rows (approximately)
 /*!40000 ALTER TABLE `to_do` DISABLE KEYS */;
 INSERT INTO `to_do` (`id`, `id_user`, `noi_dung`, `file`, `ngay_tao`, `ngay_giao`, `han_xu_ly`, `ngay_hoan_thanh`, `sap_xep`, `trang_thai`) VALUES
-	(42, 2, 'Test 2', NULL, '2021-06-18 07:56:04', '2021-06-18 07:56:04', '2021-06-19 07:55:00', '2021-06-22 09:10:22', 2, 1),
-	(44, 2, 'Test 3', NULL, '2021-06-22 07:44:32', '2021-06-22 07:44:32', NULL, NULL, 1, 1);
+	(44, 2, 'Test 3', NULL, '2021-06-22 07:44:32', '2021-06-22 07:44:32', NULL, '2021-06-24 09:06:06', 2, 1),
+	(45, 37, 'Tiếp tục tiếp nhận y/c và hỗ trợ các đơn vị sử dụng hệ thống.', NULL, '2021-06-24 08:44:28', '2021-06-24 08:44:28', '2021-06-24 10:44:00', NULL, 0, 1),
+	(46, 2, 'Test 2', NULL, '2021-06-24 08:49:24', '2021-06-24 08:49:24', '2021-06-25 08:49:00', '2021-06-24 08:50:26', 4, 1),
+	(47, 2, 'Test 4', NULL, '2021-06-24 10:33:04', '2021-06-24 10:33:04', '2021-06-24 10:33:00', '2021-06-24 10:34:13', 3, 1),
+	(48, 2, 'test 5', NULL, '2021-06-24 10:34:53', '2021-06-24 10:34:53', NULL, NULL, 1, 1);
 /*!40000 ALTER TABLE `to_do` ENABLE KEYS */;
 
 -- Dumping structure for table vnptpayc.users
