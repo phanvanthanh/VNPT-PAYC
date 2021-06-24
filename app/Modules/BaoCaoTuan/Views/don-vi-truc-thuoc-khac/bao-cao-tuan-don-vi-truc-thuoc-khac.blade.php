@@ -177,7 +177,6 @@
 
         var form=jQuery('form[name="frm-bao-cao-tuan"]');
         var formData = new FormData(form[0]);
-        console.log("vooo");
         var xhr1;  
         if(xhr1 && xhr1.readyState != 4){
             xhr1.abort(); //huy lenh ajax truoc do
@@ -421,10 +420,12 @@
       // MODULE BÁO CÁO TUẦN HIỆN TẠI
       jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
         if (e.keyCode == 13) {
+          e.preventDefault();
           themBaoCaoTuanHienTai();
           return false;
         }
       });
+
 
       jQuery('.btn-bao-cao-tuan-hien-tai').on("click", function(e) {
         themBaoCaoTuanHienTai();

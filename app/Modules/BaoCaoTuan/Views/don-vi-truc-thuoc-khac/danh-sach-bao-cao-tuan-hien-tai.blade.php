@@ -136,7 +136,6 @@
 
       isGroup=function(id){     
         var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-        console.log(_token);
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
         var idDichVu=jQuery('#id-dich-vu').val();
@@ -174,7 +173,6 @@
 
       xoaBaoCaoTuanHienTai=function(id){     
         var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-        console.log(_token);
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
         var idDichVu=jQuery('#id-dich-vu').val();
