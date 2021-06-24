@@ -321,7 +321,7 @@ class UserController extends Controller{
             // Khai báo các dữ liệu bên form cần thiết
             $error='';
             $dataForm=RequestAjax::all(); $data=array(); $userId=0;
-            $dichVus=DichVu::where('state','=',1)->get()->toArray();
+            $dichVus=DichVu::all()->toArray();
             // Kiểm tra dữ liệu không hợp lệ
             if(isset($dataForm['id'])){ // ngược lại dữ liệu hợp lệ
                 $userId=$dataForm['id'];
