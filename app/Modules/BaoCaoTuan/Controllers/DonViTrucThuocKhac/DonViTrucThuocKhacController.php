@@ -179,7 +179,8 @@ class DonViTrucThuocKhacController extends Controller{
                 if(strstr($data['noi_dung'], "\n")) {
                     $newStrings=explode("\n", $data['noi_dung']);
                     foreach($newStrings as $key => $string){
-                        if(strlen(trim($string," "))>1){
+                        $string=trim($string," ");
+                        if(strlen($string)>1){
                             $checkExit2=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$string)->get()->toArray();
                             if(count($checkExit2)<=0){
                                 $dataBaoCaoTuan=array();
@@ -471,7 +472,8 @@ class DonViTrucThuocKhacController extends Controller{
                 if(strstr($data['noi_dung'], "\n")) {
                     $newStrings=explode("\n", $data['noi_dung']);
                     foreach($newStrings as $key => $string){
-                        if(strlen(trim($string," "))>1){
+                        $string=trim($string," ");
+                        if(strlen($string)>1){
                             $checkExit2=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$string)->get()->toArray();
                             if(count($checkExit2)<=0){
                                 $dataBaoCaoTuan=array();
