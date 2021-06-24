@@ -282,6 +282,7 @@ class ApiPaycController extends Controller
         ]);
 
         $file=$request->file('file_data');
+        $fileName='';
         $fileName='api_'.time().'_'.$request->file_name;        
         $fileName=str_replace(' ','',$fileName);
         $path = $file->storeAs('public/file/payc', $fileName);
@@ -292,11 +293,22 @@ class ApiPaycController extends Controller
         $pakn->save();
 
         // Thành công
-        $result=array(
-            'error'=>0,
-            'message'   => 'Lấy dữ liệu thành công',
-            'file_name'  => $fileName
-        );
+        if($fileName){
+            $result=array(
+                'error'=>0,
+                'message'   => 'Lưu file thành công',
+                'file_name'  => $fileName
+            );
+        }else
+        {
+            $result=array(
+                'error'=>1,
+                'message'   => 'Lưu file thất bại',
+                'file_name'  => $fileName
+            );
+        }
+
+            
 
         return response()->json($result);
     }
