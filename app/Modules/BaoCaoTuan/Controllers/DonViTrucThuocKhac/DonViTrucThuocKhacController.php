@@ -180,22 +180,25 @@ class DonViTrucThuocKhacController extends Controller{
                     $newStrings=explode("\n", $data['noi_dung']);
                     foreach($newStrings as $key => $string){
                         if(strlen(trim($string," "))>1){
-                            $dataBaoCaoTuan=array();
-                            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                            $dataBaoCaoTuan['noi_dung']=$string;
-                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                            $dataBaoCaoTuan['ghi_chu']=null;
-                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
-                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                            $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=0;
-                            $dataBaoCaoTuan['sap_xep']=0;
-                            $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$baoCaoTuan->id;
-                            $baoCaoTuan->sap_xep=$sapXep;
-                            $baoCaoTuan->save();
+                            $checkExit2=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$string)->get()->toArray();
+                            if(count($checkExit2)<=0){
+                                $dataBaoCaoTuan=array();
+                                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                                $dataBaoCaoTuan['noi_dung']=$string;
+                                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                                $dataBaoCaoTuan['ghi_chu']=null;
+                                $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                                $dataBaoCaoTuan['trang_thai']=0;
+                                $dataBaoCaoTuan['is_group']=0;
+                                $dataBaoCaoTuan['sap_xep']=0;
+                                $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                                $sapXep=$baoCaoTuan->id;
+                                $baoCaoTuan->sap_xep=$sapXep;
+                                $baoCaoTuan->save();
+                            }
                         }
                     }
                 }else{
@@ -469,22 +472,25 @@ class DonViTrucThuocKhacController extends Controller{
                     $newStrings=explode("\n", $data['noi_dung']);
                     foreach($newStrings as $key => $string){
                         if(strlen(trim($string," "))>1){
-                            $dataBaoCaoTuan=array();
-                            $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
-                            $dataBaoCaoTuan['id_user_bao_cao']=$userId;
-                            $dataBaoCaoTuan['noi_dung']=$string;
-                            $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
-                            $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                            $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
-                            $dataBaoCaoTuan['ghi_chu']=null;
-                            $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
-                            $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=0;
-                            $dataBaoCaoTuan['sap_xep']=0;
-                            $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                            $sapXep=$baoCaoTuan->id;
-                            $baoCaoTuan->sap_xep=$sapXep;
-                            $baoCaoTuan->save();
+                            $checkExit2=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$string)->get()->toArray();
+                            if(count($checkExit2)<=0){
+                                $dataBaoCaoTuan=array();
+                                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                                $dataBaoCaoTuan['noi_dung']=$string;
+                                $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                                $dataBaoCaoTuan['ghi_chu']=null;
+                                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                                $dataBaoCaoTuan['trang_thai']=0;
+                                $dataBaoCaoTuan['is_group']=0;
+                                $dataBaoCaoTuan['sap_xep']=0;
+                                $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                                $sapXep=$baoCaoTuan->id;
+                                $baoCaoTuan->sap_xep=$sapXep;
+                                $baoCaoTuan->save();
+                            }
                         }                            
                     }
                 }

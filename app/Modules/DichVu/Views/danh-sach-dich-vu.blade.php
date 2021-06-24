@@ -23,7 +23,7 @@
                     @if ($dichVu['ten_dich_vu']!='')
                         {{$dichVu['ten_dich_vu']}}
                     @else
-                        {{'Xem báo cáo'}}
+                        {{'Khác'}}
                     @endif
                 </td>
                 <td>                    
