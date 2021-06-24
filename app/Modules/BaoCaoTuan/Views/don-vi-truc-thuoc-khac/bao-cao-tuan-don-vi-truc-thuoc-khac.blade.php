@@ -36,7 +36,7 @@
                               {{ csrf_field() }}
                               <select class="form-control id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
                                 @foreach($bcDmTuan as $dmTuan)
-                                  <option value="{{$dmTuan['id']}}" @if ($week==$dmTuan['tuan']) {{"selected='selected'"}} @endif>Báo cáo tuần @if ($dmTuan['tuan']<10) {{"0"}}@endif{{$dmTuan['tuan']}} - Năm {{$dmTuan['nam']}}</option>
+                                  <option value="{{$dmTuan['id']}}" @if ($week==$dmTuan['tuan']) {{"selected='selected'"}} @endif @if ($dmTuan['tuan']==25 && $dmTuan['nam']==2021) {{'disabled'}}  @endif>Báo cáo tuần @if ($dmTuan['tuan']<10) {{"0"}}@endif{{$dmTuan['tuan']}} - Năm {{$dmTuan['nam']}}</option>
                                 @endforeach
                               </select>                            
                           </h4>
