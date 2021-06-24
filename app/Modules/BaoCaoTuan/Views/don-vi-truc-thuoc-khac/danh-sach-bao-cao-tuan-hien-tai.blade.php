@@ -65,7 +65,6 @@
       @endforeach
   </tbody>
 </table>   
-
 <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {

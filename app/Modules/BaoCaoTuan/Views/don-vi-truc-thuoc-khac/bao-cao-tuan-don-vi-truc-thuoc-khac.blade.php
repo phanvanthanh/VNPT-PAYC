@@ -168,7 +168,7 @@
       $.fn.dataTable.ext.errMode = 'none';
 
       loadBaoCaoTuanHienTai=function(){
-
+        console.log("vo ham load");
         loading('.error-mode');
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
@@ -421,7 +421,7 @@
 
       $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
-            themBaoCaoTuanHienTai();
+            themBaoCaoTuanHienTai();            
           }
       });
 

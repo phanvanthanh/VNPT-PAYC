@@ -45,6 +45,7 @@ class DonViTrucThuocKhacController extends Controller{
     // Báo cáo tuần hiện tại
     public function danhSachBaoCaoTuanHienTai(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            
             $userId=0; $error=''; // Khai báo biến
             if(Auth::id()){
                 $userId=Auth::id();

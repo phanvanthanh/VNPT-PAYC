@@ -33,14 +33,14 @@
           </i>
         @endif
       </div>
-      <form class="forms-sample frm-bao-cao-tuan-hien-tai-2 d-none" id="frm-bao-cao-tuan-hien-tai-2" name="frm-bao-cao-tuan-hien-tai-2">
+      <form class="forms-sample frm-bao-cao-tuan-hien-tai-2 d-none" id="frm-bao-cao-tuan-hien-tai-2" name="frm-bao-cao-tuan-hien-tai-2" action="javascript:void(0)">
         {{ csrf_field() }}
         <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
               <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
-              <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 20px;">
+              <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai-2" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 20px;">
             </div>
           </div>
         </div>
@@ -81,10 +81,10 @@
             @endif
 
           </li>
-          <form class="forms-sample frm-cap-nhat-bao-cao-tuan-hien-tai d-none" id="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" name="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
+          <form class="forms-sample frm-cap-nhat-bao-cao-tuan-hien-tai-2 d-none" id="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" name="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" action="javascript:void(0)">
             {{ csrf_field() }}
             <input type="hidden" name="id" value="{{$baoCaoTuanHienTai['id']}}">
-            <input @if ($baoCaoTuanHienTai['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-tuan-hien-tai" data="{{$baoCaoTuanHienTai['id']}}" value="{{$baoCaoTuanHienTai['noi_dung']}}" id="cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
+            <input @if ($baoCaoTuanHienTai['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-tuan-hien-tai-2" data="{{$baoCaoTuanHienTai['id']}}" value="{{$baoCaoTuanHienTai['noi_dung']}}" id="cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
           </form>
         @endforeach
       </ul>
@@ -146,14 +146,14 @@
           </i>
         @endif
       </div>
-      <form class="forms-sample frm-bao-cao-ke-hoach-tuan-2 d-none" id="frm-bao-cao-ke-hoach-tuan-2" name="frm-bao-cao-ke-hoach-tuan-2">
+      <form class="forms-sample frm-bao-cao-ke-hoach-tuan-2 d-none" id="frm-bao-cao-ke-hoach-tuan-2" name="frm-bao-cao-ke-hoach-tuan-2" action="javascript:void(0)">
         {{ csrf_field() }}
         <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
         <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
-              <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
+              <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan-2" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
             </div>
           </div>
         </div>
@@ -192,7 +192,7 @@
                 </i>
             @endif
           </li>
-          <form class="forms-sample frm-cap-nhat-bao-cao-ke-hoach-tuan d-none" id="frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" name="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
+          <form class="forms-sample frm-cap-nhat-bao-cao-ke-hoach-tuan d-none" id="frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" name="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" action="javascript:void(0)">
             {{ csrf_field() }}
             <input type="hidden" name="id" value="{{$baoCaoKeHoachTuan['id']}}">
             <input @if ($baoCaoKeHoachTuan['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-ke-hoach-tuan" data="{{$baoCaoKeHoachTuan['id']}}" value="{{$baoCaoKeHoachTuan['noi_dung']}}" id="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
@@ -220,8 +220,6 @@
 
 
 <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/export-word/FileSaver.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/export-word/jquery.wordexport.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery('.btn-chot-va-gui-bao-cao').on('click',function(){
@@ -232,7 +230,7 @@
       });
 
 
-      $(".cap-nhat-bao-cao-tuan-hien-tai").keyup(function(e){
+      $(".cap-nhat-bao-cao-tuan-hien-tai-2").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
             var daChotSoLieu={{$daChotSoLieu}};
             if(daChotSoLieu>0){
@@ -262,7 +260,7 @@
       });
 
 
-      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+      $(".noi-dung-bao-cao-tuan-hien-tai-2").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
             var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
             var idTuan=jQuery('#id_tuan').val();
@@ -322,7 +320,7 @@
 
       
 
-      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+      $(".noi-dung-bao-cao-ke-hoach-tuan-2").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
             var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
             var idTuan=jQuery('#id_tuan').val();
