@@ -245,20 +245,21 @@
         });
       }
 
-      jQuery('.noi-dung').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu>0){
-            errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+      
+
+      $(".noi-dung").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var daChotSoLieu={{$daChotSoLieu}};
+            if(daChotSoLieu>0){
+              errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+              return false;
+            }
+            var form=jQuery(this).parents('form');
+            var _token=form.find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            capNhatKeHoachTuan(form);
             return false;
           }
-          var form=jQuery(this).parents('form');
-          var _token=form.find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          capNhatKeHoachTuan(form);
-          return false;
-          
-        }
       });
       
 

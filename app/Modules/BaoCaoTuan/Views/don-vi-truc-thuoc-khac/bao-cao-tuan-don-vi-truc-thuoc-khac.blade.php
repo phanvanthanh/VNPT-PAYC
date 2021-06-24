@@ -418,12 +418,11 @@
 
 
       // MODULE BÁO CÁO TUẦN HIỆN TẠI
-      jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          e.preventDefault();
-          themBaoCaoTuanHienTai();
-          return false;
-        }
+
+      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            themBaoCaoTuanHienTai();
+          }
       });
 
 
@@ -445,11 +444,10 @@
 
 
       // MODULE BÁO CÁO KẾ HOẠCH TUẦN
-      jQuery('.noi-dung-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          themKeHoachTuan();          
-          return false;
-        }
+      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            themKeHoachTuan();
+          }
       });
 
       jQuery('.btn-bao-cao-ke-hoach-tuan').on("click", function(e) {

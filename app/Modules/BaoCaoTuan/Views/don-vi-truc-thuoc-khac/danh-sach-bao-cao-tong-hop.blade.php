@@ -231,20 +231,20 @@
         postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-chot-so-lieu') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',true);
       });
 
-      jQuery('.cap-nhat-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu>0){
-            errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+
+      $(".cap-nhat-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var daChotSoLieu={{$daChotSoLieu}};
+            if(daChotSoLieu>0){
+              errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+              return false;
+            }
+            var form=jQuery(this).parents('form');
+            var _token=form.find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
             return false;
           }
-          var form=jQuery(this).parents('form');
-          var _token=form.find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          return false;
-          
-        }
       });
 
       jQuery('.btn-xoa-bao-cao-tuan-hien-tai').on('click',function(){  
@@ -261,23 +261,25 @@
         postAndRefreshById(_token, id, "{{ route('don-vi-truc-thuoc-khac-bc-is-group-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
-      jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          form.find('.input-id-tuan').val(idTuan);
 
-          var idDichVu=jQuery('#id-dich-vu').val();
-          jQuery('.input-id-dich-vu').val(idDichVu);
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          jQuery('#frm-bao-cao-tuan-hien-tai-2').addClass('d-none');
-          e.preventDefault();
-          return false;
-        }
+      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            form.find('.input-id-tuan').val(idTuan);
 
+            var idDichVu=jQuery('#id-dich-vu').val();
+            jQuery('.input-id-dich-vu').val(idDichVu);
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            jQuery('#frm-bao-cao-tuan-hien-tai-2').addClass('d-none');
+            e.preventDefault();
+            return false;
+          }
       });
+
+
+
 
       jQuery('.btn-lay-so-lieu-bao-cao-dhsxkd').on('click', function() {
         var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
@@ -287,23 +289,21 @@
 
 
       // Kế hoạch tuần
-      jQuery('.cap-nhat-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu>0){
-            errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+
+      $(".cap-nhat-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var daChotSoLieu={{$daChotSoLieu}};
+            if(daChotSoLieu>0){
+              errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+              return false;
+            }
+            var form=jQuery(this).parents('form');
+            var _token=form.find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+
+            capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
             return false;
           }
-          var form=jQuery(this).parents('form');
-          var _token=form.find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-
-          capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          return false;
-          
-        }
-
-
       });
 
       jQuery('.btn-xoa-bao-cao-ke-hoach-tuan').on('click',function(){  
@@ -320,19 +320,21 @@
         postAndRefreshById(_token, id, "{{ route('don-vi-truc-thuoc-khac-bc-is-group-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
-      jQuery('.noi-dung-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          form.find('.input-id-tuan').val(idTuan);
-          var idDichVu=jQuery('#id-dich-vu').val();
-          jQuery('.input-id-dich-vu').val(idDichVu);
-          
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          e.preventDefault();
-          return false;
-        }
+      
+
+      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            form.find('.input-id-tuan').val(idTuan);
+            var idDichVu=jQuery('#id-dich-vu').val();
+            jQuery('.input-id-dich-vu').val(idDichVu);
+            
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('don-vi-truc-thuoc-khac-them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            e.preventDefault();
+            return false;
+          }
       });
 
       $('.btn-xuat-bao-cao').on('click',function(){
