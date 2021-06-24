@@ -64,7 +64,8 @@
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <div class="form-group">
-                                      <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung">
+                                      {{-- <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"> --}}
+                                      <Textarea class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
                                     </div>
                                   </div>
                                   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
@@ -88,7 +89,8 @@
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
-                                      <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
+                                      {{-- <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"> --}}
+                                      <Textarea type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
                                     </div>
                                   </div>
                                   <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-right">

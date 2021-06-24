@@ -283,8 +283,8 @@
               <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
                 <thead>
                     <tr class="background-vnpt text-center">
-                      <th style="width: 10%;">STT #</th>
-                      <th style="width: 10;">Cán bộ xử lý</th>
+                      <th style="width: 5%;">STT #</th>
+                      <th style="width: 15;">Cán bộ xử lý</th>
                       <th style="width: 10%;">Suy hao</th>
                       <th style="width: 10%;">Xử lý</th>
                       <th style="width: 10%;">Còn lại</th>
