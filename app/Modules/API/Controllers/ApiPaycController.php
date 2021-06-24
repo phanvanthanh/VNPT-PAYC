@@ -287,6 +287,9 @@ class ApiPaycController extends Controller
         $path = $file->storeAs('public/file/payc', $fileName);
 
         // Tìm id pakn và lưu file vô
+        $pakn=Payc::find($request->pakn_id);
+        $pakn->file_payc=$pakn->file_payc.$fileName.';';
+        $pakn->save();
 
         // Thành công
         $result=array(
