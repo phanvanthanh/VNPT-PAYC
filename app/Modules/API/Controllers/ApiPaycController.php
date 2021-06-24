@@ -285,7 +285,11 @@ class ApiPaycController extends Controller
         $file=$request->file('file_data');
         $fileName='api_'.time().'_'.$request->file_name;        
         $fileName=str_replace(' ','',$fileName);
-        $test = $file->storeAs('public/file/payc', $fileName);
+        $path = $file->storeAs('public/file/payc', $fileName);
+
+        // Tìm id pakn và lưu file vô
+
+        // Thành công
         $result=array(
             'error'=>0,
             'message'   => 'Lấy dữ liệu thành công',
