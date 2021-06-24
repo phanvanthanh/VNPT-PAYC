@@ -115,7 +115,7 @@ class VienThongHuyenController extends Controller{
                 $dataBaoCaoTuan['is_group']=0;
                 $dataBaoCaoTuan['sap_xep']=0;
                 $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $sapXep=$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
             }
@@ -300,7 +300,10 @@ class VienThongHuyenController extends Controller{
                 $dataBaoCaoTuan['trang_thai']=0;
                 $dataBaoCaoTuan['is_group']=$keHoachTuanTruoc['is_group'];
                 $dataBaoCaoTuan['sap_xep']=$keHoachTuanTruoc['sap_xep'];
-                BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$baoCaoTuan->id;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
             }
 
                 
@@ -390,7 +393,7 @@ class VienThongHuyenController extends Controller{
                 $dataBaoCaoTuan['is_group']=0;
                 $dataBaoCaoTuan['sap_xep']=0;
                 $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
-                $sapXep=$userId.$baoCaoTuan->sap_xep;
+                $sapXep=$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
             }
@@ -520,7 +523,6 @@ class VienThongHuyenController extends Controller{
             $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
             $ma=''; // Mã đơn vị hay mã định danh
             $idThoiGianBaoCaoDhsxkd=0; $baoCaoPhatTrienMois=array(); $baoCaoXuLySuyHaos=array();
-            $thoiGianLaySoLieu='';
 
             if($baoCaoTheoMaDinhDanh==1){
                 $ma=$donVi['ma_dinh_danh'];                
@@ -529,6 +531,20 @@ class VienThongHuyenController extends Controller{
             }
 
             $this->ma=$ma;
+
+            $tuan=0; $nam=0;
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)>0){
+                $tuan=$dmTuan[0]['tuan'];
+                $nam=$dmTuan[0]['nam'];
+            }
+
+            $daVuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+            $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+            if($daVuotThoiGianChotSoLieu){
+                $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+                $thoiGianLaySoLieu=$dmTuan[0]['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+            }
 
             $idThoiGianBaoCaoDhsxkd=0;
             $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
@@ -539,20 +555,15 @@ class VienThongHuyenController extends Controller{
                 $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
                 $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                 $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=$thoiGianLaySoLieu;
                 $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
                 $dataDmThoiGianBaoCao['ghi_chu']=null;
                 $dataDmThoiGianBaoCao['trang_thai']=0;
                 $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
                 $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-                $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
 
             }else{ //Ngược lại thì chốt
                 $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
             }
             $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
             $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
@@ -563,12 +574,7 @@ class VienThongHuyenController extends Controller{
             $baoCaoDoHaiLongs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'HAI_LONG');
 
             // Lấy ngày lấy số liệu của tuần trước
-            $tuan=0; $nam=0;
-            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
-            if(count($dmTuan)>0){
-                $tuan=$dmTuan[0]['tuan'];
-                $nam=$dmTuan[0]['nam'];
-            }
+            
             $idTuanTruoc=0;
             $idTuanTruoc=0;
             if($tuan==1) {
@@ -658,6 +664,20 @@ class VienThongHuyenController extends Controller{
             }
             $this->ma=$ma;
 
+            $tuan=0; $nam=0;
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)>0){
+                $tuan=$dmTuan[0]['tuan'];
+                $nam=$dmTuan[0]['nam'];
+            }
+
+            $daVuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+            $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+            if($daVuotThoiGianChotSoLieu){
+                $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+                $thoiGianLaySoLieu=$dmTuan[0]['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+            }
+
 
 
             
@@ -665,9 +685,7 @@ class VienThongHuyenController extends Controller{
             // Ngược lại không lấy
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
             if($daChoSoLieu==0){
-                $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                $idThoiGianBaoCaoDhsxkd=0;
-                
+                $idThoiGianBaoCaoDhsxkd=0;                
 
                 // Cập nhật lại thời gian lấy số liệu                
                 $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
@@ -693,12 +711,6 @@ class VienThongHuyenController extends Controller{
                 }
 
                 // Lấy ngày lấy số liệu của tuần trước
-                $tuan=0; $nam=0;
-                $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
-                if(count($dmTuan)>0){
-                    $tuan=$dmTuan[0]['tuan'];
-                    $nam=$dmTuan[0]['nam'];
-                }
                 $idTuanTruoc=0;
                 $idTuanTruoc=0;
                 if($tuan==1) {
@@ -1077,6 +1089,13 @@ class VienThongHuyenController extends Controller{
 
             $this->ma=$ma;
 
+            $daVuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+            $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+            if($daVuotThoiGianChotSoLieu){
+                $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+                $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+            }
+
             
 
             $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
@@ -1101,20 +1120,15 @@ class VienThongHuyenController extends Controller{
                     $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
                     $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                     $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                    $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=$thoiGianLaySoLieu;
                     $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
                     $dataDmThoiGianBaoCao['ghi_chu']=null;
                     $dataDmThoiGianBaoCao['trang_thai']=0;
                     $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
                     $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
-                    $thoiGianLaySoLieu=$bcDmThoiGianBaoCao->thoi_gian_lay_so_lieu;
 
                 }else{ //Ngược lại thì chốt
                     $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianLaySoLieu=date('Y-m-d H:i:s');
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
                 }
                 $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
                 $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
@@ -1159,11 +1173,20 @@ class VienThongHuyenController extends Controller{
             if($daChoSoLieu==1){
                 return array('error'=>"Chốt số liệu thất bại, do báo cáo đã được gửi nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
-            // Kiểm tra vượt thời gian gửi báo cáo
-            /*$daVuotThoiGianBaoCao=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
-            if($daVuotThoiGianBaoCao==1){
-                return array('error'=>"Chốt số liệu thất bại, do vượt quá thời gian báo cáo."); // Trả về lỗi phương thức truyền số liệu
-            }*/
+            
+
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)<=0){
+                return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+            }
+            $dmTuan=$dmTuan[0];
+
+            $daVuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+            $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+            if($daVuotThoiGianChotSoLieu){
+                $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+                $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+            }
 
             // Chốt báo cáo tổng thể
             $idThoiGianBaoCaoDhsxkd=0;
@@ -1175,7 +1198,7 @@ class VienThongHuyenController extends Controller{
                 $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
                 $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
                 $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
-                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=date('Y-m-d H:i:s');
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=$thoiGianLaySoLieu;
                 $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=date('Y-m-d H:i:s');
                 $dataDmThoiGianBaoCao['ghi_chu']=null;
                 $dataDmThoiGianBaoCao['trang_thai']=1;

@@ -760,7 +760,7 @@ class DonViTrucThuocKhacController extends Controller{
             $thoiGianLaySoLieu=date('Y-m-d H:i:s');
             if($daVuotThoiGianChotSoLieu){
                 $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
-                $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+                $thoiGianLaySoLieu=$dmTuan[0]['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
             }
 
 
@@ -778,9 +778,6 @@ class DonViTrucThuocKhacController extends Controller{
 
             }else{ //Ngược lại thì chốt
                 $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
             }
             $baoCaoPakns=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PAKN');
 
@@ -888,7 +885,7 @@ class DonViTrucThuocKhacController extends Controller{
             $thoiGianLaySoLieu=date('Y-m-d H:i:s');
             if($daVuotThoiGianChotSoLieu){
                 $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
-                $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+                $thoiGianLaySoLieu=$dmTuan[0]['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
             }
 
             
@@ -952,63 +949,7 @@ class DonViTrucThuocKhacController extends Controller{
                 BcDhsxkd::where('id_thoigian_baocao','=',$idThoiGianBaoCaoDhsxkd)->where(function($query) {
                         $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                     })->delete();
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['chi_so']='XU_LY_PAKN';
-                $dataDhsxkd['gia_tri']=10;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['loai_chi_so']='PAKN';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
-
-
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='PAKN_CHUA_XU_LY';
-                $dataDhsxkd['gia_tri']=11;
-                $dataDhsxkd['loai_chi_so']='PAKN';
-                $bcDhsxkd=BcDhsxkd::create($dataDhsxkd);
-
                 
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='PAKN_DANG_XU_LY';
-                $dataDhsxkd['gia_tri']=11;
-                $dataDhsxkd['loai_chi_so']='PAKN';
-                $bcDhsxkd2=BcDhsxkd::create($dataDhsxkd);
-
-                $dataDhsxkd=array();
-                $dataDhsxkd['ma_don_vi']=$donVi['ma_don_vi'];
-                $dataDhsxkd['ma_dinh_danh']=$donVi['ma_dinh_danh'];
-                $dataDhsxkd['id_thoigian_baocao']=$idThoiGianBaoCaoDhsxkd;
-                $dataDhsxkd['id_user_bao_cao']=$userId;
-                $dataDhsxkd['is_group']=0;
-                $dataDhsxkd['ghi_chu']='';
-                $dataDhsxkd['trang_thai']=0;
-                $dataDhsxkd['sap_xep']=0;
-                $dataDhsxkd['chi_so']='PAKN_DA_XU_LY';
-                $dataDhsxkd['gia_tri']=11;
-                $dataDhsxkd['loai_chi_so']='PAKN';
-                $bcDhsxkd6=BcDhsxkd::create($dataDhsxkd);
             }else{ 
 
             }
@@ -1080,9 +1021,6 @@ class DonViTrucThuocKhacController extends Controller{
                     $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
                 }else{ //Ngược lại thì chốt
                     $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                    $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
-                        $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                    })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
                 }
             // End DHSXKD
             
@@ -1150,6 +1088,12 @@ class DonViTrucThuocKhacController extends Controller{
             }
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $idTuan=$data['id'];
+
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)<=0){
+                return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+            }
+            $dmTuan=$dmTuan[0];
 
             $checkQuyenDuyetVaGuiBaoCao=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
             if(!$checkQuyenDuyetVaGuiBaoCao){
@@ -1288,9 +1232,6 @@ class DonViTrucThuocKhacController extends Controller{
                 $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
             }else{ //Ngược lại thì chốt
                 $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
-                $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->update(['thoi_gian_lay_so_lieu'=>$thoiGianLaySoLieu]);
             }
         // End DHSXKD
         

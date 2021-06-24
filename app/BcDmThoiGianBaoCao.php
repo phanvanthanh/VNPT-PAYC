@@ -25,8 +25,8 @@ class BcDmThoiGianBaoCao extends Model
     	}
     	$week=$dmTuan[0]['tuan'];
     	$year=$dmTuan[0]['nam'];
-    	$dateOfWeek=BcDmThoiGianBaoCao::getStartAndEndDateOfWeek($year, $week);
-    	$thu6=$dateOfWeek[1];
+    	//$dateOfWeek=BcDmThoiGianBaoCao::getStartAndEndDateOfWeek($year, $week);
+    	$thu6=$dmTuan[0]['den_ngay'];
     	$thoiGianChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
     	$ngayGioChotBaoCao=$thu6.' '.$thoiGianChotBaoCao;
     	$ngayGioHienTai=date('Y-m-d H:i:s');
@@ -43,14 +43,6 @@ class BcDmThoiGianBaoCao extends Model
     protected static $donVi='';
     public static function kiemTraDaChotSoLieu($idTuan, $donVi){
     	// Kiểm tra đã chốt số liệu hay chưa
-    	// $dmThoiGianBaoCao=array();
-		// Kiểm tra lấy theo mã định danh hay lấy theo mã đơn vị
-    	/*$baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
-    	if($baoCaoTheoMaDinhDanh==1){
-    		$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where('ma_dinh_danh','=',$donVi)->get()->toArray();
-    	}else{
-    		$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where('ma_don_vi','=',$donVi)->get()->toArray();
-    	}*/
     	BcDmThoiGianBaoCao::$donVi=$donVi;
     	$dmThoiGianBaoCao=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
             $query->where('ma_dinh_danh','=',BcDmThoiGianBaoCao::$donVi)->orWhere('ma_don_vi','=',BcDmThoiGianBaoCao::$donVi);
