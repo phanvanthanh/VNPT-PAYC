@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,9 @@
  */
 namespace PHPUnit\Framework;
 
-use Throwable;
-
-/**
- * @deprecated The `TestListener` interface is deprecated
- */
 trait TestListenerDefaultImplementation
 {
-    public function addError(Test $test, Throwable $t, float $time): void
+    public function addError(Test $test, \Throwable $t, float $time): void
     {
     }
 
@@ -28,15 +23,15 @@ trait TestListenerDefaultImplementation
     {
     }
 
-    public function addIncompleteTest(Test $test, Throwable $t, float $time): void
+    public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
     {
     }
 
-    public function addRiskyTest(Test $test, Throwable $t, float $time): void
+    public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
     }
 
-    public function addSkippedTest(Test $test, Throwable $t, float $time): void
+    public function addSkippedTest(Test $test, \Throwable $t, float $time): void
     {
     }
 

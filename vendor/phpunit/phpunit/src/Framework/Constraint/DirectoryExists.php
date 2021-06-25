@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,12 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use function is_dir;
-use function sprintf;
-
 /**
  * Constraint that checks if the directory(name) that it is evaluated for exists.
  *
  * The file path to check is passed as $other in evaluate().
  */
-final class DirectoryExists extends Constraint
+class DirectoryExists extends Constraint
 {
     /**
      * Returns a string representation of the constraint.
@@ -35,11 +32,11 @@ final class DirectoryExists extends Constraint
      */
     protected function matches($other): bool
     {
-        return is_dir($other);
+        return \is_dir($other);
     }
 
     /**
-     * Returns the description of the failure.
+     * Returns the description of the failure
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
@@ -48,7 +45,7 @@ final class DirectoryExists extends Constraint
      */
     protected function failureDescription($other): string
     {
-        return sprintf(
+        return \sprintf(
             'directory "%s" exists',
             $other
         );

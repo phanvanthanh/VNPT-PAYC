@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,19 +9,12 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use const DIRECTORY_SEPARATOR;
-use function explode;
-use function implode;
-use function preg_match;
-use function preg_quote;
-use function preg_replace;
-use function strtr;
 use SebastianBergmann\Diff\Differ;
 
 /**
  * ...
  */
-final class StringMatchesFormatDescription extends RegularExpression
+class StringMatchesFormatDescription extends RegularExpression
 {
     /**
      * @var string
@@ -59,32 +52,34 @@ final class StringMatchesFormatDescription extends RegularExpression
 
     protected function additionalFailureDescription($other): string
     {
-        $from = explode("\n", $this->string);
-        $to   = explode("\n", $this->convertNewlines($other));
+        $from = \explode("\n", $this->string);
+        $to   = \explode("\n", $this->convertNewlines($other));
 
         foreach ($from as $index => $line) {
             if (isset($to[$index]) && $line !== $to[$index]) {
                 $line = $this->createPatternFromFormat($line);
 
-                if (preg_match($line, $to[$index]) > 0) {
+                if (\preg_match($line, $to[$index]) > 0) {
                     $from[$index] = $to[$index];
                 }
             }
         }
 
-        $this->string = implode("\n", $from);
-        $other        = implode("\n", $to);
+        $this->string = \implode("\n", $from);
+        $other        = \implode("\n", $to);
 
-        return (new Differ("--- Expected\n+++ Actual\n"))->diff($this->string, $other);
+        $differ = new Differ("--- Expected\n+++ Actual\n");
+
+        return $differ->diff($this->string, $other);
     }
 
     private function createPatternFromFormat(string $string): string
     {
-        $string = strtr(
-            preg_quote($string, '/'),
+        $string = \strtr(
+            \preg_quote($string, '/'),
             [
                 '%%' => '%',
-                '%e' => '\\' . DIRECTORY_SEPARATOR,
+                '%e' => '\\' . \DIRECTORY_SEPARATOR,
                 '%s' => '[^\r\n]+',
                 '%S' => '[^\r\n]*',
                 '%a' => '.+',
@@ -103,6 +98,6 @@ final class StringMatchesFormatDescription extends RegularExpression
 
     private function convertNewlines($text): string
     {
-        return preg_replace('/\r\n/', "\n", $text);
+        return \preg_replace('/\r\n/', "\n", $text);
     }
 }

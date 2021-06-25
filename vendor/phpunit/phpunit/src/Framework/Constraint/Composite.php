@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,8 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use function count;
 use PHPUnit\Framework\ExpectationFailedException;
 
-/**
- * @deprecated https://github.com/sebastianbergmann/phpunit/issues/3338
- * @codeCoverageIgnore
- */
 abstract class Composite extends Constraint
 {
     /**
@@ -25,11 +20,13 @@ abstract class Composite extends Constraint
 
     public function __construct(Constraint $innerConstraint)
     {
+        parent::__construct();
+
         $this->innerConstraint = $innerConstraint;
     }
 
     /**
-     * Evaluates the constraint for parameter $other.
+     * Evaluates the constraint for parameter $other
      *
      * If $returnResult is set to false (the default), an exception is thrown
      * in case of a failure. null is returned otherwise.
@@ -38,10 +35,14 @@ abstract class Composite extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @param mixed  $other        value or object to evaluate
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
      * @throws ExpectationFailedException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         try {
             return $this->innerConstraint->evaluate(
@@ -59,7 +60,7 @@ abstract class Composite extends Constraint
      */
     public function count(): int
     {
-        return count($this->innerConstraint);
+        return \count($this->innerConstraint);
     }
 
     protected function innerConstraint(): Constraint

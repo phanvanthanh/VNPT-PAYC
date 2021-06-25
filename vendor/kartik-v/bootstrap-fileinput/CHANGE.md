@@ -1,6 +1,73 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.2
+
+**Date**: 19-Jun-2021
+
+- (enh #1719): Show loading / processing when browse button used for file selection
+- (enh #1718): Enhancements for Bootstrap 5.x & New Theme
+    - Default to use bootstrap 5.x icons instead of glyphicons
+    - Correct `layoutTemplates.main2` to use wrapper container for the buttons to use `mainClass`
+    - Create a new theme `bs5` to support bootstrap 5.x icons and styles
+    - This is a BC breaking change - which will remove GLYPHICONS as default icons and replace them with Bootstrap 5.x Icon Library. Users must load the Bootstrap icons CSS on their pages for this new change to take effect (as mentioned in docs).
+- (enh #1716): Update Czech Translations.
+- (enh #1715): Update Slovak Translations.
+- (enh #1714): Various enhancements to file caption styling and file preview processing.
+- (enh #1713): Allow pasting files and images from clipboard to the fileinput.
+- (enh #1710): Correct isEmpty helper.
+- (bug #1709): Corrections to image resizing.
+- (bug #1708): Corrections to reselection/upload of image file deleted earlier.
+
+## version 5.2.1
+
+**Date**: 19-May-2021
+
+- (enh #1706): Enhance reset of file caption title.
+- (enh #1705): Corrections to image resizing.
+- (enh #1704): Enhance and fix CDN to use jsDelivr.
+
+## version 5.2.0
+
+**Date**: 06-May-2021
+
+- (enh #1674): Enhancements to add support for Bootstrap v5.
+    - Major release to support Bootstrap version 5.x
+    - Bootstrap version is auto detected with this release if the bootstrap javascript library is loaded
+    - Additional flexibility is provided to developer to override a specific bootstrap version by setting `$.fn.fileinputBsVersion`
+    - There is an existing issue for MODAL dialog initialization in Bootstrap library v5.x. Refer the [issue reported](https://github.com/twbs/bootstrap/issues/33840#issuecomment-833462016) at the Bootstrap 5.x library repo with a workaround.
+- (enh #1699): Update Danish Translations.
+- (enh #1698): Tab index ordering enhancements.
+  - fix tab order breaking after file caption highlight 
+  - added new property `tabIndexConfig` for configuration of tab indices for each section 
+    which defaults to (null value means no tabindex property will be set for that section) 
+~~~
+    tabIndexConfig: {
+        caption: 500,
+        browse: 500,
+        remove: 500,
+        upload: 500,
+        cancel: null,
+        pause: null,
+        modal: -1
+    }
+~~~
+- (enh #1693): Add Latvian Translations.
+- (enh #1690): Add Uzbek Cyrillic Translations.
+- (enh #1647, #1679, #1695): Correct success file thumbs init.
+
+## version 5.1.5
+
+**Date**: 03-Mar-2021
+
+- (enh #1687, #1688): Allow error history to be displayed for resumable uploads.
+    - new boolean property `resumableUploadOptions.retainErrorHistory`
+- (enh #1683): Better correct CSP Buffer Stash using CSSStyleDeclaration.
+- (enh #1681): Update Turkish Translations.
+- (bug #1678): Resumable upload error handling fixes
+    - new boolean property `resumableUploadOptions.skipErrorsAndProceed`
+    - new event `filemaxretries`
+
 ## version 5.1.4
 
 **Date**: 12-Jan-2021

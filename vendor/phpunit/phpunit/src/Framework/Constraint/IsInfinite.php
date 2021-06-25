@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,12 +9,10 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use function is_infinite;
-
 /**
  * Constraint that accepts infinite.
  */
-final class IsInfinite extends Constraint
+class IsInfinite extends Constraint
 {
     /**
      * Returns a string representation of the constraint.
@@ -32,6 +30,6 @@ final class IsInfinite extends Constraint
      */
     protected function matches($other): bool
     {
-        return is_infinite($other);
+        return \is_infinite($other);
     }
 }

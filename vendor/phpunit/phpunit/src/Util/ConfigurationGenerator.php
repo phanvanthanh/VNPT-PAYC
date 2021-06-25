@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,22 +9,16 @@
  */
 namespace PHPUnit\Util;
 
-use function str_replace;
-
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
 final class ConfigurationGenerator
 {
     /**
      * @var string
      */
-    private const TEMPLATE = <<<'EOT'
+    private const TEMPLATE = <<<EOT
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/{phpunit_version}/phpunit.xsd"
          bootstrap="{bootstrap_script}"
-         executionOrder="depends,defects"
          forceCoversAnnotation="true"
          beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
@@ -47,7 +41,7 @@ EOT;
 
     public function generateDefaultConfiguration(string $phpunitVersion, string $bootstrapScript, string $testsDirectory, string $srcDirectory): string
     {
-        return str_replace(
+        return \str_replace(
             [
                 '{phpunit_version}',
                 '{bootstrap_script}',

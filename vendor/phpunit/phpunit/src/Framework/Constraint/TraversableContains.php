@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,20 +9,13 @@
  */
 namespace PHPUnit\Framework\Constraint;
 
-use function is_array;
-use function is_object;
-use function is_string;
-use function sprintf;
-use function strpos;
 use SplObjectStorage;
 
 /**
  * Constraint that asserts that the Traversable it is applied to contains
  * a given value.
- *
- * @deprecated Use TraversableContainsEqual or TraversableContainsIdentical instead
  */
-final class TraversableContains extends Constraint
+class TraversableContains extends Constraint
 {
     /**
      * @var bool
@@ -39,8 +32,13 @@ final class TraversableContains extends Constraint
      */
     private $value;
 
+    /**
+     * @throws \PHPUnit\Framework\Exception
+     */
     public function __construct($value, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false)
     {
+        parent::__construct();
+
         $this->checkForObjectIdentity    = $checkForObjectIdentity;
         $this->checkForNonObjectIdentity = $checkForNonObjectIdentity;
         $this->value                     = $value;
@@ -53,11 +51,11 @@ final class TraversableContains extends Constraint
      */
     public function toString(): string
     {
-        if (is_string($this->value) && strpos($this->value, "\n") !== false) {
+        if (\is_string($this->value) && \strpos($this->value, "\n") !== false) {
             return 'contains "' . $this->value . '"';
         }
 
-        return 'contains ' . $this->exporter()->export($this->value);
+        return 'contains ' . $this->exporter->export($this->value);
     }
 
     /**
@@ -72,7 +70,7 @@ final class TraversableContains extends Constraint
             return $other->contains($this->value);
         }
 
-        if (is_object($this->value)) {
+        if (\is_object($this->value)) {
             foreach ($other as $element) {
                 if ($this->checkForObjectIdentity && $element === $this->value) {
                     return true;
@@ -100,7 +98,7 @@ final class TraversableContains extends Constraint
     }
 
     /**
-     * Returns the description of the failure.
+     * Returns the description of the failure
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
@@ -111,9 +109,9 @@ final class TraversableContains extends Constraint
      */
     protected function failureDescription($other): string
     {
-        return sprintf(
+        return \sprintf(
             '%s %s',
-            is_array($other) ? 'an array' : 'a traversable',
+            \is_array($other) ? 'an array' : 'a traversable',
             $this->toString()
         );
     }

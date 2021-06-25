@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -15,7 +15,7 @@ use PHPUnit\Framework\ExpectationFailedException;
  * Constraint that asserts that the Traversable it is applied to contains
  * only values of a given type.
  */
-final class TraversableContainsOnly extends Constraint
+class TraversableContainsOnly extends Constraint
 {
     /**
      * @var Constraint
@@ -32,6 +32,8 @@ final class TraversableContainsOnly extends Constraint
      */
     public function __construct(string $type, bool $isNativeType = true)
     {
+        parent::__construct();
+
         if ($isNativeType) {
             $this->constraint = new IsType($type);
         } else {
@@ -44,7 +46,7 @@ final class TraversableContainsOnly extends Constraint
     }
 
     /**
-     * Evaluates the constraint for parameter $other.
+     * Evaluates the constraint for parameter $other
      *
      * If $returnResult is set to false (the default), an exception is thrown
      * in case of a failure. null is returned otherwise.
@@ -53,10 +55,14 @@ final class TraversableContainsOnly extends Constraint
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @param mixed  $other        value or object to evaluate
+     * @param string $description  Additional information about the test
+     * @param bool   $returnResult Whether to return a result or throw an exception
+     *
      * @throws ExpectationFailedException
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, $description = '', $returnResult = false)
     {
         $success = true;
 

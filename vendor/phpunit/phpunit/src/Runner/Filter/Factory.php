@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -9,18 +9,13 @@
  */
 namespace PHPUnit\Runner\Filter;
 
-use function sprintf;
 use FilterIterator;
 use InvalidArgumentException;
 use Iterator;
 use PHPUnit\Framework\TestSuite;
-use RecursiveFilterIterator;
 use ReflectionClass;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class Factory
+class Factory
 {
     /**
      * @var array
@@ -32,9 +27,9 @@ final class Factory
      */
     public function addFilter(ReflectionClass $filter, $args): void
     {
-        if (!$filter->isSubclassOf(RecursiveFilterIterator::class)) {
+        if (!$filter->isSubclassOf(\RecursiveFilterIterator::class)) {
             throw new InvalidArgumentException(
-                sprintf(
+                \sprintf(
                     'Class "%s" does not extend RecursiveFilterIterator',
                     $filter->name
                 )
