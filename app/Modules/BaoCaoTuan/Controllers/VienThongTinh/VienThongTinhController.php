@@ -345,7 +345,63 @@ class VienThongTinhController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
 
+
     
+
+    
+
+
+    public function xemBaoCaoTuanToanTinh(Request $request){
+        
+        $year=date('Y');
+        $bcDmTuan=BcDmTuan::where('nam','=',$year)
+        ->get()->toArray();
+        return view('BaoCaoTuan::vien-thong-tinh.xem-bao-cao-tuan-toan-tinh',compact('bcDmTuan'));
+    }
+
+    public function xemDanhSachBaoCaoTongHopToanTinh(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id'];
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)<=0){
+                return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+            }
+            $dmTuan=$dmTuan[0];
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'VTT');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $vienThongTinh=$donVi['data'];       
+            
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            // Lấy danh sách đơn vị phòng ban trực thuộc viễn thông tỉnh
+            $phongBanTrungTams=DonVi::where('parent_id','=',$vienThongTinh['id'])->where(function($query) {
+                $query->where('ma_cap','=','TTCNTT')->orWhere('ma_cap','=','TTDHTT')->orWhere('ma_cap','=','TTKD')->orWhere('ma_cap','=','PHONG');
+            })->get()->toArray();
+            $dataPhongBanTrungTams=array();
+            foreach ($phongBanTrungTams as $key => $phongBanTrungTam) {
+                $dataPhongBanTrungTams[]=VienThongTinhController::layDuLieuBaoCaoTrungTamTrucThuoc($idTuan, $phongBanTrungTam, $baoCaoTheoMaDinhDanh);
+            }
+
+
+            // Lấy đơn vị TTVT
+            $ttvts=DonVi::where('ma_cap','=','TTVT')->where('parent_id','=',$vienThongTinh['id'])->get()->toArray();
+            $dataTtvts=array();
+            foreach ($ttvts as $key => $ttvt) {
+                $dataTtvts[]=VienThongTinhController::layDuLieuBaoCaoCapHuyen($idTuan, $ttvt, $baoCaoTheoMaDinhDanh);
+            }
+            
+
+            $view=view('BaoCaoTuan::vien-thong-tinh.xem-danh-sach-bao-cao-tong-hop-toan-tinh', compact('error','idTuan', 'dmTuan', 'userId', 'dataTtvts', 'dataPhongBanTrungTams'))->render(); // Trả dữ liệu ra view 
+            return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
+    }
     
     
 }

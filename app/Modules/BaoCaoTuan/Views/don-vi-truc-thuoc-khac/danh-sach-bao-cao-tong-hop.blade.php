@@ -219,14 +219,19 @@
 
 
 
-<script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@if ($daChotSoLieu==0)
+  <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@endif
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery('.btn-chot-va-gui-bao-cao').on('click',function(){
-        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val(); 
-        var idTuan=jQuery('#id_tuan').val();
-        //postAndNotRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-chot-so-lieu') }}", true);
-        postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-chot-so-lieu') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',true);
+        var result = confirm("Bạn thật sự đã hoàn tất báo cáo và muốn gửi báo cáo lên cấp trên?  Nếu đồng ý bạn sẽ không thể chỉnh sửa được nữa.");
+        if (result) {
+          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val(); 
+          var idTuan=jQuery('#id_tuan').val();        
+          postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-chot-so-lieu') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',true);
+        }
+
       });
 
 

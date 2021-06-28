@@ -132,6 +132,11 @@ Route::group(
                     'uses' => 'DonViTrucThuocKhacController@themBaoCaoTuanHienTai'
                 ]);
 
+                Route::post('don-vi-truc-thuoc-khac-chen-bao-cao-tuan-hien-tai', [
+                    'as' => 'don-vi-truc-thuoc-khac-chen-bao-cao-tuan-hien-tai',
+                    'uses' => 'DonViTrucThuocKhacController@chenBaoCaoTuanHienTai'
+                ]);
+
                 Route::post('don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai', [
                     'as' => 'don-vi-truc-thuoc-khac-cap-nhat-bao-cao-tuan-hien-tai',
                     'uses' => 'DonViTrucThuocKhacController@capNhatBaoCaoTuanHienTai'
@@ -348,6 +353,20 @@ Route::group(
                 Route::post('vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram', [
                     'as' => 'vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram',
                     'uses' => 'VienThongTinhController@guiThongBaoNhacNhoQuaTelegram'
+                ]);
+
+
+
+                // Xem báo cáo toàn tỉnh
+                Route::get('/xem-bao-cao-toan-tinh', [
+                    'as' => 'vien-thong-tinh-xem-bao-cao-tuan-toan-tinh',
+                    'uses' => 'VienThongTinhController@xemBaoCaoTuanToanTinh'
+                ]);
+
+                
+                Route::post('vien-thong-tinh-xem-danh-sach-bao-cao-tong-hop-toan-tinh', [
+                    'as' => 'vien-thong-tinh-xem-danh-sach-bao-cao-tong-hop-toan-tinh',
+                    'uses' => 'VienThongTinhController@xemDanhSachBaoCaoTongHopToanTinh'
                 ]);
 
             });

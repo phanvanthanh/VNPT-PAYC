@@ -59,7 +59,9 @@
 
 
 
-<script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@if ($daChotSoLieu==0)
+  <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@endif
 <script type="text/javascript">
     jQuery(document).ready(function() {
        $('#table-dhsxkd-pakn').dataTable({

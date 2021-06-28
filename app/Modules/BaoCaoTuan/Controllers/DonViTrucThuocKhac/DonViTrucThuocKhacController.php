@@ -116,9 +116,9 @@ class DonViTrucThuocKhacController extends Controller{
             }
                 
 
-
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $this->ma);
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
-            if($checkQuyenXemBaoCaoToanDonVi===1){
+            if($checkQuyenXemBaoCaoToanDonVi===1 || $daChoSoLieu===2){
                 $baoCaos=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
                     ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
                     ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
@@ -172,7 +172,8 @@ class DonViTrucThuocKhacController extends Controller{
             }
             // Kiểm tra đã chốt số liệu chưa
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-            if($daChoSoLieu==1){
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
             $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
@@ -194,7 +195,7 @@ class DonViTrucThuocKhacController extends Controller{
                                 $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                                 $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                                 $dataBaoCaoTuan['trang_thai']=0;
-                                $dataBaoCaoTuan['is_group']=0;
+                                $dataBaoCaoTuan['is_group']=2;
                                 $dataBaoCaoTuan['sap_xep']=0;
                                 $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                                 $sapXep=$baoCaoTuan->id;
@@ -214,7 +215,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
-                    $dataBaoCaoTuan['is_group']=0;
+                    $dataBaoCaoTuan['is_group']=2;
                     $dataBaoCaoTuan['sap_xep']=0;
                     $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                     $sapXep=$baoCaoTuan->id;
@@ -270,7 +271,8 @@ class DonViTrucThuocKhacController extends Controller{
                 }
                 
                 $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-                if($daChoSoLieu==1){
+                //if($daChoSoLieu==1){
+                if($daChoSoLieu==2){
                     return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
                 }
                 // End Kiểm tra đã chốt số liệu chưa
@@ -307,7 +309,8 @@ class DonViTrucThuocKhacController extends Controller{
                 }
                 
                 $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-                if($daChoSoLieu==1){
+                //if($daChoSoLieu==1){
+                if($daChoSoLieu==2){
                     return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
                 }
                 // End Kiểm tra đã chốt số liệu chưa
@@ -405,10 +408,9 @@ class DonViTrucThuocKhacController extends Controller{
                 }
             }
 
-
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $this->ma);
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
-            if($checkQuyenXemBaoCaoToanDonVi===1){
-
+            if($checkQuyenXemBaoCaoToanDonVi===1 || $daChoSoLieu==2){
                 $baoCaos=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
                 ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
                 ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
@@ -463,7 +465,8 @@ class DonViTrucThuocKhacController extends Controller{
             }
             // Kiểm tra đã chốt số liệu chưa
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-            if($daChoSoLieu==1){
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
 
@@ -487,7 +490,7 @@ class DonViTrucThuocKhacController extends Controller{
                                 $dataBaoCaoTuan['ghi_chu']=null;
                                 $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                                 $dataBaoCaoTuan['trang_thai']=0;
-                                $dataBaoCaoTuan['is_group']=0;
+                                $dataBaoCaoTuan['is_group']=2;
                                 $dataBaoCaoTuan['sap_xep']=0;
                                 $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                                 $sapXep=$baoCaoTuan->id;
@@ -508,7 +511,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $dataBaoCaoTuan['ghi_chu']=null;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
-                    $dataBaoCaoTuan['is_group']=0;
+                    $dataBaoCaoTuan['is_group']=2;
                     $dataBaoCaoTuan['sap_xep']=0;
                     $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                     $sapXep=$baoCaoTuan->id;
@@ -563,7 +566,8 @@ class DonViTrucThuocKhacController extends Controller{
                 }
                 
                 $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-                if($daChoSoLieu==1){
+                //if($daChoSoLieu==1){
+                if($daChoSoLieu==2){
                     return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
                 }
                 // End Kiểm tra đã chốt số liệu chưa
@@ -601,7 +605,8 @@ class DonViTrucThuocKhacController extends Controller{
                 }
                 
                 $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-                if($daChoSoLieu==1){
+                //if($daChoSoLieu==1){
+                if($daChoSoLieu==2){
                     return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
                 }
                 // End Kiểm tra đã chốt số liệu chưa
@@ -644,7 +649,8 @@ class DonViTrucThuocKhacController extends Controller{
             }
             // Kiểm tra đã chốt số liệu chưa
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-            if($daChoSoLieu==1){
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
 
@@ -1033,9 +1039,9 @@ class DonViTrucThuocKhacController extends Controller{
                 }
             // End DHSXKD
             
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $this->ma);
             $checkQuyenXemBaoCaoToanDonVi=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TOAN_DON_VI');
-            if($checkQuyenXemBaoCaoToanDonVi===1){           
-               
+            if($checkQuyenXemBaoCaoToanDonVi===1 || $daChoSoLieu===2){               
 
                 $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
                     ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
@@ -1077,7 +1083,7 @@ class DonViTrucThuocKhacController extends Controller{
                     ->get()->toArray();
             }
             $checkQuyenBaoCaoDhsxkd=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
-            if($checkQuyenBaoCaoDhsxkd==1){
+            if($checkQuyenBaoCaoDhsxkd==1 || $daChoSoLieu===2){
                 $baoCaoPakns=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PAKN');
             }else{
                 $baoCaoPakns=array();
@@ -1125,7 +1131,8 @@ class DonViTrucThuocKhacController extends Controller{
             $this->ma=$ma;
             // Kiểm tra đã chốt số liệu chưa
             $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
-            if($daChoSoLieu==1){
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
                 return array('error'=>"Chốt số liệu thất bại, do báo cáo đã được gửi nên không thể chỉnh sửa.");
             }
             
@@ -1173,7 +1180,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
                 })->update(['trang_thai'=>2]);
 
-            $message=$donVi['ten_don_vi'].': đã duyệt và gửi báo cáo';
+            $message=$donVi['ten_don_vi'].': đã duyệt và gửi báo cáo tuần.';
             $sendTelegram=\Helper::sendTelegramMessage($message);
 
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công

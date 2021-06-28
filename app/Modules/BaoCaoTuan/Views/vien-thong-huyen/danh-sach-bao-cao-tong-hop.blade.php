@@ -435,10 +435,12 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery('.btn-chot-va-gui-bao-cao').on('click',function(){
-        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val(); 
-        var idTuan=jQuery('#id_tuan').val();
-        //postAndNotRefreshById(_token, idTuan, "{{ route('bao-cao-tuan-vien-thong-huyen-chot-so-lieu') }}", true);
-        postAndRefreshById(_token, idTuan, "{{ route('bao-cao-tuan-vien-thong-huyen-chot-so-lieu') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop', true);
+        var result = confirm("Bạn thật sự đã hoàn tất báo cáo và muốn gửi báo cáo lên cấp trên?  Nếu đồng ý bạn sẽ không thể chỉnh sửa được nữa.");
+        if (result) {
+          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val(); 
+          var idTuan=jQuery('#id_tuan').val();
+          postAndRefreshById(_token, idTuan, "{{ route('bao-cao-tuan-vien-thong-huyen-chot-so-lieu') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop', true);
+        }
       });
 
       jQuery('.cap-nhat-bao-cao-tuan-hien-tai').on("keypress", function(e) {
