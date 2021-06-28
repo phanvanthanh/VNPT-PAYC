@@ -60,12 +60,12 @@
               <form class="forms-sample frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}} d-none" id="frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}}" name="frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}}" action="javascript:void(0)">
                 {{ csrf_field() }}
                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
-                <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
+                <input type="hidden" name="id_bao_cao_truoc" class="id-bao-cao" value="{{$baoCao['id']}}">
                 <div class="row">
                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="form-group">
                       <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
-                      <input type="Text" class="form-control chen-noi-dung-bao-cao-tuan-hien-tai-3" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 20px;">
+                      <textarea name="noi_dung" class="form-control chen-noi-dung-bao-cao-tuan-hien-tai-3" data="{{$baoCao['id']}}" placeholder="Lưu ý: chỉ chèn một dòng dữ liệu"></textarea>
                     </div>
                   </div>
                 </div>
@@ -344,9 +344,6 @@
             return false;
           }
       });
-
-
-      
 
 
 

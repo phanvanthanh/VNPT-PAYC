@@ -182,6 +182,11 @@ Route::group(
                     'uses' => 'DonViTrucThuocKhacController@bcIsGroupKeHoachTuan'
                 ]);
 
+                Route::post('don-vi-truc-thuoc-khac-chen-ke-hoach-tuan', [
+                    'as' => 'don-vi-truc-thuoc-khac-chen-ke-hoach-tuan',
+                    'uses' => 'DonViTrucThuocKhacController@chenKeHoachTuan'
+                ]);
+
                 // Báo cáo ĐHSXKD
                 Route::post('don-vi-truc-thuoc-khac-danh-sach-bao-cao-dhsxkd', [
                     'as' => 'don-vi-truc-thuoc-khac-danh-sach-bao-cao-dhsxkd',
