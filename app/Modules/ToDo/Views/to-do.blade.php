@@ -30,7 +30,7 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header background-vnpt">
-                  <h5 class="modal-title">TẠO MỚI TO DO</h5>
+                  <h5 class="modal-title">THÊM CÔNG VIỆC</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -41,8 +41,7 @@
                   </form>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-vnpt btn-them-moi"><i class="icon-check"></i>Tạo to do</button>
-                  <button type="button" class="btn btn-light" data-dismiss="modal">Không tạo</button>
+                  <button type="button" class="btn btn-vnpt btn-them-moi"><i class="icon-plus" style="margin: 0px"></i></button>
                </div>
             </div>
          </div>

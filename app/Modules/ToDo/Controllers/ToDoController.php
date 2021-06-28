@@ -141,7 +141,8 @@ class ToDoController extends Controller{
     public function sortToDo(Request $request){
         $dsId = $request->input('dsId');
         $arr_id = explode(';', $dsId);
-        $toDo = ToDo::all();
+        $id_user = Auth::id();
+        $toDo = ToDo::where('id_user','=',$id_user);
         $soLuongToDo = $toDo->count();
         $j=1;
         for($i=0; $i<$soLuongToDo; $i++){

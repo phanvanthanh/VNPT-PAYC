@@ -41,7 +41,12 @@
               <form class="forms-sample frm-cap-nhat-bao-cao-tuan d-none frm-cap-nhat-bao-cao-tuan-{{$baoCao['id']}}" name="#frm-cap-nhat-bao-cao-tuan-{{$baoCao['id']}}">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{$baoCao['id']}}">
-                <textarea name="noi_dung" class="form-control noi-dung" data="{{$baoCao['id']}}">@php echo nl2br($baoCao['noi_dung']);@endphp</textarea>
+                <textarea name="noi_dung" class="form-control noi-dung" data="{{$baoCao['id']}}">@php 
+                  $noiDung=trim(nl2br($baoCao['noi_dung']));
+                  $noiDung=str_replace("<br />", "", $noiDung);
+                  $noiDung=str_replace("<br/>", "", $noiDung);
+                  $noiDung=str_replace("<br>", "", $noiDung);
+                  echo $noiDung;@endphp</textarea>
               </form>
             @endif
           </td>
