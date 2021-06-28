@@ -402,6 +402,63 @@ class VienThongTinhController extends Controller{
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
+
+
+    public function huyChotBaoCaoTuan(Request $request){
+        
+        $year=date('Y');
+        $bcDmTuan=BcDmTuan::where('nam','=',$year)
+        ->get()->toArray();
+        return view('BaoCaoTuan::vien-thong-tinh.huy-chot-bao-cao-tuan',compact('bcDmTuan'));
+    }
+
+    public function danhSachHuyChotBaoCaoTuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id'];
+            $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+            if(count($dmTuan)<=0){
+                return array('error'=>"Lỗi không tìm thấy thời gian báo cáo");
+            }
+            $dmTuan=$dmTuan[0];
+
+            $dsChotSoLieu=BcDmThoiGianBaoCao::select('bc_dm_thoi_gian_bao_cao.id', 'bc_dm_thoi_gian_bao_cao.ma_don_vi', 'bc_dm_thoi_gian_bao_cao.ma_dinh_danh', 'bc_dm_thoi_gian_bao_cao.thoi_gian_lay_so_lieu', 'bc_dm_thoi_gian_bao_cao.thoi_gian_chot_so_lieu', 'bc_dm_thoi_gian_bao_cao.trang_thai', 'bc_dm_tuan.tuan', 'bc_dm_tuan.nam', 'bc_dm_tuan.tu_ngay', 'bc_dm_tuan.den_ngay')
+                ->where('bc_dm_thoi_gian_bao_cao.id_tuan','=',$idTuan)
+                ->leftJoin('bc_dm_tuan','bc_dm_thoi_gian_bao_cao.id_tuan','=','bc_dm_tuan.id')
+                ->get()->toArray();
+            
+
+            $view=view('BaoCaoTuan::vien-thong-tinh.danh-sach-huy-chot-bao-cao-tuan', compact('error','idTuan', 'dmTuan', 'userId', 'dsChotSoLieu'))->render(); // Trả dữ liệu ra view 
+            return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
+    }
+
+    
+    public function btnHuyChotBaoCaoTuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idThoiGianBaoCao=$data['id'];
+            $thoiGianBaoCao=BcDmThoiGianBaoCao::find($idThoiGianBaoCao);
+            if($thoiGianBaoCao){
+                $thoiGianBaoCao->trang_thai=0;
+                $thoiGianBaoCao->thoi_gian_chot_so_lieu=null;
+                $thoiGianBaoCao->save();
+            }else{
+                return array('error'=>"Không tìm thấy đơn vị cần hủy chốt số liệu.");
+            }
+            return array('error'=>"");
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
+    }
     
     
 }

@@ -1,12 +1,12 @@
 @extends('layouts.index')
-@section('title', 'Báo cáo tuần toàn tỉnh')
+@section('title', 'Chốt số liệu')
 @section('content')
 	<div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">XEM BÁO CÁO TUẦN TOÀN TỈNH</h4>
+                    <h4 class="text-danger">DANH SÁCH CHỐT SỐ LIỆU</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -40,7 +40,7 @@
                           </h4>
                           <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link active" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Tổng hợp báo cáo</a>
+                              <a class="nav-link active" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Load lại danh sách đơn vị chốt số liệu</a>
                             </li>
                           </ul>
                         </div>
@@ -78,7 +78,7 @@
       var idTuan=jQuery('.id_tuan').val();
       jQuery('.input-id-tuan').val(idTuan);
       // Load báo cáo tổng hợp
-      loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-xem-danh-sach-bao-cao-tong-hop-toan-tinh') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+      loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-danh-sach-huy-chot-bao-cao-tuan') }}", '.load-danh-sach-bao-cao-tong-hop',false);
 
 
       // Onchange selectbox tuần
@@ -86,7 +86,7 @@
         var idTuan=jQuery(this).val();
         jQuery('.input-id-tuan').val(idTuan);
         // Load báo cáo tổng hợp
-        loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-xem-danh-sach-bao-cao-tong-hop-toan-tinh') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-danh-sach-huy-chot-bao-cao-tuan') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
       // MODULE BÁO CÁO TỔNG HỢP
@@ -94,7 +94,7 @@
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
         // Load báo cáo tuần
-        loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-xem-danh-sach-bao-cao-tong-hop-toan-tinh') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        loadTableById2(_token, idTuan, "{{ route('vien-thong-tinh-danh-sach-huy-chot-bao-cao-tuan') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
 
