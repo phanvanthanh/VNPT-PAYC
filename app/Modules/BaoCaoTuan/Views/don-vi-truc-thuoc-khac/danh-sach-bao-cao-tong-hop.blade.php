@@ -14,6 +14,15 @@
   $denNgay=DateTime::createFromFormat('Y-m-d', $dmTuanFix[1])->format('d/m/Y');
   $checkQuyenDuyetVaGuiBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
   $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
+  $checkQuyenChotBaoCaoNhom=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'GUI_BAO_CAO_NHOM');
+
+  $userId=0; 
+  if(Auth::id()){
+      $userId=Auth::id();
+  }
+  $checkChotBaoCaoTuanTheoUser=1;
+  $checkChotKeHoachTuanTheoUser=1;
+  $checkQuyenChinhSuaBaoCaoCuaNhom=Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'CHINH_SUA_BAO_CAO_NHOM');
    
 @endphp
 <input type="hidden" name="da_chot_so_lieu" class="da-chot-so-lieu" value="{{$daChotSoLieu}}">
@@ -26,7 +35,7 @@
         (Từ ngày {{$tuNgay}} đến {{$denNgay}})
       </h6>
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
+      <div class="font-weight-bold them-bao-cao-tuan-2 hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
             <i class="fa fa-plus-circle text-primary cusor click-view-form" data-click-view-form="#frm-bao-cao-tuan-hien-tai-2"></i>
@@ -46,14 +55,25 @@
         </div>
       </form>
       @php
-        $sttPhanMem=0;
+        $sttPhanMem=0; 
       @endphp
       <ul class="">
         @foreach ($baoCaoTuanHienTais as $baoCaoTuanHienTai)
-          <li  class='hover-view-form dbclick-view-form cusor 
+            @if ($baoCaoTuanHienTai['id_user_bao_cao']==$userId && $baoCaoTuanHienTai['trang_thai']==0)
+              @php
+                $checkChotBaoCaoTuanTheoUser=0;
+              @endphp
+              <script type="text/javascript">
+                jQuery('.them-bao-cao-tuan-2').removeClass('hover-view-form');
+              </script>
+            @endif
+          <li  class='
+            @if (($daChotSoLieu==0 && $baoCaoTuanHienTai['trang_thai']==0) || ($baoCaoTuanHienTai['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
+              hover-view-form dbclick-view-form cusor 
+            @endif
             @if ($baoCaoTuanHienTai['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-            ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
-
+            '
+             data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
             @php
               if($baoCaoTuanHienTai['is_group']==3){
                 $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
@@ -74,11 +94,11 @@
             @endphp
 
 
-            @if ($daChotSoLieu==0 && $baoCaoTuanHienTai['is_group']<3)
+            @if (($daChotSoLieu==0 && $baoCaoTuanHienTai['is_group']<3) || ($daChotSoLieu==0 && $baoCaoTuanHienTai['trang_thai']==0) || ($baoCaoTuanHienTai['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
                 <i class="list-menu-nhanh d-none">
                    &nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
-                  <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
+                  <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len-2" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"></i>&nbsp;
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong-2" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group fa fa-th-list cusor i-hover @if($baoCaoTuanHienTai['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group fa fa-list-ul cusor i-hover @if($baoCaoTuanHienTai['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group fa fa fa-indent cusor i-hover @if($baoCaoTuanHienTai['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -136,7 +156,7 @@
 
 
 
-      <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">II. Đăng ký công tác tuần tiếp theo:
+      <div class="font-weight-bold them-ke-hoach-tuan-2 hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">II. Đăng ký công tác tuần tiếp theo:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
             <i class="fa fa-plus-circle text-primary cusor click-view-form" data-click-view-form="#frm-bao-cao-ke-hoach-tuan-2"></i>
@@ -160,7 +180,21 @@
       @endphp
       <ul class="">
         @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
-            <li  class='hover-view-form dbclick-view-form cusor
+            @if ($baoCaoKeHoachTuan['id_user_bao_cao']==$userId && $baoCaoKeHoachTuan['trang_thai']>0)
+              <script type="text/javascript">
+                jQuery('.them-ke-hoach-tuan-2').removeClass('hover-view-form');
+              </script>
+            @endif
+            @php 
+              if ($baoCaoKeHoachTuan['id_user_bao_cao']==$userId && $baoCaoKeHoachTuan['trang_thai']==0){
+                $checkChotKeHoachTuanTheoUser=0;
+              }          
+            @endphp
+
+            <li  class='
+              @if (($daChotSoLieu==0 && $baoCaoKeHoachTuan['trang_thai']==0) || ($baoCaoKeHoachTuan['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
+                hover-view-form dbclick-view-form cusor
+              @endif
               @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
               ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
             @php
@@ -184,11 +218,11 @@
             @endphp
 
 
-            @if ($daChotSoLieu==0 && $baoCaoKeHoachTuan['is_group']<3)
+            @if (($daChotSoLieu==0 && $baoCaoKeHoachTuan['is_group']<3) || ($daChotSoLieu==0 && $baoCaoKeHoachTuan['trang_thai']==0) || ($baoCaoKeHoachTuan['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
                 <i class="list-menu-nhanh d-none">
                    &nbsp;&nbsp;&nbsp;
-                  <i class="fa fa-long-arrow-up text-success cusor btn-ke-hoach-tuan-di-chuyen-len" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
-                  <i class="fa fa-long-arrow-down text-danger cusor btn-ke-hoach-tuan-di-chuyen-xuong" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
+                  <i class="fa fa-long-arrow-up text-success cusor btn-ke-hoach-tuan-di-chuyen-len-2" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"></i>&nbsp;
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-ke-hoach-tuan-di-chuyen-xuong-2" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group-ke-hoach-tuan fa fa-th-list cusor i-hover @if($baoCaoKeHoachTuan['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group-ke-hoach-tuan fa fa-list-ul cusor i-hover @if($baoCaoKeHoachTuan['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group-ke-hoach-tuan fa fa fa-indent cusor i-hover @if($baoCaoKeHoachTuan['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -213,6 +247,9 @@
          @if ($checkQuyenXuatBaoCao==1)
           <button type="button" class="btn btn-vnpt mr-2 btn-xuat-bao-cao"><i class="fa fa-upload"></i> Xuất báo cáo</button>
         @endif
+        @if ($checkQuyenChotBaoCaoNhom==1)
+          <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao-nhom @if ($checkChotBaoCaoTuanTheoUser==1 && $checkChotBaoCaoTuanTheoUser==1) disabled @endif" @if ($checkChotBaoCaoTuanTheoUser==1 && $checkChotBaoCaoTuanTheoUser==1) disabled="disabled" @endif><i class="fa fa-send"></i> Gửi báo cáo nhóm</button>
+        @endif
         @if ($checkQuyenDuyetVaGuiBaoCao==1)
           <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Duyệt & Gửi báo cáo</button>
         @endif
@@ -234,6 +271,14 @@
           var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val(); 
           var idTuan=jQuery('#id_tuan').val();        
           postAndRefreshById(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-chot-so-lieu') }}", idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',true);
+        }
+
+      });
+
+      jQuery('.btn-chot-va-gui-bao-cao-nhom').on('click',function(){
+        var result = confirm("Bạn thật sự đã hoàn tất báo cáo và muốn gửi báo cáo lên cấp trên?  Nếu đồng ý bạn sẽ không thể chỉnh sửa được nữa.");
+        if (result) {
+          chotBaoCaoNhom();
         }
 
       });
@@ -358,26 +403,26 @@
       });
 
 
-      jQuery('.btn-tuan-hien-tai-di-chuyen-len').on('click',function(){    
+      jQuery('.btn-tuan-hien-tai-di-chuyen-len-2').on('click',function(){    
         var id=jQuery(this).attr("data");
         baoCaoTuanHienTaiDiChuyenLen(id);
         return false;
       });
 
-      jQuery('.btn-tuan-hien-tai-di-chuyen-xuong').on('click',function(){    
+      jQuery('.btn-tuan-hien-tai-di-chuyen-xuong-2').on('click',function(){    
         var id=jQuery(this).attr("data");
         baoCaoTuanHienTaiDiChuyenXuong(id);
         return false;
       });
 
 
-      jQuery('.btn-ke-hoach-tuan-di-chuyen-len').on('click',function(){    
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-len-2').on('click',function(){    
         var id=jQuery(this).attr("data");
         keHoachTuanDiChuyenLen(id);
         return false;
       });
 
-      jQuery('.btn-ke-hoach-tuan-di-chuyen-xuong').on('click',function(){    
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-xuong-2').on('click',function(){    
         var id=jQuery(this).attr("data");
         keHoachTuanDiChuyenXuong(id);
         return false;

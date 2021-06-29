@@ -231,6 +231,11 @@ Route::group(
                     'as' => 'don-vi-truc-thuoc-khac-xuat-bao-cao',
                     'uses' => 'DonViTrucThuocKhacController@xuatBaoCao'
                 ]);
+
+                Route::post('chot-bao-cao-nhom', [
+                    'as' => 'don-vi-truc-thuoc-khac-chot-bao-cao-nhom',
+                    'uses' => 'DonViTrucThuocKhacController@chotBaoCaoNhom'
+                ]);
             });
 
                 

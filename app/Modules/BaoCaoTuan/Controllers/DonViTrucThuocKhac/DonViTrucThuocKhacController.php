@@ -1314,6 +1314,23 @@ class DonViTrucThuocKhacController extends Controller{
             $idTuan=$data['id_tuan'];
             $idDichVu=$data['id_dich_vu'];
             $idBaoCaoTruoc=$data['id_bao_cao_truoc'];
+            $baoCaoTruoc=BcTuanHienTai::find($idBaoCaoTruoc);
+
+            $isGroupTruoc=0;
+            $sapXepTruoc=0;
+            if($baoCaoTruoc){
+                $idDichVu=$baoCaoTruoc->id_dich_vu;
+                $checkQuyenChinhSuaBaoCaoCuaNhom=BcPhanQuyenBaoCao::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'CHINH_SUA_BAO_CAO_NHOM');
+                if($baoCaoTruoc->trang_thai>0 && $checkQuyenChinhSuaBaoCaoCuaNhom==0){
+                    return array('error'=>"Đã chốt báo cáo bạn không có quyền chỉnh sửa.");
+                }
+
+                $isGroupTruoc=$baoCaoTruoc->is_group-1;
+                $sapXepTruoc=$baoCaoTruoc->sap_xep;
+                if($isGroupTruoc<0){
+                    $isGroupTruoc=0;
+                }
+            }
 
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
             if ($donVi['error']>0) {
@@ -1334,16 +1351,6 @@ class DonViTrucThuocKhacController extends Controller{
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
             $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('id_dich_vu','=',$idDichVu)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
-            $baoCaoTruoc=BcTuanHienTai::find($idBaoCaoTruoc);
-            $isGroupTruoc=0;
-            $sapXepTruoc=0;
-            if($baoCaoTruoc){
-                $isGroupTruoc=$baoCaoTruoc->is_group-1;
-                $sapXepTruoc=$baoCaoTruoc->sap_xep;
-                if($isGroupTruoc<0){
-                    $isGroupTruoc=0;
-                }
-            }
             $idBaoCaoTuan=0;
             if(count($checkExits)<=0){
                 $dataBaoCaoTuan=array();
@@ -1600,6 +1607,26 @@ class DonViTrucThuocKhacController extends Controller{
             }else{ 
                 return array("error"=>'Không tìm thấy báo cáo cần di chuyển');
             }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function chotBaoCaoNhom(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id_tuan'];  
+            $idDichVu=$data['id_dich_vu'];           
+
+            // Chốt báo cáo tuần hiện tại
+            $tuanHienTai=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->update(['trang_thai'=>1]);
+            // Chốt báo cáo kế hoạch tuần
+            $keHoachTuan=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->update(['trang_thai'=>1]);
+            
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu

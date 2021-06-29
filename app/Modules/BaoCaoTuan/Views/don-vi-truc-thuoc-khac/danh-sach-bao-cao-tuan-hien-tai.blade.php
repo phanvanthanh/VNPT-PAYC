@@ -1,8 +1,10 @@
 @php
   $daChotSoLieu=Helper::kiemTraDaChotSoLieu($idTuan, $ma);
-  /*echo '<pre>';
-
-  print_r($baoCaos);*/
+  $userId=0; 
+  if(Auth::id()){
+      $userId=Auth::id();
+  }
+  $checkQuyenChinhSuaBaoCaoCuaNhom=Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'CHINH_SUA_BAO_CAO_NHOM');
 @endphp
 <table id="table-bao-cao-tuan-hien-tai" class="table table-hover table-bao-cao-tuan-hien-tai">
   <thead>
@@ -19,44 +21,67 @@
       </tr>
   </thead>
   <tbody>    
-      @php $stt=0; $sttPhanMem=0; @endphp
+      @php $stt=0; $sttPhanMem=0; $checkChotBaoCaoTheoUser=0; @endphp
       @foreach ($baoCaos as $baoCao)
-        @php $stt++; @endphp
+        @php 
+          $stt++; 
+          if ($baoCao['id_user_bao_cao']==$userId && $baoCao['trang_thai']>0){
+            $checkChotBaoCaoTheoUser=1;
+          }          
+        @endphp
+          
         <tr class="tr-hover tr-small">
           <td class="text-center"></td>
           <td class="cusor">
             @php
+              $icon="<i class='white-circle'></i>";
+              $class='';
+              $attr='';
+              if (($daChotSoLieu==0 && $baoCao['trang_thai']==0) || ($baoCao['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1)){
+                $class='dbclick-view-form hover-view-form';
+                $attr="data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'";
+              }
               if($baoCao['is_group']==3){
-                $sttPhanMem++;
-                echo "<div class='is-group-3 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'>".$sttPhanMem.". ".$baoCao['noi_dung']."
+                $sttPhanMem++;                
+                /*echo "<div class='is-group-3 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'>".$sttPhanMem.". ".$baoCao['noi_dung']."
                   <i class='chen-noi-dung d-none'>
                     <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-bao-cao-tuan-hien-tai-".$baoCao['id']."'></i>
                   </i>
-                </div>";
+                </div>";*/
+                $icon=$sttPhanMem.". ";
               }
               elseif($baoCao['is_group']==2){
-                echo "<div class='is-group-2 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='fa fa-minus'></i>".$baoCao['noi_dung']."
+                /*echo "<div class='is-group-2 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='fa fa-minus'></i>".$baoCao['noi_dung']."
                   <i class='chen-noi-dung d-none'>
                     <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-bao-cao-tuan-hien-tai-".$baoCao['id']."'></i>
                   </i>
-                </div>";
+                </div>";*/
+                $icon="<i class='fa fa-minus'></i>";
               }
               elseif($baoCao['is_group']==1){
-                echo "<div class='is-group-1 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='plus-sign'></i>".$baoCao['noi_dung']."
+                /*echo "<div class='is-group-1 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='plus-sign'></i>".$baoCao['noi_dung']."
                   <i class='chen-noi-dung d-none'>
                     <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-bao-cao-tuan-hien-tai-".$baoCao['id']."'></i>
                   </i>
-                </div>";
+                </div>";*/
+                $icon="<i class='plus-sign'></i>";
               }
               else{
-                echo "<div class='is-group-0 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='white-circle'></i>".$baoCao['noi_dung']."
+                /*echo "<div class='is-group-0 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='white-circle'></i>".$baoCao['noi_dung']."
+                  <i class='chen-noi-dung d-none'>
+                    <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-bao-cao-tuan-hien-tai-".$baoCao['id']."'></i>
+                  </i>
+                </div>";*/
+                $icon="<i class='white-circle'></i>";
+              }
+
+              echo "<div class='is-group-".$baoCao['is_group']." ".$class."' ".$attr.">".$icon.$baoCao['noi_dung']."
                   <i class='chen-noi-dung d-none'>
                     <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-bao-cao-tuan-hien-tai-".$baoCao['id']."'></i>
                   </i>
                 </div>";
-              }
             @endphp
-            @if ($daChotSoLieu==0)
+            @if (($daChotSoLieu==0 && $baoCao['trang_thai']==0) || ($baoCao['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
               <form class="forms-sample frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}} d-none" id="frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}}" name="frm-chen-bao-cao-tuan-hien-tai-{{$baoCao['id']}}" action="javascript:void(0)">
                 {{ csrf_field() }}
                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
@@ -83,11 +108,10 @@
             @endif
           </td>
           <td class="text-center">
-            @if ($daChotSoLieu==0)
-
+            @if (($daChotSoLieu==0 && $baoCao['trang_thai']==0) || ($baoCao['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
               @if ($baoCao['is_group']<3)
-                <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
-                <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
+                <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"></i>&nbsp;
+                <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"></i> &nbsp;&nbsp;&nbsp;
                 <i class="is-group fa fa-th-list cusor i-hover @if($baoCao['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_2" data-toggle="tooltip" data-placement="bottom" title="Canh dòng &minus;"></i> &nbsp;&nbsp;&nbsp;                
                 <i class="is-group fa fa-list-ul cusor i-hover @if($baoCao['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_1" data-toggle="tooltip" data-placement="bottom" title="Canh dòng &plus;"></i> &nbsp;&nbsp;&nbsp;
                 <i class="is-group fa fa fa-indent cusor i-hover @if($baoCao['is_group']==0) {{"text-primary font-weight-bold"}} @endif" data="{{$baoCao['id']}}_0"  data-toggle="tooltip" data-placement="bottom" title="Canh dòng ○"></i> &nbsp;&nbsp;&nbsp;
@@ -102,7 +126,7 @@
       @endforeach
   </tbody>
 </table>   
-@if ($daChotSoLieu==0)
+@if (($daChotSoLieu==0 && $checkChotBaoCaoTheoUser==0) || ($checkChotBaoCaoTheoUser==1 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
   <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
 @endif
 <script type="text/javascript">

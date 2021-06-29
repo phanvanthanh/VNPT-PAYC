@@ -168,7 +168,6 @@
       $.fn.dataTable.ext.errMode = 'none';
 
       loadBaoCaoTuanHienTai=function(){
-        console.log("vo ham load");
         loading('.error-mode');
         var idTuan=jQuery('#id_tuan').val();
         jQuery('.input-id-tuan').val(idTuan);
@@ -499,6 +498,44 @@
             if(data.error==""){
               loadKeHoachTuan();              
               loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      chotBaoCaoNhom=function(){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-chot-bao-cao-nhom') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id_tuan':idTuan,
+              'id_dich_vu':idDichVu,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){          
+              loadTableById2(_token, idTuan, "{{ route('don-vi-truc-thuoc-khac-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);   
             }else{
               errorLoader(".error-mode",data.error);
             }
