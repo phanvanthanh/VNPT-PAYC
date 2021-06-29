@@ -8,28 +8,25 @@
                 </div>
                 <div class="list-wrapper">
                     <ul id="items-list" class="moveable flex-column-reverse todo-list">
-                        @foreach($toDos as $index => $toDo)                
-                        <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif>
-                            <div class="form-check">
+                        @foreach($toDos as $index => $toDo)     
+                            @php
+                                $ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
+                                $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
+                            @endphp           
+                            <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif style="display: block !important;">
+                              <div class="form-check" style="display: flex">
                                 <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
-                                    {{$toDo['noi_dung']}}
-                                </label>               
-                            </div>                 
-                            <div style="padding-left: 20px">
-                            	@php
-                            	$ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
-                            	$han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
-                            	@endphp
-                                <small class="text-muted">Ngày tạo: {{$ngay_tao}}<br>HXL: {{$han_xu_ly}}</small>
-                            </div>
-                            <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
-                            <i class="remove"></i>
-                            <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
-                            </p>
-                            <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
-                            </p>
-                        </li>
+                                  <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
+                                  {{$toDo['noi_dung']}}
+                                <i class="input-helper"></i></label>
+                                <i class="remove"></i>
+                                <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
+                                </p>
+                                <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
+                                </p>
+                              </div>
+                              <small class="text-muted" style="padding-left: 30px"><b>Ngày tạo:</b> {{$ngay_tao}}. <b>HXL:</b> {{$han_xu_ly}}</small>
+                            </li>                      
                         @endforeach             
                     </ul>
                 </div>
@@ -61,18 +58,6 @@
 </div>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        $.fn.dataTable.ext.errMode = 'none';
-        $('.table').dataTable({
-            aLengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, "All"]
-            ],
-            iDisplayLength: -1,
-            lengthChange: true
-        });
-
-
-
         var _token=jQuery('#modal-cap-nhat').find("input[name='_token']").val();
 
         /*Sự kiện bấm vào dòng cần sửa*/
@@ -98,6 +83,7 @@
         });
         
         $('.checkbox').click(function() {
+            jQuery(this).parents('li').toggleClass('completed');
             var _token=jQuery('#xu-ly-to-do').find("input[name='_token']").val();
             if ($(this).is(':checked')) {
                 var id = $(this).attr("data-id");
@@ -107,7 +93,7 @@
                     id:id
                 });
             }
-            else{
+            else{             
                 var id = $(this).attr("data-id");
                 $.post("{{route('uncheck-to-do')}}",
                 {
@@ -117,64 +103,64 @@
             }
         });
     });
-	var dragSrcEl = null;
+    var dragSrcEl = null;
 
-	function handleDragStart(e) {
-	  // Target (this) element is the source node.
-	  dragSrcEl = this;
+    function handleDragStart(e) {
+      // Target (this) element is the source node.
+      dragSrcEl = this;
 
-	  e.dataTransfer.effectAllowed = 'move';
-	  e.dataTransfer.setData('text/html', this.outerHTML);
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.outerHTML);
 
-	  this.classList.add('dragElem');
-	}
-	function handleDragOver(e) {
-	  if (e.preventDefault) {
-	    e.preventDefault(); // Necessary. Allows us to drop.
-	  }
-	  this.classList.add('over');
+      this.classList.add('dragElem');
+    }
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+      this.classList.add('over');
 
-	  e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+      e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 
 
-	  return false;
-	}
+      return false;
+    }
 
-	function handleDragEnter(e) {
-	    e.preventDefault();
+    function handleDragEnter(e) {
+        e.preventDefault();
 
-	  // this / e.target is the current hover target.
-	}
+      // this / e.target is the current hover target.
+    }
 
-	function handleDragLeave(e) {
-	  this.classList.remove('over');  // this / e.target is previous target element.
-	}
+    function handleDragLeave(e) {
+      this.classList.remove('over');  // this / e.target is previous target element.
+    }
 
-	function handleDrop(e) {
-	  // this/e.target is current target element.
-	  if (e.stopPropagation) {
-	    e.stopPropagation(); // Stops some browsers from redirecting.
-	  }
+    function handleDrop(e) {
+      // this/e.target is current target element.
+      if (e.stopPropagation) {
+        e.stopPropagation(); // Stops some browsers from redirecting.
+      }
 
-	  // Don't do anything if dropping the same column we're dragging.
-	  if (dragSrcEl != this) {
-	    // Set the source column's HTML to the HTML of the column we dropped on.
-	    //alert(this.outerHTML);
-	    //dragSrcEl.innerHTML = this.innerHTML;
-	    //this.innerHTML = e.dataTransfer.getData('text/html');
-	    dragSrcEl.parentNode.removeChild(dragSrcEl);
-	    var dropHTML = e.dataTransfer.getData('text/html');
-	    this.insertAdjacentHTML('beforebegin',dropHTML);
-	    var dropElem = this.previousSibling;
-	    addDnDHandlers(dropElem);
+      // Don't do anything if dropping the same column we're dragging.
+      if (dragSrcEl != this) {
+        // Set the source column's HTML to the HTML of the column we dropped on.
+        //alert(this.outerHTML);
+        //dragSrcEl.innerHTML = this.innerHTML;
+        //this.innerHTML = e.dataTransfer.getData('text/html');
+        dragSrcEl.parentNode.removeChild(dragSrcEl);
+        var dropHTML = e.dataTransfer.getData('text/html');
+        this.insertAdjacentHTML('beforebegin',dropHTML);
+        var dropElem = this.previousSibling;
+        addDnDHandlers(dropElem);
 
-	  }
-	  this.classList.remove('over');
-	  return false;
-	}
+      }
+      this.classList.remove('over');
+      return false;
+    }
 
-	function handleDragEnd(e) {
-	   // this/e.target is the source node.
+    function handleDragEnd(e) {
+       // this/e.target is the source node.
         
         var dsId='';
         jQuery('.checkbox').each(function( index ) {
@@ -185,29 +171,32 @@
         {
             "_token":_token,
             dsId:dsId
+        },
+        function(data){
+          loadTable(_token, "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
         });
 
         // Post danh sách id chỗ này xài hàm này, 2 trường cuối để rổng ''
         //postId(_token, id, url, urlRefreshData, classNameRefreshData);
-	   this.classList.remove('over');
+       this.classList.remove('over');
 
-	  /*[].forEach.call(cols, function (col) {
-	    col.classList.remove('over');
-	  });*/
-	}
+      /*[].forEach.call(cols, function (col) {
+        col.classList.remove('over');
+      });*/
+    }
 
-	function addDnDHandlers(elem) {
-	  elem.addEventListener('dragstart', handleDragStart, false);
-	  elem.addEventListener('dragenter', handleDragEnter, false)
-	  elem.addEventListener('dragover', handleDragOver, false);
-	  elem.addEventListener('dragleave', handleDragLeave, false);
-	  elem.addEventListener('drop', handleDrop, false);
-	  elem.addEventListener('dragend', handleDragEnd, false);
+    function addDnDHandlers(elem) {
+      elem.addEventListener('dragstart', handleDragStart, false);
+      elem.addEventListener('dragenter', handleDragEnter, false)
+      elem.addEventListener('dragover', handleDragOver, false);
+      elem.addEventListener('dragleave', handleDragLeave, false);
+      elem.addEventListener('drop', handleDrop, false);
+      elem.addEventListener('dragend', handleDragEnd, false);
 
-	}
+    }
 
-	var cols = document.querySelectorAll('#items-list .draggable');
-	[].forEach.call(cols, addDnDHandlers);
+    var cols = document.querySelectorAll('#items-list .draggable');
+    [].forEach.call(cols, addDnDHandlers);
 
 </script>
 

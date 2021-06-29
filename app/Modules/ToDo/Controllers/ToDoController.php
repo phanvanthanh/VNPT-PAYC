@@ -30,8 +30,11 @@ class ToDoController extends Controller{
     public function danhSachToDo(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-
-            $toDos=ToDo::orderBy('sap_xep', 'asc')->get()->toArray();
+            $userId=0;
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $toDos=ToDo::orderBy('sap_xep', 'asc')->where('id_user','=',$userId)->get()->toArray();
             $view=view('ToDo::danh-sach-to-do', compact('toDos','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -42,7 +45,7 @@ class ToDoController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
             $data['id_user']=Auth::id();
-            if($data['noi_dung']=='' || $data['han_xu_ly']==''){
+            if($data['noi_dung']==''){
                 return array('error'=>"Thông tin nhập vào chưa đủ");
             }
             ToDo::create($data); // Lưu dữ liệu vào DB
@@ -138,7 +141,8 @@ class ToDoController extends Controller{
     public function sortToDo(Request $request){
         $dsId = $request->input('dsId');
         $arr_id = explode(';', $dsId);
-        $toDo = ToDo::all();
+        $id_user = Auth::id();
+        $toDo = ToDo::where('id_user','=',$id_user);
         $soLuongToDo = $toDo->count();
         $j=1;
         for($i=0; $i<$soLuongToDo; $i++){
