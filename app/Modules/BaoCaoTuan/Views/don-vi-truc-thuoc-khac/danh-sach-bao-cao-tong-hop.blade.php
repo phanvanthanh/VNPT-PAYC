@@ -56,8 +56,11 @@
 
             @php
               if($baoCaoTuanHienTai['is_group']==3){
-                $sttPhanMem++;
-                echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
+                $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
+                if($checkCoNhapBaoCaoTuanHienTai===1){
+                  $sttPhanMem++;
+                  echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
+                }
               }
               elseif($baoCaoTuanHienTai['is_group']==2){
                 echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
@@ -168,7 +171,7 @@
               ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
             @php
               if($baoCaoKeHoachTuan['is_group']==3){
-                $checkCoNhapKeHoachTuan=\Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
                 if($checkCoNhapKeHoachTuan===1){
                   $sttPhanMem++;
                   echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";

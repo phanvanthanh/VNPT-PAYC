@@ -12,6 +12,8 @@ use App\UsersDonVi;
 use App\UsersRole;
 use GuzzleHttp\Client;
 use App\BcPhanQuyenBaoCao;
+use App\BcKeHoachTuan;
+use App\BcTuanHienTai;
 use DateTime;
 
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +27,17 @@ class Helper
     */
     public static function kiemTraCoNhapKeHoachTuan($idTuan, $idDichVu){
         $check=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->where('is_group','!=', 3)->get()->toArray();
+        if(count($check)>0){
+            return 1;
+        }
+        return 0;
+    }
+    /*
+        0 là không có nhập
+        1 là có nhập kế hoạch tuần
+    */
+    public static function kiemTraCoNhapBaoCaoTuanHienTai($idTuan, $idDichVu){
+        $check=BcTuanHienTai::where('id_tuan','=',$idTuan)->where('id_dich_vu','=',$idDichVu)->where('is_group','!=', 3)->get()->toArray();
         if(count($check)>0){
             return 1;
         }
