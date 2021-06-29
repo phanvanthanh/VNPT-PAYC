@@ -76,6 +76,9 @@
 
             @if ($daChotSoLieu==0 && $baoCaoTuanHienTai['is_group']<3)
                 <i class="list-menu-nhanh d-none">
+                   &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
                   <i class="is-group fa fa-th-list cusor i-hover @if($baoCaoTuanHienTai['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group fa fa-list-ul cusor i-hover @if($baoCaoTuanHienTai['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group fa fa fa-indent cusor i-hover @if($baoCaoTuanHienTai['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -90,16 +93,7 @@
             <input @if ($baoCaoTuanHienTai['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-tuan-hien-tai-2" data="{{$baoCaoTuanHienTai['id']}}" value="{{$baoCaoTuanHienTai['noi_dung']}}" id="cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
           </form>
         @endforeach
-      </ul>
-          {{-- Sau này a sa quang cung cấp số liệu thì mở lại nha --}}
-          {{-- <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 35px;"><i class='fa fa-minus' style="margin-right:10px;"></i>Báo cáo số liệu PAKN
-            @if ($daChotSoLieu==0)
-              <i class="list-menu-nhanh d-none">
-                <i class="fa fa-refresh text-primary cusor btn-lay-so-lieu-bao-cao-dhsxkd"></i>
-              </i>
-            @endif
-          </div> --}}
-        
+      </ul>        
           @if (count($baoCaoPakns)>0)
             {{-- <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div> --}}
             <div style="margin-left: 40px; margin-bottom: 35px;">
@@ -192,6 +186,9 @@
 
             @if ($daChotSoLieu==0 && $baoCaoKeHoachTuan['is_group']<3)
                 <i class="list-menu-nhanh d-none">
+                   &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-long-arrow-up text-success cusor btn-ke-hoach-tuan-di-chuyen-len" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-ke-hoach-tuan-di-chuyen-xuong" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
                   <i class="is-group-ke-hoach-tuan fa fa-th-list cusor i-hover @if($baoCaoKeHoachTuan['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group-ke-hoach-tuan fa fa-list-ul cusor i-hover @if($baoCaoKeHoachTuan['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group-ke-hoach-tuan fa fa fa-indent cusor i-hover @if($baoCaoKeHoachTuan['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -358,6 +355,32 @@
             popup.resizeTo(screen.width, screen.height);
           }
           return false;
+      });
+
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-len').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenLen(id);
+        return false;
+      });
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-xuong').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenXuong(id);
+        return false;
+      });
+
+
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-len').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        keHoachTuanDiChuyenLen(id);
+        return false;
+      });
+
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-xuong').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        keHoachTuanDiChuyenXuong(id);
+        return false;
       });
 
 

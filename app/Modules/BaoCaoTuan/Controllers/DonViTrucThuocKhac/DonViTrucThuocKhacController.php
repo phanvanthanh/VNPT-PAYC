@@ -1333,7 +1333,7 @@ class DonViTrucThuocKhacController extends Controller{
             if($daChoSoLieu==2){
                 return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
             }
-            $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('id_dich_vu','=',$idDichVu)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
             $baoCaoTruoc=BcTuanHienTai::find($idBaoCaoTruoc);
             $isGroupTruoc=0;
             $sapXepTruoc=0;
@@ -1344,7 +1344,7 @@ class DonViTrucThuocKhacController extends Controller{
                     $isGroupTruoc=0;
                 }
             }
-            $idBaoCaoTuan;
+            $idBaoCaoTuan=0;
             if(count($checkExits)<=0){
                 $dataBaoCaoTuan=array();
                 $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
@@ -1362,9 +1362,10 @@ class DonViTrucThuocKhacController extends Controller{
                 $sapXep=$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
-                $idBaoCaoTuan=$baoCaoTuan->id;
-                    
-            } 
+                $idBaoCaoTuan=$baoCaoTuan->id;                    
+            }else{
+                return  array('error'=>"Chèn dữ liệu thất bại");
+            }
             $dsBaoCaos=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
             $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
             if($soLuongBaoCaoCanSuaViTri>0){
@@ -1482,5 +1483,126 @@ class DonViTrucThuocKhacController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
 
+
+    public function baoCaoTuanHienTaiDiChuyenLen(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idBaoCaoHienTai=$data['id'];            
+            $baoCaoHienTai=BcTuanHienTai::find($idBaoCaoHienTai);
+            if($baoCaoHienTai){
+                $sapXepHienTai=$baoCaoHienTai->sap_xep;
+                $idDichVuHienTai=$baoCaoHienTai->id_dich_vu;
+                $idTuan=$baoCaoHienTai->id_tuan;
+                $baoCaoTruoc=BcTuanHienTai::where('sap_xep','<',$sapXepHienTai)->where('id_dich_vu','=',$idDichVuHienTai)->where('is_group','!=',3)->where('id_tuan','=',$idTuan)->orderBy('sap_xep','desc')->first();
+                if($baoCaoTruoc){
+                    $sapXepTruoc=$baoCaoTruoc->sap_xep;
+                    $baoCaoTruoc->sap_xep=$sapXepHienTai;
+                    $baoCaoTruoc->save();
+                    $baoCaoHienTai->sap_xep=$sapXepTruoc;
+                    $baoCaoHienTai->save();
+                }
+
+            }else{ 
+                return array("error"=>'Không tìm thấy báo cáo cần di chuyển');
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function baoCaoTuanHienTaiDiChuyenXuong(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idBaoCaoHienTai=$data['id'];            
+            $baoCaoHienTai=BcTuanHienTai::find($idBaoCaoHienTai);
+            if($baoCaoHienTai){
+                $sapXepHienTai=$baoCaoHienTai->sap_xep;
+                $idDichVuHienTai=$baoCaoHienTai->id_dich_vu;
+                $idTuan=$baoCaoHienTai->id_tuan;
+                $baoCaoSau=BcTuanHienTai::where('sap_xep','>',$sapXepHienTai)->where('id_dich_vu','=',$idDichVuHienTai)->where('is_group','!=',3)->where('id_tuan','=',$idTuan)->orderBy('sap_xep','asc')->first();
+                if($baoCaoSau){
+                    $sapXepSau=$baoCaoSau->sap_xep;
+                    $baoCaoSau->sap_xep=$sapXepHienTai;
+                    $baoCaoSau->save();
+                    $baoCaoHienTai->sap_xep=$sapXepSau;
+                    $baoCaoHienTai->save();
+                }
+
+            }else{ 
+                return array("error"=>'Không tìm thấy báo cáo cần di chuyển');
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
+    public function keHoachTuanDiChuyenLen(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idBaoCaoHienTai=$data['id'];            
+            $baoCaoHienTai=BcKeHoachTuan::find($idBaoCaoHienTai);
+            if($baoCaoHienTai){
+                $sapXepHienTai=$baoCaoHienTai->sap_xep;
+                $idDichVuHienTai=$baoCaoHienTai->id_dich_vu;
+                $idTuan=$baoCaoHienTai->id_tuan;
+                $baoCaoTruoc=BcKeHoachTuan::where('sap_xep','<',$sapXepHienTai)->where('id_dich_vu','=',$idDichVuHienTai)->where('is_group','!=',3)->where('id_tuan','=',$idTuan)->orderBy('sap_xep','desc')->first();
+                if($baoCaoTruoc){
+                    $sapXepTruoc=$baoCaoTruoc->sap_xep;
+                    $baoCaoTruoc->sap_xep=$sapXepHienTai;
+                    $baoCaoTruoc->save();
+                    $baoCaoHienTai->sap_xep=$sapXepTruoc;
+                    $baoCaoHienTai->save();
+                }
+
+            }else{ 
+                return array("error"=>'Không tìm thấy báo cáo cần di chuyển');
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+    public function keHoachTuanDiChuyenXuong(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idBaoCaoHienTai=$data['id'];            
+            $baoCaoHienTai=BcKeHoachTuan::find($idBaoCaoHienTai);
+            if($baoCaoHienTai){
+                $sapXepHienTai=$baoCaoHienTai->sap_xep;
+                $idDichVuHienTai=$baoCaoHienTai->id_dich_vu;
+                $idTuan=$baoCaoHienTai->id_tuan;
+                $baoCaoSau=BcKeHoachTuan::where('sap_xep','>',$sapXepHienTai)->where('id_dich_vu','=',$idDichVuHienTai)->where('is_group','!=',3)->where('id_tuan','=',$idTuan)->orderBy('sap_xep','asc')->first();
+                if($baoCaoSau){
+                    $sapXepSau=$baoCaoSau->sap_xep;
+                    $baoCaoSau->sap_xep=$sapXepHienTai;
+                    $baoCaoSau->save();
+                    $baoCaoHienTai->sap_xep=$sapXepSau;
+                    $baoCaoHienTai->save();
+                }
+
+            }else{ 
+                return array("error"=>'Không tìm thấy báo cáo cần di chuyển');
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
     
 }

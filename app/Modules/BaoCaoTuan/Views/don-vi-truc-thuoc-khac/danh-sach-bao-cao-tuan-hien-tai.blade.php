@@ -84,7 +84,10 @@
           </td>
           <td class="text-center">
             @if ($daChotSoLieu==0)
+
               @if ($baoCao['is_group']<3)
+                <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"> &nbsp;&nbsp;&nbsp;</i>
+                <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong" data="{{$baoCao['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"> &nbsp;&nbsp;&nbsp;</i>
                 <i class="is-group fa fa-th-list cusor i-hover @if($baoCao['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_2" data-toggle="tooltip" data-placement="bottom" title="Canh dòng &minus;"></i> &nbsp;&nbsp;&nbsp;                
                 <i class="is-group fa fa-list-ul cusor i-hover @if($baoCao['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCao['id']}}_1" data-toggle="tooltip" data-placement="bottom" title="Canh dòng &plus;"></i> &nbsp;&nbsp;&nbsp;
                 <i class="is-group fa fa fa-indent cusor i-hover @if($baoCao['is_group']==0) {{"text-primary font-weight-bold"}} @endif" data="{{$baoCao['id']}}_0"  data-toggle="tooltip" data-placement="bottom" title="Canh dòng ○"></i> &nbsp;&nbsp;&nbsp;
@@ -311,6 +314,8 @@
       }
 
       
+
+      
       jQuery('.btn-xoa-bao-cao-tuan-hien-tai').on('click',function(){    
         var id=jQuery(this).attr("data");
         xoaBaoCaoTuanHienTai(id);
@@ -343,6 +348,18 @@
             chenBaoCaoTuanHienTai(form); 
             return false;
           }
+      });
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-len').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenLen(id);
+        return false;
+      });
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-xuong').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenXuong(id);
+        return false;
       });
 
 

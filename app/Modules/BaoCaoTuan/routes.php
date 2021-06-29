@@ -156,6 +156,14 @@ Route::group(
                     'uses' => 'DonViTrucThuocKhacController@layDuLieuTuKeHoachTuan'
                 ]);
 
+                Route::post('don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-len', [
+                    'as' => 'don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-len',
+                    'uses' => 'DonViTrucThuocKhacController@baoCaoTuanHienTaiDiChuyenLen'
+                ]);
+                Route::post('don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-xuong', [
+                    'as' => 'don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-xuong',
+                    'uses' => 'DonViTrucThuocKhacController@baoCaoTuanHienTaiDiChuyenXuong'
+                ]);
 
 
                 // Báo cáo Kế hoạch tuần kế tiếp
@@ -185,6 +193,15 @@ Route::group(
                 Route::post('don-vi-truc-thuoc-khac-chen-ke-hoach-tuan', [
                     'as' => 'don-vi-truc-thuoc-khac-chen-ke-hoach-tuan',
                     'uses' => 'DonViTrucThuocKhacController@chenKeHoachTuan'
+                ]);
+
+                Route::post('don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-len', [
+                    'as' => 'don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-len',
+                    'uses' => 'DonViTrucThuocKhacController@keHoachTuanDiChuyenLen'
+                ]);
+                Route::post('don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-xuong', [
+                    'as' => 'don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-xuong',
+                    'uses' => 'DonViTrucThuocKhacController@keHoachTuanDiChuyenXuong'
                 ]);
 
                 // Báo cáo ĐHSXKD
