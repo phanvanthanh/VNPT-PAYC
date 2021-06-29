@@ -14,22 +14,19 @@
                                 $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
                             @endphp           
                             <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif style="display: block !important;">
-                                <div class="form-check" style="display: flex">
-                                    <label class="form-check-label">
-                                        <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
-                                        <b>{{$toDo['noi_dung']}}</b>
-                                    </label>               
-                                      
-                                
-                                <!-- <i class="remove mdi mdi-close-circle-outline"></i> -->
+                              <div class="form-check" style="display: flex">
+                                <label class="form-check-label">
+                                  <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
+                                  {{$toDo['noi_dung']}}
+                                <i class="input-helper"></i></label>
                                 <i class="remove"></i>
                                 <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
                                 </p>
                                 <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
                                 </p>
-                            </div>
-                                      <small class="text-muted" style="padding-left: 30px"><b>Ngày tạo:</b> {{$ngay_tao}}. <b>HXL:</b> {{$han_xu_ly}}</small>            
-                            </li>                        
+                              </div>
+                              <small class="text-muted" style="padding-left: 30px"><b>Ngày tạo:</b> {{$ngay_tao}}. <b>HXL:</b> {{$han_xu_ly}}</small>
+                            </li>                      
                         @endforeach             
                     </ul>
                 </div>
@@ -86,6 +83,7 @@
         });
         
         $('.checkbox').click(function() {
+            jQuery(this).parents('li').toggleClass('completed');
             var _token=jQuery('#xu-ly-to-do').find("input[name='_token']").val();
             if ($(this).is(':checked')) {
                 var id = $(this).attr("data-id");
@@ -95,7 +93,7 @@
                     id:id
                 });
             }
-            else{
+            else{             
                 var id = $(this).attr("data-id");
                 $.post("{{route('uncheck-to-do')}}",
                 {

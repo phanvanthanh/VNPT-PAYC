@@ -168,8 +168,12 @@
               ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
             @php
               if($baoCaoKeHoachTuan['is_group']==3){
-                $sttPhanMem++;
-                echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+                $checkCoNhapKeHoachTuan=\Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                if($checkCoNhapKeHoachTuan===1){
+                  $sttPhanMem++;
+                  echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+                }
+                  
               }
               elseif($baoCaoKeHoachTuan['is_group']==2){
                 echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";

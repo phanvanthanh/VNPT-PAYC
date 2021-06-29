@@ -51,6 +51,8 @@
     jQuery(document).ready(function() {
       var _token=jQuery('form[name="frm-them-moi"]').find("input[name='_token']").val();
       loadTable(_token, "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
+      
+
 
       $('.btn-them-moi').on('click',function(){
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
