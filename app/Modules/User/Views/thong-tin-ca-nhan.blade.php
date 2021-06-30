@@ -216,7 +216,7 @@
                             
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-vnpt mr-2" style="width:200px;"> <i class="icon-check"></i> Lưu thay đổi</button>
-                                <button type="submit" class="btn btn-danger mr-2 btn-khong-luu"> <i class="icon-check"></i> Không lưu</button>
+                                <button type="submit" class="btn btn-danger mr-2 btn-khong-luu"> <i class="icon-check"></i> Quay lại</button>
                             </div>
                         </form>
                     </div>

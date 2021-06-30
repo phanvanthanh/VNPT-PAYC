@@ -28,5 +28,15 @@ Route::group(
         Route::post('api/api-payc-cua-toi', 'ApiPaycController@layPaycCuaToi');
         Route::post('api/get-file', 'ApiPaycController@getFile');
         Route::post('api/luu-file', 'ApiPaycController@luuFile');
+
+
+        Route::get('api/download-file/{name}.{type}', function ($name, $type) {
+            if (file_exists(storage_path('app/public/file/payc/'.$name.'.'.$type))) {
+                return response()->file(storage_path('app/public/file/payc/'.$name.'.'.$type));
+            }else{
+                return 'Lỗi, Không tìm thấy tệp tin cần tải.';
+            }
+                       
+        },['uses' => 'FileController@download']);
     }
 );
