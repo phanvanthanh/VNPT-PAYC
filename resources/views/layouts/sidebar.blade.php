@@ -10,7 +10,7 @@
       $userId=1;
    }
    // Lấy thông tin user ra để hiển thị lên giao diện
-   $user=User::select('name')->where('id','=',$userId)->get()->toArray();
+   $user=User::select('name','hinh_anh')->where('id','=',$userId)->get()->toArray();
    // Lấy tất cả các quyền ra để đưa lên lưới
    $resources = AdminResource::where('status','=',1)->where('id','!=',1)->where('show_menu','=',1)->orderBy('order')->get()->toArray();
    $resources=\Helper::paycTreeResourceHasChild($resources, 1);
@@ -47,7 +47,7 @@
                      <li class="nav-item nav-profile">
                         <div class="nav-link">
                            <div class="profile-image">
-                              <a href="{{route('home')}}"><img src="{{ asset('public/images/logo.png') }}" alt="image"></a>
+                              <a href="{{route('home')}}"><img src="{{ asset('storage/app/public/file/payc/'.$user[0]['hinh_anh']) }}" alt="image"></a>
                            </div>
                            <div class="profile-name">
                               <p class="name ten-phan-mem">

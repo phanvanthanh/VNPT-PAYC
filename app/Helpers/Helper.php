@@ -84,44 +84,6 @@ class Helper
         return 1;
     }
 
-    public static function callApiLogin($message){
-        // Gọi api gửi tin nhắn qua Telegram
-        $client = new Client();
-        $r = $client->request('POST', 'http://10.90.199.89/VNPT-PAYC/api/auth/api-dang-nhap', [
-                'body' => '{
-                            "email":"api.tvh@vnpt.vn",
-                            "password":"123456",
-                            "remember_me":true
-                        }',
-                'headers'   =>[
-                    'Content-Type'      =>'application/json',
-                    'Accept'      =>'application/json'
-                ]
-            ]);
-        $decodeBody=array();
-        if ($r->getStatusCode()==200) {
-            $decodeBody=json_decode($r->getBody(), true);
-            if(!$decodeBody){ // Có trường hợp status thành công mà body thì bị rỗng. VD: bỏ headers
-                $decodeBody= array(
-                    'message'           => 'Đăng nhập thất bại',
-                    'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
-                    'expires_at'        => date('Y-m-d H:i:s')
-                );
-            }
-        }else{
-            $decodeBody= array(
-                'message'           => 'Đăng nhập thất bại',
-                'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
-                'expires_at'        => date('Y-m-d H:i:s')
-            );
-        }
-        return $decodeBody;
-    }
-
     public static function checkUserRole($userId, $roleName){
         $result=UsersRole::checkUserRole($userId, $roleName);
         return $result;
