@@ -430,7 +430,7 @@ class BcDhsxkd extends Model
         // Gọi api gửi tin nhắn qua Telegram
         $client = new Client();
         
-        $r = $client->request('GET', 'https://api.vnpttravinh.vn/bao-cao-tuan/phat-trien-moi?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay, [
+        $r = $client->request('GET', 'https://api.vnpttravinh.vn/bao-cao-tuan/phat-trien-fix?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay, [
                 'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',

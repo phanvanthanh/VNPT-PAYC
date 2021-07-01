@@ -108,11 +108,14 @@ class VienThongTinhController extends Controller{
                 })->get()->toArray();
             $idThoiGianBaoCaoDhsxkdDonViCon=0;
             $trangThaiBaoCaoDonViCon=0;
+            $thoiGianChotSoLieuDonViCon='';
             if($thoiGianBaoCaoDhsxkdTheoDonViCon){
                 $idThoiGianBaoCaoDhsxkdDonViCon=$thoiGianBaoCaoDhsxkdTheoDonViCon[0]['id'];
                 $trangThaiBaoCaoDonViCon=$thoiGianBaoCaoDhsxkdTheoDonViCon[0]['trang_thai'];
+                $thoiGianChotSoLieuDonViCon=$thoiGianBaoCaoDhsxkdTheoDonViCon[0]['thoi_gian_chot_so_lieu'];
             }
             $donViCon['trang_thai_chot_bao_cao']=$trangThaiBaoCaoDonViCon;
+            $donViCon['thoi_gian_chot_so_lieu']=$thoiGianChotSoLieuDonViCon;
             $baoCaoCapHuyens['thong_tin_don_vi']=$donViCon;
             if($trangThaiBaoCaoDonViCon>0){
                 $baoCaoCapHuyenPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'PHAT_TRIEN_MOI');

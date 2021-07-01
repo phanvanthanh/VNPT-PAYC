@@ -28,24 +28,31 @@
         $baoCaoTuanHienTais=$dataPhongBanTrungTam['baoCaoTuanHienTais'];
         $baoCaoKeHoachTuans=$dataPhongBanTrungTam['baoCaoKeHoachTuans'];
         $trangThaiChotBaoCao=$dataPhongBanTrungTam['trangThaiChotBaoCao'];
-        
+        $sttPhanMem=0;
     @endphp
 
     <div class="row">
       <div class="col-12">      
         <h6 class="text-primary">* {{$donVi['ten_don_vi']}}</h6>
         @if ($trangThaiChotBaoCao==0)
-          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi dữ liệu báo cáo</span>"; @endphp
+          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
         @else
-        <div class="font-weight-bold" style="margin-left: 20px;">1. Báo cáo tuần </div>
+        <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>
         <ul class="">
           @foreach ($baoCaoTuanHienTais as $baoCaoTuanHienTai)
             <li  class=' 
-              @if ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-              ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
-
+              @if ($baoCaoTuanHienTai['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+              '
+               data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
               @php
-                if($baoCaoTuanHienTai['is_group']==2){
+                if($baoCaoTuanHienTai['is_group']==3){
+                  $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
+                  if($checkCoNhapBaoCaoTuanHienTai===1){
+                    $sttPhanMem++;
+                    echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
+                  }
+                }
+                elseif($baoCaoTuanHienTai['is_group']==2){
                   echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
                 }
                 elseif($baoCaoTuanHienTai['is_group']==1){
@@ -59,10 +66,11 @@
           @endforeach
         </ul>
 
-          <div class="font-weight-bold" style="margin-left: 35px; font-size: 14px;"><i class="fa fa-minus" style="margin-right: 10px;"></i> Xử lý PAKN
-          </div>
+          
             
             @if (count($baoCaoPakns)>0)
+              <div class="font-weight-bold" style="margin-left: 35px; font-size: 14px;"><i class="fa fa-minus" style="margin-right: 10px;"></i> Xử lý PAKN
+              </div>
               <div style="margin-left: 40px; margin-bottom: 30px;  font-size: 14px;">
                 <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
                   <thead>
@@ -103,25 +111,35 @@
 
 
 
-        <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">2. Kế hoạch tuần tiếp theo
+        <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">II. Đăng ký công tác tuần tiếp theo:
         </div>
-        
+        @php
+          $sttPhanMem=0;
+        @endphp
         <ul class="">
           @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
             <li  class='
-                @if ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-                ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
-              @php
-                if($baoCaoKeHoachTuan['is_group']==2){
-                  echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+                @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+              ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
+            @php
+              if($baoCaoKeHoachTuan['is_group']==3){
+                $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                if($checkCoNhapKeHoachTuan===1){
+                  $sttPhanMem++;
+                  echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
                 }
-                elseif($baoCaoKeHoachTuan['is_group']==1){
-                  echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
-                }
-                else{
-                  echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
-                }
-              @endphp
+                  
+              }
+              elseif($baoCaoKeHoachTuan['is_group']==2){
+                echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              }
+              elseif($baoCaoKeHoachTuan['is_group']==1){
+                echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              }
+              else{
+                echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              }
+            @endphp
             </li>         
           @endforeach
         </ul>
@@ -144,34 +162,43 @@
       <div class="col-12">      
         <h6 class="text-primary">* {{$donVi['ten_don_vi']}}</h6>
         @if ($trangThaiChotBaoCao==0)
-          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi dữ liệu báo cáo</span>"; @endphp
+          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
         @else
-        <div class="font-weight-bold" style="margin-left: 20px;">1. Báo cáo tuần </div>
+        <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>        
+        @php
+          $sttPhanMem=0;
+        @endphp
         <ul class="">
           @foreach ($baoCaoTuanHienTais as $baoCaoTuanHienTai)
             <li  class=' 
-              @if ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-              ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
-
-              @php
-                if($baoCaoTuanHienTai['is_group']==2){
-                  echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+              @if ($baoCaoTuanHienTai['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+            '
+             data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
+            @php
+              if($baoCaoTuanHienTai['is_group']==3){
+                $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
+                if($checkCoNhapBaoCaoTuanHienTai===1){
+                  $sttPhanMem++;
+                  echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
                 }
-                elseif($baoCaoTuanHienTai['is_group']==1){
-                  echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
-                }
-                else{
-                  echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
-                }
-              @endphp
-            </li>          
+              }
+              elseif($baoCaoTuanHienTai['is_group']==2){
+                echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+              }
+              elseif($baoCaoTuanHienTai['is_group']==1){
+                echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+              }
+              else{
+                echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+              }
+            @endphp    
           @endforeach
         </ul>
 
-          <div class="font-weight-bold" style="margin-left: 35px; font-size: 14px;"><i class="fa fa-minus" style="margin-right: 10px;"></i> Xử lý PAKN
-          </div>
+          
             
             @if (count($baoCaoPakns)>0)
+              <div class="font-weight-bold" style="margin-left: 35px; font-size: 14px;"><i class="fa fa-minus" style="margin-right: 10px;"></i> Xử lý PAKN</div>
               <div style="margin-left: 40px; margin-bottom: 30px;  font-size: 14px;">
                 <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
                   <thead>
@@ -212,16 +239,26 @@
 
 
 
-        <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">2. Kế hoạch tuần tiếp theo
+        <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">II. Đăng ký công tác tuần tiếp theo:
         </div>
-        
+        @php
+          $sttPhanMem=0;
+        @endphp
         <ul class="">
           @foreach ($baoCaoKeHoachTuans as $baoCaoKeHoachTuan)
             <li  class='
-                @if ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+              @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
                 ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
               @php
-                if($baoCaoKeHoachTuan['is_group']==2){
+                if($baoCaoKeHoachTuan['is_group']==3){
+                  $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                  if($checkCoNhapKeHoachTuan===1){
+                    $sttPhanMem++;
+                    echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+                  }
+                    
+                }
+                elseif($baoCaoKeHoachTuan['is_group']==2){
                   echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
                 }
                 elseif($baoCaoKeHoachTuan['is_group']==1){
@@ -255,41 +292,54 @@
             
           </div>
           @if ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']==0)
-            @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi dữ liệu báo cáo</span>"; @endphp
+            @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
           @elseif($trangThaiChotBaoCao>0 && $huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']<2)
-            @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Gửi báo cáo sau khi đơn vị tuyến trên duyệt & chốt báo cáo</span>"; @endphp
+            @php 
+              $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
+              $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
+              echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
           @else
-            @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-success font-weight-bold'>Đã báo cáo</span>"; @endphp
+            @php 
+              $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
+              $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
+              echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-success font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
           @endif
           @if ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']>1 && $trangThaiChotBaoCao>0)
             @if (isset($huyen['tuan_hien_tai']))
-              <div class="font-weight-bold" style="margin-left: 30px;  font-size: 14px;">* Báo cáo tuần</div>
-              <ul class="">
-              
-
+              <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>        
+              @php
+                $sttPhanMem=0;
+              @endphp
+              <ul class=""> 
                 @foreach ($huyen['tuan_hien_tai'] as $baoCaoTuanHienTai)
                   <li  class=' 
-                  @if ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-                  '>
-
-                  @php
-                    if($baoCaoTuanHienTai['is_group']==2){
-                      echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
-                    }
-                    elseif($baoCaoTuanHienTai['is_group']==1){
-                      echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
-                    }
-                    else{
-                      echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
-                    }
-                  @endphp
-
+                    @if ($baoCaoTuanHienTai['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoTuanHienTai['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoTuanHienTai['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+                    '
+                     data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
+                    @php
+                      if($baoCaoTuanHienTai['is_group']==3){
+                        $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
+                        if($checkCoNhapBaoCaoTuanHienTai===1){
+                          $sttPhanMem++;
+                          echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoTuanHienTai['noi_dung']."</div>";
+                        }
+                      }
+                      elseif($baoCaoTuanHienTai['is_group']==2){
+                        echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+                      }
+                      elseif($baoCaoTuanHienTai['is_group']==1){
+                        echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+                      }
+                      else{
+                        echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoTuanHienTai['noi_dung']."</div>";
+                      }
+                    @endphp  
                 </li>
                 @endforeach              
               </ul>
             @endif
 
-            @if (isset($huyen['phat_trien_moi']))  
+            @if (isset($huyen['phat_trien_moi']) && count($huyen['phat_trien_moi'])>0)  
               <div class="font-weight-bold" style="margin-left: 40px; font-size: 14px;"><i class='fa fa-minus' style=" font-size: 14px; margin-right: 10px;"></i> Phát triển mới</div>
                           
               <div style="margin-left: 40px; font-size: 14px;">
@@ -324,7 +374,7 @@
             @endif
 
 
-            @if (isset($huyen['xu_ly_suy_hao']))
+            @if (isset($huyen['xu_ly_suy_hao']) && count($huyen['xu_ly_suy_hao'])>0)
               <div class="font-weight-bold" style="margin-left: 40px; font-size: 14px;"><i class='fa fa-minus' style="margin-right: 10px;"></i> Xử lý sự cố</div>
                 
                   <div style="margin-left: 40px; margin-bottom: 30px; font-size: 14px;">
@@ -389,14 +439,26 @@
               @endif
 
               @if (isset($huyen['ke_hoach_tuan']))
-                <div class="font-weight-bold" style="margin-left: 30px;  font-size: 14px;">* Kế hoạch tuần tiếp theo</div>
+                <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">II. Đăng ký công tác tuần tiếp theo:
+                </div>
+                @php
+                  $sttPhanMem=0;
+                @endphp
                 <ul class="">
                   @foreach ($huyen['ke_hoach_tuan'] as $baoCaoKeHoachTuan)
                     <li  class='
-                        @if ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
-                        '>
+                      @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
+                        ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
                       @php
-                        if($baoCaoKeHoachTuan['is_group']==2){
+                        if($baoCaoKeHoachTuan['is_group']==3){
+                          $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                          if($checkCoNhapKeHoachTuan===1){
+                            $sttPhanMem++;
+                            echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+                          }
+                            
+                        }
+                        elseif($baoCaoKeHoachTuan['is_group']==2){
                           echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
                         }
                         elseif($baoCaoKeHoachTuan['is_group']==1){
@@ -420,8 +482,9 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;  font-size: 14px;">
-        {{-- <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button> --}}
+        <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
+        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        <button type="button" class="btn btn-danger mr-2 btn-gui-nhac-nho-qua-telegram"><i class="fa fa-send"></i> Gửi thông báo nhắc nhở (Qua Telegram)</button>
       </div>
     </div>
   </div>

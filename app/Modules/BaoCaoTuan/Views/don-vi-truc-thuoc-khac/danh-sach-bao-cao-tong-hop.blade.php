@@ -197,25 +197,25 @@
               @endif
               @if ($baoCaoKeHoachTuan['is_group']==3) {{"li-is-group-3"}} @elseif ($baoCaoKeHoachTuan['is_group']==2) {{"li-is-group-2"}} @elseif($baoCaoKeHoachTuan['is_group']==1) {{"li-is-group-1"}} @else {{"li-is-group-0"}} @endif
               ' data-hover-view-form=".list-menu-nhanh" data-dbclick-view-form="#frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
-            @php
-              if($baoCaoKeHoachTuan['is_group']==3){
-                $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
-                if($checkCoNhapKeHoachTuan===1){
-                  $sttPhanMem++;
-                  echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+              @php
+                if($baoCaoKeHoachTuan['is_group']==3){
+                  $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+                  if($checkCoNhapKeHoachTuan===1){
+                    $sttPhanMem++;
+                    echo "<div class='th-is-group-3'>".$sttPhanMem.'. '.$baoCaoKeHoachTuan['noi_dung']."</div>";
+                  }
+                    
                 }
-                  
-              }
-              elseif($baoCaoKeHoachTuan['is_group']==2){
-                echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
-              }
-              elseif($baoCaoKeHoachTuan['is_group']==1){
-                echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
-              }
-              else{
-                echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
-              }
-            @endphp
+                elseif($baoCaoKeHoachTuan['is_group']==2){
+                  echo "<div class='th-is-group-2'><i class='fa fa-minus'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+                }
+                elseif($baoCaoKeHoachTuan['is_group']==1){
+                  echo "<div class='th-is-group-1'><i class='plus-sign'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+                }
+                else{
+                  echo "<div class='th-is-group-0'><i class='white-circle'></i>".$baoCaoKeHoachTuan['noi_dung']."</div>";
+                }
+              @endphp
 
 
             @if (($daChotSoLieu==0 && $baoCaoKeHoachTuan['is_group']<3) || ($daChotSoLieu==0 && $baoCaoKeHoachTuan['trang_thai']==0) || ($baoCaoKeHoachTuan['trang_thai']<2 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))

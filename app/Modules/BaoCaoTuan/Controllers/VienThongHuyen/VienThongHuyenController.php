@@ -59,11 +59,14 @@ class VienThongHuyenController extends Controller{
             }
 
             $this->ma=$ma;
-            $baoCaos=BcTuanHienTai::where('id_tuan','=',$idTuan)
-                ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
-                ->get()->toArray();
+
+            $baoCaos=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();     
 
 
             $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-tuan-hien-tai', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
@@ -362,13 +365,15 @@ class VienThongHuyenController extends Controller{
                 $ma=$donVi['ma_don_vi'];
             }
             $this->ma=$ma;
-            
-            
-            $baoCaos=BcKeHoachTuan::where('id_tuan','=',$idTuan)
+
+            $baoCaos=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
                 ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
+                    $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                 ->get()->toArray();
+
             $view=view('BaoCaoTuan::vien-thong-huyen.danh-sach-bao-cao-ke-hoach-tuan', compact('baoCaos','error','idTuan', 'ma'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
@@ -784,9 +789,9 @@ class VienThongHuyenController extends Controller{
                 }
                 // End lấy ngày lấy số liệu của tuần trước
                 $tuNgay = strtotime($ngayLayDuLieuTuanTruoc);
-                $tuNgay = date('d/m/Y',$tuNgay);
+                $tuNgay = date('d/m/Y H:i:s',$tuNgay);
                 $denNgay = strtotime($thoiGianLaySoLieu);
-                $denNgay = date('d/m/Y',$denNgay);
+                $denNgay = date('d/m/Y H:i:s',$denNgay);
                 $idDonVi=$donVi['id'];
                 $donViLienThongDhsxkd=BcMapDonViDhsxkd::where('id_don_vi','=',$idDonVi)->where('state','=',1)->get()->toArray();
                 if(count($donViLienThongDhsxkd)<=0){
@@ -1145,18 +1150,19 @@ class VienThongHuyenController extends Controller{
                 $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
             }
 
-            
-
-            $baoCaoTuanHienTais=BcTuanHienTai::where('id_tuan','=',$idTuan)
+            $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                    ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                    ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
+                    ->where(function($query) {
+                        $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                    })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                    ->get()->toArray();
+            $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+                ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+                ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
                 ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
-                ->get()->toArray();
-
-            $baoCaoKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)
-                ->where(function($query) {
-                    $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
-                })->orderBy('sap_xep','asc')
+                    $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
                 ->get()->toArray();
 
             // ĐHSXKD
