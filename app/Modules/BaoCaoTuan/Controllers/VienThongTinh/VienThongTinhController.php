@@ -120,6 +120,11 @@ class VienThongTinhController extends Controller{
             if($trangThaiBaoCaoDonViCon>0){
                 $baoCaoCapHuyenPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'PHAT_TRIEN_MOI');
                 $baoCaoCapHuyenXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'XU_LY_SUY_HAO');
+                $baoCaoCapHuyenGoiHomes=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'GOI_HOME');
+                $baoCaoCapHuyenXuLyDungHans=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'XU_LU_DUNG_HAN');
+                $baoCaoCapHuyenMLLs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'MLL');
+                $baoCaoCapHuyenB2As=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'B2A');
+                $baoCaoCapHuyenDoHaiLongs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($maDonViCon, $idThoiGianBaoCaoDhsxkdDonViCon, 'HAI_LONG');
 
                 
                 $baoCaoCapHuyenKeHoachTuans=BcKeHoachTuan::where('id_tuan','=',$idTuan)->where(function($query) {
@@ -133,6 +138,12 @@ class VienThongTinhController extends Controller{
                 $baoCaoCapHuyens['xu_ly_suy_hao']=$baoCaoCapHuyenXuLySuyHaos;
                 $baoCaoCapHuyens['ke_hoach_tuan']=$baoCaoCapHuyenKeHoachTuans;
                 $baoCaoCapHuyens['tuan_hien_tai']=$baoCaoCapHuyenTuanHienTais;
+
+                $baoCaoCapHuyens['goi_home']=$baoCaoCapHuyenGoiHomes;
+                $baoCaoCapHuyens['xu_ly_dung_han']=$baoCaoCapHuyenXuLyDungHans;
+                $baoCaoCapHuyens['mll']=$baoCaoCapHuyenMLLs;
+                $baoCaoCapHuyens['b2a']=$baoCaoCapHuyenB2As;
+                $baoCaoCapHuyens['hai_long']=$baoCaoCapHuyenDoHaiLongs;
                 
             }
             $tongHopBaoCaoCapHuyens[]=$baoCaoCapHuyens;

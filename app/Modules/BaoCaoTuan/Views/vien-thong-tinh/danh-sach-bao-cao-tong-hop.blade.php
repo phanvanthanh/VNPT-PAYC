@@ -339,104 +339,305 @@
               </ul>
             @endif
 
-            @if (isset($huyen['phat_trien_moi']) && count($huyen['phat_trien_moi'])>0)  
-              <div class="font-weight-bold" style="margin-left: 40px; font-size: 14px;"><i class='fa fa-minus' style=" font-size: 14px; margin-right: 10px;"></i> Phát triển mới</div>
-                          
-              <div style="margin-left: 40px; font-size: 14px;">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr class="background-vnpt">
-                      @foreach ($huyen['phat_trien_moi'] as $ptm)
-                        <th class="text-center"  scope="col">
-                          @if ($ptm['mo_ta'])
-                            {{$ptm['mo_ta']}}
+            @if(isset($huyen['phat_trien_moi']) && count($huyen['phat_trien_moi'])>0)
+            <div class="font-weight-bold" style="margin-left: 30px;">* Phát triển mới</div>
+            <div style="margin-left: 40px; margin-bottom: 30px;">
+              <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+                <thead>
+                  <tr class="background-vnpt tr-small">
+                    @foreach ($huyen['phat_trien_moi'] as $ptm)
+                      <th class="text-center"  scope="col">
+                        @if ($ptm['mo_ta'])
+                          {{$ptm['mo_ta']}}
+                        @else
+                          {{$ptm['chi_so']}}
+                        @endif
+                      </th>
+                    @endforeach
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="tr-small">
+                    @foreach ($huyen['phat_trien_moi'] as $ptm)
+                      <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                        {{$ptm['gia_tri']}}
+                        @if ($ptm['ghi_chu'])
+                          &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                        @endif
+                      </th>
+                    @endforeach
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          @endif
+
+
+
+
+
+
+
+
+
+
+
+
+          @if(isset($huyen['goi_home']) && count($huyen['goi_home'])>0)
+          <div class="font-weight-bold" style="margin-left: 30px;">* Gói home</div>
+          <div style="margin-left: 40px; margin-bottom: 30px;">
+            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <thead>
+                <tr class="background-vnpt tr-small">
+                  @foreach ($huyen['goi_home'] as $ptm)
+                    <th class="text-center"  scope="col">
+                      @if ($ptm['mo_ta'])
+                        {{$ptm['mo_ta']}}
+                      @else
+                        {{$ptm['chi_so']}}
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-small">
+                  @foreach ($huyen['goi_home'] as $ptm)
+                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                      {{$ptm['gia_tri']}}
+                      @if ($ptm['ghi_chu'])
+                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+        @if(isset($huyen['xu_ly_dung_han']) && count($huyen['xu_ly_dung_han'])>0)
+          <div class="font-weight-bold" style="margin-left: 30px;">* Lắp đặt sửa chữa xử lý đúng hạn</div>
+          <div style="margin-left: 40px; margin-bottom: 30px;">
+            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <thead>
+                <tr class="background-vnpt tr-small">
+                  @foreach ($huyen['xu_ly_dung_han'] as $ptm)
+                    <th class="text-center"  scope="col">
+                      @if ($ptm['mo_ta'])
+                        {{$ptm['mo_ta']}}
+                      @else
+                        {{$ptm['chi_so']}}
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-small">
+                  @foreach ($huyen['xu_ly_dung_han'] as $ptm)
+                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                      {{$ptm['gia_tri']}}
+                      @if ($ptm['ghi_chu'])
+                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+        @if(isset($huyen['mll']) && count($huyen['mll'])>0)
+          <div class="font-weight-bold" style="margin-left: 30px;">* Mất liên lạc</div>
+          <div style="margin-left: 40px; margin-bottom: 30px;">
+            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <thead>
+                <tr class="background-vnpt tr-small">
+                  @foreach ($huyen['mll'] as $ptm)
+                    <th class="text-center"  scope="col">
+                      @if ($ptm['mo_ta'])
+                        {{$ptm['mo_ta']}}
+                      @else
+                        {{$ptm['chi_so']}}
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-small">
+                  @foreach ($huyen['mll'] as $ptm)
+                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                      {{$ptm['gia_tri']}}
+                      @if ($ptm['ghi_chu'])
+                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+        @if(isset($huyen['b2a']) && count($huyen['b2a'])>0)
+          <div class="font-weight-bold" style="margin-left: 30px;">* Số liệu B2A</div>
+          <div style="margin-left: 40px; margin-bottom: 30px;">
+            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <thead>
+                <tr class="background-vnpt tr-small">
+                  @foreach ($huyen['b2a'] as $ptm)
+                    <th class="text-center"  scope="col">
+                      @if ($ptm['mo_ta'])
+                        {{$ptm['mo_ta']}}
+                      @else
+                        {{$ptm['chi_so']}}
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-small">
+                  @foreach ($huyen['b2a'] as $ptm)
+                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                      {{$ptm['gia_tri']}}
+                      @if ($ptm['ghi_chu'])
+                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+        
+        @if(isset($huyen['hai_long']) && count($huyen['hai_long'])>0)
+          <div class="font-weight-bold" style="margin-left: 30px;">* Đánh giá độ hài lòng</div>
+          <div style="margin-left: 40px; margin-bottom: 30px;">
+            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <thead>
+                <tr class="background-vnpt tr-small">
+                  @foreach ($huyen['hai_long'] as $ptm)
+                    <th class="text-center"  scope="col">
+                      @if ($ptm['mo_ta'])
+                        {{$ptm['mo_ta']}}
+                      @else
+                        {{$ptm['chi_so']}}
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr-small">
+                  @foreach ($huyen['hai_long'] as $ptm)
+                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
+                      {{$ptm['gia_tri']}}
+                      @if ($ptm['ghi_chu'])
+                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
+                      @endif
+                    </th>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          @if(isset($huyen['xu_ly_suy_hao']) && count($huyen['xu_ly_suy_hao'])>0)
+            <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý sự cố</div>
+            <div style="margin-left: 40px; margin-bottom: 30px;">
+              <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+                <thead>
+                    <tr class="background-vnpt text-center">
+                      <th style="width: 5%;">STT #</th>
+                      <th style="width: 15;">Cán bộ xử lý</th>
+                      <th style="width: 10%;">Suy hao</th>
+                      <th style="width: 10%;">Xử lý</th>
+                      <th style="width: 10%;">Còn lại</th>
+                      <th style="width: 10%;">(+)/(-)</th>
+                      <th style="width: 40%;">
+                        Nguyên nhân
+                      </th>
+                    </tr>
+                </thead>
+                <tbody>    
+                    @php $stt=0; @endphp
+                    @foreach ($huyen['xu_ly_suy_hao'] as $xlsc)
+                      @php $stt++; @endphp
+                      <tr class="tr-hover tr-small">
+                        <td class="text-center">{{$stt}}</td>
+                        <td class='text-primary @if($xlsc['is_group']==1) {{" font-weight-bold"}} @endif'>
+                          @if ($xlsc['mo_ta'])
+                            {{$xlsc['mo_ta']}}
                           @else
-                            {{$ptm['chi_so']}}
+                            {{$xlsc['chi_so']}}
                           @endif
-                        </th>
-                      @endforeach
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      @foreach ($huyen['phat_trien_moi'] as $ptm)
-                        <th class="text-center">
-                          {{$ptm['gia_tri']}}
-                          @if ($ptm['ghi_chu'])
-                            &nbsp;({{$ptm['ghi_chu']}})
-                          @endif
-                        </th>
-                      @endforeach
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            @endif
-
-
-            @if (isset($huyen['xu_ly_suy_hao']) && count($huyen['xu_ly_suy_hao'])>0)
-              <div class="font-weight-bold" style="margin-left: 40px; font-size: 14px;"><i class='fa fa-minus' style="margin-right: 10px;"></i> Xử lý sự cố</div>
-                
-                  <div style="margin-left: 40px; margin-bottom: 30px; font-size: 14px;">
-                    <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered">
-                      <thead>
-                          <tr class="background-vnpt text-center">
-                            <th style="width: 10%;">STT #</th>
-                            <th style="width: 30;">Cán bộ xử lý</th>
-                            <th style="width: 10%;">Suy hao</th>
-                            <th style="width: 10%;">Xử lý</th>
-                            <th style="width: 15%;">Còn lại</th>
-                            <th style="width: 10%;">(+)/(-)</th>
-                            <th style="width: 15%;">
-                              Nguyên nhân
-                            </th>
-                          </tr>
-                      </thead>
-                      <tbody>    
-                          @php $stt=0; @endphp
-                          @foreach ($huyen['xu_ly_suy_hao'] as $xlsc)
-                            @php $stt++; @endphp
-                            <tr class="tr-hover tr-small">
-                              <td class="text-center">{{$stt}}</td>
-                              <td class='text-primary @if($xlsc['is_group']==1) {{" font-weight-bold"}} @endif'>
-                                @if ($xlsc['mo_ta'])
-                                  {{$xlsc['mo_ta']}}
-                                @else
-                                  {{$xlsc['chi_so']}}
-                                @endif
-                              </td>
-                              <td>
-                                {{$xlsc['suy_hao']}}
-                              </td>
-                              <td>
-                                {{$xlsc['gia_tri']}}
-                              </td>
-                              <td>
-                                {{$xlsc['suy_hao_con_lai']}}
-                              </td>
-                              <td>
-                                @php
-                                  $sh=0;
-                                  if($xlsc['gia_tri']==0 || $xlsc['gia_tri']=='' || $xlsc['gia_tri']==null){
-                                    $sh=$xlsc['suy_hao_con_lai']-$xlsc['suy_hao'];
-                                  }
-                                  if($sh>0){
-                                    echo '+'.$sh;
-                                  }
-                                  if($sh<0){
-                                    echo $sh;
-                                  }
-                                @endphp
-                              </td>
-                              <td class="text-center">
-                                {{$xlsc['ghi_chu']}}
-                              </td>
-                            </tr>
-                          @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-              @endif
+                        </td>
+                        <td class="text-center">
+                          {{$xlsc['suy_hao']}}
+                        </td>
+                        <td class="text-center">
+                          {{$xlsc['gia_tri']}}
+                        </td>
+                        <td class="text-center">
+                          {{$xlsc['suy_hao_con_lai']}}
+                        </td>
+                        <td class="text-center">
+                          @php
+                            $sh=0;
+                            if($xlsc['gia_tri']==0 || $xlsc['gia_tri']=='' || $xlsc['gia_tri']==null){
+                              $sh=$xlsc['suy_hao_con_lai']-$xlsc['suy_hao'];
+                            }
+                            if($sh>0){
+                              echo '+'.$sh;
+                            }
+                            if($sh<0){
+                              echo $sh;
+                            }
+                          @endphp
+                        </td>
+                        <td class="text-center">
+                          {{$xlsc['ghi_chu']}}
+                        </td>
+                      </tr>
+                    @endforeach
+                </tbody>
+              </table>
+            </div>
+          @endif
 
               @if (isset($huyen['ke_hoach_tuan']))
                 <div class="font-weight-bold" style="margin-left: 20px; font-size: 14px;">II. Đăng ký công tác tuần tiếp theo:
