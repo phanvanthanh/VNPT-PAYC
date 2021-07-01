@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use App\DmThamSoHeThong;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 class PassportAuthController extends Controller
 {
@@ -24,7 +26,10 @@ class PassportAuthController extends Controller
             'secret_key'=>'required|string',
             'name' => 'required|string',
             'email' => 'required|string|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'di_dong'   => 'required|string',
+            'hinh_anh'  => 'required',
+            'gioi_tinh'  => 'required|numeric'
         ]);
         $secretKey=DmThamSoHeThong::getValueByName('SECRET_KEY_API_TAO_TAI_KHOAN');
         if($request->secret_key!=$secretKey){
@@ -37,11 +42,22 @@ class PassportAuthController extends Controller
                 ]
             ], 201);
         }
+
+        $file=$request->file('hinh_anh');
+        $fileName='';
+        $fileName='api_'.time().'_'.$file->getClientOriginalName();        
+        $fileName=str_replace(' ','',$fileName);
+        $path = $file->storeAs('public/file/payc', $fileName);
+        
+
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'loai_tai_khoan'=>'API'
+            'loai_tai_khoan'=>'API',
+            'di_dong' => $request->di_dong,
+            'hinh_anh' => $fileName,
+            'gioi_tinh' => $request->gioi_tinh
         ]);
         $user->save();
         return response()->json([
