@@ -11,6 +11,9 @@ use App\BcDmTuan;
 use Request as RequestAjax;
 use DateTime;
 use App\BcDmThoiGianBaoCao;
+use App\DonVi;
+use App\DmThamSoHeThong;
+
 
 
 class DmTuanController extends Controller{
@@ -41,7 +44,22 @@ class DmTuanController extends Controller{
     public function themDmTuan(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $data=RequestAjax::all(); // Lấy tất cả dữ liệu
-            BcDmTuan::create($data); // Lưu dữ liệu vào DB
+            $dmTuan=BcDmTuan::create($data); // Lưu dữ liệu vào DB
+            $idTuan=$dmTuan->id;
+            $maxThoiGianChot=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+            $dsDonViVNPT=DonVi::where('ma_cap','!=',null)->where('ma_cap','!=','UBT')->get()->toArray();
+            foreach ($dsDonViVNPT as $key => $donViVNPT) {
+                $dataThoiGianBaoCao['ma_don_vi']=$donViVNPT['ma_don_vi'];
+                $dataThoiGianBaoCao['ma_dinh_danh']=$donViVNPT['ma_dinh_danh'];
+                $dataThoiGianBaoCao['id_tuan']=$idTuan;
+                $dataThoiGianBaoCao['thoi_gian_lay_so_lieu']=$data['tu_ngay'].' '.$maxThoiGianChot;
+                $dataThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
+                $dataThoiGianBaoCao['ghi_chu']=null;
+                $dataThoiGianBaoCao['trang_thai']=0;
+                $thoiGianBaoCaoTuan=BcDmThoiGianBaoCao::create($dataThoiGianBaoCao);
+            }
+
+
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
