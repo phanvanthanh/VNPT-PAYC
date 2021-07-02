@@ -1330,6 +1330,7 @@ class DonViTrucThuocKhacController extends Controller{
                 if($isGroupTruoc<0){
                     $isGroupTruoc=0;
                 }
+                $idDichVu=$baoCaoTruoc->id_dich_vu;
             }
 
             $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
@@ -1373,7 +1374,7 @@ class DonViTrucThuocKhacController extends Controller{
             }else{
                 return  array('error'=>"Chèn dữ liệu thất bại");
             }
-            $dsBaoCaos=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
+            $dsBaoCaos=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
             $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
             if($soLuongBaoCaoCanSuaViTri>0){
                 $baoCaoTuan=BcTuanHienTai::find($idBaoCaoTuan);
@@ -1440,6 +1441,7 @@ class DonViTrucThuocKhacController extends Controller{
                 if($isGroupTruoc<0){
                     $isGroupTruoc=0;
                 }
+                $idDichVu=$baoCaoTruoc->id_dich_vu;
             }
             $idBaoCaoTuan;
 
@@ -1464,7 +1466,7 @@ class DonViTrucThuocKhacController extends Controller{
                 $idBaoCaoTuan=$baoCaoTuan->id;
             }
 
-            $dsBaoCaos=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
+            $dsBaoCaos=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
             $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
             if($soLuongBaoCaoCanSuaViTri>0){
                 $baoCaoTuan=BcKeHoachTuan::find($idBaoCaoTuan);
