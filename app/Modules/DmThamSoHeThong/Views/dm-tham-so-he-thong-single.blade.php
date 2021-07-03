@@ -32,7 +32,8 @@
      <div class="form-group row">
         <label for="gia_tri_tham_so" class="col-sm-4 col-form-label ">Giá trị</label>
         <div class="col-sm-8">
-           <input type="Text" class="form-control gia_tri_tham_so" name="gia_tri_tham_so" placeholder="Vui lòng nhập giá trị tham số" @if($checkData==1)  value="{{$data['gia_tri_tham_so']}}" @endif>
+           {{-- <input type="Text" class="form-control gia_tri_tham_so" name="gia_tri_tham_so" placeholder="Vui lòng nhập giá trị tham số" @if($checkData==1)  value="{{$data['gia_tri_tham_so']}}" @endif> --}}
+           <TEXTAREA name="gia_tri_tham_so" class="form-control gia_tri_tham_so">@if($checkData==1){{$data['gia_tri_tham_so']}}@endif</TEXTAREA>
         </div>
      </div>
 

@@ -837,8 +837,26 @@
         });
         
 
+        
+        
             
+    })                
+</script>
 
-            
-         })                
-      </script>
+@php
+    use Illuminate\Support\Facades\Auth;        
+    if(Auth::id()){
+        $coBatThongBao=Helper::getValueThamSoTheoMa('THONG_BAO_BAT_TAT');
+        if($coBatThongBao==1 && (!Session::has('da_bat_thong_bao') || Session::get('da_bat_thong_bao')==0)){ // Nếu chưa bật
+            Session::put('da_bat_thong_bao',1);
+            echo '<script type="text/javascript">
+                    $(window).on("load", function() {
+                        $("#modal-thong-bao").modal("show");
+                    });
+                </script>';
+        }
+    }
+        
+
+@endphp
+

@@ -462,6 +462,33 @@
    </div>
 </div>
 
-      <div class="modal fade" id="modal-loader" tabindex="-1" role="dialog" aria-hidden="false">
-          <div class="circle-loader" style="margin-top: 25%;"></div>
+
+<div class="modal fade" id="modal-thong-bao" tabindex="-1" role="dialog" aria-labelledby="modal-thong-bao" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content modal-thong-bao ">
+         <div class="modal-header background-vnpt">
+            <h5 class="modal-title">THÔNG BÁO</h5>
+            <b><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></b>
+            </button>
+         </div>
+         <div class="modal-body card">
+            <h4 class="text-danger text-center">THÔNG BÁO HỆ THỐNG</h4>
+            @php               
+               if(!Session::has('da_bat_thong_bao') || Session::get('da_bat_thong_bao')==0){
+                  $noiDungThongBao=Helper::getValueThamSoTheoMa('THONG_BAO_NOI_DUNG');
+                  echo nl2br($noiDungThongBao);  
+               }
+            @endphp
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-close-modal" data-dismiss="modal">Đóng</button>
+         </div>
       </div>
+   </div>
+</div>
+
+
+<div class="modal fade" id="modal-loader" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="circle-loader" style="margin-top: 25%;"></div>
+</div>
