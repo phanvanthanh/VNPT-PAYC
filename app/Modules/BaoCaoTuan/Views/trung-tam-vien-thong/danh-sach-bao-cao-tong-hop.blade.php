@@ -25,6 +25,10 @@
         (Từ ngày {{$tuNgay}} đến {{$denNgay}})
       </h6>
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
+      @php
+        $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
+        echo $trangThai;
+      @endphp
       <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
@@ -208,20 +212,10 @@
           {{$sttHuyen}}. {{$huyen['thong_tin_don_vi']['ten_don_vi']}}
           
         </div>
-        @if ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']==0)
-          @php 
-            echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'> Chưa gửi báo cáo</span>"; @endphp
-        @elseif($trangThaiChotBaoCao>0 && $huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']<2)
-          @php 
-            $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
-            $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
-            echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Báo cáo lúc: </span> <span class='text-danger font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
-        @else
-          @php 
-            $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
-            $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
-            echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Báo cáo lúc: </span> <span class='text-success font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
-        @endif
+        @php
+          $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $huyen['thong_tin_don_vi']['ma_don_vi'], $huyen['thong_tin_don_vi']['ma_dinh_danh']);
+          echo $trangThai;
+        @endphp
         @if ($trangThaiChotBaoCao==0 || ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']>1 && $trangThaiChotBaoCao>0))
           @if (isset($huyen['tuan_hien_tai']))            
             <div class="font-weight-bold" style="margin-left: 30px;  font-size: 14px;">I. Báo cáo kết quả công tác tuần qua:</div>

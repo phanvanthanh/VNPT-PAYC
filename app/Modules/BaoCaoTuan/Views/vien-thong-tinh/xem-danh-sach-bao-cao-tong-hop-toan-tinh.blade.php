@@ -34,8 +34,11 @@
     <div class="row">
       <div class="col-12">      
         <h6 class="text-primary">* {{$donVi['ten_don_vi']}}</h6>
-        @if ($trangThaiChotBaoCao==0)
-          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
+        @php
+          $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
+          echo $trangThai;
+        @endphp
+        @if ($trangThaiChotBaoCao==0) 
         @else
         <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>
         <ul class="">
@@ -161,8 +164,11 @@
     <div class="row">
       <div class="col-12">      
         <h6 class="text-primary">* {{$donVi['ten_don_vi']}}</h6>
-        @if ($trangThaiChotBaoCao==0)
-          @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
+        @php
+          $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
+          echo $trangThai;
+        @endphp
+        @if ($trangThaiChotBaoCao==0)          
         @else
         <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>        
         @php
@@ -291,19 +297,10 @@
             {{$sttHuyen}}. {{$huyen['thong_tin_don_vi']['ten_don_vi']}}
             
           </div>
-          @if ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']==0)
-            @php echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>"; @endphp
-          @elseif($trangThaiChotBaoCao>0 && $huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']<2)
-            @php 
-              $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
-              $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
-              echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
-          @else
-            @php 
-              $thoiGianChotSoLieuDonViCon = strtotime($huyen['thong_tin_don_vi']['thoi_gian_chot_so_lieu']);
-              $thoiGianChotSoLieuDonViCon = date('d/m/Y H:i:s',$thoiGianChotSoLieuDonViCon);
-              echo "<span class='label-danger font-weight-bold' style='margin-left:30px;'>* Trạng thái: </span> <span class='text-success font-weight-bold'>".$thoiGianChotSoLieuDonViCon."</span>"; @endphp
-          @endif
+          @php
+            $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $huyen['thong_tin_don_vi']['ma_don_vi'], $huyen['thong_tin_don_vi']['ma_dinh_danh']);
+            echo $trangThai;
+          @endphp
           @if ($huyen['thong_tin_don_vi']['trang_thai_chot_bao_cao']>1 && $trangThaiChotBaoCao>0)
             @if (isset($huyen['tuan_hien_tai']))
               <div class="font-weight-bold" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:</div>        
@@ -679,25 +676,4 @@
     @endforeach
 
   @endforeach
-  <div class="row">
-    <div class="col-12">
-      <br>
-      <div class="form-group mt-5 text-right" style="margin-bottom: 0px;  font-size: 14px;">
-        <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
-        <button type="button" class="btn btn-danger mr-2 btn-gui-nhac-nho-qua-telegram"><i class="fa fa-send"></i> Gửi thông báo nhắc nhở (Qua Telegram)</button>
-      </div>
-    </div>
-  </div>
 </div>
-
-<script type="text/javascript">
-  jQuery(document).ready(function() {
-    var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-    jQuery('.btn-gui-nhac-nho-qua-telegram').on('click',function(){
-      var idTuan=jQuery('#id_tuan').val();
-      postAndNotRefreshById(_token, idTuan, "{{ route('vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram') }}", true);
-      return false;
-    });
-  });
-</script>

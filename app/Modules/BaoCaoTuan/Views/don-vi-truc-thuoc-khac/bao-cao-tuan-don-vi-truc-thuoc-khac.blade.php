@@ -31,7 +31,7 @@
                     <div class="card">
                       <div class="card-body" style="min-height: 500px;">
                         <form class="forms-sample frm-bao-cao-tuan" id="frm-bao-cao-tuan" name="frm-bao-cao-tuan"><div class="wrapper d-block d-sm-flex align-items-center justify-content-between">
-                          <h4 class="card-title mb-2" style="width: 25%;">
+                          <h4 class="card-title mb-2" style="width: 20%;">
                             
                               {{ csrf_field() }}
                               <select class="form-control id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
@@ -40,7 +40,7 @@
                                 @endforeach
                               </select>                            
                           </h4>
-                          <h4 class="card-title mb-2" style="width: 25%;">
+                          <h4 class="card-title mb-2" style="width: 20%;">
                               <select id="id-dich-vu" class="form-control @if(count($dichVus)<=1) d-none @endif" name="id_dich_vu">
                                 @foreach ($dichVus as $dichVu)
                                   <option value="{{$dichVu['id_dich_vu']}}">{{$dichVu['ten_dich_vu']}}</option> 

@@ -14,12 +14,43 @@ use GuzzleHttp\Client;
 use App\BcPhanQuyenBaoCao;
 use App\BcKeHoachTuan;
 use App\BcTuanHienTai;
+use App\BcDmTuan;
 use DateTime;
 
 use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+
+    public static function trangThaiBaoCao($idTuan, $maDonVi, $maDinhDanh){
+        $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+        $dmTuan=BcDmTuan::find($idTuan);
+
+        $thoiGianBaoCao=array();
+        if($baoCaoTheoMaDinhDanh){
+            $thoiGianBaoCao=BcDmThoiGianBaoCao::where('ma_dinh_danh','=',$maDinhDanh)->where('id_tuan','=',$idTuan)->get()->toArray();
+        }else{
+            $thoiGianBaoCao=BcDmThoiGianBaoCao::where('ma_don_vi','=',$maDonVi)->where('id_tuan','=',$idTuan)->get()->toArray();
+        }
+        if( isset($thoiGianBaoCao[0]['thoi_gian_chot_so_lieu']) && $thoiGianBaoCao[0]['thoi_gian_chot_so_lieu']!=null){
+            $maxThoiGianChot=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+            $date1=$thoiGianBaoCao[0]['thoi_gian_chot_so_lieu'];
+            $date2=$dmTuan->den_ngay.' '.$maxThoiGianChot;
+            $datetime1 = date_create($date1);
+            $datetime2 = date_create($date2);
+            $interval = date_diff($datetime1, $datetime2);
+
+            $thoiGianChotBaoCao = strtotime($thoiGianBaoCao[0]['thoi_gian_chot_so_lieu']);
+            $thoiGianChotBaoCao = date('d/m/Y H:i:s',$thoiGianChotBaoCao);
+            if($interval->format('%R')=='+'){
+                return "<span class='font-weight-bold' style='margin-left:20px;'>* Thời gian: </span> <span class='text-success font-weight-bold'>".$thoiGianChotBaoCao."</span>";
+            }else{
+                return "<span class='font-weight-bold' style='margin-left:20px;'>* Thời gian: </span> <span class='text-danger font-weight-bold'>".$thoiGianChotBaoCao."</span>";
+            }
+        }else{
+            return "<span class='label-danger font-weight-bold' style='margin-left:20px;'>* Trạng thái: </span> <span class='text-danger font-weight-bold'>Chưa gửi báo cáo</span>";
+        }
+    }
 
     /*
         0 là không có nhập
@@ -446,6 +477,7 @@ class Helper
 		$tyLe=100-(($thoiGianHienTai*100)/$thoiGianTong);
 		return $tyLe;
 	}
+
 
 	public static function checkHanXuLy($date1, $date2){
 		$data=array();
