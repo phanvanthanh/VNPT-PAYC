@@ -35,6 +35,10 @@
         (Từ ngày {{$tuNgay}} đến {{$denNgay}})
       </h6>
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
+      @php
+          $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
+          echo $trangThai;
+        @endphp
       <div class="font-weight-bold them-bao-cao-tuan-2 hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)
           <i class="list-menu-nhanh d-none">
