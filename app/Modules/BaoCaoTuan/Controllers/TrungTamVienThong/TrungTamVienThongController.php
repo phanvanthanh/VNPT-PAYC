@@ -14,6 +14,7 @@ use App\BcDmTuan;
 use App\BcDmThoiGianBaoCao;
 use App\BcKeHoachTuan;
 use App\BcDhsxkd;
+use App\Helpers\Helper;
 use GuzzleHttp\Client;
 
 class TrungTamVienThongController extends Controller{
@@ -1098,7 +1099,9 @@ class TrungTamVienThongController extends Controller{
             $dsDonViCons=\Helper::layDonViConTheoMaCap($danhSachDonVis, $donVi['id'], 'HUYEN');
 
             $dsDonViChuaBaoCao='';
+            $dsDonViDaBaoCao='';
             $sttChuaGuiBaoCao=0;
+            $sttDaGuiBaoCao=0;
             foreach ($dsDonViCons as $key => $donViCon) {  
                 
                 if($baoCaoTheoMaDinhDanh==1){
@@ -1115,9 +1118,13 @@ class TrungTamVienThongController extends Controller{
                     $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$donViCon['ten_don_vi'].'
         ';
                 }else{
-                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']<1) { // Chưa làm báo cáo
                         $sttChuaGuiBaoCao++;
                         $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$donViCon['ten_don_vi'].'
+        ';
+                    }else{
+                        $sttDaGuiBaoCao++;
+                        $dsDonViDaBaoCao.=$sttDaGuiBaoCao.'/ '.$donViCon['ten_don_vi'].'
         ';
                     }
                 }
@@ -1126,19 +1133,17 @@ class TrungTamVienThongController extends Controller{
             $noiDungNhacNhoMacDinh=DmThamSoHeThong::getValueByName('BC_NOI_DUNG_NHAC_NHO_MAC_DINH');
             $noiDungNhacNho= $donVi['ten_don_vi'].' xin thông báo:
 '.$noiDungNhacNhoMacDinh.'
-        '.$dsDonViChuaBaoCao;
+        '.$dsDonViChuaBaoCao.'
+- Danh sách đơn vị đã hoàn thành báo cáo gồm:
+    '.$dsDonViDaBaoCao;
 
             // Gọi api gửi tin nhắn qua Telegram
-            $client = new Client();        
-            
-            $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
-                    'form_params' =>[
-                        'chat_id' => '-443889305',
-                        'text' => $noiDungNhacNho
-                    ]
-                ]);
-            $responseStatus = $r->getStatusCode();
-            return array('error'=>""); // Thành công
+            $r = Helper::sendTelegramMessage($noiDungNhacNho);
+            if($r){
+                return array('error'=>""); // Thành công
+            }else{
+                return array('error'=>"Gửi thông báo thất bại"); // Thành công
+            }
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }

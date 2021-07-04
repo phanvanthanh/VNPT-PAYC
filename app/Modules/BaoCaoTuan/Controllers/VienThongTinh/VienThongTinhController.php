@@ -315,6 +315,9 @@ class VienThongTinhController extends Controller{
 
             $dsDonViChuaBaoCao='';
             $sttChuaGuiBaoCao=0;
+
+            $dsDonViDaBaoCao='';
+            $sttDaGuiBaoCao=0;
             foreach ($phongBanTrungTams as $key => $phongBanTrungTam) {
                 
                 if($baoCaoTheoMaDinhDanh==1){
@@ -331,10 +334,14 @@ class VienThongTinhController extends Controller{
                     $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$phongBanTrungTam['ten_don_vi'].'
         ';
                 }else{
-                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']<2) { // Chưa làm báo cáo
                         $sttChuaGuiBaoCao++;
                         $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$phongBanTrungTam['ten_don_vi'].'
         ';
+                    }else{
+                        $sttDaGuiBaoCao++;
+                        $dsDonViDaBaoCao.=$sttDaGuiBaoCao.'/ '.$phongBanTrungTam['ten_don_vi'].'
+        ';              
                     }
                 }
             }
@@ -359,9 +366,13 @@ class VienThongTinhController extends Controller{
                     $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$ttvt['ten_don_vi'].'
         ';
                 }else{
-                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']!=2) { // Chưa làm báo cáo
+                    if ($thoiGianBaoCaoTheoDonVi[0]['trang_thai']<2) { // Chưa làm báo cáo
                         $sttChuaGuiBaoCao++;
                         $dsDonViChuaBaoCao.=$sttChuaGuiBaoCao.'/ '.$ttvt['ten_don_vi'].'
+        ';
+                    }else{
+                        $sttDaGuiBaoCao++;
+                        $dsDonViDaBaoCao.=$sttDaGuiBaoCao.'/ '.$ttvt['ten_don_vi'].'
         ';
                     }
                 }
@@ -369,7 +380,9 @@ class VienThongTinhController extends Controller{
             $noiDungNhacNhoMacDinh=DmThamSoHeThong::getValueByName('BC_NOI_DUNG_NHAC_NHO_MAC_DINH');
             $noiDungNhacNho=$vienThongTinh['ten_don_vi'].' xin thông báo:
 '.$noiDungNhacNhoMacDinh.'
-        '.$dsDonViChuaBaoCao;       
+        '.$dsDonViChuaBaoCao.'
+- Danh sách đơn vị đã hoàn thành báo cáo gồm:
+    '.$dsDonViDaBaoCao;      
             
             $r = Helper::sendTelegramMessage($noiDungNhacNho);
             if($r){

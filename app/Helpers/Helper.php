@@ -105,10 +105,13 @@ class Helper
 
     public static function sendTelegramMessage($message){
         // Gọi api gửi tin nhắn qua Telegram
+        $telegramGroupIds=DmThamSoHeThong::getValueByName('TELEGRAM_GROUP_ID');
+        $telegramGroupIds=explode(';', $telegramGroupIds);
+        $telegramGroupId=$telegramGroupIds[0];
         $client = new Client();        
         $r = $client->request('POST', 'https://api.telegram.org/bot1060980505:AAG8Q1xdKJa1zx0vXELYfWwus-Jl9hy1bVc/sendMessage',[
                 'form_params' =>[
-                    'chat_id' => '-443889305',
+                    'chat_id' => $telegramGroupId, // Group báo cáo tuần: 443889305
                     'text' => $message
                 ]
             ]);        
