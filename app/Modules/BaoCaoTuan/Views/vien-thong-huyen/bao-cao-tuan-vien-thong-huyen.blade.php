@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">BÁO CÁO TUẦN - TỔ KỸ THUẬT CẤP HUYỆN</h4>
+                    <h4 class="text-danger">BÁO CÁO TUẦN - TỔ KỸ THUẬT</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -18,6 +18,12 @@
                   $week=\Helper::layTuanHienTai();
                   $year=date('Y');
                   $daVuotThoiGianBaoCao=0;
+
+                  $userId=Auth::id();
+                  $checkQuyenBaoCaoTuanHienTai=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_TUAN_HIEN_TAI');
+                  $checkQuyenBaoCaoKeHoachTuan=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_KE_HOACH_TUAN');
+                  $checkQuyenBaoCaoDhsxkd=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'BAO_CAO_DHSXKD');
+                  $checkQuyenXemBaoCaoTongHop=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XEM_BAO_CAO_TONG_HOP');
                 @endphp
                 
                 <div class="row user-profile">
@@ -141,6 +147,287 @@
   <script type="text/javascript">
     jQuery(document).ready(function() {
       $.fn.dataTable.ext.errMode = 'none';
+
+      capNhatBaoCaoTuanHienTai=function(form){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+
+        
+        var formData = new FormData(form[0]);
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('cap-nhat-bao-cao-tuan-hien-tai') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);            
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      chenBaoCaoTuanHienTai=function(form){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var formData = new FormData(form[0]);
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('chen-bao-cao-tuan-hien-tai') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+              jQuery('.noi-dung-bao-cao-tuan-hien-tai-3').val('');
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      capNhatKeHoachTuan=function(form){
+        loading('.error-mode');
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+        var idDichVu=jQuery('#id-dich-vu').val();
+        jQuery('.input-id-dich-vu').val(idDichVu);
+
+        
+        var formData = new FormData(form[0]);
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('cap-nhat-bao-cao-ke-hoach-tuan') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+              jQuery('.chen-ke-hoach-tuan').val('');           
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      chenKeHoachTuan=function(form){
+        loading('.error-mode');
+        var formData = new FormData(form[0]);
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('chen-ke-hoach-tuan') }}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+              jQuery('.chen-ke-hoach-tuan').val('');
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      baoCaoTuanHienTaiDiChuyenLen=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-len') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      baoCaoTuanHienTaiDiChuyenXuong=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-bao-cao-tuan-hien-tai-di-chuyen-xuong') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);   
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      keHoachTuanDiChuyenLen=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-len') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);    
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+
+      keHoachTuanDiChuyenXuong=function(id){     
+        var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+        var idTuan=jQuery('#id_tuan').val();
+        jQuery('.input-id-tuan').val(idTuan);
+
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('don-vi-truc-thuoc-khac-ke-hoach-tuan-di-chuyen-xuong') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token,
+              'id':id,
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+               loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+              loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
   
       // THÔNG TIN CHUNG
       // onload
@@ -153,18 +440,24 @@
       // Onchange selectbox tuần
       jQuery('.id_tuan').on('change',function(){
         var idTuan=jQuery(this).val();
-        jQuery('.input-id-tuan').val(idTuan);
-        // Load báo cáo tuần
-        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+        jQuery('.input-id-tuan').val(idTuan);        
+        @if ($checkQuyenBaoCaoTuanHienTai==1)
+          // Load báo cáo tuần          
+          loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+        @endif
+        @if ($checkQuyenBaoCaoKeHoachTuan==1)
+          // Load kế hoạch tuần          
+          loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+        @endif
+        @if ($checkQuyenBaoCaoDhsxkd==1)
+          // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
+          loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
+        @endif
+        @if ($checkQuyenXemBaoCaoTongHop==1)
+          // Load báo cáo tổng hợp
+          loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+        @endif
 
-        // Load kế hoạch tuần
-        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
-
-        // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
-        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
-
-        // Load báo cáo tổng hợp
-        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
 

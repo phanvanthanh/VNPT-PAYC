@@ -119,7 +119,7 @@ class VienThongHuyenController extends Controller{
                             $dataBaoCaoTuan['ghi_chu']=null;
                             $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                             $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=0;
+                            $dataBaoCaoTuan['is_group']=2;
                             $dataBaoCaoTuan['sap_xep']=0;
                             $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                             $sapXep=$baoCaoTuan->id;
@@ -137,7 +137,7 @@ class VienThongHuyenController extends Controller{
                     $dataBaoCaoTuan['ghi_chu']=null;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
-                    $dataBaoCaoTuan['is_group']=0;
+                    $dataBaoCaoTuan['is_group']=2;
                     $dataBaoCaoTuan['sap_xep']=0;
                     $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                     $sapXep=$baoCaoTuan->id;
@@ -172,6 +172,95 @@ class VienThongHuyenController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu");
     }
 
+    public function chenBaoCaoTuanHienTai(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id_tuan'];
+            $idDichVu=null;
+            $idBaoCaoTruoc=$data['id_bao_cao_truoc'];
+            $baoCaoTruoc=BcTuanHienTai::find($idBaoCaoTruoc);
+
+            $isGroupTruoc=0;
+            $sapXepTruoc=0;
+            if($baoCaoTruoc){
+                $isGroupTruoc=$baoCaoTruoc->is_group-1;
+                $sapXepTruoc=$baoCaoTruoc->sap_xep;
+                if($isGroupTruoc<0){
+                    $isGroupTruoc=0;
+                }
+                $idDichVu=$baoCaoTruoc->id_dich_vu;
+            }
+
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'HUYEN');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $donVi=$donVi['data'];  
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            $ma='';
+            if($baoCaoTheoMaDinhDanh==1){
+                $ma=$donVi['ma_dinh_danh'];
+            }else{
+                $ma=$donVi['ma_don_vi'];
+            }
+            // Kiểm tra đã chốt số liệu chưa
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
+                return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $checkExits=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('id_dich_vu','=',$idDichVu)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            $idBaoCaoTuan=0;
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=$isGroupTruoc;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcTuanHienTai::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$baoCaoTuan->id;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+                $idBaoCaoTuan=$baoCaoTuan->id;                    
+            }else{
+                return  array('error'=>"Chèn dữ liệu thất bại");
+            }
+            $dsBaoCaos=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
+            $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
+            if($soLuongBaoCaoCanSuaViTri>0){
+                $baoCaoTuan=BcTuanHienTai::find($idBaoCaoTuan);
+                $baoCaoTuan->sap_xep=$dsBaoCaos[0]['sap_xep'];
+                $baoCaoTuan->save();
+                foreach ($dsBaoCaos as $key => $baoCao) {
+                    $sttKeTiep=$key+1;
+                    $sapXep=1000;
+                    if($sttKeTiep<$soLuongBaoCaoCanSuaViTri){
+                        $sapXep=$dsBaoCaos[$sttKeTiep]['sap_xep'];
+                    }else{
+                        $sapXep=$baoCaoTuan->id;
+                    }
+
+                    $bcCanSuaViTri=BcTuanHienTai::find($baoCao['id']);
+                    //$bcCanSuaViTri->id=$sapXep;
+                    $bcCanSuaViTri->sap_xep=$sapXep;
+                    $bcCanSuaViTri->save();
+                }
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
     
 
 
@@ -423,7 +512,7 @@ class VienThongHuyenController extends Controller{
                             $dataBaoCaoTuan['ghi_chu']=null;
                             $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                             $dataBaoCaoTuan['trang_thai']=0;
-                            $dataBaoCaoTuan['is_group']=0;
+                            $dataBaoCaoTuan['is_group']=2;
                             $dataBaoCaoTuan['sap_xep']=0;
                             $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                             $sapXep=$baoCaoTuan->id;
@@ -442,7 +531,7 @@ class VienThongHuyenController extends Controller{
                     $dataBaoCaoTuan['ghi_chu']=null;
                     $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
                     $dataBaoCaoTuan['trang_thai']=0;
-                    $dataBaoCaoTuan['is_group']=0;
+                    $dataBaoCaoTuan['is_group']=2;
                     $dataBaoCaoTuan['sap_xep']=0;
                     $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
                     $sapXep=$baoCaoTuan->id;
@@ -731,8 +820,6 @@ class VienThongHuyenController extends Controller{
                 $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
                 $thoiGianLaySoLieu=$dmTuan[0]['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
             }
-
-
 
             
             // Nếu chưa chốt số liệu thì cho lấy số liệu
@@ -1288,6 +1375,98 @@ class VienThongHuyenController extends Controller{
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
     }
+
+    public function chenKeHoachTuan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $userId=0; $error=''; // Khai báo biến
+            if(Auth::id()){
+                $userId=Auth::id();
+            }
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $idTuan=$data['id_tuan'];
+            $idDichVu=null;
+            $idBaoCaoTruoc=$data['id_bao_cao_truoc'];
+
+            $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'HUYEN');
+            if ($donVi['error']>0) {
+                return array('error'=>"Lỗi Lỗi tài khoản không có quyền báo cáo."); // Trả về lỗi phương thức truyền số liệu
+            }
+            $donVi=$donVi['data'];  
+            $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+            $ma='';
+            if($baoCaoTheoMaDinhDanh==1){
+                $ma=$donVi['ma_dinh_danh'];
+            }else{
+                $ma=$donVi['ma_don_vi'];
+            }
+            // Kiểm tra đã chốt số liệu chưa
+            $daChoSoLieu=BcDmThoiGianBaoCao::kiemTraDaChotSoLieu($idTuan, $ma);
+            //if($daChoSoLieu==1){
+            if($daChoSoLieu==2){
+                return array('error'=>"Lỗi đã chốt số liệu nên không thể chỉnh sửa."); // Trả về lỗi phương thức truyền số liệu
+            }
+
+            $baoCaoTruoc=BcKeHoachTuan::find($idBaoCaoTruoc);
+            $isGroupTruoc=0;
+            $sapXepTruoc=0;
+            if($baoCaoTruoc){
+                $isGroupTruoc=$baoCaoTruoc->is_group-1;
+                $sapXepTruoc=$baoCaoTruoc->sap_xep;
+                if($isGroupTruoc<0){
+                    $isGroupTruoc=0;
+                }
+                $idDichVu=$baoCaoTruoc->id_dich_vu;
+            }
+            $idBaoCaoTuan;
+
+            $checkExits=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('id_user_bao_cao','=',$userId)->where('noi_dung','=',$data['noi_dung'])->get()->toArray();
+            if(count($checkExits)<=0){
+                $dataBaoCaoTuan=array();
+                $dataBaoCaoTuan['id_tuan']=$data['id_tuan'];
+                $dataBaoCaoTuan['id_user_bao_cao']=$userId;
+                $dataBaoCaoTuan['noi_dung']=$data['noi_dung'];
+                $dataBaoCaoTuan['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataBaoCaoTuan['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataBaoCaoTuan['id_dich_vu']=$idDichVu;
+                $dataBaoCaoTuan['ghi_chu']=null;
+                $dataBaoCaoTuan['thoi_gian_bao_cao']=date('Y-m-d H:i:s');
+                $dataBaoCaoTuan['trang_thai']=0;
+                $dataBaoCaoTuan['is_group']=$isGroupTruoc;
+                $dataBaoCaoTuan['sap_xep']=0;
+                $baoCaoTuan=BcKeHoachTuan::create($dataBaoCaoTuan); // Lưu dữ liệu vào DB
+                $sapXep=$baoCaoTuan->id;
+                $baoCaoTuan->sap_xep=$sapXep;
+                $baoCaoTuan->save();
+                $idBaoCaoTuan=$baoCaoTuan->id;
+            }
+
+            $dsBaoCaos=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
+            $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
+            if($soLuongBaoCaoCanSuaViTri>0){
+                $baoCaoTuan=BcKeHoachTuan::find($idBaoCaoTuan);
+                $baoCaoTuan->sap_xep=$dsBaoCaos[0]['sap_xep'];
+                $baoCaoTuan->save();
+                foreach ($dsBaoCaos as $key => $baoCao) {
+                    $sttKeTiep=$key+1;
+                    $sapXep=1000;
+                    if($sttKeTiep<$soLuongBaoCaoCanSuaViTri){
+                        $sapXep=$dsBaoCaos[$sttKeTiep]['sap_xep'];
+                    }else{
+                        $sapXep=$baoCaoTuan->id;
+                    }
+
+                    $bcCanSuaViTri=BcKeHoachTuan::find($baoCao['id']);
+                    //$bcCanSuaViTri->id=$sapXep;
+                    $bcCanSuaViTri->sap_xep=$sapXep;
+                    $bcCanSuaViTri->save();
+                }
+            }
+            return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
+    }
+
+
     
     
 }

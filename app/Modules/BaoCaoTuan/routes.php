@@ -49,6 +49,13 @@ Route::group(
                 ]);
 
 
+                Route::post('chen-bao-cao-tuan-hien-tai', [
+                    'as' => 'chen-bao-cao-tuan-hien-tai',
+                    'uses' => 'VienThongHuyenController@chenBaoCaoTuanHienTai'
+                ]);
+
+
+
 
                 // Báo cáo Kế hoạch tuần kế tiếp
                 Route::post('danh-sach-bao-cao-ke-hoach-tuan', [
@@ -73,6 +80,13 @@ Route::group(
                     'as' => 'bc-is-group-ke-hoach-tuan',
                     'uses' => 'VienThongHuyenController@bcIsGroupKeHoachTuan'
                 ]);
+
+                Route::post('chen-ke-hoach-tuan', [
+                    'as' => 'chen-ke-hoach-tuan',
+                    'uses' => 'VienThongHuyenController@chenKeHoachTuan'
+                ]);
+
+
 
                 // Báo cáo ĐHSXKD
                 Route::post('danh-sach-bao-cao-dhsxkd', [

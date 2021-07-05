@@ -43,35 +43,15 @@
 
               if($baoCao['is_group']==3){
                 $sttPhanMem++;
-                /*echo "<div class='is-group-3 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'>".$sttPhanMem.'. '.$baoCao['noi_dung']."
-                  <i class='chen-noi-dung d-none'>
-                    <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-ke-hoach-tuan-".$baoCao['id']."'></i>
-                  </i>
-                </div>";*/
                 $icon=$sttPhanMem.". ";
               }
               elseif($baoCao['is_group']==2){
-                /*echo "<div class='is-group-2 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='fa fa-minus'></i>".$baoCao['noi_dung']."
-                  <i class='chen-noi-dung d-none'>
-                    <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-ke-hoach-tuan-".$baoCao['id']."'></i>
-                  </i>
-                </div>";*/
                 $icon="<i class='fa fa-minus'></i>";
               }
               elseif($baoCao['is_group']==1){
-                /*echo "<div class='is-group-1 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='plus-sign'></i>".$baoCao['noi_dung']."
-                  <i class='chen-noi-dung d-none'>
-                    <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-ke-hoach-tuan-".$baoCao['id']."'></i>
-                  </i>
-                </div>";*/
                 $icon="<i class='plus-sign'></i>";
               }
               else{
-                /*echo "<div class='is-group-0 dbclick-view-form hover-view-form' data-hover-view-form='.chen-noi-dung' data-dbclick-view-form='.frm-cap-nhat-bao-cao-tuan-".$baoCao['id']."'><i class='white-circle'></i>".$baoCao['noi_dung']."
-                  <i class='chen-noi-dung d-none'>
-                    <i class='fa fa-plus-circle text-primary cusor click-view-form' data-click-view-form='#frm-chen-ke-hoach-tuan-".$baoCao['id']."'></i>
-                  </i>
-                </div>";*/
                 $icon="<i class='white-circle'></i>";
               }
               echo "<div class='is-group-".$baoCao['is_group']." ".$class."' ".$attr.">".$icon.$baoCao['noi_dung']."

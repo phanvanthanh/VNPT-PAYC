@@ -75,6 +75,9 @@
 
             @if ($daChotSoLieu==0)
                 <i class="list-menu-nhanh d-none">
+                  &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-long-arrow-up text-success cusor btn-tuan-hien-tai-di-chuyen-len-2" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"></i>&nbsp;
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-tuan-hien-tai-di-chuyen-xuong-2" data="{{$baoCaoTuanHienTai['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group fa fa-th-list cusor i-hover @if($baoCaoTuanHienTai['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group fa fa-list-ul cusor i-hover @if($baoCaoTuanHienTai['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group fa fa fa-indent cusor i-hover @if($baoCaoTuanHienTai['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoTuanHienTai['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -410,6 +413,9 @@
 
             @if ($daChotSoLieu==0)
                 <i class="list-menu-nhanh d-none">
+                   &nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-long-arrow-up text-success cusor btn-ke-hoach-tuan-di-chuyen-len-2" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển lên"></i>&nbsp;
+                  <i class="fa fa-long-arrow-down text-danger cusor btn-ke-hoach-tuan-di-chuyen-xuong-2" data="{{$baoCaoKeHoachTuan['id']}}" data-toggle="tooltip" data-placement="bottom" title="Di chuyển xuống"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group-ke-hoach-tuan fa fa-th-list cusor i-hover @if($baoCaoKeHoachTuan['is_group']==2) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_2"></i> &nbsp;&nbsp;&nbsp;                
                   <i class="is-group-ke-hoach-tuan fa fa-list-ul cusor i-hover @if($baoCaoKeHoachTuan['is_group']==1) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_1"></i> &nbsp;&nbsp;&nbsp;
                   <i class="is-group-ke-hoach-tuan fa fa fa-indent cusor i-hover @if($baoCaoKeHoachTuan['is_group']==0) {{"text-primary font-weight-bold"}} @endif"  data="{{$baoCaoKeHoachTuan['id']}}_0"></i> &nbsp;&nbsp;&nbsp;
@@ -577,6 +583,32 @@
       jQuery('.xem-ghi-chu').on('click', function() {
         var title=jQuery(this).attr('title');
         jQuery('.show-ghi-chu').text(title);
+      });
+
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-len-2').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenLen(id);
+        return false;
+      });
+
+      jQuery('.btn-tuan-hien-tai-di-chuyen-xuong-2').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        baoCaoTuanHienTaiDiChuyenXuong(id);
+        return false;
+      });
+
+
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-len-2').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        keHoachTuanDiChuyenLen(id);
+        return false;
+      });
+
+      jQuery('.btn-ke-hoach-tuan-di-chuyen-xuong-2').on('click',function(){    
+        var id=jQuery(this).attr("data");
+        keHoachTuanDiChuyenXuong(id);
+        return false;
       });
 
 

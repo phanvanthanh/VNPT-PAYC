@@ -30,13 +30,25 @@ class BcDmThoiGianBaoCao extends Model
     	$thoiGianChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
     	$ngayGioChotBaoCao=$thu6.' '.$thoiGianChotBaoCao;
     	$ngayGioHienTai=date('Y-m-d H:i:s');
-    	$ngayGioHienTai = new DateTime($ngayGioHienTai);
+
+
+    	$ngayGioHienTai = date_create($ngayGioHienTai);
+        $ngayGioChotBaoCao = date_create($ngayGioChotBaoCao);
+        $interval = date_diff($ngayGioChotBaoCao, $ngayGioHienTai);
+        if($interval->format('%R')=='+'){ // nếu ngày hiện tại > hơn ngày báo cáo
+        	return 1;
+        }else{
+        	return 0;
+        }
+
+
+    	/*$ngayGioHienTai = new DateTime($ngayGioHienTai);
 		$ngayGioChotBaoCao = new DateTime($ngayGioChotBaoCao);
 		if ($ngayGioChotBaoCao < $ngayGioHienTai) { // Đã vượt ngày chốt
 			return 1;
 		}else{ 
 			return 0;
-		}
+		}*/
     }
 
 
