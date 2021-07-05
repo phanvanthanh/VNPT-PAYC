@@ -52,7 +52,7 @@ class DmTuanController extends Controller{
                 $dataThoiGianBaoCao['ma_don_vi']=$donViVNPT['ma_don_vi'];
                 $dataThoiGianBaoCao['ma_dinh_danh']=$donViVNPT['ma_dinh_danh'];
                 $dataThoiGianBaoCao['id_tuan']=$idTuan;
-                $dataThoiGianBaoCao['thoi_gian_lay_so_lieu']=$data['tu_ngay'].' '.$maxThoiGianChot;
+                $dataThoiGianBaoCao['thoi_gian_lay_so_lieu']=$data['den_ngay'].' '.$maxThoiGianChot;
                 $dataThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
                 $dataThoiGianBaoCao['ghi_chu']=null;
                 $dataThoiGianBaoCao['trang_thai']=0;
