@@ -234,7 +234,7 @@ class VienThongHuyenController extends Controller{
                 $baoCaoTuan->save();
                 $idBaoCaoTuan=$baoCaoTuan->id;                    
             }else{
-                return  array('error'=>"Chèn dữ liệu thất bại");
+                return  array('error'=>"Nội dung này đã tồn tại");
             }
             $dsBaoCaos=BcTuanHienTai::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
             $soLuongBaoCaoCanSuaViTri=count($dsBaoCaos);
@@ -1438,6 +1438,8 @@ class VienThongHuyenController extends Controller{
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
                 $idBaoCaoTuan=$baoCaoTuan->id;
+            }else{
+                return array("error"=>'Nội dung này đã tồn tại');
             }
 
             $dsBaoCaos=BcKeHoachTuan::where('id_tuan','=',$data['id_tuan'])->where('sap_xep','>',$sapXepTruoc)->where('id','!=',$idBaoCaoTuan)->orderBy('sap_xep','asc')->get()->toArray();
