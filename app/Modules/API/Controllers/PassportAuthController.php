@@ -66,7 +66,7 @@ class PassportAuthController extends Controller
         $user->save();
         return response()->json([
             'message' => 'Tạo tài khoản thành công!',
-            "errors"     =>[]
+            "errors"     =>null
         ], 201);
     }
   
