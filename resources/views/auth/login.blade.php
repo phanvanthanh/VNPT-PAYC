@@ -5,25 +5,25 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-xs-0 col-sm-0 col-md-2 col-lg-4">&nbsp;</div>
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-4">
+					<div class="col-xs-0 col-sm-0 col-md-2 col-lg-2">&nbsp;</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 						<h3 class="card-title text-center"><b class="color-vnpt text-center"><br><br><br>ĐĂNG NHẬP<br></b></h3>
 						<form class="forms-sample" id="frm-dang-nhap" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
 							<div class="form-group row">
-							  	<label for="ten-dang-nhap" class="col-sm-4 col-form-label d-none d-sm-block">Tên đăng nhập</label>
-							  	<div class="col-sm-8">
+							  	<label for="ten-dang-nhap" class="col-sm-3 col-form-label d-none d-sm-block">Tên đăng nhập</label>
+							  	<div class="col-sm-9">
 							    	<input type="Text" class="form-control" id="ten-dang-nhap" name="email" required="" placeholder="Nhập tên đăng nhập" value="{{ old('email')}}">
 							  	</div>
 							</div>
 							<div class="form-group row">
-							  	<label for="mat-khau" class="col-sm-4 col-form-label d-none d-sm-block">Mật khẩu</label>
-							  	<div class="col-sm-8">
+							  	<label for="mat-khau" class="col-sm-3 col-form-label d-none d-sm-block">Mật khẩu</label>
+							  	<div class="col-sm-9">
 							    	<input type="password" name="password" class="form-control" id="mat-khau" placeholder="Mật khẩu">
 							  	</div>
 							</div>
 							<div class="form-group row">
-								<label for="mat-khau" class="col-sm-4 col-form-label d-none d-sm-block">&nbsp;</label>
+								<label for="mat-khau" class="col-sm-3 col-form-label d-none d-sm-block">&nbsp;</label>
 								<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label for="remember">
                                     &nbsp; Ghi nhớ lần đăng nhập sau
