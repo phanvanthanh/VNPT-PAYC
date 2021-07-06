@@ -51,12 +51,12 @@
                           <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
                             @if ($checkQuyenBaoCaoTuanHienTai==1)
                               <li class="nav-item">
-                                <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">Báo cáo tuần này</a>
+                                <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">BC tuần</a>
                               </li>
                             @endif
                             @if ($checkQuyenBaoCaoKeHoachTuan==1)
                               <li class="nav-item">
-                                <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">Kế hoạch tuần kế</a>
+                                <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">KH tuần</a>
                               </li>
                             @endif
                             @if ($checkQuyenBaoCaoDhsxkd==1)
@@ -66,7 +66,7 @@
                             @endif
                             @if ($checkQuyenXemBaoCaoTongHop==1)
                             <li class="nav-item">
-                              <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Duyệt & Gửi báo cáo</a>
+                              <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Tổng hợp</a>
                             </li>
                             @endif
                           </ul>
