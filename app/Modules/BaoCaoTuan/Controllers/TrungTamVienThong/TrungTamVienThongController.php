@@ -116,6 +116,8 @@ class TrungTamVienThongController extends Controller{
                 $sapXep=$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
+            }else{
+                return array("error"=>'Nội dung này đã tồn tại');
             }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
@@ -390,6 +392,8 @@ class TrungTamVienThongController extends Controller{
                 $sapXep=$baoCaoTuan->id;
                 $baoCaoTuan->sap_xep=$sapXep;
                 $baoCaoTuan->save();
+            }else{
+                return array("error"=>'Nội dung này đã tồn tại');
             }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }

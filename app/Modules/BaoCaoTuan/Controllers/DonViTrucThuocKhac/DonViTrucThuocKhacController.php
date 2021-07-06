@@ -223,7 +223,9 @@ class DonViTrucThuocKhacController extends Controller{
                     $baoCaoTuan->save();
                 }
                     
-            }                
+            }else{
+                return array("error"=>'Nội dung này đã tồn tại');
+            }              
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Báo lỗi phương thức truyền dữ liệu
@@ -518,6 +520,8 @@ class DonViTrucThuocKhacController extends Controller{
                     $baoCaoTuan->sap_xep=$sapXep;
                     $baoCaoTuan->save();
                 }
+            }else{
+                return array("error"=>'Nội dung này đã tồn tại');
             }
             return array("error"=>''); // Trả về thông báo lưu dữ liệu thành công
         }
