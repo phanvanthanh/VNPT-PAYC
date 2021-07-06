@@ -27,10 +27,22 @@ class VienThongHuyenController extends Controller{
     }
 
     public function baoCaoTuanVienThongHuyen(Request $request){
+        $userId=0; $error=''; // Khai báo biến
+        if(Auth::id()){
+            $userId=Auth::id();
+        }
+        
         $year=date('Y');
         $bcDmTuan=BcDmTuan::where('nam','=',$year)
         ->get()->toArray();
-        return view('BaoCaoTuan::vien-thong-huyen.bao-cao-tuan-vien-thong-huyen',compact('bcDmTuan'));
+
+        $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'HUYEN');
+        if ($donVi['error']>0) {
+            return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
+        }
+        $donVi=$donVi['data'];
+
+        return view('BaoCaoTuan::vien-thong-huyen.bao-cao-tuan-vien-thong-huyen',compact('bcDmTuan', 'donVi'));
     }
 
 

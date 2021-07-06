@@ -5,8 +5,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-xs-0 col-sm-0 col-md-2 col-lg-2">&nbsp;</div>
-					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					<div class="col-xs-0 col-sm-0 col-md-2 col-lg-3">&nbsp;</div>
+					<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
 						<h3 class="card-title text-center"><b class="color-vnpt text-center"><br><br><br>ĐĂNG NHẬP<br></b></h3>
 						<form class="forms-sample" id="frm-dang-nhap" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}

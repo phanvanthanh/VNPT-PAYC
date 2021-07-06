@@ -67,16 +67,15 @@
             iDisplayLength: -1
         });
 
-        
-      jQuery('.ghi_chu').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-          var form=jQuery(this).parents('form');
-          var idTuan=jQuery('#id_tuan').val(); 
-          capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('trung-tam-vien-thong-cap-nhat-ghi-chu-bao-cao-dhsxkd') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-bao-cao-dhsxkd', false);
-          return false;
-        }
 
+      $(".ghi_chu").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+            var form=jQuery(this).parents('form');
+            var idTuan=jQuery('#id_tuan').val(); 
+            capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('trung-tam-vien-thong-cap-nhat-ghi-chu-bao-cao-dhsxkd') }}", idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-bao-cao-dhsxkd', false);
+            return false;
+          }
       });
 
       jQuery('.btn-trung-tam-vien-thong-lay-so-lieu-bao-cao-dhsxkd').on('click', function() {

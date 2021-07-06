@@ -20385,7 +20385,7 @@ html {
 .content-wrapper {
   background: #F6F8FA;
   min-height: 100vh;
-  padding: 1.5rem 1.7rem;
+  /*padding: 1.5rem 1.7rem;*/
   transition: width 0.25s ease, margin 0.25s ease;
   width: calc(100% - 255px);
 }
@@ -29737,7 +29737,7 @@ div.modal .modal-dialog .modal-content .modal-header {
 }
 
 .card div.card-body {
-  padding: 1rem; 
+  padding: 2rem 0.4rem;
 }
 .card-body.margin-bottom-card-body{
   text-align: center;

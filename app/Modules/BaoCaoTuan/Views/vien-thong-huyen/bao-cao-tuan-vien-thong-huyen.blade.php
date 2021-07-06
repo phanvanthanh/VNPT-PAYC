@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">BÁO CÁO TUẦN - TỔ KỸ THUẬT</h4>
+                    <h4 class="text-danger">&nbsp; Báo cáo tuần: {{$donVi['ten_don_vi']}}</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
@@ -70,7 +70,6 @@
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                     <div class="form-group">
-                                      {{-- <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"> --}}
                                       <Textarea class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
                                     </div>
                                   </div>
@@ -95,7 +94,6 @@
                                 <div class="row">
                                   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
-                                      {{-- <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"> --}}
                                       <Textarea type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
                                     </div>
                                   </div>
@@ -473,14 +471,14 @@
 
 
       // MODULE BÁO CÁO TUẦN HIỆN TẠI
-      jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
-          jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
-          return false;
-        }
+      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai', false);
+            jQuery('.noi-dung-bao-cao-tuan-hien-tai').val('');
+            return false;
+          }
       });
 
       jQuery('.btn-bao-cao-tuan-hien-tai').on("click", function(e) {
@@ -500,14 +498,14 @@
 
 
       // MODULE BÁO CÁO KẾ HOẠCH TUẦN
-      jQuery('.noi-dung-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
-          jQuery('.noi-dung-bao-cao-ke-hoach-tuan').val('');
-          return false;
-        }
+      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan', false);
+            jQuery('.noi-dung-bao-cao-ke-hoach-tuan').val('');
+            return false;
+          }
       });
 
       jQuery('.btn-bao-cao-ke-hoach-tuan').on("click", function(e) {

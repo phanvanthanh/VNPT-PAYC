@@ -303,6 +303,16 @@ Route::group(
                     'uses' => 'TrungTamVienThongController@bcIsGroupTuanHienTai'
                 ]);
 
+                Route::post('trung-tam-vien-thong-cap-nhat-bao-cao-tuan-hien-tai', [
+                    'as' => 'trung-tam-vien-thong-cap-nhat-bao-cao-tuan-hien-tai',
+                    'uses' => 'TrungTamVienThongController@capNhatBaoCaoTuanHienTai'
+                ]);
+
+                Route::post('trung-tam-vien-thong-chen-bao-cao-tuan-hien-tai', [
+                    'as' => 'trung-tam-vien-thong-chen-bao-cao-tuan-hien-tai',
+                    'uses' => 'TrungTamVienThongController@chenBaoCaoTuanHienTai'
+                ]);
+
 
 
                 // Báo cáo Kế hoạch tuần kế tiếp
@@ -329,6 +339,15 @@ Route::group(
                     'uses' => 'TrungTamVienThongController@bcIsGroupKeHoachTuan'
                 ]);
 
+                Route::post('trung-tam-vien-thong-cap-nhat-bao-cao-ke-hoach-tuan', [
+                    'as' => 'trung-tam-vien-thong-cap-nhat-bao-cao-ke-hoach-tuan',
+                    'uses' => 'TrungTamVienThongController@capNhatBaoCaoKeHoachTuan'
+                ]);
+
+                Route::post('trung-tam-vien-thong-chen-ke-hoach-tuan', [
+                    'as' => 'trung-tam-vien-thong-chen-ke-hoach-tuan',
+                    'uses' => 'TrungTamVienThongController@chenKeHoachTuan'
+                ]);
                 // Báo cáo ĐHSXKD
                 Route::post('trung-tam-vien-thong-danh-sach-bao-cao-dhsxkd', [
                     'as' => 'trung-tam-vien-thong-danh-sach-bao-cao-dhsxkd',

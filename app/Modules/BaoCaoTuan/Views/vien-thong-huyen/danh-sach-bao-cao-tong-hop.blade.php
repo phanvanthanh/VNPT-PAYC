@@ -36,7 +36,7 @@
           </i>
         @endif
       </div>
-      <form class="forms-sample frm-bao-cao-tuan-hien-tai d-none" id="frm-bao-cao-tuan-hien-tai-2" name="frm-bao-cao-tuan-hien-tai-2">
+      <form class="forms-sample frm-bao-cao-tuan-hien-tai d-none" id="frm-bao-cao-tuan-hien-tai-2" name="frm-bao-cao-tuan-hien-tai-2"  action="javascript:void(0)">
         {{ csrf_field() }}
         <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
         <div class="row">
@@ -86,7 +86,7 @@
             @endif
 
           </li>
-          <form class="forms-sample frm-cap-nhat-bao-cao-tuan-hien-tai d-none" id="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" name="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
+          <form class="forms-sample frm-cap-nhat-bao-cao-tuan-hien-tai d-none" id="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" name="frm-cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}" action="javascript:void(0)">
             {{ csrf_field() }}
             <input type="hidden" name="id" value="{{$baoCaoTuanHienTai['id']}}">
             <input @if ($baoCaoTuanHienTai['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-tuan-hien-tai" data="{{$baoCaoTuanHienTai['id']}}" value="{{$baoCaoTuanHienTai['noi_dung']}}" id="cap-nhat-bao-cao-tuan-hien-tai-{{$baoCaoTuanHienTai['id']}}">
@@ -371,7 +371,7 @@
           </i>
         @endif
       </div>
-      <form class="forms-sample frm-bao-cao-ke-hoach-tuan-2 d-none" id="frm-bao-cao-ke-hoach-tuan-2" name="frm-bao-cao-ke-hoach-tuan-2">
+      <form class="forms-sample frm-bao-cao-ke-hoach-tuan-2 d-none" id="frm-bao-cao-ke-hoach-tuan-2" name="frm-bao-cao-ke-hoach-tuan-2" action="javascript:void(0)">
         {{ csrf_field() }}
         <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
         <div class="row">
@@ -423,7 +423,7 @@
                 </i>
             @endif
           </li>
-          <form class="forms-sample frm-cap-nhat-bao-cao-ke-hoach-tuan d-none" id="frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" name="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
+          <form class="forms-sample frm-cap-nhat-bao-cao-ke-hoach-tuan d-none" id="frm-cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" name="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}" action="javascript:void(0)">
             {{ csrf_field() }}
             <input type="hidden" name="id" value="{{$baoCaoKeHoachTuan['id']}}">
             <input @if ($baoCaoKeHoachTuan['is_group']==1) style='margin-left: 20px;' @else style='margin-left: 20px;' @endif type="text" name="noi_dung" class="form-control cap-nhat-bao-cao-ke-hoach-tuan" data="{{$baoCaoKeHoachTuan['id']}}" value="{{$baoCaoKeHoachTuan['noi_dung']}}" id="cap-nhat-bao-cao-ke-hoach-tuan-{{$baoCaoKeHoachTuan['id']}}">
@@ -469,7 +469,9 @@
 </div>
 
 
-<script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@if ($daChotSoLieu==0)
+  <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+@endif
 <script type="text/javascript">
     jQuery(document).ready(function() {
       jQuery('.btn-chot-va-gui-bao-cao').on('click',function(){
@@ -481,20 +483,19 @@
         }
       });
 
-      jQuery('.cap-nhat-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu>0){
-            errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+      $(".cap-nhat-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var daChotSoLieu={{$daChotSoLieu}};
+            if(daChotSoLieu>0){
+              errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+              return false;
+            }
+            var form=jQuery(this).parents('form');
+            var _token=form.find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('cap-nhat-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
             return false;
           }
-          var form=jQuery(this).parents('form');
-          var _token=form.find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('cap-nhat-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          return false;
-          
-        }
       });
 
       jQuery('.btn-xoa-bao-cao-tuan-hien-tai').on('click',function(){  
@@ -511,19 +512,18 @@
         postAndRefreshById(_token, id, "{{ route('bc-is-group-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
-      jQuery('.noi-dung-bao-cao-tuan-hien-tai').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          form.find('.input-id-tuan').val(idTuan);
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          jQuery('#frm-bao-cao-tuan-hien-tai-2').addClass('d-none');
-          e.preventDefault();
-          return false;
-        }
 
+      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            form.find('.input-id-tuan').val(idTuan);
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-tuan-hien-tai') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            jQuery('#frm-bao-cao-tuan-hien-tai-2').addClass('d-none');
+            e.preventDefault();
+            return false;
+          }
       });
 
       jQuery('.btn-lay-so-lieu-bao-cao-dhsxkd').on('click', function() {
@@ -535,22 +535,19 @@
 
 
       // Kế hoạch tuần
-      jQuery('.cap-nhat-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var daChotSoLieu={{$daChotSoLieu}};
-          if(daChotSoLieu>0){
-            errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+      $(".cap-nhat-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var daChotSoLieu={{$daChotSoLieu}};
+            if(daChotSoLieu>0){
+              errorLoader(".error-mode","Đã chốt số liệu không thể chỉnh sửa");
+              return false;
+            }
+            var form=jQuery(this).parents('form');
+            var _token=form.find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('cap-nhat-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
             return false;
           }
-          var form=jQuery(this).parents('form');
-          var _token=form.find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          capNhatVaRefreshDuLieuTheoId(_token, form, "{{ route('cap-nhat-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          return false;
-          
-        }
-
-
       });
 
       jQuery('.btn-xoa-bao-cao-ke-hoach-tuan').on('click',function(){  
@@ -567,16 +564,17 @@
         postAndRefreshById(_token, id, "{{ route('bc-is-group-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
       });
 
-      jQuery('.noi-dung-bao-cao-ke-hoach-tuan').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-          var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
-          var idTuan=jQuery('#id_tuan').val();
-          var form=jQuery(this).parents('form');
-          form.find('.input-id-tuan').val(idTuan);
-          themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
-          e.preventDefault();
-          return false;
-        }
+
+      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+          if((e.keyCode || e.which) == 13) { //Enter keycode
+            var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
+            var idTuan=jQuery('#id_tuan').val();
+            var form=jQuery(this).parents('form');
+            form.find('.input-id-tuan').val(idTuan);
+            themMoiVaRefreshDuLieuTheoId2(_token, form, "{{ route('them-bao-cao-ke-hoach-tuan') }}", idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+            e.preventDefault();
+            return false;
+          }
       });
 
 

@@ -33,12 +33,19 @@ class DonViTrucThuocKhacController extends Controller{
         if(Auth::id()){
             $userId=Auth::id();
         }
+
         $year=date('Y');
         $bcDmTuan=BcDmTuan::where('nam','=',$year)
         ->get()->toArray();
 
+        $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'KHAC');
+        if ($donVi['error']>0) {
+            return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
+        }
+        $donVi=$donVi['data'];
+
         $dichVus=UsersDichVu::danhSachDichVuTheoTaiKhoan($userId);
-        return view('BaoCaoTuan::don-vi-truc-thuoc-khac.bao-cao-tuan-don-vi-truc-thuoc-khac',compact('bcDmTuan', 'userId', 'dichVus'));
+        return view('BaoCaoTuan::don-vi-truc-thuoc-khac.bao-cao-tuan-don-vi-truc-thuoc-khac',compact('bcDmTuan', 'userId', 'dichVus', 'donVi'));
     }
 
 

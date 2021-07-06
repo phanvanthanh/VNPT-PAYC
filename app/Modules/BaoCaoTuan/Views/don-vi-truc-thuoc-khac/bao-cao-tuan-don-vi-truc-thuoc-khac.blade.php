@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">BÁO CÁO TUẦN - PHÒNG BAN/TRUNG TÂM TRỰC THUỘC</h4>
+                    <h4 class="text-danger">&nbsp; Báo cáo tuần: {{$donVi['ten_don_vi']}}</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 
