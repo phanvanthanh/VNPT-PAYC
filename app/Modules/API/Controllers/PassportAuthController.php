@@ -28,7 +28,7 @@ class PassportAuthController extends Controller
             'email' => 'required|string|unique:users',
             'password' => 'required|string|confirmed',
             'di_dong'   => 'required|string',
-            'hinh_anh'  => 'required',
+            'hinh_anh'  => 'nullable',
             'gioi_tinh'  => 'required|numeric'
         ]);
         $secretKey=DmThamSoHeThong::getValueByName('SECRET_KEY_API_TAO_TAI_KHOAN');
@@ -43,11 +43,15 @@ class PassportAuthController extends Controller
             ], 201);
         }
 
-        $file=$request->file('hinh_anh');
-        $fileName='';
-        $fileName='api_'.time().'_'.$file->getClientOriginalName();        
-        $fileName=str_replace(' ','',$fileName);
-        $path = $file->storeAs('public/file/payc', $fileName);
+        
+        $fileName='logo.png';
+        if($request->hasFile('hinh_anh')){
+            $file=$request->file('hinh_anh');
+            $fileName='api_'.time().'_'.$file->getClientOriginalName();        
+            $fileName=str_replace(' ','',$fileName);
+            $path = $file->storeAs('public/file/payc', $fileName);
+        }
+            
         
 
         $user = new User([
