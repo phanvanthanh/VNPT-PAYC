@@ -4,6 +4,19 @@ $namespace = 'App\Modules\User\Controllers';
 Route::group(
     ['module'=>'User', 'namespace' => $namespace, 'middleware'=>['web', 'auth','check-role']],
     function() {
+        
+
+        Route::get('v2/tai-khoan', [
+            'as' => 'v2-user',
+            'uses' => 'UserController@v2User'
+        ]);
+
+        Route::post('v2/danh-sach-tai-khoan', [
+            'as' => 'v2-danh-sach-tai-khoan',
+            'uses' => 'UserController@v2DanhSachTaiKhoan'
+        ]);
+
+
         Route::get('tai-khoan', [
             'as' => 'user',
             'uses' => 'UserController@user'

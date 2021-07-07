@@ -20,6 +20,7 @@ use App\UsersDichVu;
 use App\BcDmQuyenBaoCaoTuan;
 use App\BcPhanQuyenBaoCao;
 use Request as RequestAjax;
+use App\DonVi;
 
 
 class UserController extends Controller{
@@ -31,11 +32,36 @@ class UserController extends Controller{
     public function __construct(){
     }
 
+
+    public function v2User(Request $request){
+        $users=User::where('state','=',1)->get()->toArray();
+        $donVis=DonVi::where('don_vi.state','=',1)->get()->toArray();
+        
+        $donVis=\Helper::paycTreeResource($donVis,null);
+        
+        return view('User::v2-user',compact('users', 'donVis'));
+    }
+
+    public function v2DanhSachTaiKhoan(Request $request){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $error=''; // Khai báo biến
+
+            $donVis=DonVi::orderBy('ma_cap','asc')->get()->toArray();
+            $donVis=\Helper::paycTreeResource($donVis,null);
+            $view=view('User::v2-danh-sach-tai-khoan', compact('donVis','error'))->render(); // Trả dữ liệu ra view 
+            return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
+    }
+
+
     public function user(Request $request){
         $users=User::where('state','=',1)->get()->toArray();
         // $users=\Helper::paycTreeResource($users,null);
         return view('User::user',compact('users'));
     }
+
+
 
 
     public function danhSachUser(Request $request){
@@ -109,6 +135,7 @@ class UserController extends Controller{
                 $user->password = bcrypt($request->matkhau);
                 $user->di_dong = $request->sdt;
                 $user->state = $request->state;
+                $user->sso_nhanvien_id = $request->sso_nhanvien_id;
                 $user->save();
                 return array("error"=>'');
             }else{

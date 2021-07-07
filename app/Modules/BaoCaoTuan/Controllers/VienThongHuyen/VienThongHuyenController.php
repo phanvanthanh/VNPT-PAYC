@@ -38,7 +38,7 @@ class VienThongHuyenController extends Controller{
 
         $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'HUYEN');
         if ($donVi['error']>0) {
-            return array('error'=>"Lỗi tài khoản không có quyền báo cáo"); // Trả về lỗi phương thức truyền số liệu
+            abort(403, 'Tài khoản không có quyền báo cáo.');
         }
         $donVi=$donVi['data'];
 

@@ -125,98 +125,98 @@
                   <button type="button" class="btn btn-vnpt btn-cap-nhat"><i class="icon-check"></i> Cập nhật</button>
                   <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
                 </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header background-vnpt">
-                <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO CÁN BỘ</h5>
-              
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body card">
-            <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
-                {{ csrf_field() }}
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="modal-phan-quyen-can-bo" tabindex="-1" role="dialog" aria-labelledby="modal-phan-quyen-can-bo" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header background-vnpt">
-                <h5 class="modal-title">PHÂN NHÓM QUYỀN TÀI KHOẢN</h5>
-              
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body card">
-            <form class="forms-sample frm-phan-quyen-can-bo" id="frm-phan-quyen-can-bo" name="frm-phan-quyen-can-bo">
-                {{ csrf_field() }}
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal-cau-hinh-dich-vu" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-dich-vu" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header background-vnpt">
-                <h5 class="modal-title">CẤU HÌNH DỊCH VỤ CHO TÀI KHOẢN</h5>
-              
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body card">
-                <form class="forms-sample frm-cau-hinh-dich-vu" id="frm-cau-hinh-dich-vu" name="frm-cau-hinh-dich-vu">
+    <div class="modal fade" id="modal-cau-hinh-don-vi" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-don-vi" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header background-vnpt">
+                    <h5 class="modal-title">CẤU HÌNH ĐƠN VỊ CHO CÁN BỘ</h5>
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body card">
+                <form class="forms-sample frm-cau-hinh-don-vi" id="frm-cau-hinh-don-vi" name="frm-cau-hinh-don-vi">
                     {{ csrf_field() }}
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="modal-cau-hinh-quyen-bao-cao" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-quyen-bao-cao" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header background-vnpt">
-                <h5 class="modal-title">CẤU HÌNH QUYỀN BÁO CÁO TUẦN</h5>
-              
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body card">
-            <form class="forms-sample frm-cau-hinh-quyen-bao-cao" id="frm-cau-hinh-quyen-bao-cao" name="frm-cau-hinh-quyen-bao-cao">
-                {{ csrf_field() }}
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="modal-phan-quyen-can-bo" tabindex="-1" role="dialog" aria-labelledby="modal-phan-quyen-can-bo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header background-vnpt">
+                    <h5 class="modal-title">PHÂN NHÓM QUYỀN TÀI KHOẢN</h5>
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body card">
+                <form class="forms-sample frm-phan-quyen-can-bo" id="frm-phan-quyen-can-bo" name="frm-phan-quyen-can-bo">
+                    {{ csrf_field() }}
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-cau-hinh-dich-vu" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-dich-vu" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header background-vnpt">
+                    <h5 class="modal-title">CẤU HÌNH DỊCH VỤ CHO TÀI KHOẢN</h5>
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body card">
+                    <form class="forms-sample frm-cau-hinh-dich-vu" id="frm-cau-hinh-dich-vu" name="frm-cau-hinh-dich-vu">
+                        {{ csrf_field() }}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modal-cau-hinh-quyen-bao-cao" tabindex="-1" role="dialog" aria-labelledby="modal-cau-hinh-quyen-bao-cao" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header background-vnpt">
+                    <h5 class="modal-title">CẤU HÌNH QUYỀN BÁO CÁO TUẦN</h5>
+                  
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body card">
+                <form class="forms-sample frm-cau-hinh-quyen-bao-cao" id="frm-cau-hinh-quyen-bao-cao" name="frm-cau-hinh-quyen-bao-cao">
+                    {{ csrf_field() }}
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

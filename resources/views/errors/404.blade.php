@@ -31,7 +31,7 @@
   </div>
   <div class="row mt-5">
     <div class="col-12 mt-xl-2">
-      <p class="text-white font-weight-medium text-center">Copyright &copy; 2020 <b>Phan Văn Thanh</b>  All rights reserved.</p>
+      <p class="text-white font-weight-medium text-center">Copyright &copy; 2020 <b>Phòng Giải pháp CNTT - Trung tâm Công nghệ Thông tin</b>  All rights reserved.</p>
     </div>
   </div>
 @endsection

@@ -22,6 +22,12 @@ use Illuminate\Support\Facades\Auth;
 class Helper
 {
 
+    public static function layDanhSachTaiKhoanTheoDonVi($idDonVi)
+    {
+        $dsTaiKhoan=UsersDonVi::layDanhSachTaiKhoanTheoDonVi($idDonVi);
+        return $dsTaiKhoan;
+    }
+
     public static function trangThaiBaoCao($idTuan, $maDonVi, $maDinhDanh){
         $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
         $dmTuan=BcDmTuan::find($idTuan);

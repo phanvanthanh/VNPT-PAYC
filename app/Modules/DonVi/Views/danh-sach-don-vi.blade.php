@@ -22,14 +22,14 @@
                 <td class="text-center">                    
                     {{$stt}}
                 </td>
-                <td class="t-tree cusor" data-id="{{$donVi['id']}}" data-parent="{{$donVi['parent_id']}}" data-show="1">      
+                <td class="t-tree cusor" data-id="{{$donVi['id']}}" data-parent="{{$donVi['parent_id']}}" data-show="0">      
                     @if($donVi['level']>0)
                         @for ($i = 0; $i < $donVi['level']; $i++)
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         @endfor
                     @endif              
                     @if($donVi['has_child'])
-                        <span class="text-primary"><i class="tree-icon fa fa-minus-square-o text-primary"></i>&nbsp;&nbsp;{{$donVi['ten_don_vi']}}</span>
+                        <span class="text-primary"><i class="tree-icon fa fa-plus-square-o text-primary"></i>&nbsp;&nbsp;{{$donVi['ten_don_vi']}}</span>
                     @else
                         @if($donVi['ma_cap']==null || $donVi['ma_cap']=='')
                             <i>{{$donVi['ten_don_vi']}}</i>

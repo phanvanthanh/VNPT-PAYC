@@ -34,6 +34,13 @@
      </div>
 
      <div class="form-group row">
+        <label for="sso_nhanvien_id" class="col-sm-4 col-form-label">Nhân viên id SSO</label>
+        <div class="col-sm-8">
+            <input type="Text" class="form-control sso_nhanvien_id" name="sso_nhanvien_id" required placeholder="Vui lòng nhập sso_nhanvien_id cần tạo" @if($checkData==1)  value="{{$data['sso_nhanvien_id']}}" @endif>
+        </div>
+     </div>
+
+     <div class="form-group row">
         <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
         <div class="col-sm-8">
            <select class="form-control state" name="state">

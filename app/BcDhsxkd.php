@@ -49,8 +49,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -59,8 +57,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -69,8 +65,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -115,8 +109,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -125,8 +117,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -135,8 +125,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -181,8 +169,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -191,8 +177,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -201,8 +185,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -247,8 +229,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -257,8 +237,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -267,8 +245,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -313,8 +289,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -322,8 +296,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -332,8 +304,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -378,8 +348,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -388,8 +356,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -398,8 +364,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -444,8 +408,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => null
                 );
@@ -454,8 +416,6 @@ class BcDhsxkd extends Model
                 $decodeBody= array(
                     'message'           => 'Lấy dữ liệu thành công',
                     'errors'            => 0,
-                    'access_token'      => null,
-                    'token_type'        => null,
                     'expires_at'        => date('Y-m-d H:i:s'),
                     'data'              => $result
                 );
@@ -464,8 +424,6 @@ class BcDhsxkd extends Model
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s'),
                 'data'              => null
             );
@@ -506,22 +464,27 @@ class BcDhsxkd extends Model
             ]);
         $decodeBody=array();
         if ($r->getStatusCode()==200) {
-            $decodeBody=json_decode($r->getBody(), true);
-            if(!$decodeBody){ // Có trường hợp status thành công mà body thì bị rỗng. VD: bỏ headers
+            $result=json_decode($r->getBody(), true);
+            if(!$result){ // Có trường hợp status thành công mà body thì bị rỗng. VD: bỏ headers
                 $decodeBody= array(
                     'message'           => 'Dữ liệu rổng',
                     'errors'            => 100,
-                    'access_token'      => null,
-                    'token_type'        => null,
-                    'expires_at'        => date('Y-m-d H:i:s')
+                    'expires_at'        => date('Y-m-d H:i:s'),
+                    'data'              => null
+                );
+            }else{
+                $result=$result[0];
+                $decodeBody= array(
+                    'message'           => 'Lấy dữ liệu thành công',
+                    'errors'            => 0,
+                    'expires_at'        => date('Y-m-d H:i:s'),
+                    'data'              => $result
                 );
             }
         }else{
             $decodeBody= array(
                 'message'           => 'Lấy dữ liệu thất bại',
                 'errors'            => 101,
-                'access_token'      => null,
-                'token_type'        => null,
                 'expires_at'        => date('Y-m-d H:i:s')
             );
         }

@@ -63,6 +63,18 @@ class UsersDonVi extends Authenticatable
     }
 
 
+    public static function layDanhSachTaiKhoanTheoDonVi($idDonVi)
+    {
+        $dsTaiKhoan=UsersDonVi::select('users.id', 'users.name', 'users.email', 'users.sso_nhanvien_id', 'users.di_dong', 'chuc_vu.ten_chuc_vu', 'users.gioi_tinh')
+        ->leftJoin('users','users_don_vi.id_user','=','users.id')
+        ->leftJoin('chuc_vu','users_don_vi.id_chuc_vu','=','chuc_vu.id')
+        ->where('users_don_vi.id_don_vi','=',$idDonVi)
+        ->orderBy('users_don_vi.id_user')
+        ->get()->toArray();
+        return $dsTaiKhoan;
+    }
+
+
    
 
 }
