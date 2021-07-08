@@ -67,7 +67,7 @@ class UserController extends Controller{
     public function danhSachUser(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $users=User::where('loai_tai_khoan','=','CAN_BO')->get()->toArray();
+            $users=User::orderBy('id','desc')->get()->toArray();
             //$users=User::all()->toArray();
             $view=view('User::danh-sach-user', compact('users','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
@@ -136,6 +136,7 @@ class UserController extends Controller{
                 $user->di_dong = $request->sdt;
                 $user->state = $request->state;
                 $user->sso_nhanvien_id = $request->sso_nhanvien_id;
+                $user->gioi_tinh = $request->gioi_tinh;
                 $user->save();
                 return array("error"=>'');
             }else{

@@ -41,6 +41,16 @@
      </div>
 
      <div class="form-group row">
+        <label for="gioi_tinh" class="col-sm-4 col-form-label">Giới tính</label>
+        <div class="col-sm-8">
+           <select class="form-control gioi_tinh" name="gioi_tinh">
+            <option value="1" @if($checkData==1)  @if($data['gioi_tinh']==1){{'selected="selected"'}}@endif @endif>Nam</option>
+            <option value="0" @if($checkData==1)  @if($data['gioi_tinh']==0){{'selected="selected"'}}@endif @endif>Nữ</option>
+          </select>
+        </div>
+     </div> 
+
+     <div class="form-group row">
         <label for="state" class="col-sm-4 col-form-label">Trạng thái</label>
         <div class="col-sm-8">
            <select class="form-control state" name="state">
