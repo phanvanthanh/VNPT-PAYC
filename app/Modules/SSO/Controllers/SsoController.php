@@ -74,7 +74,7 @@ class SsoController extends Controller{
 
                     // Đăng nhập vào hệ thống bằng tài khoản đã nhập
                     $credentials = $request->only('email', 'password');
-                    if (Auth::attempt($credentials)) {
+                    if (Auth::attempt($credentials)) {                        
                         return redirect()->intended('to-do');
                     }
                 }else{
@@ -132,7 +132,11 @@ class SsoController extends Controller{
                     exit;
                 }
                     
-            }catch (Exception $e) {
+            }catch(\Firebase\JWT\ExpiredException $e){
+                header('Location: https://portal.vnpttravinh.vn/');
+                exit;
+            }
+            catch (Exception $e) {
                 header('Location: https://portal.vnpttravinh.vn/');
                 exit;
             }
