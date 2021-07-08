@@ -9,6 +9,11 @@ Route::group(
             'as' => 'sso-dang-nhap',
             'uses' => 'SsoController@ssoDangNhap'
         ]);
+
+        Route::post('sso/login-2', [
+            'as' => 'sso-dang-nhap-2',
+            'uses' => 'SsoController@ssoDangNhap2'
+        ]);
     }
 
 

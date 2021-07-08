@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Session\Session;
 use App\SsoModel;
 use App\User;
+use Firebase\JWT\JWT;
 
 class SsoController extends Controller{
     /*
@@ -64,7 +65,7 @@ class SsoController extends Controller{
                         'name'          => $userSso['ten_nd'],
                         'email'         => $userSso['ma_nd'],
                         'password'      => $passwordBcrypt,
-                        'loai_tai_khoan'=>'SSO',
+                        'loai_tai_khoan'=>'CAN_BO',
                         'di_dong'       => $userSso['sdt'],
                         'sso_nhanvien_id'   => $idNhanVien,
                         'sso_password'   => $password
@@ -80,7 +81,6 @@ class SsoController extends Controller{
                     // Cập nhật lại một số thông tin
                     User::where('sso_nhanvien_id','=',$idNhanVien)->update([
                         'name'          => $userSso['ten_nd'],
-                        'loai_tai_khoan'=>'SSO',
                         'di_dong'       => $userSso['sdt'],
                         'sso_password'   => $password
                     ]);
@@ -99,6 +99,46 @@ class SsoController extends Controller{
         // Đăng nhập thất bại
         $request->session()->flash('notification-error', '<b>Đăng nhập thất bại</b>! '.$respone['message']);
         return redirect()->route('login');
+        
+    }
+
+
+    public function ssoDangNhap2(Request $request)
+    {
+        $token=$request->token;
+        JWT::$leeway += 600;
+        if ((isset($request->token))) {
+            $ma_bao_mat = "vnpt-dntt";
+            $token=$request->token;
+            try {
+                $token_decode = JWT::decode($token, $ma_bao_mat, ['HS256']);
+                $base64IdNhanVien = $token_decode->nhanvien_id;
+                $idNhanVien=base64_decode($base64IdNhanVien);
+
+                // Lấy user để đăng nhập bên hệ thống mình
+                $checkUserExits=User::where('sso_nhanvien_id','=',$idNhanVien)->get()->toArray();  
+                if(count($checkUserExits)>0){
+                    $userId=$checkUserExits[0]['id'];
+                    // Đăng nhập bằng user id
+                    if (Auth::loginUsingId($userId)) {
+                        return redirect()->intended('to-do');
+                    }else{
+                        header('Location: https://portal.vnpttravinh.vn/');
+                        exit;
+                    }
+                }else{
+                    header('Location: https://portal.vnpttravinh.vn/');
+                    exit;
+                }
+                    
+            } catch (Exception $e) {
+                header('Location: https://portal.vnpttravinh.vn/');
+                exit;
+            }
+        } else {
+            header('Location: https://portal.vnpttravinh.vn/');
+            exit;
+        }
         
     }
 }
