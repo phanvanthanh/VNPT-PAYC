@@ -14,7 +14,7 @@
                </div>
                {{-- <div class="row">
 	               	<div class="col-sm-12">
-	               		<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi" method="POST" action="{{ route('sso-dang-nhap-2') }}">
+	               		<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi" method="POST" action="http://bct.vnpttravinh.vn:6789/sso/login-2">
 										  {{ csrf_field() }}
 										  <div class="form-group row text-right">
 										    <label for="token" class="col-sm-1 col-form-label ">Token</label>
