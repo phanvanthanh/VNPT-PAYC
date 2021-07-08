@@ -105,18 +105,19 @@ class SsoController extends Controller{
 
     public function ssoDangNhap2(Request $request)
     {
-        $token=$request->token;
+       
         JWT::$leeway += 600;
         if ((isset($request->token))) {
             $ma_bao_mat = "vnpt-dntt";
-            $token=$request->token;
             try {
-                $token_decode = JWT::decode($token, $ma_bao_mat, ['HS256']);
+                $token=$request->token;
+                $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);
+
                 $base64IdNhanVien = $token_decode->nhanvien_id;
                 $idNhanVien=base64_decode($base64IdNhanVien);
-
                 // Lấy user để đăng nhập bên hệ thống mình
                 $checkUserExits=User::where('sso_nhanvien_id','=',$idNhanVien)->get()->toArray();  
+
                 if(count($checkUserExits)>0){
                     $userId=$checkUserExits[0]['id'];
                     // Đăng nhập bằng user id
@@ -131,7 +132,7 @@ class SsoController extends Controller{
                     exit;
                 }
                     
-            } catch (Exception $e) {
+            }catch (Exception $e) {
                 header('Location: https://portal.vnpttravinh.vn/');
                 exit;
             }
@@ -139,6 +140,8 @@ class SsoController extends Controller{
             header('Location: https://portal.vnpttravinh.vn/');
             exit;
         }
-        
+        // Đăng nhập thất bại
+        $request->session()->flash('notification-error', '<b>Đăng nhập thất bại</b>! '.$respone['message']);
+        return redirect()->route('login');
     }
 }

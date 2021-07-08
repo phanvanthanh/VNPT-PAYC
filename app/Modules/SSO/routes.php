@@ -10,9 +10,8 @@ Route::group(
             'uses' => 'SsoController@ssoDangNhap'
         ]);
     }
-
-
 );
+
 
 Route::group(
     ['module'=>'SSO', 'namespace' => $namespace, 'middleware'=>['web']],
@@ -22,6 +21,4 @@ Route::group(
             'uses' => 'SsoController@ssoDangNhap2'
         ]);
     }
-
-
 );
