@@ -14,6 +14,7 @@
   $denNgay = strtotime($dmTuan['den_ngay']);
   $denNgay = date('d/m/Y',$denNgay);
   $laTaiKhoanLanhDao=\Helper::kiemTraTaiKhoanThuocNhomChucVu($userId, 'LANH_DAO');
+  $tatCaTaiKhoanDuocXemTrangThaiBaoCao=Helper::getValueThamSoTheoMa('SHOW_TRANG_THAI_BAO_CAO_CHO_TAT_CA_TK');
 @endphp
 <input type="hidden" name="da_chot_so_lieu" class="da-chot-so-lieu" value="{{$daChotSoLieu}}">
 <div class="noi-dung-bao-cao-tong-hop">
@@ -27,7 +28,9 @@
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
       @php
         $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
-        echo $trangThai;
+        if($tatCaTaiKhoanDuocXemTrangThaiBaoCao==1 || $laTaiKhoanLanhDao==1){
+          echo $trangThai;
+        }
       @endphp
       <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)

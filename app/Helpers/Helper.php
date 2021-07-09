@@ -28,6 +28,16 @@ class Helper
         return $dsTaiKhoan;
     }
 
+    public static function layMaxThoiGianBaoCao($idTuan){
+        $maxGioChot=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+        $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+        $maxThoiGinBaoCao=date('Y-m-d').' '.$maxGioChot;
+        if(count($dmTuan)>0){
+            $maxThoiGinBaoCao=$dmTuan[0]['den_ngay'].' '.$maxGioChot;
+        }
+        return $maxThoiGinBaoCao;
+    }
+
     public static function trangThaiBaoCao($idTuan, $maDonVi, $maDinhDanh){
         $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
         $dmTuan=BcDmTuan::find($idTuan);

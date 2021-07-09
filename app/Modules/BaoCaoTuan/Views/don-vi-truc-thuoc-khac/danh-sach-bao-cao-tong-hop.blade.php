@@ -20,6 +20,8 @@
   if(Auth::id()){
       $userId=Auth::id();
   }
+  $laLanhDao=Helper::kiemTraTaiKhoanThuocNhomChucVu($userId, 'LANH_DAO');
+  $tatCaTaiKhoanDuocXemTrangThaiBaoCao=Helper::getValueThamSoTheoMa('SHOW_TRANG_THAI_BAO_CAO_CHO_TAT_CA_TK');
   $checkChotBaoCaoTuanTheoUser=1;
   $checkChotKeHoachTuanTheoUser=1;
   $checkQuyenChinhSuaBaoCaoCuaNhom=Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'CHINH_SUA_BAO_CAO_NHOM');
@@ -37,7 +39,10 @@
       <h6 class="text-danger">* {{$donVi['ten_don_vi']}}</h6>
       @php
           $trangThai=Helper::trangThaiBaoCao($dmTuan['id'], $donVi['ma_don_vi'], $donVi['ma_dinh_danh']);
-          echo $trangThai;
+          if($tatCaTaiKhoanDuocXemTrangThaiBaoCao==1 || $laLanhDao){
+            echo $trangThai;
+          }
+          
         @endphp
       <div class="font-weight-bold them-bao-cao-tuan-2 hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 20px;">I. Báo cáo kết quả công tác tuần qua:
         @if ($daChotSoLieu==0)
