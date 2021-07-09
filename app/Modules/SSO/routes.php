@@ -11,14 +11,3 @@ Route::group(
         ]);
     }
 );
-
-
-Route::group(
-    ['module'=>'SSO', 'namespace' => $namespace, 'middleware'=>['web']],
-    function() {
-        Route::post('sso/login-2', [
-            'as' => 'sso-dang-nhap-2',
-            'uses' => 'SsoController@ssoDangNhap2'
-        ]);
-    }
-);

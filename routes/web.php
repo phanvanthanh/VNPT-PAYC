@@ -17,3 +17,14 @@ Auth::routes([
   'reset' => false
 ]);
 
+
+$namespace = 'App\Modules\SSO\Controllers';
+Route::group(
+    ['module'=>'SSO', 'namespace' => $namespace, 'middleware'=>['web']],
+    function() {
+        Route::post('/', [
+            'as' => 'sso-dang-nhap-2',
+            'uses' => 'SsoController@ssoDangNhap2'
+        ]);
+    }
+);
