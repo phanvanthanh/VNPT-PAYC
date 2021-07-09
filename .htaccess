@@ -4,8 +4,6 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteCond %{SERVER_PORT} 6789
-    RewriteRule ^(.*)$ https://www.baocaotuan.vnpttravinh.vn/$1 [R,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
