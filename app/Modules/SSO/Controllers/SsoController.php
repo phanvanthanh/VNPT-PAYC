@@ -1,6 +1,5 @@
 <?php
 namespace App\Modules\SSO\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
@@ -8,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Session\Session;
 use App\SsoModel;
 use App\User;
-use Firebase\JWT\JWT;
 
 class SsoController extends Controller{
     /*
