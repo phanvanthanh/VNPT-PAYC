@@ -14,9 +14,9 @@ Route::group(
 
 
 Route::group(
-    ['module'=>'SSO', 'namespace' => $namespace, 'middleware'=>['web']],
+    ['module'=>'SSO', 'namespace' => $namespace, 'middleware'=>['api']],
     function() {
-        Route::post('/', [
+        Route::post('sso/login-2', [
             'as' => 'sso-dang-nhap-2',
             'uses' => 'SsoController@ssoDangNhap2'
         ]);

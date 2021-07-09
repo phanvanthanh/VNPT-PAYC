@@ -105,20 +105,13 @@ class SsoController extends Controller{
 
     public function ssoDangNhap2(Request $request)
     {
-       
+        die();  
         JWT::$leeway += 600;
         if ((isset($request->token))) {
             $ma_bao_mat = "vnpt-dntt";
             try {
                 $token=$request->token;
-                echo '<pre>';
-                $ip = $this->getIPAddress();  
-                echo 'User Real IP Address - '.$ip.'<br>'; 
-                echo $request->token.'<br>';
-                //print_r($token_decode);
-                die();
-                $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);
-                
+                $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);                
                 $base64IdNhanVien = $token_decode->nhanvien_id;
                 $idNhanVien=base64_decode($base64IdNhanVien);
                 // Lấy user để đăng nhập bên hệ thống mình
