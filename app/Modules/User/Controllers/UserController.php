@@ -126,13 +126,13 @@ class UserController extends Controller{
             $id=$dataForm['id']; //ngược lại có id
             $user=User::where("id","=",$id)->get()->toArray();
             if(count($user)==1){
-                // unset($user["_token"]);
-                // $user=User::where("id","=",$id);
-                // $user->update($dataForm);
                 $user=User::find($id);
                 $user->name = $request->hoten;
                 $user->email = $request->email;
-                $user->password = bcrypt($request->matkhau);
+                if (trim($request->matkhau)!='') {
+                    $user->password = bcrypt($request->matkhau);
+                }
+                
                 $user->di_dong = $request->sdt;
                 $user->state = $request->state;
                 $user->sso_nhanvien_id = $request->sso_nhanvien_id;

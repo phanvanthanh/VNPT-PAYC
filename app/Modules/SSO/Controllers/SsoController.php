@@ -112,7 +112,12 @@ class SsoController extends Controller{
             try {
                 $token=$request->token;
                 $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);
-
+                echo '<pre>';
+                $ip = $this->getIPAddress();  
+                echo 'User Real IP Address - '.$ip.'<br>'; 
+                echo $request->token.'<br>';
+                print_r($token_decode);
+                die();
                 $base64IdNhanVien = $token_decode->nhanvien_id;
                 $idNhanVien=base64_decode($base64IdNhanVien);
                 // Lấy user để đăng nhập bên hệ thống mình
@@ -148,4 +153,22 @@ class SsoController extends Controller{
         $request->session()->flash('notification-error', '<b>Đăng nhập thất bại</b>! '.$respone['message']);
         return redirect()->route('login');
     }
+
+
+    public static function getIPAddress() {  
+        //whether ip is from the share internet  
+         if(!emptyempty($_SERVER['HTTP_CLIENT_IP'])) {  
+                    $ip = $_SERVER['HTTP_CLIENT_IP'];  
+            }  
+        //whether ip is from the proxy  
+        elseif (!emptyempty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+                    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+         }  
+    //whether ip is from the remote address  
+        else{  
+                 $ip = $_SERVER['REMOTE_ADDR'];  
+         }  
+         return $ip;  
+    }  
+
 }
