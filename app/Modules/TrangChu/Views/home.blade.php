@@ -24,9 +24,9 @@
                      <div class="error-mode float-right"></div> 
                   </div>
                </div>
-               {{-- <div class="row">
+               <div class="row">
 	               	<div class="col-sm-12">
-	               		<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi" method="POST" action="{{ route('sso-dang-nhap-2') }}">
+	               		<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi" method="POST" action="http://10.90.199.89/">
 	               			@csrf
 										  <div class="form-group row text-right">
 										    <label for="token" class="col-sm-1 col-form-label ">Token</label>
@@ -37,7 +37,7 @@
 										  <button type="submit" class="btn btn-vnpt btn-them-moi"><i class="icon-check"></i>Đăng nhập SSO 2</button>
 										</form>
 	               	</div>
-               </div> --}}
+               </div>
 	        </div>
 	    </div>
     </div>
