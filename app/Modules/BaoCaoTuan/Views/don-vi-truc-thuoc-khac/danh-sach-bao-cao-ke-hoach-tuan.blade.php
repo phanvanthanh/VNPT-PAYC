@@ -109,7 +109,7 @@
 
 
 @if (($daChotSoLieu==0 && $checkChotBaoCaoTheoUser==0) || ($checkChotBaoCaoTheoUser==1 && $checkQuyenChinhSuaBaoCaoCuaNhom==1))
-  <script type="text/javascript" src="{{ asset('public/js/view-form.js') }}"></script>
+  <script type="text/javascript" src="{{ secure_asset('public/js/view-form.js') }}"></script>
 @endif
 <script type="text/javascript">
     jQuery(document).ready(function() {

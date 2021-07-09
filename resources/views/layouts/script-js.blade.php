@@ -1,79 +1,79 @@
       <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-      <script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/custom.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/checkAll.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/custom.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/checkAll.js') }}"></script>
       <!-- container-scroller -->
       <!-- plugins:js -->
       {{-- Nếu chỗ nào có lỗi thì nhớ mở lại vendor.bundle.base.js --}}
-      {{-- <script type="text/javascript" src="{{ asset('public/vendors/js/vendor.bundle.base.js') }}"></script> --}}
+      {{-- <script type="text/javascript" src="{{ secure_asset('public/vendors/js/vendor.bundle.base.js') }}"></script> --}}
       <!-- endinject -->
       <!-- Plugin js for this page-->
-      <script type="text/javascript" src="{{ asset('public/vendors/lightgallery/js/lightgallery-all.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/lightgallery/js/lightgallery-all.min.js') }}"></script>
       <!-- End plugin js for this page-->
 
       <!-- Sumerynote -->
-      <script type="text/javascript" src="{{ asset('public/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/tinymce/tinymce.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/quill/quill.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/simplemde/simplemde.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/tinymce/tinymce.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/quill/quill.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/simplemde/simplemde.min.js') }}"></script>
       
       <!-- inject:js -->
-      <script type="text/javascript" src="{{ asset('public/js/off-canvas.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/hoverable-collapse.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/misc.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/settings.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/todolist.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/off-canvas.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/hoverable-collapse.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/misc.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/settings.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/todolist.js') }}"></script>
       <!-- endinject -->
       <!-- Custom js for this page-->
-      <script type="text/javascript" src="{{ asset('public/js/light-gallery.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/light-gallery.js') }}"></script>
 
 
 
 
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/progressbar.js/progressbar.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/inputmask/jquery.inputmask.bundle.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/inputmask/phone.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/inputmask/phone-be.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/inputmask/phone-ru.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/inputmask/inputmask.binding.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/dropify/dropify.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/dropzone/dropzone.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-file-upload/jquery.uploadfile.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-asColor/jquery-asColor.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-asGradient/jquery-asGradient.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery-asColorPicker/jquery-asColorPicker.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/moment/moment.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/x-editable/bootstrap-editable.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/clockpicker/jquery-clockpicker.min.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/jquery.repeater/jquery.repeater.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/progressbar.js/progressbar.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/inputmask/jquery.inputmask.bundle.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/inputmask/phone.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/inputmask/phone-be.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/inputmask/phone-ru.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/inputmask/inputmask.binding.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/dropify/dropify.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/dropzone/dropzone.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-file-upload/jquery.uploadfile.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-asColor/jquery-asColor.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-asGradient/jquery-asGradient.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery-asColorPicker/jquery-asColorPicker.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/moment/moment.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/x-editable/bootstrap-editable.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/clockpicker/jquery-clockpicker.min.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/jquery.repeater/jquery.repeater.min.js') }}"></script>
       <!-- Custom js for this page-->
-      <script type="text/javascript" src="{{ asset('public/js/formpickers.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/form-addons.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/x-editable.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/dropify.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/dropzone.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/jquery-file-upload.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/formpickers.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/form-repeater.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/formpickers.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/form-addons.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/x-editable.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/dropify.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/dropzone.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/jquery-file-upload.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/formpickers.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/form-repeater.js') }}"></script>
 
       <!-- Plugin js for this page-->
-      <script type="text/javascript" src="{{ asset('public/vendors/datatables.net/jquery.dataTables.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/data-table.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/data-table.js') }}"></script>
       <!-- End plugin js for this page-->
       
       <!-- End custom js for this page-->
-      <script type="text/javascript" src="{{ asset('public/js/tooltips.js') }}"></script>
-      <script type="text/javascript" src="{{ asset('public/js/popover.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/tooltips.js') }}"></script>
+      <script type="text/javascript" src="{{ secure_asset('public/js/popover.js') }}"></script>
 
-      <script src="{{ asset('public/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
-      <script src="{{ asset('public/js/toastDemo.js') }}"></script>
+      <script src="{{ secure_asset('public/vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+      <script src="{{ secure_asset('public/js/toastDemo.js') }}"></script>
 
-      <script src="{{ asset('public/js/export-word/FileSaver.js') }}"></script>
-      <script src="{{ asset('public/js/export-word/jquery.wordexport.js') }}"></script>
+      <script src="{{ secure_asset('public/js/export-word/FileSaver.js') }}"></script>
+      <script src="{{ secure_asset('public/js/export-word/jquery.wordexport.js') }}"></script>
 
       <script type="text/javascript">
          jQuery(document).ready(function(){     

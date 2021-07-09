@@ -1,5 +1,5 @@
 @if($error=="")    
-    <link rel="stylesheet" href="{{ asset('public/css/tree.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('public/css/tree.css') }}">
     <div class="row">
         <div class="col-12">
             <small class="form-text text-muted">Nội dung xử lý</small>
@@ -78,10 +78,10 @@
         </div>
         
     </div>
-    <script type="text/javascript" src="{{ asset('public/js/checkAll.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/tree.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/uploadFile.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/checkAll.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/tree.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/uploadFile.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/t-tree.js') }}"></script>
 
     
 @else

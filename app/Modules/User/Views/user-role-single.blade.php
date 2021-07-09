@@ -1,4 +1,3 @@
-
 <form action="javascript:void(0);" class="frm-phan-quyen" name="frm-phan-quyen">
     {{ csrf_field() }}
     <input type="hidden" name="user_id" value="{{$idUser}}">
@@ -36,8 +35,8 @@
         @endforeach    
     </tbody>
 </table>
-<script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/t-check-child.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/t-check-child.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         var _token=jQuery('form[name="frm-phan-quyen"]').find("input[name='_token']").val();

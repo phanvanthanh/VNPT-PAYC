@@ -54,7 +54,7 @@
     
     <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif
-    <script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/t-tree.js') }}"></script>
     <script type="text/javascript">
         var _token=jQuery('form[name="frm-user-dich-vu-single"]').find("input[name='_token']").val();
         getById(_token, {{$userId}}, "{{ route('danh-sach-dich-vu-theo-tai-khoan') }}", '.load-danh-sach-dich-vu-theo-user');

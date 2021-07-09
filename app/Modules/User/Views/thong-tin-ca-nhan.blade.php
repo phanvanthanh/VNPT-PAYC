@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
                         @if ($data['hinh_anh'])
-                            <img src="{{ asset('storage/app/public/file/payc/'.$data['hinh_anh']) }}" class="img-thumbnail" alt="Ảnh đại diện" style="width:100%">
+                            <img src="{{ secure_asset('storage/app/public/file/payc/'.$data['hinh_anh']) }}" class="img-thumbnail" alt="Ảnh đại diện" style="width:100%">
                         @endif
                     </div>
                     <div class="col-xs-12 col-sm-8 xem-thong-tin-ca-nhan @if($checkError) {{'d-none'}} @endif">
@@ -225,7 +225,7 @@
         </div>
     </div>
 
-  <script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
   <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('.btn-chinh-sua-thong-tin-ca-nhan').on('click', function() {

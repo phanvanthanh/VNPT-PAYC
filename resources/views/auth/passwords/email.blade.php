@@ -48,7 +48,7 @@
 </div>
 
 
-<script src="{{ asset('public/template/default/assets/js/jquery.min.js') }}"></script>
+<script src="{{ secure_asset('public/template/default/assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
        

@@ -1,6 +1,6 @@
 @extends('layouts.script-layout')
 @section('title', 'Phòng ban, Trung tâm')
-<link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}">
+<link rel="shortcut icon" href="{{ secure_asset('public/images/favicon.ico') }}">
 @php
   $daChotSoLieu=Helper::kiemTraDaChotSoLieu($idTuan, $ma);
   $daVuotThoiGianBaoCao=Helper::kiemTraVuotNgayChotSoLieu($idTuan);
@@ -155,9 +155,9 @@
       </div>
     </div>
   </div>
-<script type="text/javascript" src="{{ asset('public/js/jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/export-word/FileSaver.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/js/export-word/jquery.wordexport.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/export-word/FileSaver.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/export-word/jquery.wordexport.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {  
       $('.btn-xuat-word').on('click',function(){

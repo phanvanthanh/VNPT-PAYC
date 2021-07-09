@@ -95,7 +95,7 @@
 </div>
 
 
-<script type="text/javascript" src="{{ asset('public/js/t-tree.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/t-tree.js') }}"></script>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
