@@ -21,6 +21,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         "/logout",
         "https://portal.vnpttravinh.vn/*",
-        "http://portal.vnpttravinh.vn/*"
+        "http://portal.vnpttravinh.vn/*",
+        "http://113.163.69.248/*"
+
     ];
 }

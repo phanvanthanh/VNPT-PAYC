@@ -105,10 +105,12 @@ class SsoController extends Controller{
 
     public function ssoDangNhap2(Request $request)
     {
-        die();  
+        
         JWT::$leeway += 600;
         if ((isset($request->token))) {
             $ma_bao_mat = "vnpt-dntt";
+            print_r($request->token);
+            die();  
             try {
                 $token=$request->token;
                 $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);                
