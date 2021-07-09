@@ -26,9 +26,7 @@ class TrangChuController extends Controller{
         if ($request->isMethod('POST')) {
             JWT::$leeway += 600;
             if ((isset($request->token))) {
-                $ma_bao_mat = "vnpt-dntt";
-                print_r($request->token);
-                die();  
+                $ma_bao_mat = "vnpt-dntt";  
                 try {
                     $token=$request->token;
                     $token_decode = JWT::decode($request->token, $ma_bao_mat, ['HS256']);                
