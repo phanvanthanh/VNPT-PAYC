@@ -10,7 +10,7 @@
                   </div>
                     <div class="col-6 text-right">
                        <div class="error-mode float-right"></div> 
-                       <b>Thông báo: <span id="thoi-gian-con-lai" class="text-primary"></span></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <b>Hạn báo cáo: <span id="thoi-gian-con-lai" class="text-primary"></span></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
                
@@ -703,7 +703,7 @@
       var giay=Math.floor(seconds-((gio*3600)+(phut*60)));      
       
       function countdown() {
-        jQuery('#thoi-gian-con-lai').parents('b').html('Thời gian báo có còn lại là: <span id="thoi-gian-con-lai" class="text-primary"></span>');
+        jQuery('#thoi-gian-con-lai').parents('b').html('Hạn báo cáo: <span id="thoi-gian-con-lai" class="text-primary"></span>');
         var i = document.getElementById("thoi-gian-con-lai");
         if (parseInt(i.innerHTML)!=0) {            
             giay=giay-1;
@@ -724,14 +724,14 @@
 
             i.innerHTML = gioShow+":"+phutShow+":"+giayShow;
             if(gio<0){
-              jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quá thời gian báo cáo");
+              jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quán hạn báo cáo");
             }
         }
       }
       if(seconds>0){
         setInterval(function(){ countdown(); },1000);
       }else{
-        jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quá thời gian báo cáo");
+        jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quán hạn báo cáo");
       }
         
 
