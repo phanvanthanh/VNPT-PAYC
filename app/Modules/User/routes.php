@@ -117,5 +117,27 @@ Route::group(
             'as' => 'update-permision-report-user',
             'uses' => 'UserController@updatePermisionReportUser'
         ]);
+
+
+
+        Route::get('/admin/clear-cache', function() {
+            Artisan::call('cache:clear');
+            return redirect()->route('to-do');
+        });
+
+        Route::get('/admin/clear-view', function() {
+            Artisan::call('view:clear');
+            return redirect()->route('to-do');
+        });
+
+        Route::get('/admin/clear-config', function() {
+            Artisan::call('config:clear');
+            return redirect()->route('to-do');
+        });
+
+        Route::get('/admin/clear-route', function() {
+            Artisan::call('route:clear');
+            return redirect()->route('to-do');
+        });
     }
 );

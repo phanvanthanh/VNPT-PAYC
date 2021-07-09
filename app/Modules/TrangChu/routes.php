@@ -10,13 +10,12 @@ Route::group(
             'uses' => 'TrangChuController@home'
         ]);
 
-        Route::get('/clear-cache', function() {
-            $exitCode = Artisan::call('cache:clear');
+        Route::get('/admin/clear-all', function() {
             Artisan::call('view:clear');
-            // return what you want
-            
+            Artisan::call('cache:clear');
+            Artisan::call('config:clear');
+            Artisan::call('route:clear');
             return redirect()->route('to-do');
         });
-
     }
 );
