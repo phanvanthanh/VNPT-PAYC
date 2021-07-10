@@ -72,7 +72,7 @@
     </div>
     <!-- end col -->
 </div>
-        <script src="{{ secure_asset('public/template/default/assets/js/jquery.min.js') }}"></script>
+        <script src="https://baocaotuan.vnpttravinh.vn/public/template/default/assets/js/jquery.min.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 

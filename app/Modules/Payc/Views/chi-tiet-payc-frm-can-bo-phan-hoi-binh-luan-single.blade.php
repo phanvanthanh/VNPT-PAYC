@@ -59,7 +59,7 @@
                 
         </div>
     </div>
-    <script type="text/javascript" src="{{ secure_asset('public/js/uploadFile.js') }}"></script>
+    <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/uploadFile.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
           var _token=jQuery('form[name="frm-binh-luan"]').find("input[name='_token']").val();

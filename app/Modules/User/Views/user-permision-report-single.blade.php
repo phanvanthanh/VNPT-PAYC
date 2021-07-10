@@ -33,7 +33,7 @@
         @endforeach    
     </tbody>
 </table>
-<script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/jquery.min.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('.check-permision').on('change',function(){

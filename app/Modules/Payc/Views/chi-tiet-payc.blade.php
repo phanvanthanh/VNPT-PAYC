@@ -6,7 +6,7 @@
 @extends($layout)
 @section('title', 'Xem chi tiết PAKN')
 @section('content')
-<link rel="stylesheet" href="{{ secure_asset('public/css/chi-tiet-payc.css') }}">
+<link rel="stylesheet" href="https://baocaotuan.vnpttravinh.vn/public/css/chi-tiet-payc.css">
   <div class="col-lg-12">
       <div class="card">
           <div class="card-body">
@@ -39,7 +39,7 @@
     </div>
 
 
-    <script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/jquery.min.js"></script>
   <script type="text/javascript">
   jQuery(document).ready(function() {
       @if($error)
