@@ -47,7 +47,7 @@
                      <li class="nav-item nav-profile">
                         <div class="nav-link">
                            <div class="profile-image">
-                              <a href="{{route('home')}}"><img src="https://baocaotuan.vnpttravinh.vn/storage/app/public/file/payc/{{$user[0]['hinh_anh']}}" alt="image"></a>
+                              <a href="{{route('home')}}"><img src="{{ secure_asset('storage/app/public/file/payc/'.$user[0]['hinh_anh']) }}" alt="image"></a>
                            </div>
                            <div class="profile-name">
                               <p class="name ten-phan-mem">

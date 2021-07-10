@@ -90,7 +90,7 @@ $chucVus=ChucVu::all()->toArray();
 {{ csrf_field() }}
 <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>
 @endif
-<script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/t-tree.js"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/t-tree.js') }}"></script>
 <script type="text/javascript">
     var _token = $("input[name='_token']").val();
     jQuery(document).ready(function() { 

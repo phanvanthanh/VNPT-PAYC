@@ -230,7 +230,7 @@
 </div>
 
 
-<script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/t-tree.js"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/t-tree.js') }}"></script>
 
 <script type="text/javascript">
     jQuery(document).ready(function() {

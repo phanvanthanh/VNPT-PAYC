@@ -55,8 +55,8 @@
                     </select>
                 </div>
               </div>
-              <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/uploadFile.js"></script>
-              <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/showFile.js"></script>
+              <script type="text/javascript" src="{{ secure_asset('public/js/uploadFile.js') }}"></script>
+              <script type="text/javascript" src="{{ secure_asset('public/js/showFile.js') }}"></script>
               <script type="text/javascript">
                 $('.summernote').summernote({
                   height: 150,                 // set editor height

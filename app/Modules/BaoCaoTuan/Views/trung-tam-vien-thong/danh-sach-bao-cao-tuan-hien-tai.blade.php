@@ -97,7 +97,7 @@
 
 
 @if ($daChotSoLieu==0)
-    <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/view-form.js"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/view-form.js') }}"></script>
   @endif
 
 <script type="text/javascript">

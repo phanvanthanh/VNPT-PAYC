@@ -29,7 +29,7 @@
         </div>
         <div class="divider-gray"></div>
         <div class="col-2 text-center">
-            <div class="avatar text-center" style="background-image: url('https://baocaotuan.vnpttravinh.vn/public/images/mess.svg'); margin-left: 25%;"></div>
+            <div class="avatar text-center" style="background-image: url('{{ secure_asset('public/images/mess.svg') }}'); margin-left: 25%;"></div>
         </div>
         <div class="col-10 ques-item -question">
             <div class="title" style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Nội dung phản ánh, yêu cầu:</div>

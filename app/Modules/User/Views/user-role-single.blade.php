@@ -35,8 +35,8 @@
         @endforeach    
     </tbody>
 </table>
-<script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/t-check-child.js"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('public/js/t-check-child.js') }}"></script>
 <script type="text/javascript">
     jQuery(document).ready(function(){
         var _token=jQuery('form[name="frm-phan-quyen"]').find("input[name='_token']").val();

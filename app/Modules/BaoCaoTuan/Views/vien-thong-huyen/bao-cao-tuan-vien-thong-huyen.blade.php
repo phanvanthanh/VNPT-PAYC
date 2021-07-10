@@ -154,7 +154,7 @@
     </div>
 
 
-  <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
   <script type="text/javascript">
     jQuery(document).ready(function() {
       $.fn.dataTable.ext.errMode = 'none';

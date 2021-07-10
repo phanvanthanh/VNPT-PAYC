@@ -5,9 +5,9 @@
         <div class="row pakn-detail">
             <div class="col-2 text-center">
                 @if($d['ma_loai']=='TRA_LOI')
-                    <div class="avatar text-center" style="background-image: url('https://baocaotuan.vnpttravinh.vn/public/images/icon-answer.svg'); margin-left: 50%;"></div>
+                    <div class="avatar text-center" style="background-image: url('{{ secure_asset('public/images/icon-answer.svg') }}'); margin-left: 50%;"></div>
                 @else
-                    <div class="avatar text-center" style="background-image: url('https://baocaotuan.vnpttravinh.vn/public/images/mess.svg'); margin-left: 50%;"></div>
+                    <div class="avatar text-center" style="background-image: url('{{ secure_asset('public/images/mess.svg') }}'); margin-left: 50%;"></div>
                 @endif
             </div>
             <div class="col-10 ques-item -question">
@@ -51,7 +51,7 @@
     @php } @endphp
 
 
-    <script type="text/javascript" src="https://baocaotuan.vnpttravinh.vn/public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ secure_asset('public/js/jquery.min.js') }}"></script>
     <script type="text/javascript">
     jQuery(document).ready(function() {
         var _token=jQuery('form[name="frm-danh-gia"]').find("input[name='_token']").val();
