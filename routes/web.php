@@ -11,6 +11,7 @@
 |
 */
 
+URL::forceRootUrl('https://baocaotuan.vnpttravinh.vn');
 Auth::routes();
 Auth::routes([
   'verify' => false,
