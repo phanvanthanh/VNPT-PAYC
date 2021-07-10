@@ -48,7 +48,7 @@
 								<div class="col-12 text-center">
 									<button type="button" class="btn btn-success btn-dang-nhap" style="width: 156.43px;"><i class="icon-check"></i> Đăng nhập</button>
 									<button type="button" class="btn btn-vnpt btn-dang-nhap-sso" style="width: 170.43px;"><i class="icon-check"></i> Đăng nhập SSO</button>
-									<a href= "{{ route('register') }}" class="btn btn-danger">Đăng ký tài khoản</a>
+									<a href= "{{ URL::route('register') }}" class="btn btn-danger">Đăng ký tài khoản</a>
 								</div>
 							</div>
 						</form>
@@ -63,18 +63,18 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function(){ 
 			jQuery('.btn-dang-nhap').on('click', function() {
-				jQuery('#frm-dang-nhap').attr('action',"{{ route('login') }}");
+				jQuery('#frm-dang-nhap').attr('action',"{{ URL::route('login') }}");
 				jQuery('#frm-dang-nhap').submit();
 			});
 
 			jQuery('.btn-dang-nhap-sso').on('click', function() {
-				jQuery('#frm-dang-nhap').attr('action',"{{ route('sso-dang-nhap') }}");
+				jQuery('#frm-dang-nhap').attr('action',"{{ URL::route('sso-dang-nhap') }}");
 				jQuery('#frm-dang-nhap').submit();
 			});
 
 			jQuery('#mat-khau').on("keypress", function(e) {
 	            if (e.keyCode == 13) {
-	            	jQuery('#frm-dang-nhap').attr('action',"{{ route('login') }}");
+	            	jQuery('#frm-dang-nhap').attr('action',"{{ URL::route('login') }}");
 					jQuery('#frm-dang-nhap').submit();
 					e.preventDefault();
           			return false;
