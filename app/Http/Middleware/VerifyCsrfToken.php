@@ -21,8 +21,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         "/logout",
         "/sso/login-2",
-        "/",
-        "/public"
+        "/"
 
     ];
 }
