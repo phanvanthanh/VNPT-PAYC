@@ -1,5 +1,7 @@
 @php
   $daChotSoLieu=Helper::kiemTraDaChotSoLieu($idTuan, $ma);
+  $ngayLayDuLieuTuanTruoc=DateTime::createFromFormat('Y-m-d H:i:s', $ngayLayDuLieuTuanTruoc)->format('d/m/Y H:i:s');
+  $thoiGianLaySoLieu=DateTime::createFromFormat('Y-m-d H:i:s', $thoiGianLaySoLieu)->format('d/m/Y H:i:s');
 @endphp
 <div class="wrapper mb-3 mt-4">
   <div class="row">
