@@ -2,9 +2,21 @@
   $daChotSoLieu=Helper::kiemTraDaChotSoLieu($idTuan, $ma);
 @endphp
 <div class="wrapper mb-3 mt-4">
-  <span class="badge badge-warning text-white">Lưu ý: </span>
-  <p class="d-inline ml-3 text-dark">Số liệu báo cáo ĐHSXKD được tổng hợp từ <b class="text-danger">{{$ngayLayDuLieuTuanTruoc}}</b> - <b class="text-primary">{{$thoiGianLaySoLieu}}</b>.</p>
+  <div class="row">
+    <div class="col-md-8">
+      <span class="badge badge-warning text-white">Lưu ý: </span>
+      <p class="d-inline ml-3 text-dark">Số liệu báo cáo ĐHSXKD được tổng hợp từ <b class="text-danger">{{$ngayLayDuLieuTuanTruoc}}</b> - <b class="text-primary">{{$thoiGianLaySoLieu}}</b>.</p>
+    </div>
+    <div class="col-md-4 text-right">
+      <button type="button" class="btn btn-danger mr-2 btn-don-vi-truc-thuoc-khac-lay-so-lieu-bao-cao-dhsxkd 
+      @if ($daChotSoLieu>0) disabled @endif" 
+      @if ($daChotSoLieu>0) disabled="disabled" @endif 
+      ><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
+    </div>
+  </div>
 </div>
+
+
 <h6 class="text-danger">1. Xử lý PAKN</h6>
 <table id="table-dhsxkd-pakn" class="table table-hover table-dhsxkd-pakn">
   <thead>
@@ -45,16 +57,6 @@
   </tbody>
 </table>   
 
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-      <button type="button" class="btn btn-danger mr-2 btn-don-vi-truc-thuoc-khac-lay-so-lieu-bao-cao-dhsxkd 
-      @if ($daChotSoLieu>0) disabled @endif" 
-      @if ($daChotSoLieu>0) disabled="disabled" @endif 
-      ><i class="fa fa-refresh"></i> Lấy dữ liệu</button>
-    </div>
-  </div>
-</div>
 
 
 
