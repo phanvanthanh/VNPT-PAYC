@@ -112,40 +112,37 @@
 
 
 
+     function secondsToHms(d) {
+          d = Number(d);
+          var h = Math.floor(d / 3600);
+          var m = Math.floor(d % 3600 / 60);
+          var s = Math.floor(d % 3600 % 60);
+
+          var hDisplay = h > 0 ? h + (h == 1 ? "" : "") : "0";
+          var mDisplay = m > 0 ? m + (m == 1 ? "" : "") : "0";
+          var sDisplay = s > 0 ? s + (s == 1 ? "" : "") : "0";
+          if(hDisplay<10){hDisplay="0"+hDisplay}
+          if(mDisplay<10){mDisplay="0"+mDisplay}
+          if(sDisplay<10){sDisplay="0"+sDisplay}
+          return hDisplay + " : " + mDisplay + " : " + sDisplay; 
+      }
+
       var startDate = new Date();
       // Do your operations
       var endDate   = new Date("{{$maxThoiGianBaoCao}}");
       var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
       seconds=Math.ceil(seconds);
-      var gio=Math.floor(seconds/3660);
-      var phut=Math.floor((seconds-(gio*3600))/60);
-      var giay=Math.floor(seconds-((gio*3600)+(phut*60)));      
       
       function countdown() {
         jQuery('#thoi-gian-con-lai').parents('b').html('Hạn báo cáo: <span id="thoi-gian-con-lai" class="text-primary"></span>');
         var i = document.getElementById("thoi-gian-con-lai");
-        if (parseInt(i.innerHTML)!=0) {            
-            giay=giay-1;
-            if(giay<=0){
-              giay=59;
-              phut=phut-1;
-              if(phut<=0){
-                phut=59;
-                gio=gio-1;
-              }
-            }
-            var gioShow=gio;
-            if(gio<10) gioShow="0"+gio;
-            var phutShow=phut;
-            if(phut<10) phutShow="0"+phut;
-            var giayShow=giay;
-            if(giay<10) giayShow="0"+giay;
-
-            i.innerHTML = gioShow+":"+phutShow+":"+giayShow;
-            if(gio<0){
-              jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quán hạn báo cáo");
-            }
+        seconds=seconds-1;
+        if(seconds<=0){
+          jQuery('#thoi-gian-con-lai').addClass("text-danger").removeClass('text-primary').text("Đã quán hạn báo cáo");
+        }else{
+          i.innerHTML = secondsToHms(seconds);  
         }
+              
       }
       if(seconds>0){
         setInterval(function(){ countdown(); },1000);

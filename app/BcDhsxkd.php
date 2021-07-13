@@ -73,7 +73,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/do-hai-long?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -133,7 +133,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/khao-sat-b2a?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -193,7 +193,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/mat-lien-lac?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -253,7 +253,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/xu-ly-dung-han?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -312,7 +312,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/xu-ly-suy-hao?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -372,7 +372,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/goi-home?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',
@@ -432,7 +432,7 @@ class BcDhsxkd extends Model
         // Để ghi log
         $sendBody=array(
             'method'    =>'GET',
-            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/don-vi',
+            'url'       =>'https://api.vnpttravinh.vn/bao-cao-tuan/phat-trien-fix?donvi_id='.$idDonViDhsxkd.'&tu_ngay='.$tuNgay.'&den_ngay='.$denNgay,
             'headers'   =>[
                     'Content-Type'      =>'application/json',
                     'Accept'            =>'application/json',

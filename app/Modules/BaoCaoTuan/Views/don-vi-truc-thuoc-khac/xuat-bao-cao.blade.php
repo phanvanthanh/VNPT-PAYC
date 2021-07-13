@@ -19,7 +19,6 @@
   $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
 
   
-  $checkQuyenDuyetVaGuiBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'DUYET_VA_GUI_BAO_CAO');
   $checkQuyenXuatWord=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO_SANG_WORD');
   $checkQuyenInBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'IN_BAO_CAO');
    
@@ -50,8 +49,11 @@
           @php
           
             if($baoCaoTuanHienTai['is_group']==3){
-              $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoTuanHienTai['noi_dung']."</div>";
+              $checkCoNhapBaoCaoTuanHienTai=Helper::kiemTraCoNhapBaoCaoTuanHienTai($baoCaoTuanHienTai['id_tuan'], $baoCaoTuanHienTai['id_dich_vu']);
+              if($checkCoNhapBaoCaoTuanHienTai===1){
+                $soThuTuPhanMem++;
+                echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoTuanHienTai['noi_dung']."</div>";
+              }
             }
             elseif($baoCaoTuanHienTai['is_group']==2){
               echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'>&minus; ".$baoCaoTuanHienTai['noi_dung']."</div>";
@@ -63,54 +65,7 @@
               echo "<div style='margin-left:85px; margin-top:2; line-height: 2;'>○ ".$baoCaoTuanHienTai['noi_dung']."</div>";
             }
           @endphp
-      @endforeach
-      {{-- <div class="font-weight-bold hover-view-form" data-hover-view-form=".list-menu-nhanh" style="margin-left: 35px;"><i class='fa fa-minus' style="margin-right:10px;"></i>Báo cáo số liệu PAKN
-        @if ($daChotSoLieu==0)
-          <i class="list-menu-nhanh d-none">
-            <i class="fa fa-refresh text-primary cusor btn-lay-so-lieu-bao-cao-dhsxkd"></i>
-          </i>
-        @endif
-      </div> --}}
-    
-      @if (count($baoCaoPakns)>0)
-        {{-- <div class="font-weight-bold" style="margin-left: 30px;">* Xử lý PAKN</div> --}}
-        {{-- <div style="margin-left: 40px; margin-bottom: 35px;">
-          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
-            <thead>
-                <tr class="background-vnpt text-center">
-                    <th style="width: 10%;">STT #</th>
-                    <th style="width: 40;">Dịch vụ</th>
-                    <th style="width: 35%;">Số lượng</th>
-                    <th style="width: 15%;">
-                      Ghi chú
-                    </th>
-                </tr>
-            </thead>
-            <tbody>    
-                @php $stt=0; @endphp
-                  @foreach ($baoCaoPakns as $pakn)
-                    @php $stt++; @endphp
-                    <tr class="tr-hover tr-small">
-                      <td class="text-center">{{$stt}}</td>
-                      <td class='text-primary @if($pakn['is_group']==1) {{" font-weight-bold"}} @endif'>
-                        @if ($pakn['mo_ta'])
-                          {{$pakn['mo_ta']}}
-                        @else
-                          {{$pakn['chi_so']}}
-                        @endif
-                      </td>
-                      <td>
-                        {{$pakn['gia_tri']}}
-                      </td>
-                    <td class="text-center">
-                      {{$pakn['ghi_chu']}}
-                    </td>
-                  </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div> --}}
-      @endif
+      @endforeach  
 
       <div style="margin-left: 20px; font-weight: bold; margin-top:2; line-height: 2;">II. Đăng ký công tác tuần tiếp theo:        
       </div>
@@ -121,8 +76,11 @@
           @php
             
             if($baoCaoKeHoachTuan['is_group']==3){
-              $soThuTuPhanMem++;
-              echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              $checkCoNhapKeHoachTuan=Helper::kiemTraCoNhapKeHoachTuan($baoCaoKeHoachTuan['id_tuan'], $baoCaoKeHoachTuan['id_dich_vu']);
+              if($checkCoNhapKeHoachTuan===1){
+                $soThuTuPhanMem++;
+                echo "<div style='margin-left:30px; margin-top:2; line-height: 2; font-weight:bold;'>".$soThuTuPhanMem.". ".$baoCaoKeHoachTuan['noi_dung']."</div>";
+              }
             }
             elseif($baoCaoKeHoachTuan['is_group']==2){
               echo "<div style='margin-left:50px; margin-top:2; line-height: 2;'>&minus; ".$baoCaoKeHoachTuan['noi_dung']."</div>";
@@ -144,7 +102,7 @@
   <div class="row">
     <div class="col-12">
       <br>
-      <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
+      <div class="form-group mt-5 text-right">
         @if ($checkQuyenXuatWord==1)
           <button type="button" class="btn btn-vnpt mr-2 btn-xuat-word"><i class="fa fa-file-word-o"></i> Xuất báo cáo sang Word(.doc)</button>
         @endif

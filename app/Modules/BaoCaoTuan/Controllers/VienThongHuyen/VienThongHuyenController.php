@@ -1485,6 +1485,96 @@ class VienThongHuyenController extends Controller{
     }
 
 
+    // Chốt và gửi báo cáo tổng hợp
+    public function xuatBaoCao(Request $request){
+        $userId=0; $error=''; // Khai báo biến
+        if(Auth::id()){
+            $userId=Auth::id();
+        }
+        $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+        $idTuan=$data['tuan'];
+        $dmTuan=BcDmTuan::where('id','=',$idTuan)->get()->toArray();
+        if(count($dmTuan)<=0){
+            abort(403, 'Lỗi không tìm thấy thời gian báo cáo.');
+        }
+        $dmTuan=$dmTuan[0];
+        $donVi=DonVi::getDonViCapTrenTheoTaiKhoan($userId, 'HUYEN');
+        if ($donVi['error']>0) {
+            abort(403, $donVi['message']);
+        }
+        $donVi=$donVi['data'];       
+        
+        $baoCaoTheoMaDinhDanh=DmThamSoHeThong::getValueByName('BC_BAO_CAO_THEO_MA_DINH_DANH');
+        $ma=''; // Mã đơn vị hay mã định danh
+        $baoCaoTuanHienTais=array();
+
+        // ĐHSXKD
+        $idThoiGianBaoCaoDhsxkd=0; $baoCaoPhatTrienMois=array(); $baoCaoXuLySuyHaos=array();
+        $thoiGianLaySoLieu='';
+        if($baoCaoTheoMaDinhDanh==1){
+            $ma=$donVi['ma_dinh_danh'];
+            
+        }else{ // Ngược lại báo cáo theo mã đơn vị
+            $ma=$donVi['ma_don_vi'];
+        }
+
+        $this->ma=$ma;
+
+        $daVuotThoiGianChotSoLieu=BcDmThoiGianBaoCao::kiemTraVuotNgayChotSoLieu($idTuan);
+        $thoiGianLaySoLieu=date('Y-m-d H:i:s');
+        if($daVuotThoiGianChotSoLieu){
+            $dmGioChotBaoCao=DmThamSoHeThong::getValueByName('BC_THOI_GIAN_CHOT_BAO_CAO');
+            $thoiGianLaySoLieu=$dmTuan['den_ngay'].' '.$dmGioChotBaoCao; // Y-m-d H:i:s
+        }
+
+        $baoCaoTuanHienTais=BcTuanHienTai::select('bc_tuan_hien_tai.id','bc_tuan_hien_tai.ma_don_vi','bc_tuan_hien_tai.ma_dinh_danh', 'bc_tuan_hien_tai.id_tuan', 'bc_tuan_hien_tai.id_user_bao_cao', 'bc_tuan_hien_tai.noi_dung', 'bc_tuan_hien_tai.thoi_gian_bao_cao', 'bc_tuan_hien_tai.ghi_chu', 'bc_tuan_hien_tai.is_group', 'bc_tuan_hien_tai.trang_thai', 'bc_tuan_hien_tai.sap_xep', 'bc_tuan_hien_tai.id_dich_vu')
+                ->leftJoin('dich_vu','bc_tuan_hien_tai.id_dich_vu','=','dich_vu.id')
+                ->where('bc_tuan_hien_tai.id_tuan','=',$idTuan)
+                ->where(function($query) {
+                    $query->where('bc_tuan_hien_tai.ma_dinh_danh','=',$this->ma)->orWhere('bc_tuan_hien_tai.ma_don_vi','=',$this->ma);
+                })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_tuan_hien_tai.sap_xep','asc')
+                ->get()->toArray();
+        $baoCaoKeHoachTuans=BcKeHoachTuan::select('bc_ke_hoach_tuan.id','bc_ke_hoach_tuan.ma_don_vi','bc_ke_hoach_tuan.ma_dinh_danh', 'bc_ke_hoach_tuan.id_tuan', 'bc_ke_hoach_tuan.id_user_bao_cao', 'bc_ke_hoach_tuan.noi_dung', 'bc_ke_hoach_tuan.thoi_gian_bao_cao', 'bc_ke_hoach_tuan.ghi_chu', 'bc_ke_hoach_tuan.is_group', 'bc_ke_hoach_tuan.trang_thai', 'bc_ke_hoach_tuan.id_dich_vu', 'bc_ke_hoach_tuan.sap_xep')
+            ->leftJoin('dich_vu','bc_ke_hoach_tuan.id_dich_vu','=','dich_vu.id')
+            ->where('bc_ke_hoach_tuan.id_tuan','=',$idTuan)
+            ->where(function($query) {
+                $query->where('bc_ke_hoach_tuan.ma_dinh_danh','=',$this->ma)->orWhere('bc_ke_hoach_tuan.ma_don_vi','=',$this->ma);
+            })->orderBy('dich_vu.sap_xep','asc')->orderBy('bc_ke_hoach_tuan.sap_xep','asc')
+            ->get()->toArray();
+
+        // ĐHSXKD
+            $idThoiGianBaoCaoDhsxkd=0;
+            $thoiGianBaoCaoTheoDonVi=BcDmThoiGianBaoCao::where('id_tuan','=',$idTuan)->where(function($query) {
+                $query->where('ma_dinh_danh','=',$this->ma)->orWhere('ma_don_vi','=',$this->ma);
+            })->get()->toArray();
+            if (count($thoiGianBaoCaoTheoDonVi)<=0) { // Nếu chưa có thì thêm vô và chốt luôn
+                $dataDmThoiGianBaoCao=array();
+                $dataDmThoiGianBaoCao['ma_don_vi']=$donVi['ma_don_vi'];
+                $dataDmThoiGianBaoCao['ma_dinh_danh']=$donVi['ma_dinh_danh'];
+                $dataDmThoiGianBaoCao['id_tuan']=$idTuan;
+                $dataDmThoiGianBaoCao['thoi_gian_lay_so_lieu']=$thoiGianLaySoLieu;
+                $dataDmThoiGianBaoCao['thoi_gian_chot_so_lieu']=null;
+                $dataDmThoiGianBaoCao['ghi_chu']=null;
+                $dataDmThoiGianBaoCao['trang_thai']=0;
+                $bcDmThoiGianBaoCao=BcDmThoiGianBaoCao::create($dataDmThoiGianBaoCao);
+                $idThoiGianBaoCaoDhsxkd=$bcDmThoiGianBaoCao->id;
+
+            }else{ //Ngược lại thì chốt
+                $idThoiGianBaoCaoDhsxkd=$thoiGianBaoCaoTheoDonVi[0]['id'];
+            }
+            $baoCaoPhatTrienMois=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'PHAT_TRIEN_MOI');
+            $baoCaoXuLySuyHaos=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LY_SUY_HAO');
+            $baoCaoGoiHomes=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'GOI_HOME');
+            $baoCaoXuLyDungHans=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'XU_LU_DUNG_HAN');
+            $baoCaoMLLs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'MLL');
+            $baoCaoB2As=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'B2A');
+            $baoCaoDoHaiLongs=BcDhsxkd::layDanhSachBcDhsxkdTheoLoai($ma, $idThoiGianBaoCaoDhsxkd, 'HAI_LONG');
+        // End DHSXKD
+        return view('BaoCaoTuan::vien-thong-huyen.xuat-bao-cao', compact('baoCaoTuanHienTais', 'baoCaoKeHoachTuans','error','idTuan', 'ma', 'dmTuan', 'donVi', 'baoCaoPhatTrienMois','baoCaoXuLySuyHaos', 'thoiGianLaySoLieu', 'userId', 'baoCaoGoiHomes', 'baoCaoXuLyDungHans', 'baoCaoMLLs', 'baoCaoB2As', 'baoCaoDoHaiLongs')); // Trả dữ liệu ra view 
+    
+    }
+
+
     
     
 }

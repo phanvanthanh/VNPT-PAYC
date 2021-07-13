@@ -109,6 +109,11 @@ Route::group(
                     'as' => 'danh-sach-bao-cao-tong-hop',
                     'uses' => 'VienThongHuyenController@danhSachBaoCaoTongHop'
                 ]);
+
+                Route::get('xuat-bao-cao', [
+                    'as' => 'vien-thong-huyen-xuat-bao-cao',
+                    'uses' => 'VienThongHuyenController@xuatBaoCao'
+                ]);
             });                
         });
             
@@ -381,6 +386,11 @@ Route::group(
                     'uses' => 'TrungTamVienThongController@guiThongBaoNhacNhoQuaTelegram'
                 ]);
 
+                Route::get('xuat-bao-cao', [
+                    'as' => 'trung-tam-vien-thong-xuat-bao-cao',
+                    'uses' => 'TrungTamVienThongController@xuatBaoCao'
+                ]);
+
             });
 
                 
@@ -443,6 +453,11 @@ Route::group(
                 Route::post('vien-thong-tinh-btn-huy-chot-bao-cao-tuan', [
                     'as' => 'vien-thong-tinh-btn-huy-chot-bao-cao-tuan',
                     'uses' => 'VienThongTinhController@btnHuyChotBaoCaoTuan'
+                ]);
+
+                Route::get('xuat-bao-cao', [
+                    'as' => 'vien-thong-tinh-xuat-bao-cao',
+                    'uses' => 'VienThongTinhController@xuatBaoCao'
                 ]);
 
             });

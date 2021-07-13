@@ -15,6 +15,7 @@
   $denNgay = date('d/m/Y',$denNgay);
   $laTaiKhoanLanhDao=\Helper::kiemTraTaiKhoanThuocNhomChucVu($userId, 'LANH_DAO');
   $tatCaTaiKhoanDuocXemTrangThaiBaoCao=Helper::getValueThamSoTheoMa('SHOW_TRANG_THAI_BAO_CAO_CHO_TAT_CA_TK');
+  $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
 @endphp
 <input type="hidden" name="da_chot_so_lieu" class="da-chot-so-lieu" value="{{$daChotSoLieu}}">
 <div class="noi-dung-bao-cao-tong-hop">
@@ -45,7 +46,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
-              <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 30px;">
+              <input type="Text" class="form-control noi-dung-bao-cao-tuan-hien-tai-2" placeholder="Nội dung báo cáo tuần này" name="noi_dung" style="margin-left: 30px;">
             </div>
           </div>
         </div>
@@ -104,7 +105,78 @@
         @endif
       </div>
 
-        @if($baoCaoPhatTrienMois && count($baoCaoPhatTrienMois)>0)
+      @if(($baoCaoPhatTrienMois && count($baoCaoPhatTrienMois)>0) || ($baoCaoGoiHomes && count($baoCaoGoiHomes)>0))
+        <div style="margin-left: 40px; margin-bottom: 30px;">
+          <div class="font-weight-bold" style="margin-left: -10px;">* Phát triển mới</div>
+          <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-dhsxkd-phat-trien-moi table-bordered">
+            <thead>
+                <tr class="background-vnpt text-center">
+                    <th style="width: 5%;">STT</th>
+                    <th style="width: 20;">Tên dịch vụ</th>
+                    <th style="width: 10%;">Số lượng</th>
+                    <th style="width: 65%;">
+                      Ghi chú
+                    </th>
+                </tr>
+            </thead>
+            <tbody>    
+                @if($baoCaoPhatTrienMois && count($baoCaoPhatTrienMois)>0)
+                  <tr class="active font-weight-bold tr-small">
+                    <td colspan="4">&nbsp;Phát triển mới</td>
+                  </tr>
+                  @php $stt=0; @endphp
+                  @foreach ($baoCaoPhatTrienMois as $ptm)
+                    @php $stt++; @endphp
+                    <tr class="tr-hover tr-small">
+                      <td class="text-center">{{$stt}}</td>
+                      <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+                        @if ($ptm['mo_ta'])
+                          {{$ptm['mo_ta']}}
+                        @else
+                          {{$ptm['chi_so']}}
+                        @endif
+                      </td>
+                      <td class="text-center">
+                        {{$ptm['gia_tri']}}
+                      </td>
+                      <td class="text-center">
+                        {{$ptm['ghi_chu']}}
+                      </td>
+                    </tr>
+                  @endforeach
+                @endif
+
+                @if($baoCaoGoiHomes && count($baoCaoGoiHomes)>0)
+                  <tr class="active font-weight-bold tr-small">
+                    <td colspan="4">&nbsp;Gói home</td>
+                  </tr>
+                  @php $stt=0; @endphp
+                  @foreach ($baoCaoGoiHomes as $ptm)
+                    @php $stt++; @endphp
+                    <tr class="tr-hover tr-small">
+                      <td class="text-center">{{$stt}}</td>
+                      <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+                        @if ($ptm['mo_ta'])
+                          {{$ptm['mo_ta']}}
+                        @else
+                          {{$ptm['chi_so']}}
+                        @endif
+                      </td>
+                      <td class="text-center">
+                        {{$ptm['gia_tri']}}
+                      </td>
+                      <td class="text-center">
+                        {{$ptm['ghi_chu']}}
+                      </td>
+                    </tr>
+                  @endforeach
+                @endif
+              </tbody>
+            </table>
+          </div>
+        @endif
+
+        {{-- @if($baoCaoPhatTrienMois && count($baoCaoPhatTrienMois)>0)
           <div class="font-weight-bold" style="margin-left: 30px;">* Phát triển mới</div>
           <div style="margin-left: 40px; margin-bottom: 30px;">
             <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
@@ -168,7 +240,7 @@
               </tbody>
             </table>
           </div>
-        @endif
+        @endif --}}
 
         @if($baoCaoXuLyDungHans && count($baoCaoXuLyDungHans)>0)
           <div class="font-weight-bold" style="margin-left: 30px;">* Lắp đặt sửa chữa xử lý đúng hạn</div>
@@ -380,7 +452,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="form-group">
-              <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
+              <input type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan-2" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp">
             </div>
           </div>
         </div>
@@ -440,8 +512,9 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-        <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        @if ($checkQuyenXuatBaoCao==1)
+          <button type="button" class="btn btn-vnpt mr-2 btn-xuat-bao-cao"><i class="fa fa-upload"></i> Xuất báo cáo</button>
+        @endif
         @if ($laTaiKhoanLanhDao==1)
           <button type="button" class="btn btn-danger mr-2 btn-chot-va-gui-bao-cao @if ($daChotSoLieu>0) disabled @endif" @if ($daChotSoLieu>0) disabled="disabled" @endif><i class="fa fa-send"></i> Gửi báo cáo</button>
         @endif
@@ -516,7 +589,7 @@
       });
 
 
-      $(".noi-dung-bao-cao-tuan-hien-tai").keyup(function(e){
+      $(".noi-dung-bao-cao-tuan-hien-tai-2").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
             var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
             var idTuan=jQuery('#id_tuan').val();
@@ -568,7 +641,7 @@
       });
 
 
-      $(".noi-dung-bao-cao-ke-hoach-tuan").keyup(function(e){
+      $(".noi-dung-bao-cao-ke-hoach-tuan-2").keyup(function(e){
           if((e.keyCode || e.which) == 13) { //Enter keycode
             var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
             var idTuan=jQuery('#id_tuan').val();
@@ -610,6 +683,19 @@
         var id=jQuery(this).attr("data");
         keHoachTuanDiChuyenXuong(id);
         return false;
+      });
+
+      $('.btn-xuat-bao-cao').on('click',function(){
+          var idTuan=jQuery('#id_tuan').val();
+          var url="{{ route('vien-thong-huyen-xuat-bao-cao') }}"+"?tuan="+idTuan;
+          var popup = window.open(url, 'Xuất báo cáo', '_blank ');
+          if (popup == null)
+             alert('Vui lòng cài đặt đồng ý cho tôi mở Popup.');
+          else  {
+            popup.moveTo(0, 0);
+            popup.resizeTo(screen.width, screen.height);
+          }
+          return false;
       });
 
 

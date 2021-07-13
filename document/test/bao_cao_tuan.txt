@@ -1,0 +1,12 @@
+Kiểm thử chức năng nhập báo cáo tuần cho các Tổ kỹ thuật
+Kiểm thử chức năng nhập báo cáo tuần cho các Trung tâm viễn thông
+Kiểm thử chức năng nhập báo cáo tuần cho các Phòng chức năng
+Kiểm thử chức năng nhập báo cáo tuần cho các Trung tâm trực thuộc
+
+
+
+
+Kiểm thử chức năng nhập kế hoạch tuần cho các Tổ kỹ thuật
+Kiểm thử chức năng nhập kế hoạch tuần cho các Trung tâm viễn thông
+Kiểm thử chức năng nhập kế hoạch tuần cho các Phòng chức năng
+Kiểm thử chức năng nhập kế hoạch tuần cho các Trung tâm trực thuộc

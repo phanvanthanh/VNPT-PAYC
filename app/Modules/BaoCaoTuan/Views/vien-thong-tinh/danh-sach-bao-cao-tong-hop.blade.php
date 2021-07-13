@@ -11,6 +11,7 @@
   $denNgay = strtotime($dmTuan['den_ngay']);
   $denNgay = date('d/m/Y',$denNgay);
   $laTaiKhoanLanhDao=\Helper::kiemTraTaiKhoanThuocNhomChucVu($userId, 'LANH_DAO');
+  $checkQuyenXuatBaoCao=\Helper::kiemTraQuyenBaoCaoTheoUserIdVaMaQuyen($userId, 'XUAT_BAO_CAO');
 @endphp
 <div class="noi-dung-bao-cao-tong-hop">
   <div class="row">
@@ -285,7 +286,7 @@
 
 
     @php
-      $sttHuyen=2;
+      $sttHuyen=0;
     @endphp
     @foreach ($tongHopBaoCaoCapHuyens as $huyen)
       @php
@@ -336,82 +337,78 @@
               </ul>
             @endif
 
-            @if(isset($huyen['phat_trien_moi']) && count($huyen['phat_trien_moi'])>0)
-            <div class="font-weight-bold" style="margin-left: 30px;">* Phát triển mới</div>
+          @if((isset($huyen['phat_trien_moi']) && count($huyen['phat_trien_moi'])>0) || (isset($huyen['goi_home']) && count($huyen['goi_home'])>0))
             <div style="margin-left: 40px; margin-bottom: 30px;">
-              <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
+              <div class="font-weight-bold" style="margin-left: -10px;">* Phát triển mới</div>
+              <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-dhsxkd-phat-trien-moi table-bordered">
                 <thead>
-                  <tr class="background-vnpt tr-small">
-                    @foreach ($huyen['phat_trien_moi'] as $ptm)
-                      <th class="text-center"  scope="col">
-                        @if ($ptm['mo_ta'])
-                          {{$ptm['mo_ta']}}
-                        @else
-                          {{$ptm['chi_so']}}
-                        @endif
-                      </th>
-                    @endforeach
-                  </tr>
+                    <tr class="background-vnpt text-center">
+                        <th style="width: 5%;">STT</th>
+                        <th style="width: 20;">Tên dịch vụ</th>
+                        <th style="width: 10%;">Số lượng</th>
+                        <th style="width: 65%;">
+                          Ghi chú
+                        </th>
+                    </tr>
                 </thead>
-                <tbody>
-                  <tr class="tr-small">
-                    @foreach ($huyen['phat_trien_moi'] as $ptm)
-                      <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
-                        {{$ptm['gia_tri']}}
-                        @if ($ptm['ghi_chu'])
-                          &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
-                        @endif
-                      </th>
-                    @endforeach
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          @endif
+                <tbody>    
+                    @if($huyen['phat_trien_moi'] && count($huyen['phat_trien_moi'])>0)
+                      <tr class="active font-weight-bold tr-small">
+                        <td colspan="4">&nbsp;Phát triển mới</td>
+                      </tr>
+                      @php $stt=0; @endphp
+                      @foreach ($huyen['phat_trien_moi'] as $ptm)
+                        @php $stt++; @endphp
+                        <tr class="tr-hover tr-small">
+                          <td class="text-center">{{$stt}}</td>
+                          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+                            @if ($ptm['mo_ta'])
+                              {{$ptm['mo_ta']}}
+                            @else
+                              {{$ptm['chi_so']}}
+                            @endif
+                          </td>
+                          <td class="text-center">
+                            {{$ptm['gia_tri']}}
+                          </td>
+                          <td class="text-center">
+                            {{$ptm['ghi_chu']}}
+                          </td>
+                        </tr>
+                      @endforeach
+                    @endif
 
+                    @if($huyen['goi_home'] && count($huyen['goi_home'])>0)
+                      <tr class="active font-weight-bold tr-small">
+                        <td colspan="4">&nbsp;Gói home</td>
+                      </tr>
+                      @php $stt=0; @endphp
+                      @foreach ($huyen['goi_home'] as $ptm)
+                        @php $stt++; @endphp
+                        <tr class="tr-hover tr-small">
+                          <td class="text-center">{{$stt}}</td>
+                          <td class='text-primary @if($ptm['is_group']==1) {{" font-weight-bold"}} @endif'>
+                            @if ($ptm['mo_ta'])
+                              {{$ptm['mo_ta']}}
+                            @else
+                              {{$ptm['chi_so']}}
+                            @endif
+                          </td>
+                          <td class="text-center">
+                            {{$ptm['gia_tri']}}
+                          </td>
+                          <td class="text-center">
+                            {{$ptm['ghi_chu']}}
+                          </td>
+                        </tr>
+                      @endforeach
+                    @endif
+                  </tbody>
+                </table>
+              </div>
+            @endif
 
-
-
-
-
-
-
-
-
-
-
-          @if(isset($huyen['goi_home']) && count($huyen['goi_home'])>0)
-          <div class="font-weight-bold" style="margin-left: 30px;">* Gói home</div>
-          <div style="margin-left: 40px; margin-bottom: 30px;">
-            <table id="table-dhsxkd-phat-trien-moi" class="table table-hover table-bordered table-dhsxkd-phat-trien-moi">
-              <thead>
-                <tr class="background-vnpt tr-small">
-                  @foreach ($huyen['goi_home'] as $ptm)
-                    <th class="text-center"  scope="col">
-                      @if ($ptm['mo_ta'])
-                        {{$ptm['mo_ta']}}
-                      @else
-                        {{$ptm['chi_so']}}
-                      @endif
-                    </th>
-                  @endforeach
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="tr-small">
-                  @foreach ($huyen['goi_home'] as $ptm)
-                    <th class="text-center cusor xem-ghi-chu" data-toggle="modal" data-target="#modal-xem-ghi-chu" title="{{$ptm['ghi_chu']}}">
-                      {{$ptm['gia_tri']}}
-                      @if ($ptm['ghi_chu'])
-                        &nbsp;<i class="fa fa-eye text-danger cusor" data-toggle="tooltip" data-placement="bottom" title="{{$ptm['ghi_chu']}}"></i>
-                      @endif
-                    </th>
-                  @endforeach
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        @endif
+            
 
         @if(isset($huyen['xu_ly_dung_han']) && count($huyen['xu_ly_dung_han'])>0)
           <div class="font-weight-bold" style="margin-left: 30px;">* Lắp đặt sửa chữa xử lý đúng hạn</div>
@@ -680,8 +677,9 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;  font-size: 14px;">
-        <button type="button" class="btn btn-vnpt mr-2"><i class="fa fa-file-word-o"></i> Xuất báo cáo</button>
-        <button type="button" class="btn btn-vnpt mr-2"  data-toggle="tooltip" data-placement="bottom" title="Basic tooltip"><i class="fa fa-print"></i> In báo cáo</button>
+        @if ($checkQuyenXuatBaoCao==1)
+          <button type="button" class="btn btn-vnpt mr-2 btn-xuat-bao-cao"><i class="fa fa-upload"></i> Xuất báo cáo</button>
+        @endif
         <button type="button" class="btn btn-danger mr-2 btn-gui-nhac-nho-qua-telegram"><i class="fa fa-send"></i> Gửi thông báo nhắc nhở (Qua Telegram)</button>
       </div>
     </div>
@@ -695,6 +693,20 @@
       var idTuan=jQuery('#id_tuan').val();
       postAndNotRefreshById(_token, idTuan, "{{ route('vien-thong-tinh-gui-thong-bao-nhac-nho-qua-telegram') }}", true);
       return false;
+    });
+
+
+    $('.btn-xuat-bao-cao').on('click',function(){
+        var idTuan=jQuery('#id_tuan').val();
+        var url="{{ route('vien-thong-tinh-xuat-bao-cao') }}"+"?tuan="+idTuan;
+        var popup = window.open(url, 'Xuất báo cáo', '_blank ');
+        if (popup == null)
+           alert('Vui lòng cài đặt đồng ý cho tôi mở Popup.');
+        else  {
+          popup.moveTo(0, 0);
+          popup.resizeTo(screen.width, screen.height);
+        }
+        return false;
     });
   });
 </script>

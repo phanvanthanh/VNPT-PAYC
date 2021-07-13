@@ -46,7 +46,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -76,7 +76,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -105,7 +105,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -134,7 +134,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -163,7 +163,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -192,7 +192,7 @@
             {{$ptm['gia_tri']}}
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$ptm['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$ptm['id']}}">
@@ -260,7 +260,7 @@
             @endphp
           </td>
           <td class="text-center">
-            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu">
+            <form class="forms-sample frm-cap-nhat-ghi-chu" name="frm-cap-nhat-ghi-chu" action="javascript:void(0)">
               {{ csrf_field() }}
               <input type="Text" class="form-control @if ($daChotSoLieu>0) disabled @endif ghi_chu" placeholder="" @if ($daChotSoLieu>0) disabled="disabled" @endif value="{{$xlsc['ghi_chu']}}" name="ghi_chu">
               <input type="hidden" name="id" value="{{$xlsc['id']}}">

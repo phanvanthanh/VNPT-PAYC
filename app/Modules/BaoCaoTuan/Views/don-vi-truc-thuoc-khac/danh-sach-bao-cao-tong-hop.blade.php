@@ -253,7 +253,7 @@
     <div class="col-12">
       <br>
       <div class="form-group mt-5 text-right" style="margin-bottom: 0px;">
-         @if ($checkQuyenXuatBaoCao==1)
+        @if ($checkQuyenXuatBaoCao==1)
           <button type="button" class="btn btn-vnpt mr-2 btn-xuat-bao-cao"><i class="fa fa-upload"></i> Xuất báo cáo</button>
         @endif
         @if ($checkQuyenChotBaoCaoNhom==1)
