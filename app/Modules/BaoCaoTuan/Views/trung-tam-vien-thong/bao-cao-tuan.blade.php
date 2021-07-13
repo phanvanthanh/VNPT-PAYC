@@ -575,7 +575,7 @@
           if(hDisplay<10){hDisplay="0"+hDisplay}
           if(mDisplay<10){mDisplay="0"+mDisplay}
           if(sDisplay<10){sDisplay="0"+sDisplay}
-          return dDisplay + " ngày " + hDisplay + " giờ " + mDisplay + " phút " + sDisplay + " giây"; 
+          return dDisplay + " ngày " + hDisplay + " : " + mDisplay + " : " + sDisplay; 
       }
 
       var startDate = new Date();
