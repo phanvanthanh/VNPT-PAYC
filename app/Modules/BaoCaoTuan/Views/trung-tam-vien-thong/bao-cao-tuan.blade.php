@@ -562,17 +562,20 @@
 
       function secondsToHms(d) {
           d = Number(d);
-          var h = Math.floor(d / 3600);
+          var ngay = Math.floor(d / (3600*24));
+          var h = Math.floor((d / 3600)-ngay*24);
           var m = Math.floor(d % 3600 / 60);
           var s = Math.floor(d % 3600 % 60);
 
+          var dDisplay = ngay > 0 ? ngay + (ngay == 1 ? "" : "") : "0";
           var hDisplay = h > 0 ? h + (h == 1 ? "" : "") : "0";
           var mDisplay = m > 0 ? m + (m == 1 ? "" : "") : "0";
           var sDisplay = s > 0 ? s + (s == 1 ? "" : "") : "0";
+          if(dDisplay<10){dDisplay="0"+dDisplay}
           if(hDisplay<10){hDisplay="0"+hDisplay}
           if(mDisplay<10){mDisplay="0"+mDisplay}
           if(sDisplay<10){sDisplay="0"+sDisplay}
-          return hDisplay + " : " + mDisplay + " : " + sDisplay; 
+          return dDisplay + " ngày " + hDisplay + " giờ " + mDisplay + " phút " + sDisplay + " giây"; 
       }
 
       var startDate = new Date();
