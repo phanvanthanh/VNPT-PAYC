@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://baocaotuan.vnpttravinh.vn'),
+    'url' => env('APP_URL', 'https://vnpt-payc.abc'),
 
-    'asset_url' => env('ASSET_URL', 'https://baocaotuan.vnpttravinh.vn'),
+    'asset_url' => env('ASSET_URL', 'https://vnpt-payc.abc'),
 
     /*
     |--------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 |
 */
 
-URL::forceRootUrl('https://baocaotuan.vnpttravinh.vn');
+URL::forceRootUrl('https://vnpt-payc.abc');
 Auth::routes();
 Auth::routes([
   'verify' => false,
