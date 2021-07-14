@@ -22,8 +22,8 @@ class TaiLieuController extends Controller{
         # parent::__construct();
     }
 
-    public function taiLieuHuongDanCanBo(Request $request){    
-        return view('TaiLieu::tai-lieu-huong-dan-can-bo');
+    public function taiLieu(Request $request){    
+        return view('TaiLieu::tai-lieu');
         
     }
 }
