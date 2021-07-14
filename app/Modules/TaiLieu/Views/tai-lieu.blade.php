@@ -30,7 +30,7 @@
                       <span class="-ap icon-paper-clip icon"></span>
                       <div class="content">
                           <span class="text">File đính kèm:</span>
-                          <a target="_blank" href="/api/download-file/huong_dan_can_bo.pdf" class="link">tai_lieu_huong_dan_can_bo.pdf</a>                
+                          <a target="_blank" href="/api/download-file/huong_dan_can_bo.pdf" class="link">tai_lieu_huong_dan_can_bo.pdf <i class="fa fa-eye text-primary"></i></a>                
                       </div>
                   </div>
                 </div>
