@@ -199,7 +199,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                            </div>
                         </a>
 
-                        <div class="dropdown-divider"></div>
+                        {{-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
                               <div class="preview-icon bg-danger">
@@ -212,7 +212,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                                  {{ csrf_field() }}
                               </form>
                            </div>
-                        </a>
+                        </a> --}}
                         @endif
                      </div>
                   </li>
