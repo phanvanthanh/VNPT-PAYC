@@ -36,7 +36,7 @@ class SsoController extends Controller{
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
     }
 
     public function ssoDangNhap(Request $request)
@@ -98,6 +98,23 @@ class SsoController extends Controller{
         $request->session()->flash('notification-error', '<b>Đăng nhập thất bại</b>! '.$respone['message']);
         return redirect()->route('login');
         
+    }
+
+
+    public function ssoDangXuat(Request $request)
+    {
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        if(Session::has('login_sso')==false && Session::get('login_sso')==1){
+            Session::put('login_sso',0);
+            header('Location: https://portal.vnpttravinh.vn/');
+            exit;
+        }else{
+            return redirect()->route('login');
+        }
+            
     }
 
 }

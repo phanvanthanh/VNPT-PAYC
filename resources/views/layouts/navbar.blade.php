@@ -198,6 +198,21 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                               </form>
                            </div>
                         </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item preview-item">
+                           <div class="preview-thumbnail">
+                              <div class="preview-icon bg-danger">
+                                 <i class="icon-lock-open mx-0"></i>
+                              </div>
+                           </div>
+                           <div class="preview-item-content"  onclick="event.preventDefault(); document.getElementById('logout-form-sso').submit();">                              
+                              <h6 class="preview-subject font-weight-medium">Đăng xuất SSO</h6>  
+                              <form id="logout-form-sso" action="{{ route('sso-dang-xuat') }}" method="POST" style="display: none;">
+                                 {{ csrf_field() }}
+                              </form>
+                           </div>
+                        </a>
                         @endif
                      </div>
                   </li>

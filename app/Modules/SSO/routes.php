@@ -9,5 +9,10 @@ Route::group(
             'as' => 'sso-dang-nhap',
             'uses' => 'SsoController@ssoDangNhap'
         ]);
+
+        Route::post('sso/logout', [
+            'as' => 'sso-dang-xuat',
+            'uses' => 'SsoController@ssoDangXuat'
+        ]);
     }
 );
