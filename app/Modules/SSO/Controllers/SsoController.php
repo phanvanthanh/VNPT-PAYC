@@ -72,7 +72,8 @@ class SsoController extends Controller{
 
                     // Đăng nhập vào hệ thống bằng tài khoản đã nhập
                     $credentials = $request->only('email', 'password');
-                    if (Auth::attempt($credentials)) {                        
+                    if (Auth::attempt($credentials)) {           
+                        Session::put('login_sso',1);             
                         return redirect()->intended('to-do');
                     }
                 }else{
@@ -103,11 +104,13 @@ class SsoController extends Controller{
 
     public function ssoDangXuat(Request $request)
     {
-        Auth::logout();
+        // Auth::logout();
         
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        if(Session::has('login_sso')==false && Session::get('login_sso')==1){
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        print_r($request->session()->get('login_sso'));
+        die();
+        if($request->session()->has('login_sso') && $request->session()->get('login_sso')==1){
             Session::put('login_sso',0);
             header('Location: https://portal.vnpttravinh.vn/');
             exit;
