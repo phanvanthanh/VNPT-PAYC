@@ -184,7 +184,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                               <h6 class="preview-subject font-weight-medium">Thay đổi mật khẩu</h6>
                            </div>
                         </a> --}}
-                        <div class="dropdown-divider"></div>
+                        {{-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
                               <div class="preview-icon bg-danger">
@@ -197,7 +197,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                                  {{ csrf_field() }}
                               </form>
                            </div>
-                        </a>
+                        </a> --}}
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
@@ -207,7 +207,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                               </div>
                            </div>
                            <div class="preview-item-content"  onclick="event.preventDefault(); document.getElementById('logout-form-sso').submit();">                              
-                              <h6 class="preview-subject font-weight-medium">Đăng xuất SSO (test không dùng)</h6>  
+                              <h6 class="preview-subject font-weight-medium">Đăng xuất</h6>  
                               <form id="logout-form-sso" action="{{ route('sso-dang-xuat') }}" method="POST" style="display: none;">
                                  {{ csrf_field() }}
                               </form>
