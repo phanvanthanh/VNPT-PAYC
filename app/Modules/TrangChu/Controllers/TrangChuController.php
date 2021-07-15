@@ -71,6 +71,7 @@ class TrangChuController extends Controller{
             print_r($value);
             
             die();*/
+            false
 
             return redirect()->route('to-do');
             return view('TrangChu::home');
