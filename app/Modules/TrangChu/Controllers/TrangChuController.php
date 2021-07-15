@@ -40,7 +40,6 @@ class TrangChuController extends Controller{
                         $userId=$checkUserExits[0]['id'];
                         // Đăng nhập bằng user id
                         if (Auth::loginUsingId($userId)) {
-                            $request->session()->put('login_sso',1);
                             return redirect()->intended('to-do');
                         }else{
                             header('Location: https://portal.vnpttravinh.vn/');
@@ -71,7 +70,6 @@ class TrangChuController extends Controller{
             print_r($value);
             
             die();*/
-            false
 
             return redirect()->route('to-do');
             return view('TrangChu::home');

@@ -36,7 +36,7 @@ class SsoController extends Controller{
      */
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
     public function ssoDangNhap(Request $request)
@@ -72,8 +72,7 @@ class SsoController extends Controller{
 
                     // Đăng nhập vào hệ thống bằng tài khoản đã nhập
                     $credentials = $request->only('email', 'password');
-                    if (Auth::attempt($credentials)) {           
-                        Session::put('login_sso',1);             
+                    if (Auth::attempt($credentials)) {          
                         return redirect()->intended('to-do');
                     }
                 }else{
