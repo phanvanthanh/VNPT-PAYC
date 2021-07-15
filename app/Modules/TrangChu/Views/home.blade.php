@@ -1,18 +1,11 @@
 @extends('layouts.index')
 @section('title', 'Trang chủ')
 @section('content')
-@php
-	/*use Firebase\JWT\JWT;
-	$key = "vnpt-dntt";
-	$payload = array(
-	    "iat" => 1625729963,
-	    "nbf" => 1625731163,
-	  	"nhanvien_id" => "MTg1MQ==",
-	    "ttl" => 15,
-	    "key"	=> "vnpt-qlam"
-	);	$jwt = JWT::encode($payload, $key);
-	$jwt="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjU3Mjk5NjMsImV4cCI6MTYyNTczMTE2MywibmhhbnZpZW5faWQiOiJNVGcxTVE9PSIsIm1hX25kIjoiYWRtaW5fdHZoIiwidGVuX25kIjoiYWRtaW5fVFZIIiwidHRsIjoiMTUiLCJyZWZyZXNoX3Rva2VuIjoiIiwia2V5Ijoidm5wdC1xbGFtIn0.o_QE2laPU1LwfZ1sUBE_uUSnV8Z0519QmsTK5fr7X78";*/
-@endphp
+<style type="text/css">
+	.table-calendar-t tr{
+			height: 40px;
+	}
+</style>
 	<div class="col-lg-12">
 	    <div class="card">
 	        <div class="card-body">
@@ -26,16 +19,27 @@
                </div>
                <div class="row">
 	               	<div class="col-sm-12">
-	               		<form class="forms-sample frm-them-moi" id="frm-them-moi" name="frm-them-moi" method="POST" action="http://10.90.199.89/">
-	               			@csrf
-										  <div class="form-group row text-right">
-										    <label for="token" class="col-sm-1 col-form-label ">Token</label>
-										    <div class="col-sm-11">
-										       <input type="Text" class="form-control token" name="token" value="">
-										    </div>
-										  </div>
-										  <button type="submit" class="btn btn-vnpt btn-them-moi"><i class="icon-check"></i>Đăng nhập SSO 2</button>
-										</form>
+	               		<table class="table table-bordered table-calendar-t">
+	               			@php
+	               					$stt=0;
+	               			@endphp
+	               			@for (	$i = 1; 	$i <=5 ; 	$i++)
+		               			<tr>
+		               				@for (	$j = 1; 	$j <= 7; 	$j++)
+		               					<td>
+		               						@php
+		               								$stt++;
+		               								if($stt<=31){
+		               										echo $stt;
+		               								}
+		               						@endphp
+		               					</td>
+		               				@endfor
+		               			</tr>
+		               		@endfor
+	               		</table>
+	               		
+		               			
 	               	</div>
                </div>
 	        </div>
@@ -50,7 +54,14 @@
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
 
-	  
+    var windowH = $(window).height()-150;
+    var wrapperH = $('.table-calendar-t').height();
+    $('.table-calendar-t').css({'height':windowH+'px'});                                                                             
+    $(window).resize(function(){
+        var windowH = $(window).height()-150;
+		    var wrapperH = $('.table-calendar-t').height();
+		    $('.table-calendar-t').css({'height':windowH+'px'});
+    })          
 
 	  
 	});

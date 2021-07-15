@@ -203,7 +203,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                         <a class="dropdown-item preview-item">
                            <div class="preview-thumbnail">
                               <div class="preview-icon bg-danger">
-                                 <i class="icon-lock-open mx-0"></i>
+                                 <i class="fa fa-unlock mx-0"></i>
                               </div>
                            </div>
                            <div class="preview-item-content"  onclick="event.preventDefault(); document.getElementById('logout-form-sso').submit();">                              

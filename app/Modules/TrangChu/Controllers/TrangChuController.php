@@ -68,7 +68,7 @@ class TrangChuController extends Controller{
             return redirect()->route('login');
         }else{ 
             return redirect()->route('to-do');
-            //return view('TrangChu::home');
+            return view('TrangChu::home');
         }
         
     }
