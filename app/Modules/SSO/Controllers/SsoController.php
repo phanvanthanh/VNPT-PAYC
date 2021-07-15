@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Session\Session;
+use Session;
 use App\SsoModel;
 use App\User;
 
@@ -36,7 +36,7 @@ class SsoController extends Controller{
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest');
     }
 
     public function ssoDangNhap(Request $request)
@@ -72,8 +72,9 @@ class SsoController extends Controller{
 
                     // Đăng nhập vào hệ thống bằng tài khoản đã nhập
                     $credentials = $request->only('email', 'password');
-                    if (Auth::attempt($credentials)) {          
-                        return redirect()->intended('to-do');
+                    if (Auth::attempt($credentials)) {
+                        Session::put('sso_login', 1);
+                        return redirect()->route('to-do');
                     }
                 }else{
                     // Cập nhật lại một số thông tin
@@ -85,6 +86,7 @@ class SsoController extends Controller{
                     $userId=$checkUserExits[0]['id'];
                     // Đăng nhập bằng user id
                     if (Auth::loginUsingId($userId)) {
+                        Session::put('sso_login', 1);
                         return redirect()->intended('to-do');
                     }
                     
@@ -103,14 +105,11 @@ class SsoController extends Controller{
 
     public function ssoDangXuat(Request $request)
     {
-        // Auth::logout();
-        
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-        print_r($request->session()->get('login_sso'));
-        die();
-        if($request->session()->has('login_sso') && $request->session()->get('login_sso')==1){
-            Session::put('login_sso',0);
+        $ssoLogin = Session::get('sso_login');
+        Auth::logout();        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        if($ssoLogin==1){
             header('Location: https://portal.vnpttravinh.vn/');
             exit;
         }else{

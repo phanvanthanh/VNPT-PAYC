@@ -10,7 +10,7 @@ use Request as RequestAjax;
 use App\SsoModel;
 use App\User;
 use Firebase\JWT\JWT;
-use Illuminate\Contracts\Session\Session;
+use Session;
 
 
 class TrangChuController extends Controller{
@@ -40,6 +40,7 @@ class TrangChuController extends Controller{
                         $userId=$checkUserExits[0]['id'];
                         // Đăng nhập bằng user id
                         if (Auth::loginUsingId($userId)) {
+                            Session::put('sso_login',1);
                             return redirect()->intended('to-do');
                         }else{
                             header('Location: https://portal.vnpttravinh.vn/');
@@ -65,14 +66,9 @@ class TrangChuController extends Controller{
             // Đăng nhập thất bại
             $request->session()->flash('notification-error', '<b>Đăng nhập thất bại</b>! '.$respone['message']);
             return redirect()->route('login');
-        }else{
-            /*$value = session('login_sso');
-            print_r($value);
-            
-            die();*/
-
+        }else{ 
             return redirect()->route('to-do');
-            return view('TrangChu::home');
+            //return view('TrangChu::home');
         }
         
     }
