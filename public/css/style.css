@@ -30008,10 +30008,11 @@ textarea.form-control.bao-cao-tuan-style {
   border-radius: 4px;
   /*background-color: #e6e6e6;*/
   background-color: white;
-  font-size: 16px;
+  font-size: 15px;
   resize: none;
   font-family: "Times New Roman", Times, serif;
   color: black;
+  line-height: 25px;
 }
 textarea.form-control.bao-cao-tuan-style:focus {
   width: 100%;
@@ -30022,10 +30023,11 @@ textarea.form-control.bao-cao-tuan-style:focus {
   border-radius: 4px;
   /*background-color: #f2f2f2;*/
   background-color: white;
-  font-size: 16px;
+  font-size: 15px;
   resize: none;
   font-family: "Times New Roman", Times, serif;
   color: black; 
+  line-height: 25px;
 }
 select.bao-cao-tuan-style.form-control {
   /*background-color: #e6e6e6;*/
