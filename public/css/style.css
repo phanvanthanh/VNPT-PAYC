@@ -30010,6 +30010,8 @@ textarea.form-control.bao-cao-tuan-style {
   background-color: white;
   font-size: 16px;
   resize: none;
+  font-family: "Times New Roman", Times, serif;
+  color: black;
 }
 textarea.form-control.bao-cao-tuan-style:focus {
   width: 100%;
@@ -30022,6 +30024,7 @@ textarea.form-control.bao-cao-tuan-style:focus {
   background-color: white;
   font-size: 16px;
   resize: none;
+  font-family: "Times New Roman", Times, serif;
 }
 select.bao-cao-tuan-style.form-control {
   /*background-color: #e6e6e6;*/
