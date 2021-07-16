@@ -29997,3 +29997,45 @@ li.li-is-group-3{
 h6.text-primary{
   margin-top: 0.5rem;
 }
+
+
+textarea.form-control.bao-cao-tuan-style {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /*background-color: #e6e6e6;*/
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+}
+textarea.form-control.bao-cao-tuan-style:focus {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /*background-color: #f2f2f2;*/
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+}
+select.bao-cao-tuan-style.form-control {
+  /*background-color: #e6e6e6;*/
+  background-color: white;
+}
+select.bao-cao-tuan-style.form-control:focus {
+  /*background-color: #f2f2f2;*/
+  background-color: white;
+}
+select.bao-cao-tuan-style.form-control {
+  /*background-color: #e6e6e6;*/
+  background-color: white;
+}
+select.bao-cao-tuan-style.form-control:focus {
+  /*background-color: #f2f2f2;*/
+  background-color: white;
+}

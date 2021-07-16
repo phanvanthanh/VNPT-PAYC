@@ -36,7 +36,7 @@
                           <h4 class="card-title mb-2" style="width: 25%;">
                             
                               {{ csrf_field() }}
-                              <select class="form-control id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
+                              <select class="form-control id_tuan bao-cao-tuan-style" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
                                 @foreach($bcDmTuan as $dmTuan)
                                   <option value="{{$dmTuan['id']}}" 
                                     @if ($week==$dmTuan['tuan']) 
@@ -54,7 +54,7 @@
                               </select>                            
                           </h4>
                           <h4 class="card-title mb-2" style="width: 25%;">
-                              <select id="id-dich-vu" class="form-control @if(count($dichVus)<=1) d-none @endif" name="id_dich_vu">
+                              <select id="id-dich-vu" class="bao-cao-tuan-style form-control @if(count($dichVus)<=1) d-none @endif" name="id_dich_vu">
                                 @foreach ($dichVus as $dichVu)
                                   <option value="{{$dichVu['id_dich_vu']}}">{{$dichVu['ten_dich_vu']}}</option> 
                                 @endforeach                                         
@@ -95,13 +95,13 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
                                 <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
-                                <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="row justify-content-center align-items-center">
+                                  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">                                      
-                                      <Textarea class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo kết quả công tác tuần qua" name="noi_dung"></Textarea>
+                                      <Textarea class="form-control bao-cao-tuan-style noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo kết quả công tác tuần qua" name="noi_dung"></Textarea>
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
+                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
                                     <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i></button>
 
                                     <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-download"></i></button>
@@ -123,13 +123,13 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
                                 <input type="hidden" name="id_dich_vu" class="input-id-dich-vu" value="">
-                                <div class="row">
+                                <div class="row justify-content-center align-items-center">
                                   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
-                                      <Textarea type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần tiếp theo"></Textarea>
+                                      <Textarea type="Text" class="form-control bao-cao-tuan-style noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần tiếp theo"></Textarea>
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-right">
+                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
                                     <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-ke-hoach-tuan"><i class="fa fa-plus"></i> Thêm</button>
                                   </div>
                                 </div>

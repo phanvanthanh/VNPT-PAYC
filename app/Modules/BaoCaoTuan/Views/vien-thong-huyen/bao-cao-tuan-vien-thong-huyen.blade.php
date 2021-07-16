@@ -37,7 +37,7 @@
                           <h4 class="card-title mb-0">
                             <form class="forms-sample frm-bao-cao-tuan" id="frm-bao-cao-tuan" name="frm-bao-cao-tuan">
                               {{ csrf_field() }}
-                              <select class="form-control id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
+                              <select class="form-control bao-cao-tuan-style id_tuan" id="id_tuan" name="id_tuan" aria-describedby="tuan_helper" style="width: 100%;">
                                 @foreach($bcDmTuan as $dmTuan)
                                   <option value="{{$dmTuan['id']}}" 
                                     @if ($week==$dmTuan['tuan']) 
@@ -80,13 +80,13 @@
                               <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
-                                <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                <div class="row justify-content-center align-items-center">
+                                  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
-                                      <Textarea class="form-control noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
+                                      <Textarea class="form-control bao-cao-tuan-style noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-right">
+                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
                                     <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i> Thêm</button>
                                     <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-download"></i></button>
                                   </div>
@@ -104,13 +104,13 @@
                               <form class="forms-sample frm-bao-cao-ke-hoach-tuan" id="frm-bao-cao-ke-hoach-tuan" name="frm-bao-cao-ke-hoach-tuan">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
-                                <div class="row">
+                                <div class="row justify-content-center align-items-center">
                                   <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                                     <div class="form-group">
-                                      <Textarea type="Text" class="form-control noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
+                                      <Textarea type="Text" class="form-control bao-cao-tuan-style noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-right">
+                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
                                     <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-ke-hoach-tuan"><i class="fa fa-plus"></i> Thêm</button>
                                   </div>
                                 </div>
