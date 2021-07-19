@@ -35,7 +35,7 @@ class DmThongBaoController extends Controller{
     public function danhSachDmThongBao(Request $request){
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
-            $dmThongBaos=DmThongBao::all()->toArray();
+            $dmThongBaos=DmThongBao::orderBy('sap_xep','desc')->get()->toArray();
             $view=view('DmThongBao::danh-sach-dm-thong-bao', compact('dmThongBaos','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
