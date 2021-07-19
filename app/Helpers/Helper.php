@@ -17,12 +17,24 @@ use App\BcTuanHienTai;
 use App\BcDmTuan;
 use DateTime;
 use App\ToDo;
-
+use App\DmThongBaoUsers;
 
 use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+    public static function kiemTraSoLuongThongBaoConLai($userId){
+        $binhLuanChuaXems=Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
+        $paknChuaXems=Helper::layDanhSachPaknChuaXemTheoTaiKhoan($userId);
+        $thongBaoHeThongs=Helper::layDanhSachThongBaoChuaXemTheoIdUser($userId);
+        $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems)+count($thongBaoHeThongs);
+        return $soTinNhan;
+    }
+    public static function layDanhSachThongBaoChuaXemTheoIdUser($idUser){
+        $data=DmThongBaoUsers::layDanhSachThongBaoChuaXemTheoIdUser($idUser);
+        return $data;
+    }
+
     public static function layToDoListTheoNgay($userId, $ngay){
         $toDoList=ToDo::layToDoListTheoNgay($userId, $ngay);
         return $toDoList;

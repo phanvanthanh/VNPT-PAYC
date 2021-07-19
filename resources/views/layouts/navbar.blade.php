@@ -3,7 +3,8 @@ use Illuminate\Support\Facades\Auth;
 $userId=Auth::id();
 $binhLuanChuaXems=\Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
 $paknChuaXems=\Helper::layDanhSachPaknChuaXemTheoTaiKhoan($userId);
-$soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
+$thongBaoHeThongs=\Helper::layDanhSachThongBaoChuaXemTheoIdUser($userId);
+$soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems)+count($thongBaoHeThongs);
 @endphp
          <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"><!-- thêm các class sau để đổi màu navbar-primary navbar-success navbar-warning navbar-danger navbar-pink navbar-info navbar-dark  -->
             <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
@@ -74,7 +75,7 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                         
                      </div>
                   </li> -->
-                  <li class="nav-item dropdown">
+                  <li class="nav-item dropdown btn-danh-dau-da-xem-thong-bao">
                      <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                      <i class="icon-bell mx-0"></i>
                      <span class="@if($soTinNhan<=0) count-success @else count @endif"></span>
@@ -115,6 +116,23 @@ $soTinNhan=count($binhLuanChuaXems)+count($paknChuaXems);
                                  <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">({{$paknChuaXem['so_phieu']}}) {{$paknChuaXem['tieu_de']}}</h6>
                                  <p class="font-weight-light small-text btn-danh-dau-da-xem-pakn" data="{{$paknChuaXem['id']}}" data2="{{$paknChuaXem['id_payc']}}">
                                     Tin mới từ <b class="font-weight-bold">{{$paknChuaXem['ten_user_xu_ly']}}</b> vào ngày {{$paknChuaXem['ngay_nhan']}}
+                                 </p>
+                              </div>
+                           </a>
+                        @endforeach
+                        @foreach ($thongBaoHeThongs as $thongBaoHeThong)
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item preview-item btn-danh-dau-da-xem-thong-bao" data="{{$thongBaoHeThong['id']}}" data2="{{$thongBaoHeThong['id']}}">
+                              <div class="preview-thumbnail">
+                                 
+                                 <div class="preview-icon bg-danger">
+                                    <i class="icon-speech mx-0 btn-danh-dau-da-xem-thong-bao" data="{{$thongBaoHeThong['id']}}" data2="{{$thongBaoHeThong['id']}}"></i>
+                                 </div>
+                              </div>
+                              <div class="preview-item-content btn-danh-dau-da-xem-thong-bao" data="{{$thongBaoHeThong['id']}}" data2="{{$thongBaoHeThong['id']}}">
+                                 <h6 class="preview-subject font-weight-medium btn-danh-dau-da-xem-thong-bao" data="{{$thongBaoHeThong['id']}}" data2="{{$thongBaoHeThong['id']}}">{{$thongBaoHeThong['noi_dung_thong_bao']}}</h6>
+                                 <p class="font-weight-light small-text btn-danh-dau-da-xem-thong-bao" data="{{$thongBaoHeThong['id']}}" data2="{{$thongBaoHeThong['id']}}">
+                                    Tin mới từ <b class="font-weight-bold">Hệ thống</b> vào ngày {{$thongBaoHeThong['ngay_gio_nhan']}}
                                  </p>
                               </div>
                            </a>

@@ -10,7 +10,7 @@
 	        <div class="card-body">
 	          	<div class="row">
                   <div class="col-6">
-                    <h4 class="text-danger">THÔNG TIN YÊU CẦU</h4>
+                    <h4 class="text-danger">THÔNG TIN PAKN HOẶC YCHT</h4>
                   </div>
                     <div class="col-6">
                        <div class="error-mode float-right"></div> 

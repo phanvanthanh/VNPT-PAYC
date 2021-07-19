@@ -11,6 +11,7 @@ use App\PaycXuLy;
 class ThongBao extends Authenticatable
 {
     use Notifiable;
+
     
     public static function layDanhSachPaknChuaXemTheoTaiKhoan($userId){
         if(!isset($userId)){

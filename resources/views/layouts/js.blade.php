@@ -827,6 +827,47 @@
             }
         });
 
+
+        daXemThongBao=function(){
+            var _token="{{ csrf_token() }}";
+            var xhr1;  
+            if(xhr1 && xhr1.readyState != 4){
+                xhr1.abort(); //huy lenh ajax truoc do
+            }
+            xhr1 = jQuery.ajax({
+              url: "{{ route('da-xem-thong-bao') }}",
+              type:'POST',
+              dataType:'json',
+              cache: false,
+              data:{
+                  "_token":_token
+              },
+              complete: function(xhr, textStatus) {
+                //called when complete
+              },
+              success: function(data, textStatus, xhr) {
+                $(".error-mode").empty();
+                if(data.error==""){
+                  if(data.so_tb_con_lai==0){
+                    jQuery('.count').addClass('count-success').removeClass('count');
+                  }
+                }else{
+                  errorLoader(".error-mode",data.error);
+                }
+              },
+              error: function(xhr, textStatus, errorThrown) {
+                //called when there is an error
+              }
+            });
+          }
+
+        jQuery('.btn-danh-dau-da-xem-thong-bao').on('click',function(){
+            console.log("vo roi");
+            var _token="{{ csrf_token() }}";
+            daXemThongBao();
+            
+        });
+
         jQuery('#id_dich_vu').on('change',function(){
           var value=jQuery(this).val();
           if(value==1){
