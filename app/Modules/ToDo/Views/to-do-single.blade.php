@@ -1,4 +1,7 @@
 @if($error=="")
+    @php
+        $choPhepCapNhatNgayHoanThanhToDoList=Helper::getValueThamSoTheoMa('CHO_PHEP_CAP_NHAT_NGAY_HOAN_THANH_TO_DO_LIST');
+    @endphp
     @php $checkData=0; @endphp
     @php if($data){$checkData=1;} @endphp
     @if($checkData==1)
@@ -26,19 +29,22 @@
             </div>
          </div>
 
-         <div class="form-group row">
-            <label for="ngay_hoan_thanh" class="col-sm-4 col-form-label ">Ngày hoàn thành</label>
-            <div class="col-sm-8">
-                @php
-                $today = date('Y-m-d').'T'.date('H:i:s');
-                if($checkData==1 && $data['ngay_hoan_thanh']!=null && $data['ngay_hoan_thanh']!=''){
-                    $nht = strtotime($data['ngay_hoan_thanh']);
-                    $nht2 = date('Y-m-d',$nht).'T'. date('H:i:s',$nht);      
-                }
-                @endphp
-               <input type="datetime-local" class="form-control ngay_hoan_thanh" name="ngay_hoan_thanh" @if($checkData==1 && $data['ngay_hoan_thanh']!=null && $data['ngay_hoan_thanh']!='') value="{{$nht2}}" @endif>
-            </div>
-         </div>
+         @if ($choPhepCapNhatNgayHoanThanhToDoList && $checkData==1)
+             <div class="form-group row">
+                <label for="ngay_hoan_thanh" class="col-sm-4 col-form-label ">Ngày hoàn thành</label>
+                <div class="col-sm-8">
+                    @php
+                    $today = date('Y-m-d').'T'.date('H:i:s');
+                    if($checkData==1 && $data['ngay_hoan_thanh']!=null && $data['ngay_hoan_thanh']!=''){
+                        $nht = strtotime($data['ngay_hoan_thanh']);
+                        $nht2 = date('Y-m-d',$nht).'T'. date('H:i:s',$nht);      
+                    }
+                    @endphp
+                   <input type="datetime-local" class="form-control ngay_hoan_thanh" name="ngay_hoan_thanh" @if($checkData==1 && $data['ngay_hoan_thanh']!=null && $data['ngay_hoan_thanh']!='') value="{{$nht2}}" @endif>
+                </div>
+             </div>
+         @endif
+             
       
          <!-- <div class="form-group row">
             <label for="trang_thai" class="col-sm-4 col-form-label">Trạng thái</label>
