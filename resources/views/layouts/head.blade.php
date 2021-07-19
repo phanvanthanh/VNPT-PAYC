@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-      <title>Báo cáo tuần - @yield('title')</title>
+      <title>VNPT BRS - @yield('title')</title>
       <link rel="stylesheet" href="{{ secure_asset('public/vendors/jquery-tags-input/jquery.tagsinput.min.css') }}">
       <link rel="stylesheet" href="{{ secure_asset('public/vendors/jquery-bar-rating/fontawesome-stars.css') }}">
      <link rel="stylesheet" href="{{ secure_asset('public/vendors/jquery-bar-rating/bars-1to10.css') }}">

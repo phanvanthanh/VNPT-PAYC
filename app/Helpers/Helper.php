@@ -16,11 +16,51 @@ use App\BcKeHoachTuan;
 use App\BcTuanHienTai;
 use App\BcDmTuan;
 use DateTime;
+use App\ToDo;
+
 
 use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+    public static function layToDoListTheoNgay($userId, $ngay){
+        $toDoList=ToDo::layToDoListTheoNgay($userId, $ngay);
+        return $toDoList;
+    }
+
+    /*
+        - Nếu (ngay_hoan_thanh = null)
+            + Nếu (ngay_hien_tai <= han_xu_ly) { chưa xử lý trong hạn - Màu xanh dương }
+            + Ngược lại (chưa xử lý quá hạn - màu đỏ)
+        - Ngược lại
+            + Nếu (ngay_hoan_thanh <= han_xu_ly) { đã xử lý trong hạn - Màu xanh lá cây }
+            + Ngược lại (Đã xử lý quá hạn - màu cam)
+    */
+    public static function kiemTraTrangThaiXuLy($hanXuLy, $ngayHoanThanh){
+        $trangThai='success';
+        if($ngayHoanThanh==null || $ngayHoanThanh==''){
+            $hanXuLy = date_create($hanXuLy);
+            $ngayHienTai = date_create(date('Y-m-d H:i:s'));
+            $interval = date_diff($ngayHienTai, $hanXuLy);
+            if($interval->format('%R')=='+'){
+                $trangThai='primary';
+            }else{
+                $trangThai='danger';
+            }
+        }else{
+            $hanXuLy = date_create($hanXuLy);
+            $ngayHoanThanh = date_create($ngayHoanThanh);
+            $interval = date_diff($ngayHoanThanh, $hanXuLy);
+            if($interval->format('%R')=='+'){
+                $trangThai='success';
+            }else{
+                $trangThai='warning';
+            }
+        }
+        return $trangThai;
+
+            
+    }
 
     public static function layDanhSachTaiKhoanTheoDonVi($idDonVi)
     {
@@ -165,6 +205,17 @@ class Helper
         }
         $week = date('W', strtotime($date));
         return $week+2;
+    }
+
+    public static function layTuanHienTaiCuaHeThong(){
+        // Xem ngày hiện tại thuộc tuần thứ mấy trong năm ?
+        $date = date('Y-m-d');
+        while (date('w', strtotime($date)) != 1) {
+        $tmp = strtotime('-1 day', strtotime($date));
+        $date = date('Y-m-d', $tmp);
+        }
+        $week = date('W', strtotime($date));
+        return $week;
     }
     public static function getValueThamSoTheoMa($maThamSo){
         $value=DmThamSoHeThong::getValueByName($maThamSo);

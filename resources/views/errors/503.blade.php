@@ -1,9 +1,9 @@
 @extends('layouts.error')
-@section('title', '500')
+@section('title', '503')
 @section('content')
   <div class="row align-items-center d-flex flex-row">
     <div class="col-lg-6 text-lg-right pr-lg-4">
-      <h1 class="display-1 mb-0">500</h1>
+      <h1 class="display-1 mb-0">503</h1>
     </div>
     <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
       <h2>XIN LỖI!</h2>

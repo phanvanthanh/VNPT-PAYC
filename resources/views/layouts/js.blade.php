@@ -79,15 +79,15 @@
           
           function checkSlidebarIconOnly(){
             if(jQuery('body').hasClass('sidebar-icon-only')){
-              jQuery('.navbar-brand').text('REPORT');
+              jQuery('.navbar-brand').text('BRS');
             }else{
-              jQuery('.navbar-brand').text('VNPT - REPORT');
+              jQuery('.navbar-brand').text('VNPT - BRS');
             }
             jQuery('.icon-menu').on('click',function(){
               if(jQuery('body').hasClass('sidebar-icon-only')){
-                jQuery('.navbar-brand').text('VNPT - REPORT');
+                jQuery('.navbar-brand').text('VNPT - BRS');
               }else{
-                jQuery('.navbar-brand').text('REPORT');
+                jQuery('.navbar-brand').text('BRS');
               }
             });
           }

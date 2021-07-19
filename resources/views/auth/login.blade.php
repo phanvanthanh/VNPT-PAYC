@@ -1,6 +1,9 @@
 @extends('layouts.front-end')
 @section('title', 'Đăng nhập')
 @section('content')
+@php
+	$choPhepDangNhanBangTkHeThong=Helper::getValueThamSoTheoMa('CHO_PHEP_DANG_NHAP_BANG_TK_HE_THONG');
+@endphp
 	<div class="col-12 stretch-card">
 		<div class="card">
 			<div class="card-body">
@@ -46,7 +49,10 @@
 							</div>
 							<div class="row">
 								<div class="col-12 text-center">
-									<button type="button" class="btn btn-success btn-dang-nhap" style="width: 156.43px;"><i class="icon-check"></i> Đăng nhập</button>
+									@if ($choPhepDangNhanBangTkHeThong)
+										<button type="button" class="btn btn-success btn-dang-nhap" style="width: 156.43px;"><i class="icon-check"></i> Đăng nhập</button>
+									@endif
+									
 									<button type="button" class="btn btn-vnpt btn-dang-nhap-sso" style="width: 170.43px;"><i class="icon-check"></i> Đăng nhập SSO</button>
 									<a href= "{{ route('register') }}" class="btn btn-danger">Đăng ký tài khoản</a>
 								</div>

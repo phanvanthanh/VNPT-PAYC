@@ -1,19 +1,19 @@
 @extends('layouts.error')
-@section('title', '500')
+@section('title', '419')
 @section('content')
   <div class="row align-items-center d-flex flex-row">
     <div class="col-lg-6 text-lg-right pr-lg-4">
-      <h1 class="display-1 mb-0">500</h1>
+      <h1 class="display-1 mb-0">419</h1>
     </div>
     <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
       <h2>XIN LỖI!</h2>
-      <h3 class="font-weight-light">Không xác định.</h3>
+      <h3 class="font-weight-light">Page not found.</h3>
     </div>
   </div>
   <div class="row mt-5">
     <div class="col-12 text-center mt-xl-2">
       <a class="text-white font-weight-medium" href="/">
-        <p>Đã có lỗi xảy ra. Bạn sẽ <b>quay lại trang chủ</b>  sau <b><span id="counter">5</span> giây(s).</p></b>
+        <p>Không tìm thấy chức năng. Bạn sẽ <b>quay lại trang chủ</b>  sau <b><span id="counter">5</span> giây(s).</p></b>
         <script type="text/javascript">
           function countdown() {
             var i = document.getElementById("counter");

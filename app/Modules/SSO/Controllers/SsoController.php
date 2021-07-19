@@ -74,7 +74,7 @@ class SsoController extends Controller{
                     $credentials = $request->only('email', 'password');
                     if (Auth::attempt($credentials)) {
                         Session::put('sso_login', 1);
-                        return redirect()->route('to-do');
+                        return redirect()->route('/');
                     }
                 }else{
                     // Cập nhật lại một số thông tin
@@ -87,7 +87,7 @@ class SsoController extends Controller{
                     // Đăng nhập bằng user id
                     if (Auth::loginUsingId($userId)) {
                         Session::put('sso_login', 1);
-                        return redirect()->intended('to-do');
+                        return redirect()->intended('/');
                     }
                     
                 }
@@ -113,6 +113,11 @@ class SsoController extends Controller{
             header('Location: https://portal.vnpttravinh.vn/');
             exit;
         }else{
+            $urlLogin=DmThamSoHeThong::getValueByName('URL_LOGIN');
+            if($urlLogin){
+                header('Location: '.$urlLogin);
+                exit;
+            }                
             return redirect()->route('login');
         }
             

@@ -75,4 +75,17 @@ class BcDmThoiGianBaoCao extends Model
 	      (new DateTime())->setISODate($year, $week, 7)->format('Y-m-d') //end date
 	   ];
 	}
+
+    public static function getStartAndEndDateOfWeekFull($year, $week)
+    {
+       return [
+          (new DateTime())->setISODate($year, $week)->format('d/m/Y'), //start date
+          (new DateTime())->setISODate($year, $week,2)->format('d/m/Y'), //start date
+          (new DateTime())->setISODate($year, $week,3)->format('d/m/Y'), //start date
+          (new DateTime())->setISODate($year, $week,4)->format('d/m/Y'), //mid date
+          (new DateTime())->setISODate($year, $week,5)->format('d/m/Y'), //end date
+          (new DateTime())->setISODate($year, $week,6)->format('d/m/Y'), //end date
+          (new DateTime())->setISODate($year, $week,7)->format('d/m/Y') //end date
+       ];
+    }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.error')
-@section('title', 'Lỗi 404 không tìm thấy tài nguyên')
+@section('title', '403')
 @section('content')
   <div class="row align-items-center d-flex flex-row">
     <div class="col-lg-6 text-lg-right pr-lg-4">
