@@ -9,7 +9,7 @@
     @endif    
         {{ csrf_field() }}
         <div class="form-group row">
-            <label for="noi_dung" class="col-sm-4 col-form-label ">Nội dung</label>
+            <label for="noi_dung" class="col-sm-4 col-form-label ">Nội dung <i class="text-danger">*</i></label>
             <div class="col-sm-8">
                <!-- <input type="Text" class="form-control noi_dung" name="noi_dung" placeholder="Vui lòng nhập nội dung cần tạo" @if($checkData==1) value="{{$data['noi_dung']}}" @endif> -->
                <textarea class="form-control noi_dung" name="noi_dung" placeholder="Vui lòng nhập nội dung cần tạo" rows="5">@if($checkData==1) {{$data['noi_dung']}} @endif</textarea>
