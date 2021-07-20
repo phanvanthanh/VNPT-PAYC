@@ -18,11 +18,17 @@ use App\BcDmTuan;
 use DateTime;
 use App\ToDo;
 use App\DmThongBaoUsers;
+use App\DmLinkQuanTri;
 
 use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+
+    public static function layDmLinkQuanTriTheoIdUserVaIdDichVu($dataIn){
+        $result=DmLinkQuanTri::layDmLinkQuanTriTheoIdUserVaIdDichVu($dataIn);
+        return $result;
+    }
     public static function kiemTraSoLuongThongBaoConLai($userId){
         $binhLuanChuaXems=Helper::layDanhSachBinhLuanChuaXemTheoTaiKhoan($userId);
         $paknChuaXems=Helper::layDanhSachPaknChuaXemTheoTaiKhoan($userId);

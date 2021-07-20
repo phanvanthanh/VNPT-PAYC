@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
 use App\SsoModel;
+use App\DmThamSoHeThong;
 use App\User;
 
 class SsoController extends Controller{
