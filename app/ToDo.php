@@ -21,11 +21,11 @@ class ToDo extends Authenticatable
         $tu=$ngay.' 00:00:00';
         $sang=$ngay.' 12:00:00';
         $chieu=$ngay.' 23:59:00';
-        $toDoListSang=DB::SELECT("SELECT * FROM to_do WHERE DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>='".$tu."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$sang."'");
+        $toDoListSang=DB::SELECT("SELECT * FROM to_do WHERE id_user=".$userId." AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>='".$tu."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$sang."'");
         $toDoListSang = collect($toDoListSang)->map(function($x){ return (array) $x; })->toArray(); 
 
 
-        $toDoListChieu=DB::SELECT("SELECT * FROM to_do WHERE DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>='".$sang."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$chieu."'");
+        $toDoListChieu=DB::SELECT("SELECT * FROM to_do WHERE id_user=".$userId." AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>='".$sang."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$chieu."'");
         $toDoListChieu = collect($toDoListChieu)->map(function($x){ return (array) $x; })->toArray(); 
 
         $toDoList=array();

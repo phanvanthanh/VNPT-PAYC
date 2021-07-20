@@ -30059,3 +30059,16 @@ select.bao-cao-tuan-style.form-control:focus {
 .border-left-primary{
   border-left: 5px solid #03a9f3;
 }
+
+.border-top-success{
+  border-left: 5px solid #00c292;
+}
+.border-top-danger{
+  border-left: 5px solid #FF5733;
+}
+.border-top-warning{
+  border-left: 5px solid #ffb463;
+}
+.border-top-primary{
+  border-left: 5px solid #03a9f3;
+}

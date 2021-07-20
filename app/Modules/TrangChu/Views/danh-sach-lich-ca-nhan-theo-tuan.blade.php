@@ -17,11 +17,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td style="width: 20%;"></td>
-            <td style="width: 40%;"></td>
-            <td style="width: 40%;"></td>
-        </tr>
     @php
         $stt=0;
         $arrThu=array(

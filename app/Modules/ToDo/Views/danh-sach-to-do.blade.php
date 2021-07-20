@@ -22,7 +22,14 @@
                                 $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
                                 $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                             @endphp           
-                            <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed border-left-{{$trangThai}}" @else class="draggable border-left-{{$trangThai}}" @endif style="display: block !important;border-top: 2px solid #f2f2f2; padding: 5px 5px;">
+                            <li draggable="true" 
+                                @if($toDo['ngay_hoan_thanh']!='') 
+                                    class="draggable completed border-left-{{$trangThai}}" 
+                                @else 
+                                    class="draggable border-left-{{$trangThai}}" 
+                                @endif 
+                                style="display: block !important;border-top: 2px solid #f2f2f2; padding: 5px 5px;"
+                            >
                               <div class="form-check" style="display: flex; margin-top: 5px; margin-bottom: -10px; line-height:1px;">
                                 <label class="form-check-label" style="padding-bottom:5px;">
                                   <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
