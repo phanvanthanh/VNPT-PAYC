@@ -50,7 +50,42 @@
   <script type="text/javascript">
     jQuery(document).ready(function() {
       var _token=jQuery('form[name="frm-them-moi"]').find("input[name='_token']").val();
-      loadTable(_token, "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
+
+
+      loadToDo=function(){     
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "{{ route('danh-sach-to-do') }}",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              "_token":_token
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              jQuery('.load-danh-sach').html(data.html);
+              @if ($id)
+                getById(_token, {{$id}}, "{{ route('to-do-single') }}", ".frm-cap-nhat"); // gọi sự kiện lấy dữ liệu theo id
+                $('#modal-cap-nhat').modal('show'); // bật form sửa     
+              @endif
+            }else{
+              errorLoader(".error-mode",data.error);
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+      }
+      loadToDo();
       
 
 
@@ -63,7 +98,7 @@
 
       $('.btn-load-form-them-moi').on('click',function(){
         getById(_token, "", "{{ route('to-do-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
-      });
+      });      
       
     });
   </script>

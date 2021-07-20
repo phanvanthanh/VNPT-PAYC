@@ -51,7 +51,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                         @endphp
-                        <a href="{{ route('to-do') }}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
+                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
                         
                         @if ($stt<count($toDoList['chieu']))
                             <br>
@@ -68,7 +68,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                         @endphp
-                        <a href="{{ route('to-do') }}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
+                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
                         @if ($stt<count($toDoList['chieu']))
                             <br>
                         @endif

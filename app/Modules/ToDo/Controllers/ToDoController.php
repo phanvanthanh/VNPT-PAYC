@@ -23,7 +23,12 @@ class ToDoController extends Controller{
     }
 
     public function toDo(Request $request){
-        return view('ToDo::to-do');
+        $id='';
+        $data=$request->all();
+        if(isset($data['id'])){
+            $id=$data['id'];
+        }
+        return view('ToDo::to-do', compact('id'));
     }
 
 
