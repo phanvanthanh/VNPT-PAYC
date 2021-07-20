@@ -46,7 +46,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                         @endphp
-                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
+                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
                         
                         @if ($stt<count($toDoList['chieu']))
                             <br>
@@ -63,7 +63,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                         @endphp
-                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
+                        <a href="{{route('to-do')}}?id={{$toDo['id']}}"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">ToDo - {{$toDo['noi_dung']}}</div></a>
                         @if ($stt<count($toDoList['chieu']))
                             <br>
                         @endif
@@ -78,7 +78,14 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        
+        var windowH = $(window).width()-150;
+        windowH=windowH/2;
+        $('.badge-t').css({'max-width':windowH+'px'});                                                                             
+        $(window).resize(function(){
+            var windowH = $(window).width()-150;
+            windowH=windowH/2;
+            $('.badge-t').css({'max-width':windowH+'px'});
+        })   
     });
 
 </script>
