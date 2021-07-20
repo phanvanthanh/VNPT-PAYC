@@ -91,6 +91,8 @@ class ToDoController extends Controller{
             $toDo=ToDo::where("id","=",$id)->get()->toArray();
             if(count($toDo)==1){
                 unset($dataForm["_token"]);
+                unset($dataForm["ngay"]);
+                unset($dataForm["gio"]);
                 $toDo=ToDo::where("id","=",$id);
                 $toDo->update($dataForm);
                 return array("error"=>'');

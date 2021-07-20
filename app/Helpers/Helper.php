@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Auth;
 class Helper
 {
 
-    public static function layDmLinkQuanTriTheoIdUserVaIdDichVu($dataIn){
-        $result=DmLinkQuanTri::layDmLinkQuanTriTheoIdUserVaIdDichVu($dataIn);
+    public static function layDmLinkQuanTriTheoIdDichVu($idDichVu){
+        $result=DmLinkQuanTri::layDmLinkQuanTriTheoIdDichVu($idDichVu);
         return $result;
     }
     public static function kiemTraSoLuongThongBaoConLai($userId){

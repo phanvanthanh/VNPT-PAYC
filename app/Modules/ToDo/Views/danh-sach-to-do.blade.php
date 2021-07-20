@@ -88,10 +88,25 @@
         });
 
         /*Sự kiện bấm nút cập nhật*/
-        jQuery('.btn-cap-nhat').on('click',function(){            
+        jQuery('.btn-cap-nhat').on('click',function(){ 
+            var gio= jQuery('#gio').val();
+            var arrGio=gio.split(":");
+            if(gio.length!=5 || arrGio.length!=2 || !$.isNumeric(arrGio[0]) || !$.isNumeric(arrGio[1]) || parseInt(arrGio[0])<0 || parseInt(arrGio[0])>24 || parseInt(arrGio[1])<0 || parseInt(arrGio[1])>59){
+                jQuery('.error-clock').html('<span class="invalid-feedback" role="alert">'
+                        +'<strong>HH:SS</strong>'
+                    +'</span>');
+                jQuery('#gio').addClass('text-danger');
+                return false;
+            }
+            var ngay=jQuery('#ngay').val();
+            var arrNgay=ngay.split('/');
+            var hanXuLy=arrNgay[2]+"/"+arrNgay[0]+"/"+arrNgay[1]+" "+gio+":00";
+            jQuery('.han_xu_ly').val(hanXuLy);
             capNhat(_token, $("form#frm-cap-nhat"), "{{ route('cap-nhat-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach'); // bật form sửa     
             jQuery("#modal-cap-nhat").modal('hide'); // Tắt form sửa    
         });
+
+        
 
         /*Sự kiện bấm nút cập nhật*/
         jQuery('.btn-xoa').on('click',function(){      

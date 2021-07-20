@@ -16,10 +16,7 @@
         ?>
         @foreach($dichVus as $dichVu)
             @php 
-                $dsLinkQuanTri=Helper::layDmLinkQuanTriTheoIdUserVaIdDichVu([
-                    'id_user'   => $idUser,
-                    'id_dich_vu'=> $dichVu['id']
-                ]);
+                $dsLinkQuanTri=Helper::layDmLinkQuanTriTheoIdDichVu($dichVu['id']);
             @endphp
             <tr class="tr-hover tr-small active">
                 <td></td>

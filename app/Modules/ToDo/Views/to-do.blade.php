@@ -90,13 +90,28 @@
 
 
       $('.btn-them-moi').on('click',function(){
+          var gio= jQuery('#gio').val();
+          var arrGio=gio.split(":");
+          if(gio.length!=5 || arrGio.length!=2 || !$.isNumeric(arrGio[0]) || !$.isNumeric(arrGio[1]) || parseInt(arrGio[0])<0 || parseInt(arrGio[0])>24 || parseInt(arrGio[1])<0 || parseInt(arrGio[1])>59){
+              jQuery('.error-clock').html('<span class="invalid-feedback" role="alert">'
+                      +'<strong>HH:SS</strong>'
+                  +'</span>');
+              jQuery('#gio').addClass('text-danger');
+              return false;
+          }
+          var ngay=jQuery('#ngay').val();
+          var arrNgay=ngay.split('/');
+          var hanXuLy=arrNgay[2]+"/"+arrNgay[0]+"/"+arrNgay[1]+" "+gio+":00";
+          jQuery('.han_xu_ly').val(hanXuLy);
           themMoi(_token, $("form#frm-them-moi"), "{{ route('them-to-do') }}", "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
           $("#modal-them-moi").removeClass("in");
           $(".modal-backdrop").remove();
           $("#modal-them-moi").hide();
       });
 
+
       $('.btn-load-form-them-moi').on('click',function(){
+        loadToDo();
         getById(_token, "", "{{ route('to-do-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });      
       

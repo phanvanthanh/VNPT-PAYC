@@ -85,13 +85,12 @@
 			    		  			<div class="col-12">
 			    		  				<small class="form-text text-muted">Hạn xử lý mong muốn</small>
 			    		  				<!-- <label for="datepicker-popup" class="text-title-input-size">* Hạn xử lý</label> -->		
-			    		  				<div id="datepicker-popup" class="input-group date datepicker">
+			    		  				<div id="datepicker-popup" class="input-group date datepicker" style="padding: 0px;">
 					                        <input type="text" id="ngay" name="ngay" class="form-control" aria-describedby="ngay_helper" value="{{date('m/d/Y')}}">
 					                        <div class="input-group-addon input-group-text">
 					                          <span class="mdi mdi-calendar"></span>
 					                        </div>
 					                    </div>
-					                    <!-- <small id="ngay_helper" class="form-text text-muted">Hạn xử lý mà bạn mong muốn, để chúng tôi sắp xếp xử lý.</small> -->
 			    		  			</div>
 			    		  			<div class="col-12 d-none">
 			    		  				<small class="form-text text-muted">Giờ</small>

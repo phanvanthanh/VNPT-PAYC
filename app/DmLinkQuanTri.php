@@ -12,11 +12,10 @@ class DmLinkQuanTri extends Model
     public $timestamps=false;
 
 
-    public static function layDmLinkQuanTriTheoIdUserVaIdDichVu($dataIn){
+    public static function layDmLinkQuanTriTheoIdDichVu($idDichVu){
         $result=DmLinkQuanTri::select('users.name','dm_link_quan_tri.id','dm_link_quan_tri.link_chuc_nang', 'dm_link_quan_tri.mo_ta','dm_link_quan_tri.ngay_tao','dm_link_quan_tri.sap_xep')
             ->leftJoin('users','dm_link_quan_tri.id_user','=','users.id')
-            ->where('dm_link_quan_tri.id_user','=',$dataIn['id_user'])
-            ->where('dm_link_quan_tri.id_dich_vu','=',$dataIn['id_dich_vu'])
+            ->where('dm_link_quan_tri.id_dich_vu','=',$idDichVu)
             ->orderBy('dm_link_quan_tri.sap_xep','desc')
             ->get()->toArray();
         return $result;
