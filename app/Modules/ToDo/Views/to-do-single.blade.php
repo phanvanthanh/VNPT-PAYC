@@ -90,7 +90,7 @@
             }
             e.preventDefault();
         });
-
+        
     </script>
 @else
     <div class='text-danger'><b>Lỗi!</b> {{$error}}</div>

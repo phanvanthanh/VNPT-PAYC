@@ -111,7 +111,7 @@
 
 
       $('.btn-load-form-them-moi').on('click',function(){
-        loadToDo();
+        loadTable(_token, "{{ route('danh-sach-to-do') }}", '.load-danh-sach');
         getById(_token, "", "{{ route('to-do-single') }}", ".frm-them-moi"); // gọi sự kiện lấy dữ liệu theo id
       });      
       
