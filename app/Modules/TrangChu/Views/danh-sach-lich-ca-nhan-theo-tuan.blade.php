@@ -79,12 +79,32 @@
 <script type="text/javascript">
     jQuery(document).ready(function() {
         var windowH = $(window).width()-150;
-        windowH=windowH/2;
-        $('.badge-t').css({'max-width':windowH+'px'});                                                                             
+        var windowH2=windowH/2;
+        if(windowH>800){
+            windowH2=300;
+        }
+        if(windowH>1000){
+            windowH2=400;
+        }
+        if(windowH>1200){
+            windowH2=500;
+        }
+        $('.badge-t').css({'max-width':windowH2+'px'});                                                                             
         $(window).resize(function(){
             var windowH = $(window).width()-150;
-            windowH=windowH/2;
-            $('.badge-t').css({'max-width':windowH+'px'});
+            var windowH2=windowH/2;
+            
+            
+            if(windowH>800){
+                windowH2=300;
+            }
+            if(windowH>1000){
+                windowH2=400;
+            }
+            if(windowH>1200){
+                windowH2=500;
+            }
+            $('.badge-t').css({'max-width':windowH2+'px'});
         })   
     });
 
