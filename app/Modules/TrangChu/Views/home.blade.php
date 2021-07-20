@@ -35,11 +35,11 @@
 			                <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
 			                	<div class="input-group text-center">
                           <div class="input-group-prepend tuan_giam cusor">
-                            <span class="input-group-text bg-primary text-white text-center"><</span>                            
+                            <span class="input-group-text bg-primary text-white text-center"><i class="fa fa-chevron-left"></i></span>                            
                           </div>
                           <input type="Number" class="form-control text-center " id="tuan" aria-label="" name="tuan" value="{{$tuanHienTai}}" style="width:20px;">
                           <div class="input-group-append tuan_tang cusor">
-                            <span class="input-group-text bg-primary border-primary text-white ">></span>                            
+                            <span class="input-group-text bg-primary border-primary text-white "><i class="fa fa-chevron-right"></i></span>                            
                           </div>
                         </div>
 			                </div>

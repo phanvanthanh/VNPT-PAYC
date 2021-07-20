@@ -30,18 +30,22 @@
                                 @endif 
                                 style="display: block !important;border-top: 2px solid #f2f2f2; padding: 5px 5px;"
                             >
-                              <div class="form-check" style="display: flex; margin-top: 5px; margin-bottom: -10px; line-height:1px;">
-                                <label class="form-check-label" style="padding-bottom:5px;">
-                                  <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
-                                  {{$toDo['noi_dung']}}
-                                <i class="input-helper"></i></label>
-                                <i class="remove"></i>
-                                <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
-                                </p>
-                                <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
-                                </p>
-                              </div>
-                              <i class="text-muted" style="padding-left: 30px; font-size: 11px;">Hạn xử lý: {{$han_xu_ly}}</i>
+                                <div class="form-check" style="display: flex; margin-top: 5px; margin-bottom: -10px; line-height:1px;">
+                                    <label class="form-check-label" style="padding-bottom:5px;">
+                                      <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
+                                      {{$toDo['noi_dung']}}
+                                    <i class="input-helper"></i></label>
+                                    <i class="remove"></i>
+                                    <p class="mb-0 font-weight-normal float-right text-primary btn-sua" data="{{$toDo['id']}}"><b style="padding-right: 5px"><i class="fa fa-wrench"></i></b>
+                                    </p>
+                                    <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
+                                    </p>
+                                </div>
+                                <i class="text-muted" style="padding-left: 30px; font-size: 11px;">Hạn xử lý: {{$han_xu_ly}} <i class="text-{{$trangThai}}">
+                                    @php
+                                      echo date('Y', strtotime($toDo['han_xu_ly'])).'/'.date('W', strtotime($toDo['han_xu_ly']));
+                                    @endphp 
+                                </i></i>
                             </li>                      
                         @endforeach             
                     </ul>
