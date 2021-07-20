@@ -1,6 +1,14 @@
 @extends('layouts.script-layout')
 <div class="col-12"> 
     <div class="row">
+        <div class="col-12 text-right">
+            <div class="badge badge-primary badge-fw">Chưa xử lý - Trong hạn</div>
+            <div class="badge badge-danger badge-fw">Chưa xử lý - Quá hạn</div>
+            <div class="badge badge-success badge-fw">Đã xử lý - Đúng hạn</div>
+            <div class="badge badge-warning badge-fw">Đã xử lý - Quá hạn</div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="card px-3">
                 <div class="card-body" id='xu-ly-to-do' style="padding: 0px">
@@ -8,14 +16,15 @@
                 </div>
                 <div class="list-wrapper">
                     <ul id="items-list" class="moveable flex-column-reverse todo-list">
-                        @foreach($toDos as $index => $toDo)     
+                        @foreach($toDos as $index => $toDo)
                             @php
                                 $ngay_tao = date('d/m/Y H:i:s',strtotime($toDo['ngay_tao']));
                                 $han_xu_ly = date('d/m/Y H:i:s',strtotime($toDo['han_xu_ly']));
+                                $trangThai=Helper::kiemTraTrangThaiXuLy($toDo['han_xu_ly'], $toDo['ngay_hoan_thanh']);
                             @endphp           
-                            <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed" @else class="draggable" @endif style="display: block !important;">
-                              <div class="form-check" style="display: flex">
-                                <label class="form-check-label">
+                            <li draggable="true" @if($toDo['ngay_hoan_thanh']!='') class="draggable completed border-left-{{$trangThai}}" @else class="draggable border-left-{{$trangThai}}" @endif style="display: block !important;border-top: 2px solid #f2f2f2; padding: 5px 5px;">
+                              <div class="form-check" style="display: flex; margin-top: 5px; margin-bottom: -10px; line-height:1px;">
+                                <label class="form-check-label" style="padding-bottom:5px;">
                                   <input class="checkbox" type="checkbox" data-id="{{$toDo['id']}}" @if($toDo['ngay_hoan_thanh']!='') checked="checked" @endif>
                                   {{$toDo['noi_dung']}}
                                 <i class="input-helper"></i></label>
@@ -25,7 +34,7 @@
                                 <p class="mb-0 font-weight-normal float-right text-danger btn-xoa" data="{{$toDo['id']}}"><b><i class="fa fa-times-circle-o"></i></b>
                                 </p>
                               </div>
-                              <small class="text-muted" style="padding-left: 30px"><b>Ngày tạo:</b> {{$ngay_tao}}. <b>HXL:</b> {{$han_xu_ly}}</small>
+                              <i class="text-muted" style="padding-left: 30px; font-size: 11px;">Hạn xử lý: {{$han_xu_ly}}</i>
                             </li>                      
                         @endforeach             
                     </ul>
