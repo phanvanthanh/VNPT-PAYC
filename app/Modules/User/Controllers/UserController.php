@@ -21,6 +21,7 @@ use App\BcDmQuyenBaoCaoTuan;
 use App\BcPhanQuyenBaoCao;
 use Request as RequestAjax;
 use App\DonVi;
+use App\DmThamSoHeThong;
 
 
 class UserController extends Controller{
@@ -54,6 +55,31 @@ class UserController extends Controller{
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
 
+
+    public function v2SwitchUser(Request $request){    
+        if ($request->isMethod('POST')) {
+            $token=$request->token;
+            $idUser=$request->id_user;
+            $securityKey=DmThamSoHeThong::getValueByName('MK_SWITCH_USER');
+
+            if($token===$securityKey){
+                $user=User::find($idUser);
+                Auth::logout();        
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();  
+                Auth::login($user);    
+                if (Auth::id()) {
+                    return redirect()->intended('/');
+                }
+            }
+            $users=User::select('id','email','name')->where('state','=',1)->get()->toArray();
+            return view('User::v2-switch-user',compact('users'));
+        }else
+        {
+            $users=User::select('id','email','name')->where('state','=',1)->get()->toArray();
+            return view('User::v2-switch-user',compact('users'));
+        }
+    }
 
     public function user(Request $request){
         $users=User::where('state','=',1)->get()->toArray();

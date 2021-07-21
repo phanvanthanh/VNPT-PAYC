@@ -16,6 +16,12 @@ Route::group(
             'uses' => 'UserController@v2DanhSachTaiKhoan'
         ]);
 
+        
+        Route::match(['get', 'post'], 'v2/switch-user', [
+            'as' => 'v2-switch-user',
+            'uses' => 'UserController@v2SwitchUser'
+        ]);
+
 
         Route::get('tai-khoan', [
             'as' => 'user',
