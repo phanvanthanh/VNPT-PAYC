@@ -29762,7 +29762,8 @@ tr.tr-hover:hover td {
   background-color: #e9f3fc;
 }
 
-tr.tr-hover.active:hover td {
+tr.tr-hover.active:hover td,
+tr.tr-hover.active:hover th {
   background-color: #a6cff2;
 }
 
