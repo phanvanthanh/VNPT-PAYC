@@ -285,12 +285,12 @@
             $('#modal-phan-quyen-can-bo').modal('show');
         });
 
-        $('#modal-phan-quyen-can-bo').on('hide.bs.modal', function () {
-            location.reload();
-        });
-        $('#modal-cau-hinh-don-vi').on('hide.bs.modal', function () {
-            location.reload();
-        });
+        // $('#modal-phan-quyen-can-bo').on('hide.bs.modal', function () {
+        //     location.reload();
+        // });
+        // $('#modal-cau-hinh-don-vi').on('hide.bs.modal', function () {
+        //     location.reload();
+        // });
 
         jQuery('.btn-cau-hinh-dich-vu').on('click',function(){ 
             var id=jQuery(this).attr("data");
@@ -298,9 +298,9 @@
             $('#modal-cau-hinh-dich-vu').modal('show');
         });
 
-        $('#modal-cau-hinh-dich-vu').on('hide.bs.modal', function () {
-            location.reload();
-        });
+        // $('#modal-cau-hinh-dich-vu').on('hide.bs.modal', function () {
+        //     location.reload();
+        // });
 
 
         // Cấu hình quyền báo cáo
@@ -310,9 +310,9 @@
             $('#modal-cau-hinh-quyen-bao-cao').modal('show');
         });
 
-        $('#modal-cau-hinh-quyen-bao-cao').on('hide.bs.modal', function () {
-            location.reload();
-        });
+        // $('#modal-cau-hinh-quyen-bao-cao').on('hide.bs.modal', function () {
+        //     location.reload();
+        // });
 
 
         
