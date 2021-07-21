@@ -415,6 +415,35 @@
         });
 
         $('.btn-duyet-va-chuyen-xu-ly-payc-2').on('click',function(){ // Sự kiện bấm nút chuyển trên modal
+            // Kiểm tra đã chọn hạn xử lý chưa
+            var hanXuLyAll=jQuery('.check_han_xu_ly_all_pakn').val();
+            var coCheck=0;           
+            var soCanBoDaCheckChon=0;
+            
+            jQuery(".check_han_xu_ly_pakn").each(function(){
+                if(jQuery(this).is(":checked")){
+                    soCanBoDaCheckChon++;
+                    var id=jQuery(this).val();
+                    var hanXuLy=jQuery('.han_xu_ly_'+id).val();
+                    if(hanXuLy!=''){
+                        coCheck++;
+                    }
+                }
+                    
+            });
+            if(coCheck!=0 && (coCheck==soCanBoDaCheckChon)){
+                coCheck=1;
+            }else{
+                coCheck=0;
+            }
+            
+            if(hanXuLyAll!=''){
+                coCheck=1;
+            }
+            if(coCheck==0){
+                alert("Vui lòng chọn hạn xử lý");
+                return false;
+            }
           var dsIdUser=getDsIdUserCheckbox(); // lấy tất cả id user được check chọn trong modal
           jQuery('.ds_id_user_duyet_va_chuyen_xu_ly_payc').val(dsIdUser);
           xuLy($("form#frm-duyet-va-chuyen-xu-ly-payc"), "{{ route('duyet-va-chuyen-xu-ly-payc') }}", "");

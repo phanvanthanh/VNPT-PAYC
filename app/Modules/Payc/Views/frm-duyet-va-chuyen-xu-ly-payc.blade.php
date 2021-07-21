@@ -19,7 +19,7 @@
         <div class="col-12">
             <small class="form-text text-muted">Hạn xử lý</small>
             <div class="input-group col-xs-12">
-                <input type="datetime-local" class="form-control han_xu_ly" name="han_xu_ly[1]" placeholder="Hạn xử lý">
+                <input type="datetime-local" class="form-control han_xu_ly check_han_xu_ly_all_pakn" name="han_xu_ly[1]" placeholder="Hạn xử lý">
             </div>
         </div>
         <div class="col-12">
@@ -73,7 +73,7 @@
                                     @for ($i = 0; $i < $d['level']; $i++)
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     @endfor
-                                    <input type="checkbox" name="id_user" value="{{$canBo['id']}}" data-id="{{$canBo['id']}}" class="check-all-child id-child-user" id="user-{{$canBo['id']}}"> &nbsp; <label for="user-{{$canBo['id']}}">{{$canBo['name']}}</label>
+                                    <input type="checkbox" name="id_user" value="{{$canBo['id']}}" data-id="{{$canBo['id']}}" class="check-all-child id-child-user check_han_xu_ly_pakn" id="user-{{$canBo['id']}}"> &nbsp; <label for="user-{{$canBo['id']}}">{{$canBo['name']}}</label>
                                 </td>
                                 <td>{{$canBo['ten_nhom_chuc_vu']}}</td>
                                 <td>
@@ -84,7 +84,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="datetime-local" class="form-control han_xu_ly" name="han_xu_ly[{{$canBo['id']}}]" placeholder="Hạn xử lý">
+                                    <input type="datetime-local" class="form-control han_xu_ly han_xu_ly_{{$canBo['id']}}" name="han_xu_ly[{{$canBo['id']}}]" placeholder="Hạn xử lý">
                                 </td>
                             </tr>
                                     

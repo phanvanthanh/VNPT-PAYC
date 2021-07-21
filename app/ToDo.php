@@ -25,7 +25,7 @@ class ToDo extends Authenticatable
         $toDoListSang = collect($toDoListSang)->map(function($x){ return (array) $x; })->toArray(); 
 
 
-        $toDoListChieu=DB::SELECT("SELECT * FROM to_do WHERE id_user=".$userId." AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>='".$sang."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$chieu."'");
+        $toDoListChieu=DB::SELECT("SELECT * FROM to_do WHERE id_user=".$userId." AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')>'".$sang."' AND DATE_FORMAT(han_xu_ly,'%d/%m/%Y %H:%i:&s')<='".$chieu."'");
         $toDoListChieu = collect($toDoListChieu)->map(function($x){ return (array) $x; })->toArray(); 
 
         $toDoList=array();

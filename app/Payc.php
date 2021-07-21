@@ -62,22 +62,6 @@ class Payc extends Authenticatable
 
     public static function getDanhSachPaycChoXuLy($userId){
         $data=array();
-       /* $data=DB::select('select cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat, ttxl.ma_trang_thai,
-            cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, ttxl.ten_trang_thai_xu_ly, u.name
-            from payc as p
-            left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
-            left join dich_vu as dv on p.id_dich_vu=dv.id
-            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
-            left join payc_can_bo_nhan cbn on cbxl.id=cbn.id_xu_ly_yeu_cau
-            left join users u on p.id_user_tao=u.id
-            where cbxl.id=(
-                select max(cbxl2.id) as id from payc_xu_ly cbxl2 
-                left join payc_trang_thai_xu_ly ttxl2 on cbxl2.id_xu_ly=ttxl2.id
-                where cbxl2.id_payc=cbxl.id_payc
-            )
-            and (ttxl.ma_trang_thai="CHUYEN_XU_LY" or ttxl.ma_trang_thai="XU_LY" or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN" or ttxl.ma_trang_thai="DUYET_CHUYEN_XU_LY") 
-            and cbn.id_user_nhan='.$userId.'
-            order by p.id desc');*/
              $data=DB::select('SELECT cbxl.id, p.id_user_tao, p.tieu_de, p.noi_dung, p.file_payc, p.ngay_tao, p.han_xu_ly_mong_muon, p.han_xu_ly_duoc_giao, p.ngay_hoan_tat, ttxl.ma_trang_thai,
             cbxl.id_payc, cbxl.id_user_xu_ly, cbxl.noi_dung_xu_ly, cbxl.file_xu_ly, cbxl.ngay_xu_ly, cbxl.id_xu_ly, p.id_dich_vu, dv.ten_dich_vu, p.so_phieu, ttxl.ten_trang_thai_xu_ly, u.name, cbn.vai_tro, cbn.trang_thai
             from payc as p
@@ -91,6 +75,40 @@ class Payc extends Authenticatable
             and cbn.id_user_nhan='.$userId.'
             order by p.id desc');
         $data = collect($data)->map(function($x){ return (array) $x; })->toArray(); 
+        return $data;
+
+    }
+
+    public static function getDanhSachPaycChoXuLyTheoIdUserVaNgay($userId, $hanXuLy){
+        $tu=$hanXuLy.' 00:00:00';
+        $sang=$hanXuLy.' 12:00:00';
+        $chieu=$hanXuLy.' 23:59:00';
+        $data=array();
+        $dataSang=DB::select('SELECT p.id, p.tieu_de, p.noi_dung, p.so_phieu, ttxl.ma_trang_thai, ttxl.ten_trang_thai_xu_ly, u.name, cbn.vai_tro, cbn.trang_thai, cbn.han_xu_ly, cbn.ngay_hoan_tat
+            from payc as p
+            left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
+            left join dich_vu as dv on p.id_dich_vu=dv.id
+            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
+            left join payc_can_bo_nhan cbn on cbxl.id=cbn.id_xu_ly_yeu_cau
+            left join users u on cbxl.id_user_xu_ly=u.id
+            where (ttxl.ma_trang_thai="CHUYEN_XU_LY" or ttxl.ma_trang_thai="XU_LY" or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN" or ttxl.ma_trang_thai="DUYET_CHUYEN_XU_LY")
+            and cbn.id_user_nhan='.$userId.'
+            AND DATE_FORMAT(cbn.han_xu_ly,"%d/%m/%Y %H:%i:&s")>="'.$tu.'" AND DATE_FORMAT(cbn.han_xu_ly,"%d/%m/%Y %H:%i:&s")<="'.$sang.'"
+            order by p.id desc');
+        $data['sang'] = collect($dataSang)->map(function($x){ return (array) $x; })->toArray(); 
+
+        $dataChieu=DB::select('SELECT p.id, p.tieu_de, p.noi_dung, p.so_phieu, ttxl.ma_trang_thai, ttxl.ten_trang_thai_xu_ly, u.name, cbn.vai_tro, cbn.trang_thai, cbn.han_xu_ly, cbn.ngay_hoan_tat
+            from payc as p
+            left join payc_xu_ly as cbxl on p.id=cbxl.id_payc
+            left join dich_vu as dv on p.id_dich_vu=dv.id
+            left join payc_trang_thai_xu_ly as ttxl on cbxl.id_xu_ly=ttxl.id
+            left join payc_can_bo_nhan cbn on cbxl.id=cbn.id_xu_ly_yeu_cau
+            left join users u on cbxl.id_user_xu_ly=u.id
+            where (ttxl.ma_trang_thai="CHUYEN_XU_LY" or ttxl.ma_trang_thai="XU_LY" or ttxl.ma_trang_thai="CHUYEN_CAN_BO" or ttxl.ma_trang_thai="CHUYEN_DON_VI_CAP_TREN" or ttxl.ma_trang_thai="DUYET_CHUYEN_XU_LY")
+            and cbn.id_user_nhan='.$userId.'
+            AND DATE_FORMAT(cbn.han_xu_ly,"%d/%m/%Y %H:%i:&s")>"'.$sang.'" AND DATE_FORMAT(cbn.han_xu_ly,"%d/%m/%Y %H:%i:&s")<="'.$chieu.'"
+            order by p.id desc');
+        $data['chieu'] = collect($dataChieu)->map(function($x){ return (array) $x; })->toArray();
         return $data;
 
     }

@@ -41,6 +41,11 @@ class Helper
         return $data;
     }
 
+    public static function getDanhSachPaycChoXuLyTheoIdUserVaNgay($userId, $hanXuLy){
+        $data=Payc::getDanhSachPaycChoXuLyTheoIdUserVaNgay($userId, $hanXuLy);
+        return $data;
+    }
+
     public static function layToDoListTheoNgay($userId, $ngay){
         $toDoList=ToDo::layToDoListTheoNgay($userId, $ngay);
         return $toDoList;

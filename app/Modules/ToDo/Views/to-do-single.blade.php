@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <input type="Text" class="form-control" id="gio" name="gio" value="@if(date('H')<=11){{"11:00"}}@else{{"17:00"}}@endif" aria-describedby="gio_helper">
+                    <input type="Text" class="form-control" id="gio" name="gio" value="@if(date('H')<=11 || date('H')>17){{"11:00"}}@else{{"17:00"}}@endif" aria-describedby="gio_helper">
                     <span class="input-group-addon input-group-text">
                       <i class="mdi mdi-clock"></i>
                     </span>
