@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use App\DmLinkQuanTri;
 use App\UsersDichVu;
-use App\DmThongBao;
+use App\DichVu;
 use App\User;
+use App\DmThamSoHeThong;
 use Request as RequestAjax;
 
 
@@ -31,10 +32,25 @@ class DmLinkQuanTriController extends Controller{
         if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
             $error=''; // Khai báo biến
             $idUser= Auth::id() ? Auth::id() : 0;
-            $dichVus=UsersDichVu::select('dich_vu.id', 'dich_vu.ten_dich_vu')
-                ->leftJoin('dich_vu','users_dich_vu.id_dich_vu','=','dich_vu.id')
-                ->where('users_dich_vu.id_user','=',$idUser)
-                ->get()->toArray();
+            $layDmLinkTheo=DmThamSoHeThong::getValueByName('LAY_DM_LINK_QUAN_TRI_THEO');
+            $dichVus=array();
+            if($layDmLinkTheo==1){ // Lấy theo tài khoản cá nhân được cấu hình dịch vụ nào thì lấy dịch vụ đó
+                $dichVus=UsersDichVu::select('dich_vu.id', 'dich_vu.ten_dich_vu')
+                    ->leftJoin('dich_vu','users_dich_vu.id_dich_vu','=','dich_vu.id')
+                    ->where('users_dich_vu.id_user','=',$idUser)
+                    ->where('dich_vu.state','=',1)
+                    ->get()->toArray();
+            }elseif($layDmLinkTheo==2){ // Chỉ lấy nhóm dịch vụ công nghệ thông tin
+                $dichVus=DichVu::select('dich_vu.id','dich_vu.ten_dich_vu')
+                    ->leftJoin('nhom_dich_vu','dich_vu.id_nhom_dich_vu','=','nhom_dich_vu.id')
+                    ->where('nhom_dich_vu.ma_nhom_dich_vu','=','DV_CNTT')
+                    ->where('dich_vu.state','=',1)
+                    ->get()->toArray();
+            }else{ // Ngược lại mặc định lấy tất cả
+                $dichVus=DichVu::where('state','=',1)
+                    ->get()->toArray();
+            }
+                
             $view=view('DmLinkQuanTri::danh-sach-dm-link-quan-tri', compact('dichVus','error'))->render(); // Trả dữ liệu ra view 
             return response()->json(['html'=>$view,'error'=>$error]); // Return dữ liệu ra ajax
         }
