@@ -66,8 +66,12 @@
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
 						            
-						            <tr class="tr-hover">
-						            	<th class="text-center check-id-payc" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></th>
+						            <tr class="tr-hover 
+						            	@if($payc['id_payc']==$id)
+						            		{{'active'}}
+						            	@endif
+						            ">
+						            	<td class="text-center check-id-payc font-weight-bold" scope="row"><input type="checkbox" name="id_payc[]" class="id_payc" value="{{$payc['id_payc']}}"></td>
 						                <td class="text-center text-primary xem-chi-tiet-payc" value="{{$payc['id_payc']}}" scope="row">{{$payc['so_phieu']}}</td>						                
 						                <td class="noi_dung xem-chi-tiet-payc" value="{{$payc['id_payc']}}">
 						                <?php 

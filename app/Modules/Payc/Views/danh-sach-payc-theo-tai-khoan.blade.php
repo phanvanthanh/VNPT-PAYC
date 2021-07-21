@@ -36,8 +36,12 @@
 						        ?>
 						        @foreach($paycs as $payc)
 						            <?php $stt++; ?>
-						            <tr class="tr-hover">
-						            	<th class="text-center check-id-payc" scope="row">{{$stt}}</th>
+						            <tr class="tr-hover
+						            	@if($payc['id_payc']==$id)
+						            		{{'active'}}
+						            	@endif
+						            ">
+						            	<td class="text-center check-id-payc font-weight-bold" scope="row">{{$stt}}</td>
 						                <td class="text-center text-primary xem-chi-tiet-payc" value="{{$payc['id_payc']}}" scope="row">{{$payc['so_phieu']}}</td>						                
 						                <td class="noi_dung xem-chi-tiet-payc" value="{{$payc['id_payc']}}">
 						                	{{$payc['tieu_de']}}<br>

@@ -361,6 +361,11 @@ class PaycController extends Controller{
 
 
     public function danhSachPaycChoXuLy(Request $request){
+        $data=$request->all();
+        $id='';
+        if(isset($data['id'])){
+            $id=$data['id'];
+        }
         $userId=Auth::id();
         if(!$userId){
             return array("error"=>'Chưa đăng nhập vào hệ thống!');
@@ -369,10 +374,10 @@ class PaycController extends Controller{
         $paycs=array();
         if($userId){
             $paycs=Payc::getDanhSachPaycChoXuLy($userId);
-            return view('Payc::danh-sach-payc-cho-xu-ly', compact('paycs','error'));
+            return view('Payc::danh-sach-payc-cho-xu-ly', compact('paycs','error', 'id'));
         }
         $error='Vui lòng đăng nhập vào hệ thống';
-        return view('Payc::danh-sach-payc-cho-xu-ly', compact('paycs','error'));
+        return view('Payc::danh-sach-payc-cho-xu-ly', compact('paycs','error', 'id'));
     }  
 
     public function frmXuLy(Request $request){
@@ -1783,6 +1788,11 @@ class PaycController extends Controller{
     }
 
     public function danhSachPaycTheoTaiKhoan(Request $request){
+        $data=$request->all();
+        $id='';
+        if(isset($data['id'])){
+            $id=$data['id'];
+        }
         $userId=Auth::id();
         if(!$userId){
             return array("error"=>'Chưa đăng nhập vào hệ thống!');
@@ -1791,10 +1801,10 @@ class PaycController extends Controller{
         $paycs=array();
         if($userId){
             $paycs=Payc::danhSachPaycTheoTaiKhoan($userId);
-            return view('Payc::danh-sach-payc-theo-tai-khoan', compact('paycs','error'));
+            return view('Payc::danh-sach-payc-theo-tai-khoan', compact('paycs','error', 'id'));
         }
         $error='Vui lòng đăng nhập vào hệ thống';
-        return view('Payc::danh-sach-payc-theo-tai-khoan', compact('paycs','error'));
+        return view('Payc::danh-sach-payc-theo-tai-khoan', compact('paycs','error', 'id'));
     }
 
     public function danhSachPaycChuaCoCanBoNhan(Request $request){

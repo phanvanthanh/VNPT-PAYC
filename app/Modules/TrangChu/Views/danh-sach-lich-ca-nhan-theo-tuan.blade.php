@@ -34,6 +34,12 @@
             1   => 'XLC',
             2   => 'PHXL',
         );
+        $arrRoutePakn=array(
+            'success'   => 'danh-sach-payc-theo-tai-khoan',
+            'warning'   => 'danh-sach-payc-theo-tai-khoan',
+            'primary'   => 'danh-sach-payc-cho-xu-ly',
+            'danger'    => 'danh-sach-payc-cho-xu-ly',
+        );
     @endphp
     @foreach ($dateOfWeek as $i => $date)
     @php
@@ -53,7 +59,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($pakn['han_xu_ly'], $pakn['ngay_hoan_tat']);
                         @endphp
-                        <a href="{{route('chi-tiet-payc')}}?id={{$pakn['id']}}" target="_blank"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">
+                        <a href="{{route($arrRoutePakn[$trangThai])}}?so-phieu={{$pakn['so_phieu']}}&id={{$pakn['id']}}" target="_blank"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">
                             {{$arrVaiTroPakn[$pakn['vai_tro']]}} - [{{$pakn['so_phieu']}}] {{$pakn['tieu_de']}}
                             </div>
                         </a>
@@ -87,7 +93,7 @@
                             $stt++; 
                             $trangThai=Helper::kiemTraTrangThaiXuLy($pakn['han_xu_ly'], $pakn['ngay_hoan_tat']);
                         @endphp
-                        <a href="{{route('chi-tiet-payc')}}?id={{$pakn['id']}}" target="_blank"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">
+                        <a href="{{route($arrRoutePakn[$trangThai])}}?so-phieu={{$pakn['so_phieu']}}&id={{$pakn['id']}}" target="_blank"><div class="text-left badge badge-{{$trangThai}} badge-fw badge-t" style="white-space: nowrap; max-width: 500px; overflow: hidden; text-overflow: ellipsis;">
                             {{$arrVaiTroPakn[$pakn['vai_tro']]}} - [{{$pakn['so_phieu']}}] {{$pakn['tieu_de']}}
                             </div>
                         </a>
