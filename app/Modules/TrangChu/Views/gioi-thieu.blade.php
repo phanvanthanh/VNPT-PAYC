@@ -21,22 +21,17 @@
           <div class="card" style="padding-left: 20px;">
               <div class="card-body">
                   <h4 class="card-title text-primary text-center">
-                    <div class="text-danger">PHẦN MỀM QUẢN LÝ BÁO CÁO CÔNG TÁC <br></div>
+                    <div class="text-danger">PHẦN MỀM BÁO CÁO CÔNG TÁC <br></div>
                     (VNPT BUSINESS REPORTING SOFTWARE)
 
                   </h4>
                   <h4 class="card-title text-primary">Giới thiệu</h4>                  
                   <p>
-                    Phần mềm Quản lý báo cáo nội bộ (VNPT – Business Reporting Software) được xây dựng nhầm mục đích tin học hóa công việc báo cáo (Gồm: Báo cáo Công tác, báo cáo tháng, báo cáo quý, báo cáo năm), quản lý tích hợp dữ liệu, cho phép tổng hợp dữ liệu báo cáo từ các hệ thống khác như: Hệ thống Điều hành sản xuất kinh doanh, phần mềm Phản ánh kiến nghị, Chương trình quản lý công việc…
+                    Phần mềm báo cáo công tác (VNPT – Business Reporting Software) (VNPT – BRS ) được xây dựng nhằm mục đích tin học hóa công việc báo cáo (Gồm: Báo cáo tuần, báo cáo tháng, báo cáo quý, báo cáo năm), quản lý tích hợp dữ liệu, cho phép tổng hợp dữ liệu báo cáo từ các hệ thống khác như: Hệ thống Điều hành sản xuất kinh doanh, phần mềm Phản ánh kiến nghị, Chương trình quản lý công việc…
                   </p>
                   <p>
-                    Phần mềm VNPT – BRS phục vụ đối tượng sử dụng là các Phòng chức năng, Trung tâm trực thuộc, Trung tâm Viễn thông, Tổ Viễn thông cấp huyện, các nhóm trưởng, cá nhân thực hiện công việc báo cáo, tổng hợp báo cáo.
-                    Phần mềm lưu trữ lại các thông tin lịch sử đăng nhập, thời gian báo cáo, thời gian tổng hợp báo cáo, thời gian chốt báo cáo.
+                    Phần mềm VNPT–BRS phục vụ cho việc quản lý và điều hành sản xuất kinh doanh bao gồm: Ban Giám đốc Viễn thông tỉnh, các Phòng chức năng, các Trung tâm trực thuộc Viễn thông tỉnh. Phần mềm lưu trữ lại các thông tin về lịch sử đăng nhập, thời gian báo cáo, thời gian tổng hợp báo cáo, thời gian chốt báo cáo. Ngoài ra, phần mềm cũng cung cấp các chức năng tra cứu, thống kê dữ liệu, xuất báo cáo theo các biểu mẫu quy định.
                   </p>
-                  <p>
-                    Phần mềm cũng cung cấp các chức năng tra cứu, thống kê dữ liệu, xuất báo cáo theo các biểu mẫu quy định.
-                  </p>
-
               </div>
           </div>
           <div class="row" style="margin-top:-30px;">
@@ -47,7 +42,6 @@
                           <textarea class="shell-mode">
 VNPT – Business Reporting Software
 ├── Đăng nhập hệ thống qua cổng xác thực tập trung
-├── Đăng nhập hệ thống (bằng tài khoản người dùng)
 ├── Thông tin cá nhân
 ├── Chức năng Báo cáo Công tác các Phòng chức năng
 ├── Chức năng Báo cáo Công tác Trung tâm CNTT
@@ -58,7 +52,9 @@ VNPT – Business Reporting Software
 ├── Tài liệu Hướng dẫn sử dụng
 ├── ...
 ├── ...
+├── ...
 ├── ...</textarea>
+
                     </div>
 
                 </div>
