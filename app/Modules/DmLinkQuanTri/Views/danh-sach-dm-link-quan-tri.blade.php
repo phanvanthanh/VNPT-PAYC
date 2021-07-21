@@ -1,7 +1,8 @@
 <table id="order-listing" class="table table-hover table-striped">
     <thead>
         <tr class="background-vnpt text-center">
-            <th>STT #</th>
+            <th class="d-none"></th>
+            <th>STT</th>
             <th>Link/Chức năng</th>
             <th>Mô tả</th>
             <th>Người tạo</th>
@@ -16,10 +17,12 @@
         ?>
         @foreach($dichVus as $dichVu)
             @php 
+                $stt++; $stt2=0;
                 $dsLinkQuanTri=Helper::layDmLinkQuanTriTheoIdDichVu($dichVu['id']);
             @endphp
             <tr class="tr-hover tr-small active">
-                <td></td>
+                <td class="d-none"></td>
+                <td class="text-center">{{$stt}}</td>
                 <td class="font-weight-bold">&nbsp;{{$dichVu['ten_dich_vu']}}</td>
                 <td></td>
                 <td></td>
@@ -27,10 +30,11 @@
             </tr>
             @foreach ($dsLinkQuanTri as $linkQuanTri)
                 @php
-                    $stt++;
+                    $stt2++;
                 @endphp
                 <tr class="tr-hover tr-small">
-                    <td class="text-center">{{$stt}}</td>
+                    <td class="d-none"></td>
+                    <td class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;{{$stt}}.{{$stt2}}</td>
                     <td class='btn-sua text-primary' data="{{$linkQuanTri['id']}}">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-link text-primary"></i>&nbsp;&nbsp;<u>{{$linkQuanTri['link_chuc_nang']}}</u>
                     </td>
@@ -102,7 +106,8 @@
 
         var _token=jQuery('#modal-cap-nhat').find("input[name='_token']").val();
         var table = jQuery('#order-listing').DataTable({
-            lengthChange: true
+            lengthChange: true,
+            order: false
         });
 
 
