@@ -29767,9 +29767,11 @@ tr.tr-hover.active:hover th {
   background-color: #a6cff2;
 }
 
-tr.active td{
+tr.active td,
+tr.active th{
   background-color: #a6cff2;
 }
+
 
 label.text-title-input-size {
   font-size: 14px;
