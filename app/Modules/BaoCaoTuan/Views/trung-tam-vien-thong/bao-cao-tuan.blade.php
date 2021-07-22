@@ -75,7 +75,7 @@
                             @endif
                             @if ($checkQuyenXemBaoCaoTongHop==1)
                               <li class="nav-item">
-                                <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Tổng hợp</a>
+                                <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Xem & duyệt báo cáo</a>
                               </li>
                             @endif
                           </ul>

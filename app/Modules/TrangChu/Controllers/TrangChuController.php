@@ -136,4 +136,10 @@ class TrangChuController extends Controller{
         }
         return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
+
+
+
+    public function taskBoard(Request $request){ 
+        return view('TrangChu::task-board');
+    }
 }

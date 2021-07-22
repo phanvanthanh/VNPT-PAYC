@@ -57,5 +57,10 @@ Route::group(
             'as' => 'danh-sach-lich-ca-nhan-thang',
             'uses' => 'TrangChuController@danhSachLichCaNhanThang'
         ]);
+
+        Route::get('task-board', [
+            'as' => 'task-board',
+            'uses' => 'TrangChuController@taskBoard'
+        ]);
     }
 );
