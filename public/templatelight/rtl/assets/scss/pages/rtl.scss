@@ -1,0 +1,60 @@
+.rtl{
+    direction: rtl;
+
+    // Nestable SCSS
+    .dd3-handle{
+        left: auto;
+        right: 0;
+
+        &::before{
+            left: auto;
+            right: 0;
+        }
+    }
+    .dd3-content{
+        @extend .p-r-40;
+        @extend .p-l-10;
+    }
+
+    .dd3-item {
+        > button{
+            @extend .m-r-35;
+            @extend .m-l-0;
+            float: right;
+        }
+    }
+    .dd-list {
+        .dd-list{
+            @extend .p-r-30;
+            @extend .p-l-0;
+        }
+    }
+
+    // Range Slider
+    .full .rs-bar,
+    .half.left .rs-bar,
+    .half.right .rs-bar{
+        left: 0;
+    }
+    .rs-handle{
+        float: left;
+    }
+
+    // TreeView
+    .treeview {
+        span.icon{
+            @extend .m-r-0;
+            @extend .m-l-5;
+        }
+    }
+
+    // jQuery DataTable
+    div.dataTables_wrapper {
+        div.dataTables_filter {
+            input{
+                margin-left: 0;
+                margin-right: 0.5em;
+            }
+        }
+    }
+}
