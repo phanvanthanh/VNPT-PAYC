@@ -55,94 +55,113 @@
                               </select>
                             </form>
                           </h4>
-                          <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
-                            
-                            <li class="nav-item">
-                              <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">BC tuần</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">KH tuần</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Xem & duyệt báo cáo</a>
-                            </li>
+
+
+                          @php $tabActive=0; @endphp
+                          <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist"> 
+                            @if ($checkQuyenBaoCaoTuanHienTai==1)
+                              @php if($tabActive==0){$tabActive=1;} @endphp                           
+                              <li class="nav-item">
+                                <a class="nav-link @if($tabActive==1) active @endif" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">BC tuần</a>
+                              </li> 
+                            @endif
+                            @if ($checkQuyenBaoCaoKeHoachTuan==1)
+                              @php if($tabActive==0){$tabActive=2;} @endphp
+                              <li class="nav-item">
+                                <a class="nav-link @if($tabActive==2) active @endif" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">KH tuần</a>
+                              </li>
+                            @endif
+                            @if ($checkQuyenBaoCaoDhsxkd==1)
+                              @php if($tabActive==0){$tabActive=3;} @endphp
+                              <li class="nav-item">
+                                <a class="nav-link @if($tabActive==3) active @endif" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
+                              </li>
+                            @endif
+                            @if ($checkQuyenXemBaoCaoTongHop==1)
+                              @php if($tabActive==0){$tabActive=4;} @endphp
+                              <li class="nav-item">
+                                <a class="nav-link @if($tabActive==4) active @endif" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Xem & duyệt báo cáo</a>
+                              </li>
+                            @endif
                           </ul>
                         </div>
                         <div class="wrapper">
                           <hr>
                           <div class="tab-content" id="myTabContent"  style="min-height: 100%;">
                             
-                              
-                            <div class="tab-pane fade show active" id="bao-cao-tuan-hien-tai" role="tabpanel" aria-labelledby="bao-cao-tuan-hien-tai-tab">
-                              <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
-                                <div class="row justify-content-center align-items-center">
-                                  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-                                    <div class="form-group">
-                                      <Textarea class="form-control bao-cao-tuan-style noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
+                            @if ($checkQuyenBaoCaoTuanHienTai==1) 
+                              <div class="tab-pane fade @if($tabActive==1) show active @endif" id="bao-cao-tuan-hien-tai" role="tabpanel" aria-labelledby="bao-cao-tuan-hien-tai-tab">
+                                <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
+                                  {{ csrf_field() }}
+                                  <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
+                                  <div class="row justify-content-center align-items-center">
+                                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                                      <div class="form-group">
+                                        <Textarea class="form-control bao-cao-tuan-style noi-dung-bao-cao-tuan-hien-tai" placeholder="Nội dung báo cáo tuần này" name="noi_dung"></Textarea>
+                                      </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
+                                      <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i> Thêm</button>
+                                      <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-download"></i></button>
                                     </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
-                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-tuan-hien-tai"><i class="fa fa-plus"></i> Thêm</button>
-                                    <button type="button" class="btn btn-danger mr-2 btn-lay-ke-hoach-tuan-truoc"><i class="fa fa-download"></i></button>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div class="table-responsive load-danh-sach-bao-cao-tuan-hien-tai">
-                                         
-                                    </div>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div class="tab-pane fade" id="bao-cao-ke-hoach-tuan" role="tabpanel" aria-labelledby="bao-cao-ke-hoach-tuan-tab">
-                              <form class="forms-sample frm-bao-cao-ke-hoach-tuan" id="frm-bao-cao-ke-hoach-tuan" name="frm-bao-cao-ke-hoach-tuan">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
-                                <div class="row justify-content-center align-items-center">
-                                  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-                                    <div class="form-group">
-                                      <Textarea type="Text" class="form-control bao-cao-tuan-style noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
-                                    </div>
-                                  </div>
-                                  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
-                                    <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-ke-hoach-tuan"><i class="fa fa-plus"></i> Thêm</button>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div class="table-responsive load-danh-sach-bao-cao-ke-hoach-tuan">
+                                  <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                      <div class="table-responsive load-danh-sach-bao-cao-tuan-hien-tai">
                                            
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div class="tab-pane fade" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
-                              <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                  <div class="load-danh-sach-dhsxkd">
-                                     
+                                </form>
+                              </div>
+                            @endif
+                            @if ($checkQuyenBaoCaoKeHoachTuan==1)
+                              <div class="tab-pane fade @if($tabActive==2) show active @endif" id="bao-cao-ke-hoach-tuan" role="tabpanel" aria-labelledby="bao-cao-ke-hoach-tuan-tab">
+                                <form class="forms-sample frm-bao-cao-ke-hoach-tuan" id="frm-bao-cao-ke-hoach-tuan" name="frm-bao-cao-ke-hoach-tuan">
+                                  {{ csrf_field() }}
+                                  <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
+                                  <div class="row justify-content-center align-items-center">
+                                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                                      <div class="form-group">
+                                        <Textarea type="Text" class="form-control bao-cao-tuan-style noi-dung-bao-cao-ke-hoach-tuan" name="noi_dung" placeholder="Nội dung kế hoạch tuần kế tiếp"></Textarea>
+                                      </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 text-center">
+                                      <button type="button" class="btn btn-vnpt mr-2 btn-bao-cao-ke-hoach-tuan"><i class="fa fa-plus"></i> Thêm</button>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                      <div class="table-responsive load-danh-sach-bao-cao-ke-hoach-tuan">
+                                             
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            @endif
+                            @if ($checkQuyenBaoCaoDhsxkd==1)
+                              <div class="tab-pane fade @if($tabActive==3) show active @endif" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="load-danh-sach-dhsxkd">
+                                       
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-
-
-                            <div class="tab-pane fade" id="chot-va-gui-bao-cao" role="tabpanel" aria-labelledby="chot-va-gui-bao-cao-tab">
-                              <div class="row">
-                                <div class="col-12">
-                                  <div class="load-danh-sach-bao-cao-tong-hop">
-                                         
+                            @endif
+                            @if ($checkQuyenXemBaoCaoTongHop==1)
+                              <div class="tab-pane fade @if($tabActive==4) show active @endif" id="chot-va-gui-bao-cao" role="tabpanel" aria-labelledby="chot-va-gui-bao-cao-tab">
+                                <div class="row">
+                                  <div class="col-12">
+                                    <div class="load-danh-sach-bao-cao-tong-hop">
+                                           
+                                    </div>
                                   </div>
-                                </div>
-                              </div>                              
-                            </div>
+                                </div>                              
+                              </div>
+                            @endif
                           </div>
                         </div>
                       </div>
@@ -445,7 +464,19 @@
       var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
       var idTuan=jQuery('.id_tuan').val();
       jQuery('.input-id-tuan').val(idTuan);
-      loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+      @if ($tabActive==1)
+        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+      @endif
+      @if ($tabActive==2)
+        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+      @endif
+      @if ($tabActive==3)
+        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
+      @endif
+      @if ($tabActive==4)
+        loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+      @endif
+      
 
 
       // Onchange selectbox tuần

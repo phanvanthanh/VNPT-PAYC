@@ -17,7 +17,7 @@ class PaycCanBoNhan extends Authenticatable
     protected $table='payc_can_bo_nhan';
 
     protected $fillable = [
-        'id','id_xu_ly_yeu_cau', 'id_user_nhan', 'ngay_nhan', 'trang_thai', 'han_xu_ly', 'ngay_hoan_tat', 'vai_tro'
+        'id','id_xu_ly_yeu_cau', 'id_user_nhan', 'ngay_nhan', 'trang_thai', 'han_xu_ly', 'ngay_hoan_tat', 'vai_tro', 'trang_thai_task'
     ];
     public $timestamps=false;
 
@@ -130,5 +130,16 @@ class PaycCanBoNhan extends Authenticatable
                     'error'     => count($data),
                     'message'   => $message
                 );
+    }
+
+
+    public static function layIdPaknTheoDsId($dsId){ // Sử dụng trong taskboard
+        $data=PaycCanBoNhan::select('payc_xu_ly.id_payc')
+            ->leftJoin('payc_xu_ly','payc_can_bo_nhan.id_xu_ly_yeu_cau','=','payc_xu_ly.id')
+            ->leftJoin('payc','payc_xu_ly.id_payc','=','payc.id')
+            ->whereIn('payc_can_bo_nhan.id',$dsId)
+            ->orderBy('payc.sap_xep','desc')
+            ->get()->toArray();
+        return $data;
     }
 }

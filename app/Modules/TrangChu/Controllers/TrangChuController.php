@@ -14,6 +14,9 @@ use Session;
 use App\DmThamSoHeThong;
 use App\BcDmThoiGianBaoCao;
 use App\ToDo;
+use App\TaskBoard;
+use App\PaycCanBoNhan;
+use App\Payc;
 
 
 class TrangChuController extends Controller{
@@ -140,6 +143,46 @@ class TrangChuController extends Controller{
 
 
     public function taskBoard(Request $request){ 
-        return view('TrangChu::task-board');
+        $idUser = Auth::id() ? Auth::id() : 0;
+        $dsPakn=TaskBoard::danhSachPaknTheoTaiKhoan($idUser);
+        return view('TrangChu::task-board', compact('dsPakn'));
+    }
+    public function taskBoardCapNhatTrangThai(){
+        if(RequestAjax::ajax()){ // Kiểm tra gửi đường ajax
+            $idUser = Auth::id() ? Auth::id() : 0;
+            $data=RequestAjax::all(); // Lấy tất cả dữ liệu
+            $dsId=explode(',',$data['ds_id']);
+
+            if($data['loai']=='PHAT_SINH'){
+                // Trả về trạng thái task = 0
+                PaycCanBoNhan::whereIn('id', $dsId)->update(['trang_thai_task'=>0]);
+                // Cập nhật loại công việc bằng 2 phát sinh 
+                $dsIdPakn=PaycCanBoNhan::layIdPaknTheoDsId($dsId);
+                foreach ($dsIdPakn as $key => $pakn) {
+                    $stt=$key+1;
+                    Payc::where('id', '=', $pakn['id_payc'])->update(['loai_cong_viec'=>2, 'sap_xep'=>$stt]);
+                }
+            }elseif($data['loai']=='CAN_LAM'){
+                // Trả về trạng thái task = 0
+                PaycCanBoNhan::whereIn('id', $dsId)->update(['trang_thai_task'=>0]);
+                // Cập nhật loại công việc bằng 1 cần làm
+                $dsIdPakn=PaycCanBoNhan::layIdPaknTheoDsId($dsId);
+                foreach ($dsIdPakn as $key => $pakn) {
+                    $stt=$key+1;
+                    Payc::where('id', '=', $pakn['id_payc'])->update(['loai_cong_viec'=>1, 'sap_xep'=>$stt]);
+                }
+            }elseif($data['loai']=='HOAN_TAT'){
+                // Trả về trạng thái task = 2 // hoàn tất
+                PaycCanBoNhan::whereIn('id', $dsId)->update(['trang_thai_task'=>2]);
+            }else{ // Đang làm
+                // Trả về trạng thái task = 1 đang làm
+                PaycCanBoNhan::whereIn('id', $dsId)->update(['trang_thai_task'=>1]);
+            }
+
+
+
+            return array('error'   => '');
+        }
+        return array('error'=>"Lỗi phương thức truyền dữ liệu"); // Trả về lỗi phương thức truyền số liệu
     }
 }

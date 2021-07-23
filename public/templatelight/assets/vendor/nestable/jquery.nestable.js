@@ -53,6 +53,37 @@
         this.init();
     }
 
+    function taskBoardCapNhatTrangThai(id, loai){
+        var xhr1;  
+        if(xhr1 && xhr1.readyState != 4){
+            xhr1.abort(); //huy lenh ajax truoc do
+        }
+        xhr1 = jQuery.ajax({
+          url: "/task-board-cap-nhat-trang-thai",
+          type:'POST',
+          dataType:'json',
+          cache: false,
+          data:{
+              'ds_id':id,
+              'loai':loai
+          },
+          complete: function(xhr, textStatus) {
+            //called when complete
+          },
+          success: function(data, textStatus, xhr) {
+            $(".error-mode").empty();
+            if(data.error==""){
+              console.log('Thành công');
+            }else{
+              console.log('Thất bại');
+            }
+          },
+          error: function(xhr, textStatus, errorThrown) {
+            //called when there is an error
+          }
+        });
+    }
+
     Plugin.prototype = {
 
         init: function()
@@ -297,6 +328,64 @@
                 this.dragRootEl.trigger('change');
             }
             this.reset();
+
+            var dsId='';
+            var stt=0;
+            jQuery('.open_task .dd-item').each(function(){
+                stt++;
+                var id=jQuery(this).attr('data-id');
+                if(stt==1){
+                    dsId=id;
+                }else{
+                    dsId=dsId+','+id;
+                }
+                
+            });
+            taskBoardCapNhatTrangThai(dsId, 'PHAT_SINH');
+
+            var dsId='';
+            var stt=0;
+            jQuery('.progress_task .dd-item').each(function(){
+                stt++;
+                var id=jQuery(this).attr('data-id');
+                if(stt==1){
+                    dsId=id;
+                }else{
+                    dsId=dsId+','+id;
+                }
+                
+            });
+            taskBoardCapNhatTrangThai(dsId, 'CAN_LAM');
+
+
+            var dsId='';
+            var stt=0;
+            jQuery('.review_task .dd-item').each(function(){
+                stt++;
+                var id=jQuery(this).attr('data-id');
+                if(stt==1){
+                    dsId=id;
+                }else{
+                    dsId=dsId+','+id;
+                }
+                
+            });
+            taskBoardCapNhatTrangThai(dsId, 'DANG_LAM');
+
+
+            var dsId='';
+            var stt=0;
+            jQuery('.completed_task .dd-item').each(function(){
+                stt++;
+                var id=jQuery(this).attr('data-id');
+                if(stt==1){
+                    dsId=id;
+                }else{
+                    dsId=dsId+','+id;
+                }
+                
+            });
+            taskBoardCapNhatTrangThai(dsId, 'HOAN_TAT');
         },
 
         dragMove: function(e)

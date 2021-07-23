@@ -25,6 +25,16 @@ use Illuminate\Support\Facades\Auth;
 class Helper
 {
 
+    public static function taskBoardLayDanhSachUserTheoIdPakn($idPakn){
+        $data=PaycXuLy::select('users.hinh_anh', 'users.id')
+            ->leftJoin('payc_can_bo_nhan','payc_xu_ly.id','=','payc_can_bo_nhan.id_xu_ly_yeu_cau')
+            ->leftJoin('users','payc_can_bo_nhan.id_user_nhan','=','users.id')
+            ->where('payc_xu_ly.id_payc','=',$idPakn)
+            /*->where('payc_can_bo_nhan.trang_thai_task','=',1)*/
+            ->get()->toArray();
+        return $data;
+    }
+
     public static function layDmLinkQuanTriTheoIdDichVu($idDichVu){
         $result=DmLinkQuanTri::layDmLinkQuanTriTheoIdDichVu($idDichVu);
         return $result;

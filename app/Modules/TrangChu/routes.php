@@ -62,5 +62,10 @@ Route::group(
             'as' => 'task-board',
             'uses' => 'TrangChuController@taskBoard'
         ]);
+
+        Route::post('task-board-cap-nhat-trang-thai', [
+            'as' => 'task-board-cap-nhat-trang-thai',
+            'uses' => 'TrangChuController@taskBoardCapNhatTrangThai'
+        ]);
     }
 );

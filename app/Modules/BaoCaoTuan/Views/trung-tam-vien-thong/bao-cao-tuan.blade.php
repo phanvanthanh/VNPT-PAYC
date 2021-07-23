@@ -57,25 +57,31 @@
                               </select>  
                             </form>
                           </h4>
+
+                          @php $tabActive=0; @endphp
                           <ul class="nav nav-tabs tab-solid tab-solid-primary mb-0" id="myTab" role="tablist">
                             @if ($checkQuyenBaoCaoTuanHienTai==1)
+                              @php if($tabActive==0){$tabActive=1;} @endphp
                               <li class="nav-item">
-                                <a class="nav-link active" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">BC tuần</a>
+                                <a class="nav-link @if($tabActive==1) active @endif" id="bao-cao-tuan-hien-tai-tab" data-toggle="tab" href="#bao-cao-tuan-hien-tai" role="tab" aria-controls="bao-cao-tuan-hien-tai">BC tuần</a>
                               </li>
                             @endif
                             @if ($checkQuyenBaoCaoKeHoachTuan==1)
+                              @php if($tabActive==0){$tabActive=2;} @endphp
                               <li class="nav-item">
-                                <a class="nav-link" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">KH tuần</a>
+                                <a class="nav-link @if($tabActive==2) active @endif" id="bao-cao-ke-hoach-tuan-tab" data-toggle="tab" href="#bao-cao-ke-hoach-tuan" role="tab" aria-controls="bao-cao-ke-hoach-tuan">KH tuần</a>
                               </li>
                             @endif
                             @if ($checkQuyenBaoCaoDhsxkd==1)
+                              @php if($tabActive==0){$tabActive=3;} @endphp
                               <li class="nav-item">
-                                <a class="nav-link" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
+                                <a class="nav-link @if($tabActive==3) active @endif" id="dhsxkd-tab" data-toggle="tab" href="#dhsxkd" role="tab" aria-controls="dhsxkd">ĐHSXKD</a>
                               </li>
                             @endif
                             @if ($checkQuyenXemBaoCaoTongHop==1)
+                              @php if($tabActive==0){$tabActive=4;} @endphp
                               <li class="nav-item">
-                                <a class="nav-link" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Xem & duyệt báo cáo</a>
+                                <a class="nav-link @if($tabActive==4) active @endif" id="chot-va-gui-bao-cao-tab" data-toggle="tab" href="#chot-va-gui-bao-cao" role="tab" aria-controls="tong-hop-va-gui-bao-cao">Xem & duyệt báo cáo</a>
                               </li>
                             @endif
                           </ul>
@@ -85,7 +91,7 @@
                           <div class="tab-content" id="myTabContent"  style="min-height: 100%;">
                             
                             @if ($checkQuyenBaoCaoTuanHienTai==1)  
-                            <div class="tab-pane fade show active" id="bao-cao-tuan-hien-tai" role="tabpanel" aria-labelledby="bao-cao-tuan-hien-tai-tab">
+                            <div class="tab-pane fade @if($tabActive==1) show active @endif" id="bao-cao-tuan-hien-tai" role="tabpanel" aria-labelledby="bao-cao-tuan-hien-tai-tab">
                               <form class="forms-sample frm-bao-cao-tuan-hien-tai" id="frm-bao-cao-tuan-hien-tai" name="frm-bao-cao-tuan-hien-tai">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
@@ -112,7 +118,7 @@
                             </div>
                             @endif
                             @if ($checkQuyenBaoCaoKeHoachTuan==1)
-                            <div class="tab-pane fade" id="bao-cao-ke-hoach-tuan" role="tabpanel" aria-labelledby="bao-cao-ke-hoach-tuan-tab">
+                            <div class="tab-pane fade @if($tabActive==2) show active @endif" id="bao-cao-ke-hoach-tuan" role="tabpanel" aria-labelledby="bao-cao-ke-hoach-tuan-tab">
                               <form class="forms-sample frm-bao-cao-ke-hoach-tuan" id="frm-bao-cao-ke-hoach-tuan" name="frm-bao-cao-ke-hoach-tuan">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="id_tuan" class="input-id-tuan" value="0">
@@ -137,7 +143,7 @@
                             </div>
                             @endif
                             @if ($checkQuyenBaoCaoDhsxkd==1)
-                            <div class="tab-pane fade" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
+                            <div class="tab-pane fade @if($tabActive==3) show active @endif" id="dhsxkd" role="tabpanel" aria-labelledby="dhsxkd-tab">
                               <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                   <div class="load-danh-sach-dhsxkd">                                     
@@ -147,7 +153,7 @@
                             </div>
                             @endif
                             @if ($checkQuyenXemBaoCaoTongHop==1)
-                            <div class="tab-pane fade" id="chot-va-gui-bao-cao" role="tabpanel" aria-labelledby="chot-va-gui-bao-cao-tab">
+                            <div class="tab-pane fade @if($tabActive==4) show active @endif" id="chot-va-gui-bao-cao" role="tabpanel" aria-labelledby="chot-va-gui-bao-cao-tab">
                               <div class="row">
                                 <div class="col-12">
                                   <div class="load-danh-sach-bao-cao-tong-hop">
@@ -461,7 +467,24 @@
       var _token=jQuery('form[name="frm-bao-cao-tuan"]').find("input[name='_token']").val();
       var idTuan=jQuery('.id_tuan').val();
       jQuery('.input-id-tuan').val(idTuan);
-      loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+      
+
+      @if ($tabActive==1)
+        // Load báo cáo tuần          
+        loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
+      @endif
+      @if ($tabActive==2)
+        // Load kế hoạch tuần          
+        loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+      @endif
+      @if ($tabActive==3)
+        // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
+        loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-dhsxkd') }}", '.load-danh-sach-dhsxkd',false);
+      @endif
+      @if ($tabActive==4)
+        // Load báo cáo tổng hợp
+        loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tong-hop') }}", '.load-danh-sach-bao-cao-tong-hop',false);
+      @endif
 
 
       // Onchange selectbox tuần
@@ -471,11 +494,11 @@
 
         @if ($checkQuyenBaoCaoTuanHienTai==1)
           // Load báo cáo tuần          
-          loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+          loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-tuan-hien-tai') }}", '.load-danh-sach-bao-cao-tuan-hien-tai',false);
         @endif
         @if ($checkQuyenBaoCaoKeHoachTuan==1)
           // Load kế hoạch tuần          
-          loadTableById2(_token, idTuan, "{{ route('danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
+          loadTableById2(_token, idTuan, "{{ route('trung-tam-vien-thong-danh-sach-bao-cao-ke-hoach-tuan') }}", '.load-danh-sach-bao-cao-ke-hoach-tuan',false);
         @endif
         @if ($checkQuyenBaoCaoDhsxkd==1)
           // Load dữ liệu điều hành sản xuất kinh doanh dhsxkd
